@@ -1,0 +1,102 @@
+{
+  "A_original": {
+    "features": [
+      "id",
+      "dur",
+      "sbytes",
+      "dbytes",
+      "rate",
+      "sttl",
+      "sload",
+      "dload",
+      "smean",
+      "dmean",
+      "ct_srv_src",
+      "ct_src_dport_ltm",
+      "ct_dst_sport_ltm",
+      "ct_dst_src_ltm",
+      "ct_srv_dst",
+      "service_dns"
+    ],
+    "full_test": {
+      "macro_f1": 0.6375202274319746,
+      "accuracy": 0.8211923047676982,
+      "n": 26302
+    },
+    "unseen_test": {
+      "macro_f1": 0.6328359109597412,
+      "accuracy": 0.8749660602769481,
+      "n": 14732
+    },
+    "seen_test": {
+      "macro_f1": 0.625694434728591,
+      "accuracy": 0.7527225583405359,
+      "n": 11570
+    },
+    "share_test_seen": 0.43989050262337465
+  },
+  "B_id_removed_duplicates_kept": {
+    "features": [
+      "sbytes",
+      "dbytes",
+      "rate",
+      "sttl",
+      "sload",
+      "smean",
+      "ct_state_ttl",
+      "ct_dst_sport_ltm",
+      "ct_dst_src_ltm",
+      "ct_srv_dst"
+    ],
+    "full_test": {
+      "macro_f1": 0.6032467146515927,
+      "accuracy": 0.7797886092312372,
+      "n": 26302
+    },
+    "unseen_test": {
+      "macro_f1": 0.5960082847457994,
+      "accuracy": 0.8154357860439859,
+      "n": 14732
+    },
+    "share_test_seen": 0.43989050262337465
+  },
+  "C_id_kept_duplicates_removed": {
+    "features": [
+      "id",
+      "sbytes",
+      "dbytes",
+      "sttl",
+      "dload",
+      "sinpkt",
+      "smean",
+      "ct_state_ttl",
+      "ct_dst_src_ltm",
+      "ct_srv_dst"
+    ],
+    "full_test": {
+      "macro_f1": 0.6239806543278428,
+      "accuracy": 0.8569271423178558,
+      "n": 15894
+    }
+  },
+  "D_corrected": {
+    "features": [
+      "sbytes",
+      "dbytes",
+      "sttl",
+      "sload",
+      "dload",
+      "ackdat",
+      "smean",
+      "ct_state_ttl",
+      "ct_dst_src_ltm",
+      "ct_srv_dst"
+    ],
+    "full_test": {
+      "macro_f1": 0.6089487266673388,
+      "accuracy": 0.8002390839310431,
+      "n": 15894
+    }
+  },
+  "_seconds": 541.5542993545532
+}

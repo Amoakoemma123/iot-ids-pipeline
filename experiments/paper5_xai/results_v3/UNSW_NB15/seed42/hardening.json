@@ -1,0 +1,115 @@
+{
+  "groups": [
+    "ttl",
+    "src_volume",
+    "dst_volume",
+    "tcp_timing",
+    "conn_history"
+  ],
+  "n_augmented": 1685,
+  "n_query": 481,
+  "query_per_class": {
+    "analysis": 58,
+    "backdoor": 59,
+    "dos": 56,
+    "exploits": 59,
+    "fuzzers": 58,
+    "generic": 59,
+    "reconnaissance": 59,
+    "shellcode": 60,
+    "worms": 13
+  },
+  "original": {
+    "macro_f1": 0.6089487266673388,
+    "benign_fpr": 0.14928057553956833,
+    "attack_recall": 0.9840937114673243,
+    "evasion": 1.0,
+    "evasion_ci": {
+      "mean": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 481
+    },
+    "evasion_per_class": {
+      "analysis": 1.0,
+      "backdoor": 1.0,
+      "dos": 1.0,
+      "exploits": 1.0,
+      "fuzzers": 1.0,
+      "generic": 1.0,
+      "reconnaissance": 1.0,
+      "shellcode": 1.0,
+      "worms": 1.0
+    }
+  },
+  "counterfactual": {
+    "macro_f1": 0.6030162040273626,
+    "benign_fpr": 0.15095066803699897,
+    "attack_recall": 0.9852034525277436,
+    "evasion": 1.0,
+    "evasion_ci": {
+      "mean": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 481
+    },
+    "evasion_per_class": {
+      "analysis": 1.0,
+      "backdoor": 1.0,
+      "dos": 1.0,
+      "exploits": 1.0,
+      "fuzzers": 1.0,
+      "generic": 1.0,
+      "reconnaissance": 1.0,
+      "shellcode": 1.0,
+      "worms": 1.0
+    }
+  },
+  "control": {
+    "macro_f1": 0.6026258746448796,
+    "benign_fpr": 0.15056526207605345,
+    "attack_recall": 0.9839704069050554,
+    "evasion": 1.0,
+    "evasion_ci": {
+      "mean": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 481
+    },
+    "evasion_per_class": {
+      "analysis": 1.0,
+      "backdoor": 1.0,
+      "dos": 1.0,
+      "exploits": 1.0,
+      "fuzzers": 1.0,
+      "generic": 1.0,
+      "reconnaissance": 1.0,
+      "shellcode": 1.0,
+      "worms": 1.0
+    }
+  },
+  "control_copy": {
+    "macro_f1": 0.6069474024190274,
+    "benign_fpr": 0.1503083247687564,
+    "attack_recall": 0.9843403205918619,
+    "evasion": 1.0,
+    "evasion_ci": {
+      "mean": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 481
+    },
+    "evasion_per_class": {
+      "analysis": 1.0,
+      "backdoor": 1.0,
+      "dos": 1.0,
+      "exploits": 1.0,
+      "fuzzers": 1.0,
+      "generic": 1.0,
+      "reconnaissance": 1.0,
+      "shellcode": 1.0,
+      "worms": 1.0
+    }
+  },
+  "_seconds": 425.2041721343994
+}

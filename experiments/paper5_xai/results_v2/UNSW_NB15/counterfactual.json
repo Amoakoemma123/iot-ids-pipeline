@@ -1,0 +1,686 @@
+{
+  "n_fields": 11,
+  "fields": [
+    "sbytes",
+    "dbytes",
+    "sttl",
+    "sload",
+    "dload",
+    "sinpkt",
+    "ackdat",
+    "smean",
+    "ct_state_ttl",
+    "ct_dst_src_ltm",
+    "ct_srv_dst"
+  ],
+  "rf": {
+    "per_class": {
+      "analysis": {
+        "n": 50,
+        "success_rate": 1.0,
+        "k_mean": 1.42,
+        "k_ci": {
+          "mean": 1.42,
+          "lo": 1.28,
+          "hi": 1.56,
+          "n": 50
+        },
+        "k_hist": {
+          "1": 29,
+          "2": 21
+        },
+        "top_fields": [
+          [
+            "sttl",
+            27
+          ],
+          [
+            "dbytes",
+            14
+          ],
+          [
+            "smean",
+            10
+          ],
+          [
+            "ct_state_ttl",
+            9
+          ],
+          [
+            "dload",
+            4
+          ]
+        ]
+      },
+      "backdoor": {
+        "n": 50,
+        "success_rate": 1.0,
+        "k_mean": 1.44,
+        "k_ci": {
+          "mean": 1.44,
+          "lo": 1.3,
+          "hi": 1.58,
+          "n": 50
+        },
+        "k_hist": {
+          "1": 28,
+          "2": 22
+        },
+        "top_fields": [
+          [
+            "sttl",
+            46
+          ],
+          [
+            "dbytes",
+            8
+          ],
+          [
+            "ct_state_ttl",
+            8
+          ],
+          [
+            "sload",
+            2
+          ],
+          [
+            "smean",
+            2
+          ]
+        ]
+      },
+      "dos": {
+        "n": 50,
+        "success_rate": 1.0,
+        "k_mean": 1.66,
+        "k_ci": {
+          "mean": 1.66,
+          "lo": 1.52,
+          "hi": 1.8,
+          "n": 50
+        },
+        "k_hist": {
+          "1": 17,
+          "2": 33
+        },
+        "top_fields": [
+          [
+            "sttl",
+            46
+          ],
+          [
+            "ackdat",
+            9
+          ],
+          [
+            "ct_state_ttl",
+            7
+          ],
+          [
+            "dload",
+            5
+          ],
+          [
+            "sbytes",
+            3
+          ]
+        ]
+      },
+      "exploits": {
+        "n": 50,
+        "success_rate": 1.0,
+        "k_mean": 1.74,
+        "k_ci": {
+          "mean": 1.74,
+          "lo": 1.62,
+          "hi": 1.86,
+          "n": 50
+        },
+        "k_hist": {
+          "1": 13,
+          "2": 37
+        },
+        "top_fields": [
+          [
+            "sttl",
+            36
+          ],
+          [
+            "ct_state_ttl",
+            23
+          ],
+          [
+            "ackdat",
+            10
+          ],
+          [
+            "sbytes",
+            5
+          ],
+          [
+            "dbytes",
+            5
+          ]
+        ]
+      },
+      "fuzzers": {
+        "n": 50,
+        "success_rate": 1.0,
+        "k_mean": 1.12,
+        "k_ci": {
+          "mean": 1.12,
+          "lo": 1.04,
+          "hi": 1.22,
+          "n": 50
+        },
+        "k_hist": {
+          "1": 44,
+          "2": 6
+        },
+        "top_fields": [
+          [
+            "sttl",
+            44
+          ],
+          [
+            "smean",
+            4
+          ],
+          [
+            "ct_srv_dst",
+            3
+          ],
+          [
+            "sbytes",
+            2
+          ],
+          [
+            "dbytes",
+            1
+          ]
+        ]
+      },
+      "generic": {
+        "n": 50,
+        "success_rate": 1.0,
+        "k_mean": 1.98,
+        "k_ci": {
+          "mean": 1.98,
+          "lo": 1.94,
+          "hi": 2.0,
+          "n": 50
+        },
+        "k_hist": {
+          "1": 1,
+          "2": 49
+        },
+        "top_fields": [
+          [
+            "sttl",
+            47
+          ],
+          [
+            "ct_state_ttl",
+            43
+          ],
+          [
+            "sbytes",
+            5
+          ],
+          [
+            "smean",
+            1
+          ],
+          [
+            "ackdat",
+            1
+          ]
+        ]
+      },
+      "reconnaissance": {
+        "n": 50,
+        "success_rate": 1.0,
+        "k_mean": 1.7,
+        "k_ci": {
+          "mean": 1.7,
+          "lo": 1.56,
+          "hi": 1.82,
+          "n": 50
+        },
+        "k_hist": {
+          "1": 15,
+          "2": 35
+        },
+        "top_fields": [
+          [
+            "sttl",
+            45
+          ],
+          [
+            "ct_state_ttl",
+            9
+          ],
+          [
+            "ackdat",
+            8
+          ],
+          [
+            "sbytes",
+            6
+          ],
+          [
+            "dload",
+            6
+          ]
+        ]
+      },
+      "shellcode": {
+        "n": 50,
+        "success_rate": 1.0,
+        "k_mean": 1.66,
+        "k_ci": {
+          "mean": 1.66,
+          "lo": 1.52,
+          "hi": 1.78,
+          "n": 50
+        },
+        "k_hist": {
+          "1": 17,
+          "2": 33
+        },
+        "top_fields": [
+          [
+            "sttl",
+            47
+          ],
+          [
+            "ct_state_ttl",
+            8
+          ],
+          [
+            "dbytes",
+            8
+          ],
+          [
+            "sbytes",
+            5
+          ],
+          [
+            "ct_dst_src_ltm",
+            3
+          ]
+        ]
+      },
+      "worms": {
+        "n": 14,
+        "success_rate": 1.0,
+        "k_mean": 1.8571428571428572,
+        "k_ci": {
+          "mean": 1.8571428571428572,
+          "lo": 1.6428571428571428,
+          "hi": 2.0,
+          "n": 14
+        },
+        "k_hist": {
+          "1": 2,
+          "2": 12
+        },
+        "top_fields": [
+          [
+            "sttl",
+            14
+          ],
+          [
+            "smean",
+            3
+          ],
+          [
+            "ct_state_ttl",
+            3
+          ],
+          [
+            "sload",
+            2
+          ],
+          [
+            "dbytes",
+            2
+          ]
+        ]
+      }
+    },
+    "overall_k": {
+      "mean": 1.5990338164251208,
+      "lo": 1.5531400966183575,
+      "hi": 1.6473429951690821,
+      "n": 414
+    },
+    "overall_success": 1.0
+  },
+  "cnn": {
+    "per_class": {
+      "analysis": {
+        "n": 50,
+        "success_rate": 1.0,
+        "k_mean": 1.0,
+        "k_ci": {
+          "mean": 1.0,
+          "lo": 1.0,
+          "hi": 1.0,
+          "n": 50
+        },
+        "k_hist": {
+          "1": 50
+        },
+        "top_fields": [
+          [
+            "sttl",
+            31
+          ],
+          [
+            "dload",
+            11
+          ],
+          [
+            "ct_state_ttl",
+            7
+          ],
+          [
+            "sinpkt",
+            1
+          ]
+        ]
+      },
+      "backdoor": {
+        "n": 50,
+        "success_rate": 1.0,
+        "k_mean": 1.02,
+        "k_ci": {
+          "mean": 1.02,
+          "lo": 1.0,
+          "hi": 1.06,
+          "n": 50
+        },
+        "k_hist": {
+          "1": 49,
+          "2": 1
+        },
+        "top_fields": [
+          [
+            "sttl",
+            29
+          ],
+          [
+            "dload",
+            10
+          ],
+          [
+            "ct_state_ttl",
+            9
+          ],
+          [
+            "ackdat",
+            1
+          ],
+          [
+            "smean",
+            1
+          ]
+        ]
+      },
+      "dos": {
+        "n": 50,
+        "success_rate": 1.0,
+        "k_mean": 1.04,
+        "k_ci": {
+          "mean": 1.04,
+          "lo": 1.0,
+          "hi": 1.1,
+          "n": 50
+        },
+        "k_hist": {
+          "1": 48,
+          "2": 2
+        },
+        "top_fields": [
+          [
+            "sttl",
+            19
+          ],
+          [
+            "dload",
+            17
+          ],
+          [
+            "ct_state_ttl",
+            14
+          ],
+          [
+            "ct_srv_dst",
+            1
+          ],
+          [
+            "sinpkt",
+            1
+          ]
+        ]
+      },
+      "exploits": {
+        "n": 50,
+        "success_rate": 1.0,
+        "k_mean": 1.0,
+        "k_ci": {
+          "mean": 1.0,
+          "lo": 1.0,
+          "hi": 1.0,
+          "n": 50
+        },
+        "k_hist": {
+          "1": 50
+        },
+        "top_fields": [
+          [
+            "ct_state_ttl",
+            33
+          ],
+          [
+            "dload",
+            8
+          ],
+          [
+            "sttl",
+            8
+          ],
+          [
+            "sinpkt",
+            1
+          ]
+        ]
+      },
+      "fuzzers": {
+        "n": 50,
+        "success_rate": 1.0,
+        "k_mean": 1.04,
+        "k_ci": {
+          "mean": 1.04,
+          "lo": 1.0,
+          "hi": 1.1,
+          "n": 50
+        },
+        "k_hist": {
+          "1": 48,
+          "2": 2
+        },
+        "top_fields": [
+          [
+            "sttl",
+            37
+          ],
+          [
+            "ct_state_ttl",
+            6
+          ],
+          [
+            "dload",
+            6
+          ],
+          [
+            "ackdat",
+            1
+          ],
+          [
+            "ct_srv_dst",
+            1
+          ]
+        ]
+      },
+      "generic": {
+        "n": 50,
+        "success_rate": 1.0,
+        "k_mean": 1.0,
+        "k_ci": {
+          "mean": 1.0,
+          "lo": 1.0,
+          "hi": 1.0,
+          "n": 50
+        },
+        "k_hist": {
+          "1": 50
+        },
+        "top_fields": [
+          [
+            "ct_state_ttl",
+            15
+          ],
+          [
+            "dload",
+            15
+          ],
+          [
+            "sload",
+            12
+          ],
+          [
+            "sttl",
+            8
+          ]
+        ]
+      },
+      "reconnaissance": {
+        "n": 50,
+        "success_rate": 1.0,
+        "k_mean": 1.18,
+        "k_ci": {
+          "mean": 1.18,
+          "lo": 1.08,
+          "hi": 1.3,
+          "n": 50
+        },
+        "k_hist": {
+          "1": 41,
+          "2": 9
+        },
+        "top_fields": [
+          [
+            "sttl",
+            37
+          ],
+          [
+            "dload",
+            13
+          ],
+          [
+            "ackdat",
+            5
+          ],
+          [
+            "ct_state_ttl",
+            2
+          ],
+          [
+            "ct_dst_src_ltm",
+            1
+          ]
+        ]
+      },
+      "shellcode": {
+        "n": 50,
+        "success_rate": 1.0,
+        "k_mean": 1.06,
+        "k_ci": {
+          "mean": 1.06,
+          "lo": 1.0,
+          "hi": 1.12,
+          "n": 50
+        },
+        "k_hist": {
+          "1": 47,
+          "2": 3
+        },
+        "top_fields": [
+          [
+            "dload",
+            24
+          ],
+          [
+            "sttl",
+            19
+          ],
+          [
+            "ct_state_ttl",
+            8
+          ],
+          [
+            "ackdat",
+            1
+          ],
+          [
+            "sinpkt",
+            1
+          ]
+        ]
+      },
+      "worms": {
+        "n": 12,
+        "success_rate": 1.0,
+        "k_mean": 1.1666666666666667,
+        "k_ci": {
+          "mean": 1.1666666666666667,
+          "lo": 1.0,
+          "hi": 1.4166666666666667,
+          "n": 12
+        },
+        "k_hist": {
+          "1": 10,
+          "2": 2
+        },
+        "top_fields": [
+          [
+            "dload",
+            6
+          ],
+          [
+            "ct_state_ttl",
+            4
+          ],
+          [
+            "sttl",
+            3
+          ],
+          [
+            "ackdat",
+            1
+          ]
+        ]
+      }
+    },
+    "overall_k": {
+      "mean": 1.046116504854369,
+      "lo": 1.0266990291262137,
+      "hi": 1.0655339805825244,
+      "n": 412
+    },
+    "overall_success": 1.0
+  },
+  "_seconds": 139.33460569381714
+}

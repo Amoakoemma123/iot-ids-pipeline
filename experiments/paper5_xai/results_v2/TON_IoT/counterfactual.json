@@ -1,0 +1,723 @@
+{
+  "n_fields": 18,
+  "fields": [
+    "src_port",
+    "dst_port",
+    "duration",
+    "src_bytes",
+    "dst_bytes",
+    "src_pkts",
+    "src_ip_bytes",
+    "dst_pkts",
+    "dst_ip_bytes",
+    "dns_qclass",
+    "dns_qtype",
+    "dns_rcode",
+    "proto",
+    "service",
+    "conn_state",
+    "dns_RD",
+    "dns_RA",
+    "dns_rejected"
+  ],
+  "rf": {
+    "per_class": {
+      "backdoor": {
+        "n": 50,
+        "success_rate": 1.0,
+        "k_mean": 2.62,
+        "k_ci": {
+          "mean": 2.62,
+          "lo": 2.4,
+          "hi": 2.84,
+          "n": 50
+        },
+        "k_hist": {
+          "2": 30,
+          "3": 9,
+          "4": 11
+        },
+        "top_fields": [
+          [
+            "conn_state",
+            50
+          ],
+          [
+            "src_ip_bytes",
+            19
+          ],
+          [
+            "proto",
+            18
+          ],
+          [
+            "dst_port",
+            9
+          ],
+          [
+            "src_port",
+            8
+          ]
+        ]
+      },
+      "ddos": {
+        "n": 50,
+        "success_rate": 1.0,
+        "k_mean": 2.16,
+        "k_ci": {
+          "mean": 2.16,
+          "lo": 1.9595,
+          "hi": 2.36,
+          "n": 50
+        },
+        "k_hist": {
+          "1": 11,
+          "2": 20,
+          "3": 19
+        },
+        "top_fields": [
+          [
+            "dst_port",
+            38
+          ],
+          [
+            "conn_state",
+            18
+          ],
+          [
+            "dst_ip_bytes",
+            13
+          ],
+          [
+            "src_ip_bytes",
+            10
+          ],
+          [
+            "dns_rejected",
+            9
+          ]
+        ]
+      },
+      "dos": {
+        "n": 50,
+        "success_rate": 1.0,
+        "k_mean": 2.84,
+        "k_ci": {
+          "mean": 2.84,
+          "lo": 2.62,
+          "hi": 3.04,
+          "n": 50
+        },
+        "k_hist": {
+          "1": 2,
+          "2": 13,
+          "3": 26,
+          "4": 9
+        },
+        "top_fields": [
+          [
+            "conn_state",
+            41
+          ],
+          [
+            "dst_port",
+            40
+          ],
+          [
+            "src_port",
+            11
+          ],
+          [
+            "proto",
+            10
+          ],
+          [
+            "duration",
+            8
+          ]
+        ]
+      },
+      "injection": {
+        "n": 50,
+        "success_rate": 1.0,
+        "k_mean": 1.08,
+        "k_ci": {
+          "mean": 1.08,
+          "lo": 1.02,
+          "hi": 1.16,
+          "n": 50
+        },
+        "k_hist": {
+          "1": 46,
+          "2": 4
+        },
+        "top_fields": [
+          [
+            "dst_port",
+            49
+          ],
+          [
+            "src_ip_bytes",
+            2
+          ],
+          [
+            "conn_state",
+            1
+          ],
+          [
+            "dns_RA",
+            1
+          ],
+          [
+            "src_port",
+            1
+          ]
+        ]
+      },
+      "mitm": {
+        "n": 50,
+        "success_rate": 1.0,
+        "k_mean": 1.76,
+        "k_ci": {
+          "mean": 1.76,
+          "lo": 1.62,
+          "hi": 1.88,
+          "n": 50
+        },
+        "k_hist": {
+          "1": 13,
+          "2": 36,
+          "3": 1
+        },
+        "top_fields": [
+          [
+            "src_pkts",
+            22
+          ],
+          [
+            "dst_port",
+            20
+          ],
+          [
+            "dst_pkts",
+            10
+          ],
+          [
+            "dns_RA",
+            8
+          ],
+          [
+            "dns_RD",
+            6
+          ]
+        ]
+      },
+      "password": {
+        "n": 50,
+        "success_rate": 1.0,
+        "k_mean": 1.52,
+        "k_ci": {
+          "mean": 1.52,
+          "lo": 1.26,
+          "hi": 1.8,
+          "n": 50
+        },
+        "k_hist": {
+          "1": 36,
+          "2": 5,
+          "3": 6,
+          "4": 3
+        },
+        "top_fields": [
+          [
+            "dst_port",
+            48
+          ],
+          [
+            "conn_state",
+            7
+          ],
+          [
+            "dst_pkts",
+            4
+          ],
+          [
+            "proto",
+            4
+          ],
+          [
+            "dst_ip_bytes",
+            3
+          ]
+        ]
+      },
+      "ransomware": {
+        "n": 50,
+        "success_rate": 1.0,
+        "k_mean": 1.5,
+        "k_ci": {
+          "mean": 1.5,
+          "lo": 1.36,
+          "hi": 1.64,
+          "n": 50
+        },
+        "k_hist": {
+          "1": 25,
+          "2": 25
+        },
+        "top_fields": [
+          [
+            "duration",
+            27
+          ],
+          [
+            "proto",
+            25
+          ],
+          [
+            "src_ip_bytes",
+            7
+          ],
+          [
+            "dst_port",
+            6
+          ],
+          [
+            "src_port",
+            6
+          ]
+        ]
+      },
+      "scanning": {
+        "n": 50,
+        "success_rate": 1.0,
+        "k_mean": 1.6,
+        "k_ci": {
+          "mean": 1.6,
+          "lo": 1.38,
+          "hi": 1.84,
+          "n": 50
+        },
+        "k_hist": {
+          "1": 27,
+          "2": 18,
+          "3": 3,
+          "4": 2
+        },
+        "top_fields": [
+          [
+            "proto",
+            36
+          ],
+          [
+            "conn_state",
+            15
+          ],
+          [
+            "src_ip_bytes",
+            10
+          ],
+          [
+            "service",
+            4
+          ],
+          [
+            "duration",
+            3
+          ]
+        ]
+      },
+      "xss": {
+        "n": 50,
+        "success_rate": 1.0,
+        "k_mean": 1.64,
+        "k_ci": {
+          "mean": 1.64,
+          "lo": 1.48,
+          "hi": 1.8,
+          "n": 50
+        },
+        "k_hist": {
+          "1": 21,
+          "2": 26,
+          "3": 3
+        },
+        "top_fields": [
+          [
+            "dst_port",
+            36
+          ],
+          [
+            "conn_state",
+            13
+          ],
+          [
+            "proto",
+            9
+          ],
+          [
+            "duration",
+            6
+          ],
+          [
+            "dst_pkts",
+            4
+          ]
+        ]
+      }
+    },
+    "overall_k": {
+      "mean": 1.8577777777777778,
+      "lo": 1.7777777777777777,
+      "hi": 1.937833333333333,
+      "n": 450
+    },
+    "overall_success": 1.0
+  },
+  "cnn": {
+    "per_class": {
+      "backdoor": {
+        "n": 50,
+        "success_rate": 1.0,
+        "k_mean": 1.48,
+        "k_ci": {
+          "mean": 1.48,
+          "lo": 1.34,
+          "hi": 1.62,
+          "n": 50
+        },
+        "k_hist": {
+          "1": 26,
+          "2": 24
+        },
+        "top_fields": [
+          [
+            "proto",
+            39
+          ],
+          [
+            "conn_state",
+            9
+          ],
+          [
+            "duration",
+            7
+          ],
+          [
+            "service",
+            5
+          ],
+          [
+            "dst_port",
+            5
+          ]
+        ]
+      },
+      "ddos": {
+        "n": 50,
+        "success_rate": 1.0,
+        "k_mean": 1.38,
+        "k_ci": {
+          "mean": 1.38,
+          "lo": 1.24,
+          "hi": 1.52,
+          "n": 50
+        },
+        "k_hist": {
+          "1": 31,
+          "2": 19
+        },
+        "top_fields": [
+          [
+            "proto",
+            27
+          ],
+          [
+            "conn_state",
+            12
+          ],
+          [
+            "dns_rejected",
+            10
+          ],
+          [
+            "service",
+            8
+          ],
+          [
+            "src_port",
+            5
+          ]
+        ]
+      },
+      "dos": {
+        "n": 50,
+        "success_rate": 1.0,
+        "k_mean": 1.74,
+        "k_ci": {
+          "mean": 1.74,
+          "lo": 1.6,
+          "hi": 1.86,
+          "n": 50
+        },
+        "k_hist": {
+          "1": 14,
+          "2": 35,
+          "3": 1
+        },
+        "top_fields": [
+          [
+            "proto",
+            34
+          ],
+          [
+            "conn_state",
+            22
+          ],
+          [
+            "dst_port",
+            19
+          ],
+          [
+            "dns_qtype",
+            5
+          ],
+          [
+            "src_port",
+            3
+          ]
+        ]
+      },
+      "injection": {
+        "n": 50,
+        "success_rate": 1.0,
+        "k_mean": 1.08,
+        "k_ci": {
+          "mean": 1.08,
+          "lo": 1.02,
+          "hi": 1.16,
+          "n": 50
+        },
+        "k_hist": {
+          "1": 46,
+          "2": 4
+        },
+        "top_fields": [
+          [
+            "dst_port",
+            40
+          ],
+          [
+            "proto",
+            6
+          ],
+          [
+            "dns_rcode",
+            4
+          ],
+          [
+            "conn_state",
+            1
+          ],
+          [
+            "dns_RA",
+            1
+          ]
+        ]
+      },
+      "mitm": {
+        "n": 50,
+        "success_rate": 1.0,
+        "k_mean": 1.06,
+        "k_ci": {
+          "mean": 1.06,
+          "lo": 1.0,
+          "hi": 1.14,
+          "n": 50
+        },
+        "k_hist": {
+          "1": 47,
+          "2": 3
+        },
+        "top_fields": [
+          [
+            "conn_state",
+            21
+          ],
+          [
+            "dst_port",
+            18
+          ],
+          [
+            "dns_rcode",
+            5
+          ],
+          [
+            "src_port",
+            3
+          ],
+          [
+            "dns_qclass",
+            2
+          ]
+        ]
+      },
+      "password": {
+        "n": 50,
+        "success_rate": 1.0,
+        "k_mean": 1.28,
+        "k_ci": {
+          "mean": 1.28,
+          "lo": 1.16,
+          "hi": 1.4,
+          "n": 50
+        },
+        "k_hist": {
+          "1": 36,
+          "2": 14
+        },
+        "top_fields": [
+          [
+            "dst_port",
+            37
+          ],
+          [
+            "proto",
+            13
+          ],
+          [
+            "conn_state",
+            6
+          ],
+          [
+            "service",
+            3
+          ],
+          [
+            "dns_RA",
+            3
+          ]
+        ]
+      },
+      "ransomware": {
+        "n": 50,
+        "success_rate": 1.0,
+        "k_mean": 1.04,
+        "k_ci": {
+          "mean": 1.04,
+          "lo": 1.0,
+          "hi": 1.1,
+          "n": 50
+        },
+        "k_hist": {
+          "1": 48,
+          "2": 2
+        },
+        "top_fields": [
+          [
+            "src_port",
+            39
+          ],
+          [
+            "dst_port",
+            7
+          ],
+          [
+            "service",
+            3
+          ],
+          [
+            "conn_state",
+            1
+          ],
+          [
+            "proto",
+            1
+          ]
+        ]
+      },
+      "scanning": {
+        "n": 50,
+        "success_rate": 1.0,
+        "k_mean": 1.14,
+        "k_ci": {
+          "mean": 1.14,
+          "lo": 1.06,
+          "hi": 1.2404999999999973,
+          "n": 50
+        },
+        "k_hist": {
+          "1": 43,
+          "2": 7
+        },
+        "top_fields": [
+          [
+            "proto",
+            24
+          ],
+          [
+            "src_port",
+            15
+          ],
+          [
+            "service",
+            9
+          ],
+          [
+            "dns_rcode",
+            3
+          ],
+          [
+            "dns_rejected",
+            2
+          ]
+        ]
+      },
+      "xss": {
+        "n": 50,
+        "success_rate": 1.0,
+        "k_mean": 1.46,
+        "k_ci": {
+          "mean": 1.46,
+          "lo": 1.32,
+          "hi": 1.58,
+          "n": 50
+        },
+        "k_hist": {
+          "1": 27,
+          "2": 23
+        },
+        "top_fields": [
+          [
+            "proto",
+            28
+          ],
+          [
+            "dst_port",
+            17
+          ],
+          [
+            "dns_RD",
+            8
+          ],
+          [
+            "conn_state",
+            7
+          ],
+          [
+            "service",
+            4
+          ]
+        ]
+      }
+    },
+    "overall_k": {
+      "mean": 1.2955555555555556,
+      "lo": 1.251111111111111,
+      "hi": 1.34,
+      "n": 450
+    },
+    "overall_success": 1.0
+  },
+  "_seconds": 101.92144322395325
+}

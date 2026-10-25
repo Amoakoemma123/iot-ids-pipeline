@@ -1,0 +1,51 @@
+{
+  "ports": [
+    "src_port",
+    "dst_port"
+  ],
+  "macro_f1_with_ports": 0.9565302995966034,
+  "macro_f1_without_ports": 0.9419859788771842,
+  "per_class": {
+    "backdoor": {
+      "with_ports": 0.9994655264564404,
+      "without": 0.9996436208125445
+    },
+    "ddos": {
+      "with_ports": 0.9832214765100671,
+      "without": 0.9799223890669816
+    },
+    "dos": {
+      "with_ports": 0.981793039870938,
+      "without": 0.9806451612903225
+    },
+    "injection": {
+      "with_ports": 0.9775016789791806,
+      "without": 0.9752483583094798
+    },
+    "mitm": {
+      "with_ports": 0.6712328767123288,
+      "without": 0.6430155210643016
+    },
+    "normal": {
+      "with_ports": 0.9950550327005903,
+      "without": 0.9930538922155688
+    },
+    "password": {
+      "with_ports": 0.9929054054054054,
+      "without": 0.9886344359626802
+    },
+    "ransomware": {
+      "with_ports": 0.9997664097173558,
+      "without": 0.9446460980036298
+    },
+    "scanning": {
+      "with_ports": 0.990350250178699,
+      "without": 0.9905306414150438
+    },
+    "xss": {
+      "with_ports": 0.9740112994350283,
+      "without": 0.92451967063129
+    }
+  },
+  "_seconds": 16.485605478286743
+}

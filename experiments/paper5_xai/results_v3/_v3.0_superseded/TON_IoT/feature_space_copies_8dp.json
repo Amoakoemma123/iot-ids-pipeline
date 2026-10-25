@@ -1,0 +1,68 @@
+{
+  "n_test": 27533,
+  "share_copy_with_label": 0.17084952602331746,
+  "share_copy_features_only": 0.17092216612791922,
+  "per_class_copy_with_label": {
+    "backdoor": 0.9323120769504809,
+    "ddos": 0.005670446964643095,
+    "dos": 0.6636363636363637,
+    "injection": 0.0,
+    "mitm": 0.00641025641025641,
+    "normal": 0.08171701112877583,
+    "password": 0.024857238831037957,
+    "ransomware": 0.008411214953271028,
+    "scanning": 0.0010744985673352436,
+    "xss": 0.0
+  },
+  "n_test_without_copy": 22827,
+  "seeds": {
+    "42": {
+      "rf": {
+        "macro_f1_all": 0.9565302995966034,
+        "macro_f1_without_copies": 0.9518875841228975,
+        "accuracy_all": 0.9866705408055788,
+        "accuracy_without_copies": 0.9840101634029876,
+        "accuracy_on_copies": 0.9995750106247344
+      },
+      "cnn": {
+        "macro_f1_all": 0.8802839374828941,
+        "macro_f1_without_copies": 0.8607182997690451,
+        "accuracy_all": 0.9372026295717866,
+        "accuracy_without_copies": 0.9249134796512901,
+        "accuracy_on_copies": 0.9968125796855078
+      }
+    },
+    "43": {
+      "rf": {
+        "macro_f1_all": 0.957513076489352,
+        "macro_f1_without_copies": 0.9530736718407681,
+        "accuracy_all": 0.9869611012239857,
+        "accuracy_without_copies": 0.984360625574977,
+        "accuracy_on_copies": 0.9995750106247344
+      },
+      "cnn": {
+        "macro_f1_all": 0.8946127097607324,
+        "macro_f1_without_copies": 0.8841423610266872,
+        "accuracy_all": 0.9479533650528457,
+        "accuracy_without_copies": 0.937836772243396,
+        "accuracy_on_copies": 0.9970250743731407
+      }
+    },
+    "44": {
+      "rf": {
+        "macro_f1_all": 0.9567709838669266,
+        "macro_f1_without_copies": 0.952224662534676,
+        "accuracy_all": 0.9866342207532779,
+        "accuracy_without_copies": 0.983966355631489,
+        "accuracy_on_copies": 0.9995750106247344
+      },
+      "cnn": {
+        "macro_f1_all": 0.8299511038285676,
+        "macro_f1_without_copies": 0.8010192262159984,
+        "accuracy_all": 0.8871535975011804,
+        "accuracy_without_copies": 0.865115871555614,
+        "accuracy_on_copies": 0.9940501487462814
+      }
+    }
+  }
+}

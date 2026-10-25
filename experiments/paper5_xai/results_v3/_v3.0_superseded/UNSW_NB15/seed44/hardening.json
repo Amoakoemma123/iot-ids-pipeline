@@ -1,0 +1,92 @@
+{
+  "groups": [
+    "ttl",
+    "src_volume",
+    "dst_volume",
+    "tcp_timing",
+    "conn_history"
+  ],
+  "n_augmented": 1685,
+  "n_query": 484,
+  "query_per_class": {
+    "analysis": 59,
+    "backdoor": 56,
+    "dos": 58,
+    "exploits": 59,
+    "fuzzers": 60,
+    "generic": 60,
+    "reconnaissance": 60,
+    "shellcode": 59,
+    "worms": 13
+  },
+  "original": {
+    "macro_f1": 0.6074506321763493,
+    "benign_fpr": 0.1500513874614594,
+    "attack_recall": 0.9839704069050554,
+    "evasion": 1.0,
+    "evasion_ci": {
+      "mean": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 484
+    },
+    "evasion_per_class": {
+      "analysis": 1.0,
+      "backdoor": 1.0,
+      "dos": 1.0,
+      "exploits": 1.0,
+      "fuzzers": 1.0,
+      "generic": 1.0,
+      "reconnaissance": 1.0,
+      "shellcode": 1.0,
+      "worms": 1.0
+    }
+  },
+  "counterfactual": {
+    "macro_f1": 0.6028455240412879,
+    "benign_fpr": 0.1513360739979445,
+    "attack_recall": 0.9849568434032059,
+    "evasion": 1.0,
+    "evasion_ci": {
+      "mean": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 484
+    },
+    "evasion_per_class": {
+      "analysis": 1.0,
+      "backdoor": 1.0,
+      "dos": 1.0,
+      "exploits": 1.0,
+      "fuzzers": 1.0,
+      "generic": 1.0,
+      "reconnaissance": 1.0,
+      "shellcode": 1.0,
+      "worms": 1.0
+    }
+  },
+  "control": {
+    "macro_f1": 0.6028294739920882,
+    "benign_fpr": 0.15184994861253853,
+    "attack_recall": 0.9856966707768188,
+    "evasion": 1.0,
+    "evasion_ci": {
+      "mean": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 484
+    },
+    "evasion_per_class": {
+      "analysis": 1.0,
+      "backdoor": 1.0,
+      "dos": 1.0,
+      "exploits": 1.0,
+      "fuzzers": 1.0,
+      "generic": 1.0,
+      "reconnaissance": 1.0,
+      "shellcode": 1.0,
+      "worms": 1.0
+    }
+  },
+  "_seconds": 355.1014461517334
+}

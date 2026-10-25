@@ -1,0 +1,50 @@
+{
+  "rf": {
+    "macro_f1": 0.5912538380221312,
+    "accuracy": 0.7906688942515934
+  },
+  "cnn": {
+    "macro_f1": 0.5111015409676286,
+    "accuracy": 0.7326279314398861
+  },
+  "n_test": 16161,
+  "n_features": 11,
+  "features": [
+    "sbytes",
+    "dbytes",
+    "sttl",
+    "sload",
+    "dload",
+    "sinpkt",
+    "ackdat",
+    "smean",
+    "ct_state_ttl",
+    "ct_dst_src_ltm",
+    "ct_srv_dst"
+  ],
+  "classes": [
+    "analysis",
+    "backdoor",
+    "dos",
+    "exploits",
+    "fuzzers",
+    "generic",
+    "normal",
+    "reconnaissance",
+    "shellcode",
+    "worms"
+  ],
+  "class_counts_test": {
+    "analysis": 239,
+    "backdoor": 230,
+    "dos": 571,
+    "exploits": 2977,
+    "fuzzers": 2423,
+    "generic": 627,
+    "normal": 7783,
+    "reconnaissance": 1128,
+    "shellcode": 164,
+    "worms": 19
+  },
+  "_seconds": 0.44982385635375977
+}

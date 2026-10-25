@@ -1,0 +1,31 @@
+{
+  "n_augmented": 1796,
+  "gen_seconds": 198.6116452217102,
+  "macro_f1_before": 0.9565302995966034,
+  "macro_f1_after": 0.9560594366173436,
+  "evasion_before": {
+    "backdoor": 0.98,
+    "ddos": 1.0,
+    "dos": 1.0,
+    "injection": 1.0,
+    "mitm": 1.0,
+    "password": 1.0,
+    "ransomware": 1.0,
+    "scanning": 1.0,
+    "xss": 1.0
+  },
+  "evasion_after": {
+    "backdoor": 0.02,
+    "ddos": 0.52,
+    "dos": 0.22,
+    "injection": 0.76,
+    "mitm": 0.8,
+    "password": 0.68,
+    "ransomware": 1.0,
+    "scanning": 0.88,
+    "xss": 0.84
+  },
+  "mean_evasion_before": 0.9977777777777779,
+  "mean_evasion_after": 0.6355555555555555,
+  "_seconds": 368.8671352863312
+}

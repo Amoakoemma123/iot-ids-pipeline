@@ -1,0 +1,81 @@
+{
+  "n_test": 15894,
+  "n_features": 10,
+  "features": [
+    "sbytes",
+    "dbytes",
+    "sttl",
+    "sload",
+    "dload",
+    "ackdat",
+    "smean",
+    "ct_state_ttl",
+    "ct_dst_src_ltm",
+    "ct_srv_dst"
+  ],
+  "classes": [
+    "analysis",
+    "backdoor",
+    "dos",
+    "exploits",
+    "fuzzers",
+    "generic",
+    "normal",
+    "reconnaissance",
+    "shellcode",
+    "worms"
+  ],
+  "class_counts_test": {
+    "analysis": 194,
+    "backdoor": 191,
+    "dos": 527,
+    "exploits": 2933,
+    "fuzzers": 2378,
+    "generic": 620,
+    "normal": 7784,
+    "reconnaissance": 1084,
+    "shellcode": 164,
+    "worms": 19
+  },
+  "rf": {
+    "macro_f1": 0.6089487266673388,
+    "accuracy": 0.8002390839310431,
+    "per_class_f1": {
+      "analysis": 0.24182076813655762,
+      "backdoor": 0.2364394993045897,
+      "dos": 0.3813155386081983,
+      "exploits": 0.8023469013568023,
+      "fuzzers": 0.7361467889908256,
+      "generic": 0.8915254237288136,
+      "normal": 0.9111799105607156,
+      "reconnaissance": 0.7850045167118338,
+      "shellcode": 0.5754060324825986,
+      "worms": 0.5283018867924528
+    },
+    "benign_fpr": 0.14928057553956833,
+    "n_nodes": 3729438,
+    "pickle_mb": 512.2502679824829,
+    "ms_per_1000": 59.326171875
+  },
+  "cnn": {
+    "macro_f1": 0.5139333152909524,
+    "accuracy": 0.7350572543098024,
+    "per_class_f1": {
+      "analysis": 0.2844600526777875,
+      "backdoor": 0.1984126984126984,
+      "dos": 0.2661668228678538,
+      "exploits": 0.6914038342609771,
+      "fuzzers": 0.6564643799472295,
+      "generic": 0.8700754400670578,
+      "normal": 0.8888413547237076,
+      "reconnaissance": 0.7360995850622407,
+      "shellcode": 0.3508771929824561,
+      "worms": 0.19653179190751446
+    },
+    "benign_fpr": 0.19925488180883863,
+    "n_params": 23946,
+    "file_mb": 0.3411712646484375,
+    "ms_per_1000": 48.12335968017578
+  },
+  "_seconds": 12.834017038345337
+}

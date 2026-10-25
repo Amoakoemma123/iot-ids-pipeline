@@ -1,0 +1,16 @@
+dataset/
+dataset2/
+dataset3/
+**/results/
+**/checkpoints/
+**/sweep_results/
+logs/
+temp_*/
+*.log
+*.h5
+*.keras
+*.pkl
+*.npy
+*.npz
+__pycache__/
+*.zip

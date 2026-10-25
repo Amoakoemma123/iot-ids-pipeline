@@ -1,0 +1,89 @@
+{
+  "groups": [
+    "ttl",
+    "src_volume"
+  ],
+  "n_augmented": 1123,
+  "n_query": 482,
+  "query_per_class": {
+    "analysis": 60,
+    "backdoor": 58,
+    "dos": 58,
+    "exploits": 57,
+    "fuzzers": 59,
+    "generic": 60,
+    "reconnaissance": 60,
+    "shellcode": 57,
+    "worms": 13
+  },
+  "original": {
+    "macro_f1": 0.6074506321763493,
+    "benign_fpr": 0.1500513874614594,
+    "attack_recall": 0.9839704069050554,
+    "evasion": 0.7738589211618258,
+    "evasion_ci": {
+      "mean": 0.7738589211618258,
+      "lo": 0.7365145228215768,
+      "hi": 0.8112033195020747,
+      "n": 482
+    },
+    "evasion_per_class": {
+      "analysis": 0.8833333333333333,
+      "backdoor": 0.7586206896551724,
+      "dos": 0.603448275862069,
+      "exploits": 0.5263157894736842,
+      "fuzzers": 0.9322033898305084,
+      "generic": 0.5833333333333334,
+      "reconnaissance": 0.95,
+      "shellcode": 1.0,
+      "worms": 0.5384615384615384
+    }
+  },
+  "counterfactual": {
+    "macro_f1": 0.6044545669328729,
+    "benign_fpr": 0.15210688591983557,
+    "attack_recall": 0.9856966707768188,
+    "evasion": 0.46473029045643155,
+    "evasion_ci": {
+      "mean": 0.46473029045643155,
+      "lo": 0.4190871369294606,
+      "hi": 0.508298755186722,
+      "n": 482
+    },
+    "evasion_per_class": {
+      "analysis": 0.65,
+      "backdoor": 0.603448275862069,
+      "dos": 0.1724137931034483,
+      "exploits": 0.12280701754385964,
+      "fuzzers": 0.6779661016949152,
+      "generic": 0.6,
+      "reconnaissance": 0.31666666666666665,
+      "shellcode": 0.6491228070175439,
+      "worms": 0.07692307692307693
+    }
+  },
+  "control": {
+    "macro_f1": 0.6080696682869107,
+    "benign_fpr": 0.15069373072970196,
+    "attack_recall": 0.9843403205918619,
+    "evasion": 0.7655601659751037,
+    "evasion_ci": {
+      "mean": 0.7655601659751037,
+      "lo": 0.7261410788381742,
+      "hi": 0.8029045643153527,
+      "n": 482
+    },
+    "evasion_per_class": {
+      "analysis": 0.8666666666666667,
+      "backdoor": 0.7413793103448276,
+      "dos": 0.5862068965517241,
+      "exploits": 0.49122807017543857,
+      "fuzzers": 0.8983050847457628,
+      "generic": 0.6333333333333333,
+      "reconnaissance": 0.95,
+      "shellcode": 0.9824561403508771,
+      "worms": 0.6153846153846154
+    }
+  },
+  "_seconds": 338.2738163471222
+}

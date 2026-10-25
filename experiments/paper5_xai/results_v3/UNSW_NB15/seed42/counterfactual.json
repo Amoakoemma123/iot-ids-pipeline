@@ -1,0 +1,766 @@
+{
+  "groups": {
+    "ttl": [
+      "sttl",
+      "ct_state_ttl"
+    ],
+    "src_volume": [
+      "sbytes",
+      "sload",
+      "smean"
+    ],
+    "dst_volume": [
+      "dbytes",
+      "dload"
+    ],
+    "tcp_timing": [
+      "ackdat"
+    ],
+    "conn_history": [
+      "ct_dst_src_ltm",
+      "ct_srv_dst"
+    ]
+  },
+  "attacker_groups": {
+    "sttl": [
+      "sttl"
+    ],
+    "src_volume": [
+      "sbytes",
+      "sload",
+      "smean"
+    ]
+  },
+  "support_tau": 0.01871286645806773,
+  "rf": {
+    "random": {
+      "success": 1.0,
+      "k": {
+        "mean": 1.6811023622047243,
+        "lo": 1.610236220472441,
+        "hi": 1.7559055118110236,
+        "n": 254
+      },
+      "queries_median": 203.0,
+      "queries_mean": 160.53543307086613,
+      "success_within_1": 0.3937007874015748,
+      "group_counts": {
+        "ttl": 178,
+        "src_volume": 85,
+        "tcp_timing": 83,
+        "conn_history": 58,
+        "dst_volume": 23
+      },
+      "infeasible_share": 0.6428922716627634,
+      "per_class": {
+        "analysis": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 1.3,
+            "lo": 1.1333333333333333,
+            "hi": 1.4666666666666666,
+            "n": 30
+          },
+          "queries_median": 45.5
+        },
+        "backdoor": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 1.4666666666666666,
+            "lo": 1.2666666666666666,
+            "hi": 1.6666666666666667,
+            "n": 30
+          },
+          "queries_median": 103.0
+        },
+        "dos": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 1.7,
+            "lo": 1.5333333333333334,
+            "hi": 1.9,
+            "n": 30
+          },
+          "queries_median": 206.5
+        },
+        "exploits": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 2.1666666666666665,
+            "lo": 2.0,
+            "hi": 2.3333333333333335,
+            "n": 30
+          },
+          "queries_median": 208.5
+        },
+        "fuzzers": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 1.5333333333333334,
+            "lo": 1.3333333333333333,
+            "hi": 1.7666666666666666,
+            "n": 30
+          },
+          "queries_median": 138.5
+        },
+        "generic": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 2.033333333333333,
+            "lo": 1.8666666666666667,
+            "hi": 2.2,
+            "n": 30
+          },
+          "queries_median": 211.0
+        },
+        "reconnaissance": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 1.6666666666666667,
+            "lo": 1.5,
+            "hi": 1.8333333333333333,
+            "n": 30
+          },
+          "queries_median": 202.0
+        },
+        "shellcode": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 1.2666666666666666,
+            "lo": 1.1333333333333333,
+            "hi": 1.4333333333333333,
+            "n": 30
+          },
+          "queries_median": 74.0
+        },
+        "worms": {
+          "n": 14,
+          "success": 1.0,
+          "k": {
+            "mean": 2.357142857142857,
+            "lo": 2.142857142857143,
+            "hi": 2.642857142857143,
+            "n": 14
+          },
+          "queries_median": 243.0
+        }
+      },
+      "n": 254
+    },
+    "shap": {
+      "success": 1.0,
+      "k": {
+        "mean": 2.090551181102362,
+        "lo": 1.9803149606299213,
+        "hi": 2.204724409448819,
+        "n": 254
+      },
+      "queries_median": 239.5,
+      "queries_mean": 263.45669291338584,
+      "success_within_1": 0.2992125984251969,
+      "group_counts": {
+        "src_volume": 229,
+        "dst_volume": 115,
+        "ttl": 108,
+        "conn_history": 78,
+        "tcp_timing": 1
+      },
+      "infeasible_share": 0.5754143126177025,
+      "per_class": {
+        "analysis": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 1.5333333333333334,
+            "lo": 1.2666666666666666,
+            "hi": 1.8,
+            "n": 30
+          },
+          "queries_median": 84.0
+        },
+        "backdoor": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 1.9666666666666666,
+            "lo": 1.6658333333333335,
+            "hi": 2.3,
+            "n": 30
+          },
+          "queries_median": 235.0
+        },
+        "dos": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 2.6,
+            "lo": 2.3333333333333335,
+            "hi": 2.8666666666666667,
+            "n": 30
+          },
+          "queries_median": 410.0
+        },
+        "exploits": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 2.8666666666666667,
+            "lo": 2.6666666666666665,
+            "hi": 3.066666666666667,
+            "n": 30
+          },
+          "queries_median": 415.5
+        },
+        "fuzzers": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 1.9,
+            "lo": 1.6333333333333333,
+            "hi": 2.1666666666666665,
+            "n": 30
+          },
+          "queries_median": 201.5
+        },
+        "generic": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 1.6666666666666667,
+            "lo": 1.4666666666666666,
+            "hi": 1.8666666666666667,
+            "n": 30
+          },
+          "queries_median": 207.0
+        },
+        "reconnaissance": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 2.4,
+            "lo": 2.1,
+            "hi": 2.7333333333333334,
+            "n": 30
+          },
+          "queries_median": 369.0
+        },
+        "shellcode": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 1.5666666666666667,
+            "lo": 1.3,
+            "hi": 1.8333333333333333,
+            "n": 30
+          },
+          "queries_median": 116.5
+        },
+        "worms": {
+          "n": 14,
+          "success": 1.0,
+          "k": {
+            "mean": 2.5714285714285716,
+            "lo": 2.2857142857142856,
+            "hi": 2.9285714285714284,
+            "n": 14
+          },
+          "queries_median": 394.0
+        }
+      },
+      "n": 254
+    },
+    "attacker": {
+      "success": 0.4251968503937008,
+      "k": {
+        "mean": 1.3981481481481481,
+        "lo": 1.3055555555555556,
+        "hi": 1.4817129629629615,
+        "n": 108
+      },
+      "queries_median": 125.5,
+      "queries_mean": 152.44444444444446,
+      "success_within_1": 0.2559055118110236,
+      "group_counts": {
+        "src_volume": 103,
+        "sttl": 48
+      },
+      "infeasible_share": 0.7265124153498871,
+      "per_class": {
+        "analysis": {
+          "n": 30,
+          "success": 0.7,
+          "k": {
+            "mean": 1.5238095238095237,
+            "lo": 1.2857142857142858,
+            "hi": 1.7142857142857142,
+            "n": 21
+          },
+          "queries_median": 206.0
+        },
+        "backdoor": {
+          "n": 30,
+          "success": 0.6333333333333333,
+          "k": {
+            "mean": 1.263157894736842,
+            "lo": 1.0526315789473684,
+            "hi": 1.4736842105263157,
+            "n": 19
+          },
+          "queries_median": 112.0
+        },
+        "dos": {
+          "n": 30,
+          "success": 0.1,
+          "k": {
+            "mean": 2.0,
+            "lo": 2.0,
+            "hi": 2.0,
+            "n": 3
+          },
+          "queries_median": 201.0
+        },
+        "exploits": {
+          "n": 30,
+          "success": 0.03333333333333333,
+          "k": {
+            "mean": 1.0,
+            "lo": 1.0,
+            "hi": 1.0,
+            "n": 1
+          },
+          "queries_median": 2.0
+        },
+        "fuzzers": {
+          "n": 30,
+          "success": 0.7666666666666667,
+          "k": {
+            "mean": 1.3478260869565217,
+            "lo": 1.173913043478261,
+            "hi": 1.565217391304348,
+            "n": 23
+          },
+          "queries_median": 109.0
+        },
+        "generic": {
+          "n": 30,
+          "success": 0.43333333333333335,
+          "k": {
+            "mean": 1.4615384615384615,
+            "lo": 1.2307692307692308,
+            "hi": 1.6923076923076923,
+            "n": 13
+          },
+          "queries_median": 115.0
+        },
+        "reconnaissance": {
+          "n": 30,
+          "success": 0.26666666666666666,
+          "k": {
+            "mean": 1.375,
+            "lo": 1.0,
+            "hi": 1.75,
+            "n": 8
+          },
+          "queries_median": 103.5
+        },
+        "shellcode": {
+          "n": 30,
+          "success": 0.6666666666666666,
+          "k": {
+            "mean": 1.35,
+            "lo": 1.15,
+            "hi": 1.55,
+            "n": 20
+          },
+          "queries_median": 114.0
+        },
+        "worms": {
+          "n": 14,
+          "success": 0.0,
+          "k": {
+            "mean": null,
+            "lo": null,
+            "hi": null,
+            "n": 0
+          },
+          "queries_median": null
+        }
+      },
+      "n": 254
+    }
+  },
+  "cnn": {
+    "random": {
+      "success": 1.0,
+      "k": {
+        "mean": 1.8443579766536966,
+        "lo": 1.7704280155642023,
+        "hi": 1.9143968871595332,
+        "n": 257
+      },
+      "queries_median": 206.0,
+      "queries_mean": 190.50972762645915,
+      "success_within_1": 0.26459143968871596,
+      "group_counts": {
+        "ttl": 231,
+        "tcp_timing": 109,
+        "src_volume": 77,
+        "conn_history": 51,
+        "dst_volume": 6
+      },
+      "infeasible_share": 0.6505274261603375,
+      "per_class": {
+        "analysis": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 1.7666666666666666,
+            "lo": 1.5333333333333334,
+            "hi": 2.0,
+            "n": 30
+          },
+          "queries_median": 205.0
+        },
+        "backdoor": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 1.3,
+            "lo": 1.1,
+            "hi": 1.5,
+            "n": 30
+          },
+          "queries_median": 13.0
+        },
+        "dos": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 2.1333333333333333,
+            "lo": 1.9,
+            "hi": 2.3666666666666667,
+            "n": 30
+          },
+          "queries_median": 208.5
+        },
+        "exploits": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 2.033333333333333,
+            "lo": 1.8666666666666667,
+            "hi": 2.2,
+            "n": 30
+          },
+          "queries_median": 209.0
+        },
+        "fuzzers": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 1.7333333333333334,
+            "lo": 1.5333333333333334,
+            "hi": 1.9,
+            "n": 30
+          },
+          "queries_median": 209.0
+        },
+        "generic": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 2.1333333333333333,
+            "lo": 1.9333333333333333,
+            "hi": 2.3333333333333335,
+            "n": 30
+          },
+          "queries_median": 219.5
+        },
+        "reconnaissance": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 1.7333333333333334,
+            "lo": 1.5666666666666667,
+            "hi": 1.9,
+            "n": 30
+          },
+          "queries_median": 204.0
+        },
+        "shellcode": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 1.7333333333333334,
+            "lo": 1.5666666666666667,
+            "hi": 1.8666666666666667,
+            "n": 30
+          },
+          "queries_median": 204.0
+        },
+        "worms": {
+          "n": 17,
+          "success": 1.0,
+          "k": {
+            "mean": 2.176470588235294,
+            "lo": 1.9411764705882353,
+            "hi": 2.411764705882353,
+            "n": 17
+          },
+          "queries_median": 219.0
+        }
+      },
+      "n": 257
+    },
+    "shap": {
+      "success": 0.9844357976653697,
+      "k": {
+        "mean": 2.4980237154150196,
+        "lo": 2.3873517786561265,
+        "hi": 2.608695652173913,
+        "n": 253
+      },
+      "queries_median": 401.0,
+      "queries_mean": 336.1185770750988,
+      "success_within_1": 0.14396887159533073,
+      "group_counts": {
+        "src_volume": 188,
+        "ttl": 187,
+        "conn_history": 164,
+        "dst_volume": 79,
+        "tcp_timing": 14
+      },
+      "infeasible_share": 0.5840663580246913,
+      "per_class": {
+        "analysis": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 2.2666666666666666,
+            "lo": 1.9666666666666666,
+            "hi": 2.566666666666667,
+            "n": 30
+          },
+          "queries_median": 340.0
+        },
+        "backdoor": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 1.7666666666666666,
+            "lo": 1.4666666666666666,
+            "hi": 2.1,
+            "n": 30
+          },
+          "queries_median": 201.0
+        },
+        "dos": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 2.7,
+            "lo": 2.466666666666667,
+            "hi": 2.933333333333333,
+            "n": 30
+          },
+          "queries_median": 405.5
+        },
+        "exploits": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 2.7666666666666666,
+            "lo": 2.4,
+            "hi": 3.1,
+            "n": 30
+          },
+          "queries_median": 401.0
+        },
+        "fuzzers": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 2.3333333333333335,
+            "lo": 2.0,
+            "hi": 2.6666666666666665,
+            "n": 30
+          },
+          "queries_median": 228.5
+        },
+        "generic": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 2.566666666666667,
+            "lo": 2.3,
+            "hi": 2.8333333333333335,
+            "n": 30
+          },
+          "queries_median": 401.0
+        },
+        "reconnaissance": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 2.6333333333333333,
+            "lo": 2.3333333333333335,
+            "hi": 2.9341666666666617,
+            "n": 30
+          },
+          "queries_median": 401.5
+        },
+        "shellcode": {
+          "n": 30,
+          "success": 0.8666666666666667,
+          "k": {
+            "mean": 2.8076923076923075,
+            "lo": 2.5384615384615383,
+            "hi": 3.1153846153846154,
+            "n": 26
+          },
+          "queries_median": 402.0
+        },
+        "worms": {
+          "n": 17,
+          "success": 1.0,
+          "k": {
+            "mean": 2.823529411764706,
+            "lo": 2.411764705882353,
+            "hi": 3.235294117647059,
+            "n": 17
+          },
+          "queries_median": 404.0
+        }
+      },
+      "n": 257
+    },
+    "attacker": {
+      "success": 0.29571984435797666,
+      "k": {
+        "mean": 1.618421052631579,
+        "lo": 1.5,
+        "hi": 1.7105263157894737,
+        "n": 76
+      },
+      "queries_median": 208.0,
+      "queries_mean": 190.25,
+      "success_within_1": 0.11284046692607004,
+      "group_counts": {
+        "src_volume": 65,
+        "sttl": 58
+      },
+      "infeasible_share": 0.7352474226804123,
+      "per_class": {
+        "analysis": {
+          "n": 30,
+          "success": 0.4,
+          "k": {
+            "mean": 1.8333333333333333,
+            "lo": 1.5833333333333333,
+            "hi": 2.0,
+            "n": 12
+          },
+          "queries_median": 238.0
+        },
+        "backdoor": {
+          "n": 30,
+          "success": 0.5333333333333333,
+          "k": {
+            "mean": 1.5,
+            "lo": 1.25,
+            "hi": 1.75,
+            "n": 16
+          },
+          "queries_median": 170.5
+        },
+        "dos": {
+          "n": 30,
+          "success": 0.1,
+          "k": {
+            "mean": 2.0,
+            "lo": 2.0,
+            "hi": 2.0,
+            "n": 3
+          },
+          "queries_median": 220.0
+        },
+        "exploits": {
+          "n": 30,
+          "success": 0.0,
+          "k": {
+            "mean": null,
+            "lo": null,
+            "hi": null,
+            "n": 0
+          },
+          "queries_median": null
+        },
+        "fuzzers": {
+          "n": 30,
+          "success": 0.6333333333333333,
+          "k": {
+            "mean": 1.3157894736842106,
+            "lo": 1.105263157894737,
+            "hi": 1.5263157894736843,
+            "n": 19
+          },
+          "queries_median": 115.0
+        },
+        "generic": {
+          "n": 30,
+          "success": 0.16666666666666666,
+          "k": {
+            "mean": 1.0,
+            "lo": 1.0,
+            "hi": 1.0,
+            "n": 5
+          },
+          "queries_median": 127.0
+        },
+        "reconnaissance": {
+          "n": 30,
+          "success": 0.26666666666666666,
+          "k": {
+            "mean": 1.875,
+            "lo": 1.625,
+            "hi": 2.0,
+            "n": 8
+          },
+          "queries_median": 257.5
+        },
+        "shellcode": {
+          "n": 30,
+          "success": 0.43333333333333335,
+          "k": {
+            "mean": 2.0,
+            "lo": 2.0,
+            "hi": 2.0,
+            "n": 13
+          },
+          "queries_median": 239.0
+        },
+        "worms": {
+          "n": 17,
+          "success": 0.0,
+          "k": {
+            "mean": null,
+            "lo": null,
+            "hi": null,
+            "n": 0
+          },
+          "queries_median": null
+        }
+      },
+      "n": 257
+    }
+  },
+  "_seconds": 509.5598192214966
+}

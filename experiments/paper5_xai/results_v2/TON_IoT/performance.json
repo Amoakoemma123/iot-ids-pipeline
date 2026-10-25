@@ -1,0 +1,64 @@
+{
+  "rf": {
+    "macro_f1": 0.9565302995966034,
+    "accuracy": 0.9866705408055788
+  },
+  "cnn": {
+    "macro_f1": 0.8802839374828941,
+    "accuracy": 0.9372026295717866
+  },
+  "n_test": 27533,
+  "n_features": 25,
+  "features": [
+    "src_port",
+    "dst_port",
+    "duration",
+    "src_bytes",
+    "dst_bytes",
+    "src_pkts",
+    "src_ip_bytes",
+    "dst_pkts",
+    "dst_ip_bytes",
+    "dns_qclass",
+    "dns_qtype",
+    "dns_rcode",
+    "proto_tcp",
+    "proto_udp",
+    "service_dns",
+    "service_http",
+    "conn_state_rej",
+    "conn_state_s0",
+    "conn_state_s1",
+    "conn_state_sf",
+    "conn_state_sh",
+    "dns_RD_t",
+    "dns_RA_f",
+    "dns_rejected_f",
+    "dns_rejected_t"
+  ],
+  "classes": [
+    "backdoor",
+    "ddos",
+    "dos",
+    "injection",
+    "mitm",
+    "normal",
+    "password",
+    "ransomware",
+    "scanning",
+    "xss"
+  ],
+  "class_counts_test": {
+    "backdoor": 2807,
+    "ddos": 2998,
+    "dos": 2200,
+    "injection": 2995,
+    "mitm": 156,
+    "normal": 6290,
+    "password": 2977,
+    "ransomware": 2140,
+    "scanning": 2792,
+    "xss": 2178
+  },
+  "_seconds": 0.9181604385375977
+}

@@ -1,0 +1,31 @@
+{
+  "n_augmented": 1687,
+  "gen_seconds": 154.08053636550903,
+  "macro_f1_before": 0.5912538380221312,
+  "macro_f1_after": 0.5901108989718953,
+  "evasion_before": {
+    "analysis": 1.0,
+    "backdoor": 1.0,
+    "dos": 1.0,
+    "exploits": 1.0,
+    "fuzzers": 1.0,
+    "generic": 1.0,
+    "reconnaissance": 1.0,
+    "shellcode": 1.0,
+    "worms": 1.0
+  },
+  "evasion_after": {
+    "analysis": 1.0,
+    "backdoor": 1.0,
+    "dos": 1.0,
+    "exploits": 1.0,
+    "fuzzers": 1.0,
+    "generic": 1.0,
+    "reconnaissance": 1.0,
+    "shellcode": 1.0,
+    "worms": 1.0
+  },
+  "mean_evasion_before": 1.0,
+  "mean_evasion_after": 1.0,
+  "_seconds": 301.56028270721436
+}

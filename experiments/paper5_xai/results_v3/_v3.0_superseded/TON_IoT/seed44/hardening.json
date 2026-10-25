@@ -1,0 +1,85 @@
+{
+  "n_augmented": 1800,
+  "n_query": 538,
+  "query_per_class": {
+    "backdoor": 60,
+    "ddos": 60,
+    "dos": 60,
+    "injection": 59,
+    "mitm": 59,
+    "password": 60,
+    "ransomware": 60,
+    "scanning": 60,
+    "xss": 60
+  },
+  "original": {
+    "macro_f1": 0.9567709838669266,
+    "benign_fpr": 0.008267090620031796,
+    "attack_recall": 0.9995763310266912,
+    "evasion": 1.0,
+    "evasion_ci": {
+      "mean": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 538
+    },
+    "evasion_per_class": {
+      "backdoor": 1.0,
+      "ddos": 1.0,
+      "dos": 1.0,
+      "injection": 1.0,
+      "mitm": 1.0,
+      "password": 1.0,
+      "ransomware": 1.0,
+      "scanning": 1.0,
+      "xss": 1.0
+    }
+  },
+  "counterfactual": {
+    "macro_f1": 0.9561257222119872,
+    "benign_fpr": 0.007472178060413354,
+    "attack_recall": 0.9993409593748529,
+    "evasion": 1.0,
+    "evasion_ci": {
+      "mean": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 538
+    },
+    "evasion_per_class": {
+      "backdoor": 1.0,
+      "ddos": 1.0,
+      "dos": 1.0,
+      "injection": 1.0,
+      "mitm": 1.0,
+      "password": 1.0,
+      "ransomware": 1.0,
+      "scanning": 1.0,
+      "xss": 1.0
+    }
+  },
+  "control": {
+    "macro_f1": 0.956245417158905,
+    "benign_fpr": 0.00794912559618442,
+    "attack_recall": 0.9996234053570588,
+    "evasion": 1.0,
+    "evasion_ci": {
+      "mean": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 538
+    },
+    "evasion_per_class": {
+      "backdoor": 1.0,
+      "ddos": 1.0,
+      "dos": 1.0,
+      "injection": 1.0,
+      "mitm": 1.0,
+      "password": 1.0,
+      "ransomware": 1.0,
+      "scanning": 1.0,
+      "xss": 1.0
+    }
+  },
+  "_seconds": 539.3796973228455
+}

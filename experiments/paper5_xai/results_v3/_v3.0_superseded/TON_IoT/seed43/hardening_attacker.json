@@ -1,0 +1,90 @@
+{
+  "groups": [
+    "src_volume",
+    "src_port",
+    "duration"
+  ],
+  "n_augmented": 757,
+  "n_query": 540,
+  "query_per_class": {
+    "backdoor": 60,
+    "ddos": 60,
+    "dos": 60,
+    "injection": 60,
+    "mitm": 60,
+    "password": 60,
+    "ransomware": 60,
+    "scanning": 60,
+    "xss": 60
+  },
+  "original": {
+    "macro_f1": 0.957513076489352,
+    "benign_fpr": 0.008108108108108109,
+    "attack_recall": 0.9996234053570588,
+    "evasion": 0.3925925925925926,
+    "evasion_ci": {
+      "mean": 0.3925925925925926,
+      "lo": 0.3537037037037037,
+      "hi": 0.4351851851851852,
+      "n": 540
+    },
+    "evasion_per_class": {
+      "backdoor": 0.0,
+      "ddos": 0.23333333333333334,
+      "dos": 0.16666666666666666,
+      "injection": 0.45,
+      "mitm": 0.95,
+      "password": 0.4666666666666667,
+      "ransomware": 0.95,
+      "scanning": 0.1,
+      "xss": 0.21666666666666667
+    }
+  },
+  "counterfactual": {
+    "macro_f1": 0.9569346720442375,
+    "benign_fpr": 0.0077901430842607314,
+    "attack_recall": 0.9996234053570588,
+    "evasion": 0.15555555555555556,
+    "evasion_ci": {
+      "mean": 0.15555555555555556,
+      "lo": 0.1259259259259259,
+      "hi": 0.18703703703703703,
+      "n": 540
+    },
+    "evasion_per_class": {
+      "backdoor": 0.0,
+      "ddos": 0.16666666666666666,
+      "dos": 0.15,
+      "injection": 0.03333333333333333,
+      "mitm": 0.13333333333333333,
+      "password": 0.03333333333333333,
+      "ransomware": 0.8,
+      "scanning": 0.08333333333333333,
+      "xss": 0.0
+    }
+  },
+  "control": {
+    "macro_f1": 0.957258927099829,
+    "benign_fpr": 0.008267090620031796,
+    "attack_recall": 0.9996234053570588,
+    "evasion": 0.3925925925925926,
+    "evasion_ci": {
+      "mean": 0.3925925925925926,
+      "lo": 0.35185185185185186,
+      "hi": 0.43333333333333335,
+      "n": 540
+    },
+    "evasion_per_class": {
+      "backdoor": 0.0,
+      "ddos": 0.2,
+      "dos": 0.16666666666666666,
+      "injection": 0.43333333333333335,
+      "mitm": 0.9333333333333333,
+      "password": 0.5166666666666667,
+      "ransomware": 0.95,
+      "scanning": 0.11666666666666667,
+      "xss": 0.21666666666666667
+    }
+  },
+  "_seconds": 693.7498912811279
+}

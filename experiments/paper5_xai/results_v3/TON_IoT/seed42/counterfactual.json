@@ -1,0 +1,783 @@
+{
+  "groups": {
+    "protocol_state": [
+      "dns_qclass",
+      "dns_qtype",
+      "dns_rcode",
+      "proto_tcp",
+      "proto_udp",
+      "service_dns",
+      "service_http",
+      "conn_state_rej",
+      "conn_state_s0",
+      "conn_state_s1",
+      "conn_state_sf",
+      "conn_state_sh",
+      "dns_RD_t",
+      "dns_RA_f",
+      "dns_rejected_f",
+      "dns_rejected_t"
+    ],
+    "src_volume": [
+      "src_bytes",
+      "src_pkts",
+      "src_ip_bytes"
+    ],
+    "dst_volume": [
+      "dst_bytes",
+      "dst_pkts",
+      "dst_ip_bytes"
+    ],
+    "src_port": [
+      "src_port"
+    ],
+    "dst_port": [
+      "dst_port"
+    ],
+    "duration": [
+      "duration"
+    ]
+  },
+  "attacker_groups": [
+    "src_volume",
+    "src_port",
+    "duration"
+  ],
+  "support_tau": 0.002535607293248185,
+  "rf": {
+    "random": {
+      "success": 1.0,
+      "k": {
+        "mean": 1.5592592592592593,
+        "lo": 1.4925925925925927,
+        "hi": 1.625925925925926,
+        "n": 270
+      },
+      "queries_median": 202.0,
+      "queries_mean": 145.1962962962963,
+      "success_within_1": 0.4703703703703704,
+      "group_counts": {
+        "protocol_state": 237,
+        "dst_port": 72,
+        "src_volume": 49,
+        "src_port": 36,
+        "duration": 14,
+        "dst_volume": 13
+      },
+      "infeasible_share": 0.8876840855106888,
+      "per_class": {
+        "backdoor": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 1.4666666666666666,
+            "lo": 1.3,
+            "hi": 1.6333333333333333,
+            "n": 30
+          },
+          "queries_median": 110.5
+        },
+        "ddos": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 1.4666666666666666,
+            "lo": 1.2666666666666666,
+            "hi": 1.7,
+            "n": 30
+          },
+          "queries_median": 38.5
+        },
+        "dos": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 1.9333333333333333,
+            "lo": 1.8333333333333333,
+            "hi": 2.0,
+            "n": 30
+          },
+          "queries_median": 227.5
+        },
+        "injection": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 1.5666666666666667,
+            "lo": 1.3666666666666667,
+            "hi": 1.7333333333333334,
+            "n": 30
+          },
+          "queries_median": 203.5
+        },
+        "mitm": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 1.4,
+            "lo": 1.2,
+            "hi": 1.6333333333333333,
+            "n": 30
+          },
+          "queries_median": 48.0
+        },
+        "password": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 1.3333333333333333,
+            "lo": 1.1666666666666667,
+            "hi": 1.5,
+            "n": 30
+          },
+          "queries_median": 50.5
+        },
+        "ransomware": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 1.6,
+            "lo": 1.3333333333333333,
+            "hi": 1.8666666666666667,
+            "n": 30
+          },
+          "queries_median": 62.5
+        },
+        "scanning": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 2.0,
+            "lo": 1.9,
+            "hi": 2.1,
+            "n": 30
+          },
+          "queries_median": 238.0
+        },
+        "xss": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 1.2666666666666666,
+            "lo": 1.1,
+            "hi": 1.4333333333333333,
+            "n": 30
+          },
+          "queries_median": 34.5
+        }
+      },
+      "n": 270
+    },
+    "shap": {
+      "success": 0.8703703703703703,
+      "k": {
+        "mean": 2.1446808510638298,
+        "lo": 2.033936170212766,
+        "hi": 2.2638297872340427,
+        "n": 235
+      },
+      "queries_median": 203.0,
+      "queries_mean": 237.16170212765957,
+      "success_within_1": 0.22962962962962963,
+      "group_counts": {
+        "protocol_state": 218,
+        "src_volume": 118,
+        "dst_volume": 57,
+        "dst_port": 46,
+        "duration": 35,
+        "src_port": 30
+      },
+      "infeasible_share": 0.7864208074534161,
+      "per_class": {
+        "backdoor": {
+          "n": 30,
+          "success": 0.5333333333333333,
+          "k": {
+            "mean": 2.0,
+            "lo": 2.0,
+            "hi": 2.0,
+            "n": 16
+          },
+          "queries_median": 201.0
+        },
+        "ddos": {
+          "n": 30,
+          "success": 0.9333333333333333,
+          "k": {
+            "mean": 1.75,
+            "lo": 1.3214285714285714,
+            "hi": 2.2142857142857144,
+            "n": 28
+          },
+          "queries_median": 5.0
+        },
+        "dos": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 2.033333333333333,
+            "lo": 1.9,
+            "hi": 2.2,
+            "n": 30
+          },
+          "queries_median": 202.5
+        },
+        "injection": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 2.6666666666666665,
+            "lo": 2.466666666666667,
+            "hi": 2.8666666666666667,
+            "n": 30
+          },
+          "queries_median": 401.0
+        },
+        "mitm": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 1.8,
+            "lo": 1.4,
+            "hi": 2.2666666666666666,
+            "n": 30
+          },
+          "queries_median": 20.0
+        },
+        "password": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 2.0,
+            "lo": 1.8666666666666667,
+            "hi": 2.167499999999995,
+            "n": 30
+          },
+          "queries_median": 201.5
+        },
+        "ransomware": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 2.8,
+            "lo": 2.6,
+            "hi": 3.0,
+            "n": 30
+          },
+          "queries_median": 401.0
+        },
+        "scanning": {
+          "n": 30,
+          "success": 0.36666666666666664,
+          "k": {
+            "mean": 3.5454545454545454,
+            "lo": 2.8181818181818183,
+            "hi": 4.0,
+            "n": 11
+          },
+          "queries_median": 601.0
+        },
+        "xss": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 1.5,
+            "lo": 1.3,
+            "hi": 1.7333333333333334,
+            "n": 30
+          },
+          "queries_median": 14.5
+        }
+      },
+      "n": 270
+    },
+    "attacker": {
+      "success": 0.3074074074074074,
+      "k": {
+        "mean": 1.7710843373493976,
+        "lo": 1.6265060240963856,
+        "hi": 1.9156626506024097,
+        "n": 83
+      },
+      "queries_median": 215.0,
+      "queries_mean": 194.2289156626506,
+      "success_within_1": 0.1111111111111111,
+      "group_counts": {
+        "src_volume": 73,
+        "src_port": 52,
+        "duration": 22
+      },
+      "infeasible_share": 0.9439336158192091,
+      "per_class": {
+        "backdoor": {
+          "n": 30,
+          "success": 0.0,
+          "k": {
+            "mean": null,
+            "lo": null,
+            "hi": null,
+            "n": 0
+          },
+          "queries_median": null
+        },
+        "ddos": {
+          "n": 30,
+          "success": 0.13333333333333333,
+          "k": {
+            "mean": 1.5,
+            "lo": 1.0,
+            "hi": 2.0,
+            "n": 4
+          },
+          "queries_median": 105.5
+        },
+        "dos": {
+          "n": 30,
+          "success": 0.06666666666666667,
+          "k": {
+            "mean": 2.0,
+            "lo": 1.0,
+            "hi": 3.0,
+            "n": 2
+          },
+          "queries_median": 222.5
+        },
+        "injection": {
+          "n": 30,
+          "success": 0.3333333333333333,
+          "k": {
+            "mean": 2.2,
+            "lo": 1.8,
+            "hi": 2.502499999999986,
+            "n": 10
+          },
+          "queries_median": 281.5
+        },
+        "mitm": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 1.8,
+            "lo": 1.5666666666666667,
+            "hi": 2.0,
+            "n": 30
+          },
+          "queries_median": 213.5
+        },
+        "password": {
+          "n": 30,
+          "success": 0.3,
+          "k": {
+            "mean": 2.111111111111111,
+            "lo": 1.6666666666666667,
+            "hi": 2.6666666666666665,
+            "n": 9
+          },
+          "queries_median": 267.0
+        },
+        "ransomware": {
+          "n": 30,
+          "success": 0.7666666666666667,
+          "k": {
+            "mean": 1.391304347826087,
+            "lo": 1.173913043478261,
+            "hi": 1.608695652173913,
+            "n": 23
+          },
+          "queries_median": 37.0
+        },
+        "scanning": {
+          "n": 30,
+          "success": 0.03333333333333333,
+          "k": {
+            "mean": 2.0,
+            "lo": 2.0,
+            "hi": 2.0,
+            "n": 1
+          },
+          "queries_median": 224.0
+        },
+        "xss": {
+          "n": 30,
+          "success": 0.13333333333333333,
+          "k": {
+            "mean": 2.0,
+            "lo": 1.25,
+            "hi": 2.75,
+            "n": 4
+          },
+          "queries_median": 295.0
+        }
+      },
+      "n": 270
+    }
+  },
+  "cnn": {
+    "random": {
+      "success": 1.0,
+      "k": {
+        "mean": 1.3037037037037038,
+        "lo": 1.2518518518518518,
+        "hi": 1.3592592592592592,
+        "n": 270
+      },
+      "queries_median": 22.5,
+      "queries_mean": 82.85555555555555,
+      "success_within_1": 0.6962962962962963,
+      "group_counts": {
+        "protocol_state": 254,
+        "dst_port": 72,
+        "src_port": 21,
+        "src_volume": 4,
+        "duration": 1
+      },
+      "infeasible_share": 0.8900568181818181,
+      "per_class": {
+        "backdoor": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 1.6,
+            "lo": 1.4333333333333333,
+            "hi": 1.7666666666666666,
+            "n": 30
+          },
+          "queries_median": 209.0
+        },
+        "ddos": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 1.1666666666666667,
+            "lo": 1.0333333333333334,
+            "hi": 1.3,
+            "n": 30
+          },
+          "queries_median": 9.0
+        },
+        "dos": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 1.2,
+            "lo": 1.0666666666666667,
+            "hi": 1.3666666666666667,
+            "n": 30
+          },
+          "queries_median": 92.0
+        },
+        "injection": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 1.0,
+            "lo": 1.0,
+            "hi": 1.0,
+            "n": 30
+          },
+          "queries_median": 10.5
+        },
+        "mitm": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 1.2333333333333334,
+            "lo": 1.1,
+            "hi": 1.4,
+            "n": 30
+          },
+          "queries_median": 10.0
+        },
+        "password": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 1.0,
+            "lo": 1.0,
+            "hi": 1.0,
+            "n": 30
+          },
+          "queries_median": 8.0
+        },
+        "ransomware": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 1.8,
+            "lo": 1.6333333333333333,
+            "hi": 1.9333333333333333,
+            "n": 30
+          },
+          "queries_median": 209.5
+        },
+        "scanning": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 1.7333333333333334,
+            "lo": 1.5666666666666667,
+            "hi": 1.9,
+            "n": 30
+          },
+          "queries_median": 211.5
+        },
+        "xss": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 1.0,
+            "lo": 1.0,
+            "hi": 1.0,
+            "n": 30
+          },
+          "queries_median": 10.5
+        }
+      },
+      "n": 270
+    },
+    "shap": {
+      "success": 0.9518518518518518,
+      "k": {
+        "mean": 1.5875486381322956,
+        "lo": 1.490272373540856,
+        "hi": 1.6848249027237354,
+        "n": 257
+      },
+      "queries_median": 4.0,
+      "queries_mean": 120.87548638132296,
+      "success_within_1": 0.5444444444444444,
+      "group_counts": {
+        "protocol_state": 255,
+        "dst_port": 75,
+        "src_port": 45,
+        "src_volume": 26,
+        "duration": 6,
+        "dst_volume": 1
+      },
+      "infeasible_share": 0.6810869565217391,
+      "per_class": {
+        "backdoor": {
+          "n": 30,
+          "success": 0.9666666666666667,
+          "k": {
+            "mean": 1.5862068965517242,
+            "lo": 1.4137931034482758,
+            "hi": 1.7586206896551724,
+            "n": 29
+          },
+          "queries_median": 201.0
+        },
+        "ddos": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 1.3333333333333333,
+            "lo": 1.0666666666666667,
+            "hi": 1.634166666666662,
+            "n": 30
+          },
+          "queries_median": 1.5
+        },
+        "dos": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 1.9333333333333333,
+            "lo": 1.8,
+            "hi": 2.066666666666667,
+            "n": 30
+          },
+          "queries_median": 201.0
+        },
+        "injection": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 1.1333333333333333,
+            "lo": 1.0333333333333334,
+            "hi": 1.2666666666666666,
+            "n": 30
+          },
+          "queries_median": 2.0
+        },
+        "mitm": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 1.3,
+            "lo": 1.1,
+            "hi": 1.5333333333333334,
+            "n": 30
+          },
+          "queries_median": 3.0
+        },
+        "password": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 1.1666666666666667,
+            "lo": 1.0333333333333334,
+            "hi": 1.3,
+            "n": 30
+          },
+          "queries_median": 2.0
+        },
+        "ransomware": {
+          "n": 30,
+          "success": 0.6,
+          "k": {
+            "mean": 2.611111111111111,
+            "lo": 2.111111111111111,
+            "hi": 3.1666666666666665,
+            "n": 18
+          },
+          "queries_median": 210.5
+        },
+        "scanning": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 2.5,
+            "lo": 2.2,
+            "hi": 2.7666666666666666,
+            "n": 30
+          },
+          "queries_median": 309.5
+        },
+        "xss": {
+          "n": 30,
+          "success": 1.0,
+          "k": {
+            "mean": 1.1333333333333333,
+            "lo": 1.0,
+            "hi": 1.3,
+            "n": 30
+          },
+          "queries_median": 2.0
+        }
+      },
+      "n": 270
+    },
+    "attacker": {
+      "success": 0.15925925925925927,
+      "k": {
+        "mean": 2.116279069767442,
+        "lo": 1.8837209302325582,
+        "hi": 2.3488372093023258,
+        "n": 43
+      },
+      "queries_median": 290.0,
+      "queries_mean": 309.3488372093023,
+      "success_within_1": 0.040740740740740744,
+      "group_counts": {
+        "src_port": 39,
+        "duration": 26,
+        "src_volume": 26
+      },
+      "infeasible_share": 0.9198834196891191,
+      "per_class": {
+        "backdoor": {
+          "n": 30,
+          "success": 0.0,
+          "k": {
+            "mean": null,
+            "lo": null,
+            "hi": null,
+            "n": 0
+          },
+          "queries_median": null
+        },
+        "ddos": {
+          "n": 30,
+          "success": 0.03333333333333333,
+          "k": {
+            "mean": 3.0,
+            "lo": 3.0,
+            "hi": 3.0,
+            "n": 1
+          },
+          "queries_median": 596.0
+        },
+        "dos": {
+          "n": 30,
+          "success": 0.0,
+          "k": {
+            "mean": null,
+            "lo": null,
+            "hi": null,
+            "n": 0
+          },
+          "queries_median": null
+        },
+        "injection": {
+          "n": 30,
+          "success": 0.0,
+          "k": {
+            "mean": null,
+            "lo": null,
+            "hi": null,
+            "n": 0
+          },
+          "queries_median": null
+        },
+        "mitm": {
+          "n": 30,
+          "success": 0.5,
+          "k": {
+            "mean": 2.533333333333333,
+            "lo": 2.2666666666666666,
+            "hi": 2.8,
+            "n": 15
+          },
+          "queries_median": 424.0
+        },
+        "password": {
+          "n": 30,
+          "success": 0.0,
+          "k": {
+            "mean": null,
+            "lo": null,
+            "hi": null,
+            "n": 0
+          },
+          "queries_median": null
+        },
+        "ransomware": {
+          "n": 30,
+          "success": 0.6,
+          "k": {
+            "mean": 2.111111111111111,
+            "lo": 1.7222222222222223,
+            "hi": 2.5,
+            "n": 18
+          },
+          "queries_median": 328.0
+        },
+        "scanning": {
+          "n": 30,
+          "success": 0.3,
+          "k": {
+            "mean": 1.3333333333333333,
+            "lo": 1.0,
+            "hi": 1.6666666666666667,
+            "n": 9
+          },
+          "queries_median": 119.0
+        },
+        "xss": {
+          "n": 30,
+          "success": 0.0,
+          "k": {
+            "mean": null,
+            "lo": null,
+            "hi": null,
+            "n": 0
+          },
+          "queries_median": null
+        }
+      },
+      "n": 270
+    }
+  },
+  "_seconds": 442.15829610824585
+}
