@@ -17,8 +17,11 @@ https://doi.org/10.5281/zenodo.21844113
 * **Paper 4 (federated learning)** — rebuilt in `experiments/paper4_federated/run_fl_v2.py`: validation-based
   round selection, client partitions redrawn per repetition, tuned baselines, matched centralised and
   local-only references, group normalisation, record-level DP-SGD with an RDP accountant, natural
-  device-level partition, FedLC. Results in `experiments/paper4_federated/results_v2/<dataset>/<experiment>/seed<r>.json`
-  (superseded runs kept in `_bn_superseded/` and `_superseded_r2/` for transparency).
+  device-level partitions (TON-IoT by destination host, redrawn per repetition; N-BaIoT one client per device),
+  per-site evaluation on each site's own traffic, local fine-tuning, FedLC, and batch normalisation with federated
+  re-estimation of its statistics. Results in `experiments/paper4_federated/results_v2/<dataset>/<experiment>/seed<r>.json`
+  (superseded runs kept in `_bn_superseded/`, `_superseded_r2/` and `_stale/` for transparency). N-BaIoT is prepared by
+  `experiments/paper4_federated/prepare_nbaiot.py` (3% sample per device–class file, seed 42; counts in `dataset4/`).
 * Other papers of the series (1–3, 6, 7) are being revised; their scripts in this archive are the
   version-1 code and have not yet been re-run on the corrected pipeline.
 
@@ -29,6 +32,7 @@ The datasets are not redistributed; obtain them from their providers and place t
 * TON_IoT network data — N. Moustafa, UNSW Canberra (`dataset/train_test_network.csv`)
 * UNSW-NB15 training set — N. Moustafa and J. Slay (`dataset2/UNSW_NB15.csv`)
 * CICIDS2017 — Canadian Institute for Cybersecurity
+* N-BaIoT — Y. Meidan et al., UCI Machine Learning Repository dataset 442 (extract to `dataset4/raw/<device>/`)
 
 Trained model files (`*.pkl`, `*.h5`) and run logs are not included; every result can be regenerated.
 
@@ -44,6 +48,8 @@ From the archive root:
     python -m experiments.baseline.run_experiment --dataset UNSW_NB15        # corrected baseline + pipeline.pkl
     python -m experiments.paper5_xai.run_xai_v3 --dataset all                # Paper 5
     python -m experiments.paper4_federated.run_fl_v2 --dataset TON_IoT --group core --seeds 0,1,2,3,4   # Paper 4
+    python -m experiments.paper4_federated.prepare_nbaiot                                           # N-BaIoT sample
+    python -m experiments.paper4_federated.run_fl_v2 --dataset N_BaIoT --group device --seeds 0,1,2,3,4
 
 See the docstrings of each script for the experiment groups.
 

@@ -62,18 +62,35 @@ DP_ROUNDS, DP_LOCAL_EPOCHS = 20, 1      # shorter schedule for the (CPU-bound) D
 
 # round-3 tuning: two tuning repetitions on partitions disjoint from the reported ones (seeds 100, 101),
 # wider grids, FedProx/FedAdam tuned at the tuned FedAvg client lr (stage b after stage a)
-TUNE_SEEDS = (100, 101)
+# round 5: a third tuning repetition (seed 102) and grids widened where round 4 selected an edge
+TUNE_SEEDS = (100, 101, 102)
 TUNE3_A = {
     'fedavg':    ('lr', (1e-3, 3e-3, 6e-3, 1e-2)),
-    'scaffold':  ('lr', (0.03, 0.1, 0.3, 1.0)),
+    'scaffold':  ('lr', (0.01, 0.03, 0.1, 0.3, 1.0)),
     'fedavgsgd': ('lr', (0.01, 0.03, 0.1, 0.3, 1.0)),
 }
 TUNE3_B = {
-    'fedprox':   ('mu', (1e-4, 1e-3, 1e-2, 1e-1)),
+    'fedprox':   ('mu', (1e-5, 1e-4, 1e-3, 1e-2, 1e-1)),
     'fedadam':   ('server_lr', (0.003, 0.01, 0.03, 0.1)),
 }
 PORTS = ('src_port', 'dst_port')
-TUNE3_LC = {'fedlc': ('tau', (0.1, 0.3, 1.0))}
+TUNE3_LC = {'fedlc': ('tau', (0.1, 0.3, 1.0, 3.0, 10.0, 30.0, 100.0))}
+CENTRAL_LR = (1e-3, 3e-3, 6e-3, 1e-2)
+# N-BaIoT (115 features, slower runs): two tuning repetitions and grids without the values that diverged
+# on both other datasets (SGD lr 1.0) or were never close (FedAdam server lr 0.003)
+NB_TUNE_SEEDS = (100, 101)
+NB_GRIDS = {
+    'a': {'fedavg': ('lr', (1e-3, 3e-3, 6e-3, 1e-2)), 'scaffold': ('lr', (0.01, 0.03, 0.1, 0.3)),
+          'fedavgsgd': ('lr', (0.01, 0.03, 0.1, 0.3))},
+    'b': {'fedprox': ('mu', (1e-5, 1e-4, 1e-3, 1e-2)), 'fedadam': ('server_lr', (0.01, 0.03, 0.1))},
+    'lc': {'fedlc': ('tau', (0.3, 1.0, 3.0, 10.0, 30.0, 100.0))},
+}
+
+
+def grids3(ds, stage):
+    if ds == 'N_BaIoT':
+        return NB_GRIDS[stage]
+    return TUNE3_A if stage == 'a' else TUNE3_B if stage == 'b' else TUNE3_LC     # round 5: the centralised reference's own lr check
 DP_FULL_SIGMA = 1.8       # epsilon at 50 rounds x 2 epochs about equal to sigma = 1 at 20 x 1
 
 TUNE_GRID = {
@@ -87,7 +104,19 @@ TUNE_GRID = {
 
 # ── data ──────────────────────────────────────────────────────────────────────
 
+def load_nbaiot():
+    """N-BaIoT prepared by prepare_nbaiot.py (3% sample, deduplicated, 70/15/15, min-max on train)."""
+    z = np.load(ROOT / 'dataset4' / 'nbaiot_prepared.npz')
+    info = json.loads((ROOT / 'dataset4' / 'nbaiot_prepared.json').read_text())
+    classes = info['classes']
+    return dict(ds='N_BaIoT', Xtr=z['Xtr'], ytr=z['ytr'], Xva=z['Xva'], yva=z['yva'], Xte=z['Xte'], yte=z['yte'],
+                classes=classes, normal=classes.index('normal'), features=info['features'], dropped=[],
+                dev_tr=z['dtr'], dev_te=z['dte'], devices=info['devices'], dst_tr=None, dst_te=None)
+
+
 def load_data(ds, drop=(), meta=False):
+    if ds == 'N_BaIoT':
+        return load_nbaiot()
     import joblib
     from src.data.loader import load_dataset
     pipe = joblib.load(BASE_RES / ds / 'pipeline.pkl')
@@ -104,32 +133,48 @@ def load_data(ds, drop=(), meta=False):
                 Xte=g(raw['X_test']), yte=raw['y_test'].astype(np.int32),
                 classes=classes, normal=classes.index('normal'), features=[feats[i] for i in keep],
                 dropped=[n for n in feats if n in drop],
-                dst_tr=raw['meta_train']['dst_ip'].astype(str).values if meta else None)
+                dst_tr=raw['meta_train']['dst_ip'].astype(str).values if meta else None,
+                dst_te=raw['meta_test']['dst_ip'].astype(str).values if meta else None)
 
 
 def iid_partition(n, n_clients, rng):
     return np.array_split(rng.permutation(n), n_clients)
 
 
-def natural_partition(dst, n_clients, rng):
+def natural_partition(dst, n_clients, rng, randomized=False):
     """Device-level partition: every destination host (IP) belongs to exactly one client, so a
-    client sees all traffic to the devices it monitors. Hosts are taken in random order and each
-    is assigned to the currently smallest client (balanced sizes)."""
+    client sees all traffic to the devices it monitors. Each host is assigned to the currently
+    smallest client. randomized=False (round 4, 'nat'): large hosts first, only ties in random order,
+    so the partition is almost the same in every repetition. randomized=True (round 5, 'natr'):
+    hosts in a fresh random order per repetition, so the partition is redrawn.
+    Returns the client index arrays and the host -> client map."""
     hosts, inv = np.unique(dst, return_inverse=True)
     sizes = np.bincount(inv)
     load, owner = np.zeros(n_clients), np.empty(len(hosts), int)
     order = rng.permutation(len(hosts))
-    for h in order[np.argsort(-sizes[order], kind='stable')]:   # large hosts first, ties in random order
+    if not randomized:
+        order = order[np.argsort(-sizes[order], kind='stable')]   # large hosts first, ties in random order
+    for h in order:
         k = int(np.argmin(load)); owner[h] = k; load[k] += sizes[h]
-    return [rng.permutation(np.where(owner[inv] == k)[0]) for k in range(n_clients)]
+    clients = [rng.permutation(np.where(owner[inv] == k)[0]) for k in range(n_clients)]
+    return clients, dict(zip(hosts.tolist(), owner.tolist()))
 
 
 def make_partition(D, cfg, prng):
+    """Client index arrays, and (natural partitions) each client's own test records: test traffic to
+    the hosts it owns (test hosts never seen in training belong to no client)."""
+    if cfg.get('partition') == 'device':
+        # N-BaIoT: every physical device is one client (fixed by the data; repetitions vary the rest)
+        nd = len(D['devices'])
+        return ([prng.permutation(np.where(D['dev_tr'] == k)[0]) for k in range(nd)],
+                [np.where(D['dev_te'] == k)[0] for k in range(nd)])
     if cfg.get('partition') == 'natural':
-        return natural_partition(D['dst_tr'], cfg['n_clients'], prng)
+        clients, own = natural_partition(D['dst_tr'], cfg['n_clients'], prng, cfg.get('randomized', False))
+        te_owner = np.array([own.get(h, -1) for h in D['dst_te']])
+        return clients, [np.where(te_owner == k)[0] for k in range(cfg['n_clients'])]
     if cfg['alpha'] is None:
-        return iid_partition(len(D['ytr']), cfg['n_clients'], prng)
-    return dirichlet_partition(D['ytr'], cfg['n_clients'], cfg['alpha'], prng)
+        return iid_partition(len(D['ytr']), cfg['n_clients'], prng), None
+    return dirichlet_partition(D['ytr'], cfg['n_clients'], cfg['alpha'], prng), None
 
 
 def dirichlet_partition(y, n_clients, alpha, rng):
@@ -340,6 +385,54 @@ class Evaluator:
                      benign_fpr=float((p[y == nrm] != nrm).mean()), attack_detection=float((p[y != nrm] != nrm).mean()))
         return r
 
+    def site_scores(self, site_te):
+        """Each client's own test traffic: macro-F1 over the classes present in that traffic,
+        accuracy, benign false-positive rate and attack detection."""
+        out = []
+        for ix in site_te:
+            y = self.D['yte'][ix]
+            if len(ix) == 0:
+                out.append(dict(n=0)); continue
+            p = self.predict(self.D['Xte'][ix])
+            nrm = self.D['normal']
+            out.append(dict(n=int(len(ix)), classes=np.unique(y).tolist(),
+                            f1=float(f1_score(y, p, average='macro', labels=np.unique(y), zero_division=0)),
+                            acc=float((p == y).mean()),
+                            benign_fpr=float((p[y == nrm] != nrm).mean()) if (y == nrm).any() else None,
+                            attack_detection=float((p[y != nrm] != nrm).mean()) if (y != nrm).any() else None))
+        return out
+
+
+def fed_recal(model, D, clients, rng, per_client=8192):
+    """Federated re-estimation of BatchNorm statistics (deployable): layer by layer, every client
+    sends the mean and mean square of the layer input over (up to) per_client of its own records,
+    computed with the current global model; the server averages them weighted by n_k and sets the
+    running mean and variance. Returns the saved statistics so the caller can restore them."""
+    bns = [l for l in model.layers if isinstance(l, tf.keras.layers.BatchNormalization)]
+    saved = [(l.moving_mean.numpy(), l.moving_variance.numpy()) for l in bns]
+    probe = tf.keras.Model(model.input, [l.input for l in bns])
+    samples = [rng.choice(c, min(per_client, len(c)), replace=False) for c in clients]
+    w = np.array([len(c) for c in clients], float); w /= w.sum()
+    for j, l in enumerate(bns):
+        m1, m2 = 0.0, 0.0
+        for wk, s in zip(w, samples):
+            a = probe(tf.constant(D['Xtr'][s][..., None]), training=False)[j].numpy()
+            a = a.reshape(-1, a.shape[-1])
+            m1 = m1 + wk * a.mean(0); m2 = m2 + wk * (a * a).mean(0)
+        l.moving_mean.assign(m1.astype(np.float32))
+        l.moving_variance.assign(np.maximum(m2 - m1 * m1, 0).astype(np.float32))
+    del probe
+    return bns, saved
+
+
+def fed_recal_scores(model, ev, D, clients, rng):
+    """Diagnostic per round: score validation and test after federated re-estimation, then restore."""
+    bns, saved = fed_recal(model, D, clients, rng)
+    v, t = ev.scores(D['Xva'], D['yva']), ev.scores(D['Xte'], D['yte'])
+    for l, (m, var) in zip(bns, saved):
+        l.moving_mean.assign(m); l.moving_variance.assign(var)
+    return dict(val_f1_fedrecal=v['f1'], test_f1_fedrecal=t['f1'])
+
 
 def recal_scores(model, ev, D, rng):
     """Diagnostic only: replace BatchNorm running statistics by the statistics of 8,192 random
@@ -372,7 +465,7 @@ def run_federated(D, cfg, rep):
     prng = np.random.default_rng(1000 + rep)
     tf.keras.utils.set_random_seed(rep)
     n = len(D['ytr'])
-    clients = make_partition(D, cfg, prng)
+    clients, site_te = make_partition(D, cfg, prng)
     nf, nc = D['Xtr'].shape[1], len(D['classes'])
     dp = cfg['algo'] == 'dpsgd'
     norm = 'gn' if dp else cfg.get('norm', 'gn')
@@ -431,7 +524,9 @@ def run_federated(D, cfg, rep):
         assign(gmodel, gw)
         h = dict(round=rnd, **{f'val_{k}': v for k, v in ev.scores(D['Xva'], D['yva']).items()},
                  **{f'test_{k}': v for k, v in ev.scores(D['Xte'], D['yte']).items()}, sec=time.time() - t0)
-        if cfg.get('recal'):
+        if cfg.get('recal') == 'fed':
+            h.update(fed_recal_scores(gmodel, ev, D, clients, rrng))
+        elif cfg.get('recal'):
             h.update(recal_scores(gmodel, ev, D, rrng))
         if not np.isfinite(sum(float(np.abs(w).sum()) for w in gw)):
             h['nonfinite'] = True
@@ -445,8 +540,10 @@ def run_federated(D, cfg, rep):
     if cfg.get('keep_best'):
         assign(gmodel, best_w)
         sel_full = ev.scores(D['Xte'], D['yte'], full=True)
+        sel_site = ev.site_scores(site_te) if site_te is not None else None
+        ft = local_finetune(cmodel, lt, best_w, D, clients, site_te, cfg['finetune'], rep) if cfg.get('finetune') and site_te is not None else None
     else:
-        sel_full = None
+        sel_full = sel_site = ft = None
     assign(gmodel, gw)
     fin_full = ev.scores(D['Xte'], D['yte'], full=True)
     size_b = int(sum(w.size * 4 for w in gw))
@@ -456,13 +553,33 @@ def run_federated(D, cfg, rep):
                selected_round=hist[s]['round'], val_f1_selected=hist[s]['val_f1'],
                test_f1_selected=hist[s]['test_f1'], test_acc_selected=hist[s]['test_acc'],
                test_f1_final=hist[-1]['test_f1'], test_acc_final=hist[-1]['test_acc'],
-               test_selected_full=sel_full, test_final_full=fin_full,
+               test_selected_full=sel_full, test_final_full=fin_full, site_selected=sel_site,
                model_bytes=size_b, bytes_per_round=comm, total_mb=comm * cfg['rounds'] / 1e6,
                raw_train_mb=float(D['Xtr'].nbytes / 1e6), history=hist, seconds=time.time() - t0,
                any_nonfinite=any(h.get('nonfinite') for h in hist))
+    if ft is not None:
+        out['finetune'] = ft
     if dp:
         out['dp'] = dp_epsilon(out['client_sizes'], cfg)
     del gmodel, cmodel, lt, ev; tf.keras.backend.clear_session(); gc.collect()
+    return out
+
+
+def local_finetune(cmodel, lt, w0, D, clients, site_te, epochs, rep):
+    """Round 5b: each site adapts the validation-selected global model to its own data with a few
+    local epochs (Adam, same learning rate, optimiser state reset) and is scored after each number of
+    epochs in `epochs` (cumulative) on the common test set and on its own test traffic. No selection
+    on test data: the epoch counts are fixed in advance."""
+    evc = Evaluator(cmodel, D)
+    frng = np.random.default_rng(4000 + rep)
+    out = []
+    for k, idx in enumerate(clients):
+        assign(cmodel, w0); lt.reset_optimizer(); done, rec = 0, {}
+        for E in epochs:
+            lt.run(idx, E - done, frng); done = E
+            rec[str(E)] = dict(test_f1=evc.scores(D['Xte'], D['yte'])['f1'], site=evc.site_scores([site_te[k]])[0])
+        out.append(rec)
+    del evc
     return out
 
 
@@ -483,7 +600,7 @@ def dp_epsilon(sizes, cfg):
                 sampling='Poisson, q = B / n_k per client', unit='record-level, per client')
 
 
-def run_centralised(D, cfg, rep, idx=None):
+def run_centralised(D, cfg, rep, idx=None, site_te=None):
     """Same model, optimiser and number of passes as one federated client sees in total."""
     rng = np.random.default_rng(2000 + rep)
     tf.keras.utils.set_random_seed(rep)
@@ -507,7 +624,8 @@ def run_centralised(D, cfg, rep, idx=None):
     fin = ev.scores(D['Xte'], D['yte'], full=True)
     assign(model, best_w)
     sel = ev.scores(D['Xte'], D['yte'], full=True)
-    out = dict(cfg=cfg, rep=rep, n_train=int(len(idx)), selected_round=hist[s]['round'], val_f1_selected=hist[s]['val_f1'],
+    site = ev.site_scores(site_te) if site_te is not None else None
+    out = dict(cfg=cfg, rep=rep, n_train=int(len(idx)), site_selected=site, selected_round=hist[s]['round'], val_f1_selected=hist[s]['val_f1'],
                test_f1_selected=hist[s]['test_f1'], test_acc_selected=hist[s]['test_acc'],
                test_f1_final=hist[-1]['test_f1'], test_selected_full=sel, test_final_full=fin,
                history=hist, seconds=time.time() - t0)
@@ -517,8 +635,9 @@ def run_centralised(D, cfg, rep, idx=None):
 
 def run_local_only(D, cfg, rep):
     prng = np.random.default_rng(1000 + rep)
-    clients = make_partition(D, cfg, prng)
-    res = [run_centralised(D, cfg, rep, idx=c) for c in clients]
+    clients, site_te = make_partition(D, cfg, prng)
+    res = [run_centralised(D, cfg, rep, idx=c, site_te=None if site_te is None else [site_te[k]])
+           for k, c in enumerate(clients)]
     f = [r['test_f1_selected'] for r in res]
     return dict(cfg=cfg, rep=rep, client_sizes=[int(len(c)) for c in clients], per_client=res,
                 test_f1_selected_mean=float(np.mean(f)), test_f1_selected_min=float(np.min(f)),
@@ -548,7 +667,7 @@ def experiments(ds, group):
     lr_sgd = lambda algo: T.get(algo, 0.1)
     E = {}
     if group in ('tune3a', 'tune3b', 'tunelc'):
-        grids = TUNE3_A if group == 'tune3a' else TUNE3_B if group == 'tune3b' else TUNE3_LC
+        grids = grids3(ds, 'a' if group == 'tune3a' else 'b' if group == 'tune3b' else 'lc')
         for algo, (key, grid) in grids.items():
             for v in grid:
                 c = base_cfg(algo=algo, lr=T.get('fedavg', LR) if algo in ('fedprox', 'fedadam', 'fedlc') else LR)
@@ -595,6 +714,53 @@ def experiments(ds, group):
         E['scaffold_nat'] = base_cfg(algo='scaffold', lr=lr_sgd('scaffold'), **nat)
         E['fedavgsgd_nat'] = base_cfg(algo='fedavgsgd', lr=lr_sgd('fedavgsgd'), **nat)
         E['fedlc_nat'] = base_cfg(algo='fedlc', lr=lr_adam, tau=T.get('fedlc', 1.0), **nat)
+    if group == 'natural_r':
+        # round 5: host order redrawn in every repetition; every site also scored on its own hosts' test traffic
+        nat = dict(partition='natural', alpha=None, randomized=True)
+        E['local_natr'] = base_cfg(kind='local', lr=lr_adam, **nat)
+        E['fedavg_natr'] = base_cfg(lr=lr_adam, **nat)
+        E['fedprox_natr'] = base_cfg(algo='fedprox', lr=lr_adam, mu=T.get('fedprox', 0.01), **nat)
+        E['fedadam_natr'] = base_cfg(algo='fedadam', lr=lr_adam, server_lr=T.get('fedadam', 0.1), **nat)
+        E['scaffold_natr'] = base_cfg(algo='scaffold', lr=lr_sgd('scaffold'), **nat)
+        E['fedavgsgd_natr'] = base_cfg(algo='fedavgsgd', lr=lr_sgd('fedavgsgd'), **nat)
+        E['fedlc_natr'] = base_cfg(algo='fedlc', lr=lr_adam, tau=T.get('fedlc', 1.0), **nat)
+    if group == 'device':
+        # N-BaIoT: one client per device (9 clients); IID and Dirichlet references with the same N
+        dev = dict(partition='device', alpha=None, n_clients=9)
+        E['local_dev'] = base_cfg(kind='local', lr=lr_adam, **dev)
+        E['fedavg_dev'] = base_cfg(lr=lr_adam, **dev)
+        E['fedprox_dev'] = base_cfg(algo='fedprox', lr=lr_adam, mu=T.get('fedprox', 0.01), **dev)
+        E['fedadam_dev'] = base_cfg(algo='fedadam', lr=lr_adam, server_lr=T.get('fedadam', 0.1), **dev)
+        E['scaffold_dev'] = base_cfg(algo='scaffold', lr=lr_sgd('scaffold'), **dev)
+        E['fedavgsgd_dev'] = base_cfg(algo='fedavgsgd', lr=lr_sgd('fedavgsgd'), **dev)
+        E['fedlc_dev'] = base_cfg(algo='fedlc', lr=lr_adam, tau=T.get('fedlc', 1.0), **dev)
+        E['fedavg_iid9'] = base_cfg(alpha=None, n_clients=9, lr=lr_adam)
+        for a in (0.5, 0.1):
+            E[f'fedavg_a{a:g}_N9'] = base_cfg(alpha=a, n_clients=9, lr=lr_adam)
+    if group == 'finetune':
+        # round 5b: does local adaptation of the federated model recover each site's own-traffic accuracy?
+        if ds == 'N_BaIoT':
+            E['fedavg_dev_ft'] = base_cfg(lr=lr_adam, partition='device', alpha=None, n_clients=9, finetune=[1, 2, 5])
+        else:
+            E['fedavg_natr_ft'] = base_cfg(lr=lr_adam, partition='natural', alpha=None, randomized=True, finetune=[1, 2, 5])
+    if group == 'tunecentral':
+        for v in CENTRAL_LR:
+            E[f'tunec_central_lr{v:g}'] = base_cfg(kind='central', lr=v)
+    if group == 'portsalg':
+        # round 5: algorithm comparison without the port features (TON-IoT, alpha = 0.5)
+        E['fedprox_a0.5_noports'] = base_cfg(algo='fedprox', lr=lr_adam, mu=T.get('fedprox', 0.01))
+        E['fedadam_a0.5_noports'] = base_cfg(algo='fedadam', lr=lr_adam, server_lr=T.get('fedadam', 0.1))
+        E['fedlc_a0.5_noports'] = base_cfg(algo='fedlc', lr=lr_adam, tau=T.get('fedlc', 1.0))
+        E['scaffold_a0.5_noports'] = base_cfg(algo='scaffold', lr=lr_sgd('scaffold'))
+        E['fedavgsgd_a0.5_noports'] = base_cfg(algo='fedavgsgd', lr=lr_sgd('fedavgsgd'))
+    if group == 'dptune2':
+        d = dict(algo='dpsgd', rounds=DP_ROUNDS, local_epochs=DP_LOCAL_EPOCHS, clip=4.0, sigma=1.0, lr=3e-3)
+        E['dpt_C4'] = base_cfg(**d)
+    if group == 'bnfed':
+        # round 5: BatchNorm with federated re-estimation of its statistics (deployable recalibration)
+        for a in (0.5, 0.1):
+            E[f'fedavg_bn_a{a:g}_fedrecal'] = base_cfg(alpha=a, lr=lr_adam, norm='bn', recal='fed')
+        E['central_bn_recal'] = base_cfg(kind='central', lr=lr_adam, norm='bn', recal=True)
     if group == 'fedlc':
         for a in (0.5, 0.1):
             E[f'fedlc_a{a:g}'] = base_cfg(algo='fedlc', alpha=a, lr=lr_adam, tau=T.get('fedlc', 1.0))
@@ -662,12 +828,13 @@ def finalize_tuning3(ds, stage):
     """Pick hyperparameters by mean validation F1 over the two tuning repetitions; write tuned_v3.json."""
     p = OUT / ds / 'tuned_v3.json'
     res = json.loads(p.read_text()) if p.exists() else {}
-    grids = TUNE3_A if stage == 'a' else TUNE3_B if stage == 'b' else TUNE3_LC
+    grids = grids3(ds, stage)
+    seeds = NB_TUNE_SEEDS if ds == 'N_BaIoT' else TUNE_SEEDS
     for algo, (key, grid) in grids.items():
         sc = {}
         for v in grid:
             vals = [json.loads((OUT / ds / f'tune3_{algo}_{key}{v:g}' / f'seed{r}.json').read_text())['val_f1_selected']
-                    for r in TUNE_SEEDS if (OUT / ds / f'tune3_{algo}_{key}{v:g}' / f'seed{r}.json').exists()]
+                    for r in seeds if (OUT / ds / f'tune3_{algo}_{key}{v:g}' / f'seed{r}.json').exists()]
             if vals:
                 sc[v] = float(np.mean(vals))
         if sc:
@@ -703,10 +870,10 @@ def prepare_rerun(ds):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('--dataset', required=True, choices=['TON_IoT', 'UNSW_NB15'])
+    ap.add_argument('--dataset', required=True, choices=['TON_IoT', 'UNSW_NB15', 'N_BaIoT'])
     ap.add_argument('--group', required=True, choices=['tune', 'core', 'extra', 'dp', 'followup', 'finalize_tuning', 'tune3a', 'tune3b',
                                          'finalize3a', 'finalize3b', 'prepare_rerun', 'ports', 'bnrecal', 'dptune',
-                                         'natural', 'fedlc', 'tunelc', 'finalizelc', 'long', 'followup2', 'dpfull'])
+                                         'natural', 'natural_r', 'device', 'bnfed', 'tunecentral', 'portsalg', 'dptune2', 'fedlc', 'tunelc', 'finalizelc', 'long', 'followup2', 'dpfull', 'finetune'])
     ap.add_argument('--seeds', default='0')
     ap.add_argument('--only', default=None, help='comma-separated experiment names')
     ap.add_argument('--smoke', action='store_true', help='2 rounds, results_v2_smoke/')
@@ -721,11 +888,11 @@ def main():
         finalize_tuning3(a.dataset, a.group[-1]); return
     if a.group == 'finalizelc':
         finalize_tuning3(a.dataset, 'lc'); return
-    if a.group == 'natural' and a.dataset != 'TON_IoT':
+    if a.group in ('natural', 'natural_r') and a.dataset != 'TON_IoT':
         print('natural partition needs IP addresses (TON-IoT only)'); return
     if a.group == 'prepare_rerun':
         prepare_rerun(a.dataset); return
-    D = load_data(a.dataset, drop=PORTS if a.group == 'ports' else (), meta=a.group == 'natural')
+    D = load_data(a.dataset, drop=PORTS if a.group in ('ports', 'portsalg') else (), meta=a.group in ('natural', 'natural_r', 'finetune'))
     print(f"===== {a.dataset}: train {len(D['ytr'])} val {len(D['yva'])} test {len(D['yte'])} features {D['Xtr'].shape[1]}", flush=True)
     E = experiments(a.dataset, a.group)
     if a.only:
@@ -736,7 +903,13 @@ def main():
         for name, cfg in E.items():
             path = OUT / a.dataset / name / f'seed{rep}.json'
             if path.exists():
-                print(f'  [{name} seed{rep}] cached'); continue
+                old = json.loads(path.read_text())['cfg']
+                if {k: v for k, v in old.items() if k != 'keep_best'} == cfg:
+                    print(f'  [{name} seed{rep}] cached'); continue
+                # configuration changed since the cached run (e.g. a re-tuned value): set it aside and re-run
+                stale = OUT / '_stale' / a.dataset / name; stale.mkdir(parents=True, exist_ok=True)
+                path.replace(stale / path.name)
+                print(f'  [{name} seed{rep}] cached with a different cfg {old} -> re-run', flush=True)
             print(f'  [{name} seed{rep}] running {cfg}', flush=True)
             t0 = time.time()
             kind = cfg.get('kind')

@@ -6,7 +6,7 @@
   "rounds": 20,
   "local_epochs": 1,
   "lr": 0.003,
-  "norm": "bn",
+  "norm": "gn",
   "clip": 0.0,
   "sigma": 0.0,
   "keep_best": true
@@ -282,5 +282,6 @@
  "dp": {
   "epsilon": null,
   "note": "no noise: no privacy guarantee"
- }
+ },
+ "cfg_norm_note": "cfg.norm corrected bn->gn in round 5: DP-SGD runs always build the GroupNorm model (run_fl_v2.run_federated), as the run-level 'norm' field recorded"
 }
