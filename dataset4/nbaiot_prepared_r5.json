@@ -1,0 +1,630 @@
+{
+ "sample_frac": 0.03,
+ "seed": 42,
+ "n_sampled": 211648,
+ "n_exact_dup": 185,
+ "n_conflict": 0,
+ "n_kept": 211463,
+ "n_train": 148024,
+ "n_val": 31719,
+ "n_test": 31720,
+ "classes": [
+  "normal",
+  "gafgyt_combo",
+  "gafgyt_junk",
+  "gafgyt_scan",
+  "gafgyt_tcp",
+  "gafgyt_udp",
+  "mirai_ack",
+  "mirai_scan",
+  "mirai_syn",
+  "mirai_udp",
+  "mirai_udpplain"
+ ],
+ "devices": [
+  "Danmini_Doorbell",
+  "Ecobee_Thermostat",
+  "Ennio_Doorbell",
+  "Philips_B120N10_Baby_Monitor",
+  "Provision_PT_737E_Security_Camera",
+  "Provision_PT_838_Security_Camera",
+  "Samsung_SNH_1011_N_Webcam",
+  "SimpleHome_XCS7_1002_WHT_Security_Camera",
+  "SimpleHome_XCS7_1003_WHT_Security_Camera"
+ ],
+ "features": [
+  "MI_dir_L5_weight",
+  "MI_dir_L5_mean",
+  "MI_dir_L5_variance",
+  "MI_dir_L3_weight",
+  "MI_dir_L3_mean",
+  "MI_dir_L3_variance",
+  "MI_dir_L1_weight",
+  "MI_dir_L1_mean",
+  "MI_dir_L1_variance",
+  "MI_dir_L0.1_weight",
+  "MI_dir_L0.1_mean",
+  "MI_dir_L0.1_variance",
+  "MI_dir_L0.01_weight",
+  "MI_dir_L0.01_mean",
+  "MI_dir_L0.01_variance",
+  "H_L5_weight",
+  "H_L5_mean",
+  "H_L5_variance",
+  "H_L3_weight",
+  "H_L3_mean",
+  "H_L3_variance",
+  "H_L1_weight",
+  "H_L1_mean",
+  "H_L1_variance",
+  "H_L0.1_weight",
+  "H_L0.1_mean",
+  "H_L0.1_variance",
+  "H_L0.01_weight",
+  "H_L0.01_mean",
+  "H_L0.01_variance",
+  "HH_L5_weight",
+  "HH_L5_mean",
+  "HH_L5_std",
+  "HH_L5_magnitude",
+  "HH_L5_radius",
+  "HH_L5_covariance",
+  "HH_L5_pcc",
+  "HH_L3_weight",
+  "HH_L3_mean",
+  "HH_L3_std",
+  "HH_L3_magnitude",
+  "HH_L3_radius",
+  "HH_L3_covariance",
+  "HH_L3_pcc",
+  "HH_L1_weight",
+  "HH_L1_mean",
+  "HH_L1_std",
+  "HH_L1_magnitude",
+  "HH_L1_radius",
+  "HH_L1_covariance",
+  "HH_L1_pcc",
+  "HH_L0.1_weight",
+  "HH_L0.1_mean",
+  "HH_L0.1_std",
+  "HH_L0.1_magnitude",
+  "HH_L0.1_radius",
+  "HH_L0.1_covariance",
+  "HH_L0.1_pcc",
+  "HH_L0.01_weight",
+  "HH_L0.01_mean",
+  "HH_L0.01_std",
+  "HH_L0.01_magnitude",
+  "HH_L0.01_radius",
+  "HH_L0.01_covariance",
+  "HH_L0.01_pcc",
+  "HH_jit_L5_weight",
+  "HH_jit_L5_mean",
+  "HH_jit_L5_variance",
+  "HH_jit_L3_weight",
+  "HH_jit_L3_mean",
+  "HH_jit_L3_variance",
+  "HH_jit_L1_weight",
+  "HH_jit_L1_mean",
+  "HH_jit_L1_variance",
+  "HH_jit_L0.1_weight",
+  "HH_jit_L0.1_mean",
+  "HH_jit_L0.1_variance",
+  "HH_jit_L0.01_weight",
+  "HH_jit_L0.01_mean",
+  "HH_jit_L0.01_variance",
+  "HpHp_L5_weight",
+  "HpHp_L5_mean",
+  "HpHp_L5_std",
+  "HpHp_L5_magnitude",
+  "HpHp_L5_radius",
+  "HpHp_L5_covariance",
+  "HpHp_L5_pcc",
+  "HpHp_L3_weight",
+  "HpHp_L3_mean",
+  "HpHp_L3_std",
+  "HpHp_L3_magnitude",
+  "HpHp_L3_radius",
+  "HpHp_L3_covariance",
+  "HpHp_L3_pcc",
+  "HpHp_L1_weight",
+  "HpHp_L1_mean",
+  "HpHp_L1_std",
+  "HpHp_L1_magnitude",
+  "HpHp_L1_radius",
+  "HpHp_L1_covariance",
+  "HpHp_L1_pcc",
+  "HpHp_L0.1_weight",
+  "HpHp_L0.1_mean",
+  "HpHp_L0.1_std",
+  "HpHp_L0.1_magnitude",
+  "HpHp_L0.1_radius",
+  "HpHp_L0.1_covariance",
+  "HpHp_L0.1_pcc",
+  "HpHp_L0.01_weight",
+  "HpHp_L0.01_mean",
+  "HpHp_L0.01_std",
+  "HpHp_L0.01_magnitude",
+  "HpHp_L0.01_radius",
+  "HpHp_L0.01_covariance",
+  "HpHp_L0.01_pcc"
+ ],
+ "n_features": 115,
+ "train_counts": {
+  "Danmini_Doorbell": [
+   1036,
+   1263,
+   636,
+   619,
+   1856,
+   2194,
+   2193,
+   2260,
+   2507,
+   5033,
+   1688
+  ],
+  "Ecobee_Thermostat": [
+   282,
+   1103,
+   661,
+   575,
+   1981,
+   2192,
+   2356,
+   879,
+   2453,
+   3163,
+   1870
+  ],
+  "Ennio_Doorbell": [
+   812,
+   1111,
+   604,
+   589,
+   2133,
+   2103,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "Philips_B120N10_Baby_Monitor": [
+   3626,
+   1203,
+   585,
+   578,
+   1961,
+   2275,
+   1932,
+   2215,
+   2505,
+   4607,
+   1741
+  ],
+  "Provision_PT_737E_Security_Camera": [
+   1316,
+   1269,
+   620,
+   600,
+   2213,
+   2220,
+   1280,
+   2063,
+   1378,
+   3246,
+   1236
+  ],
+  "Provision_PT_838_Security_Camera": [
+   2114,
+   1193,
+   593,
+   580,
+   1823,
+   2223,
+   1229,
+   2078,
+   1284,
+   3298,
+   1100
+  ],
+  "Samsung_SNH_1011_N_Webcam": [
+   1071,
+   1268,
+   575,
+   603,
+   2020,
+   2302,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "SimpleHome_XCS7_1002_WHT_Security_Camera": [
+   966,
+   1130,
+   598,
+   584,
+   1853,
+   2163,
+   2324,
+   951,
+   2658,
+   3101,
+   1619
+  ],
+  "SimpleHome_XCS7_1003_WHT_Security_Camera": [
+   379,
+   1254,
+   564,
+   655,
+   2068,
+   2215,
+   2236,
+   931,
+   2514,
+   3312,
+   1774
+  ]
+ },
+ "files": {
+  "Danmini_Doorbell/normal": {
+   "rows": 49548,
+   "sampled": 1491
+  },
+  "Danmini_Doorbell/gafgyt_combo": {
+   "rows": 59718,
+   "sampled": 1804
+  },
+  "Danmini_Doorbell/gafgyt_junk": {
+   "rows": 29068,
+   "sampled": 908
+  },
+  "Danmini_Doorbell/gafgyt_scan": {
+   "rows": 29849,
+   "sampled": 884
+  },
+  "Danmini_Doorbell/gafgyt_tcp": {
+   "rows": 92141,
+   "sampled": 2660
+  },
+  "Danmini_Doorbell/gafgyt_udp": {
+   "rows": 105874,
+   "sampled": 3137
+  },
+  "Danmini_Doorbell/mirai_ack": {
+   "rows": 102195,
+   "sampled": 3133
+  },
+  "Danmini_Doorbell/mirai_scan": {
+   "rows": 107685,
+   "sampled": 3229
+  },
+  "Danmini_Doorbell/mirai_syn": {
+   "rows": 122573,
+   "sampled": 3581
+  },
+  "Danmini_Doorbell/mirai_udp": {
+   "rows": 237665,
+   "sampled": 7190
+  },
+  "Danmini_Doorbell/mirai_udpplain": {
+   "rows": 81982,
+   "sampled": 2412
+  },
+  "Ecobee_Thermostat/normal": {
+   "rows": 13113,
+   "sampled": 403
+  },
+  "Ecobee_Thermostat/gafgyt_combo": {
+   "rows": 53012,
+   "sampled": 1575
+  },
+  "Ecobee_Thermostat/gafgyt_junk": {
+   "rows": 30312,
+   "sampled": 944
+  },
+  "Ecobee_Thermostat/gafgyt_scan": {
+   "rows": 27494,
+   "sampled": 821
+  },
+  "Ecobee_Thermostat/gafgyt_tcp": {
+   "rows": 95021,
+   "sampled": 2841
+  },
+  "Ecobee_Thermostat/gafgyt_udp": {
+   "rows": 104791,
+   "sampled": 3132
+  },
+  "Ecobee_Thermostat/mirai_ack": {
+   "rows": 113285,
+   "sampled": 3366
+  },
+  "Ecobee_Thermostat/mirai_scan": {
+   "rows": 43192,
+   "sampled": 1256
+  },
+  "Ecobee_Thermostat/mirai_syn": {
+   "rows": 116807,
+   "sampled": 3505
+  },
+  "Ecobee_Thermostat/mirai_udp": {
+   "rows": 151481,
+   "sampled": 4519
+  },
+  "Ecobee_Thermostat/mirai_udpplain": {
+   "rows": 87368,
+   "sampled": 2672
+  },
+  "Ennio_Doorbell/normal": {
+   "rows": 39100,
+   "sampled": 1170
+  },
+  "Ennio_Doorbell/gafgyt_combo": {
+   "rows": 53014,
+   "sampled": 1587
+  },
+  "Ennio_Doorbell/gafgyt_junk": {
+   "rows": 29797,
+   "sampled": 863
+  },
+  "Ennio_Doorbell/gafgyt_scan": {
+   "rows": 28120,
+   "sampled": 842
+  },
+  "Ennio_Doorbell/gafgyt_tcp": {
+   "rows": 101536,
+   "sampled": 3055
+  },
+  "Ennio_Doorbell/gafgyt_udp": {
+   "rows": 103933,
+   "sampled": 3007
+  },
+  "Philips_B120N10_Baby_Monitor/normal": {
+   "rows": 175240,
+   "sampled": 5194
+  },
+  "Philips_B120N10_Baby_Monitor/gafgyt_combo": {
+   "rows": 58152,
+   "sampled": 1719
+  },
+  "Philips_B120N10_Baby_Monitor/gafgyt_junk": {
+   "rows": 28349,
+   "sampled": 836
+  },
+  "Philips_B120N10_Baby_Monitor/gafgyt_scan": {
+   "rows": 27859,
+   "sampled": 826
+  },
+  "Philips_B120N10_Baby_Monitor/gafgyt_tcp": {
+   "rows": 92581,
+   "sampled": 2810
+  },
+  "Philips_B120N10_Baby_Monitor/gafgyt_udp": {
+   "rows": 105782,
+   "sampled": 3255
+  },
+  "Philips_B120N10_Baby_Monitor/mirai_ack": {
+   "rows": 91123,
+   "sampled": 2760
+  },
+  "Philips_B120N10_Baby_Monitor/mirai_scan": {
+   "rows": 103621,
+   "sampled": 3164
+  },
+  "Philips_B120N10_Baby_Monitor/mirai_syn": {
+   "rows": 118128,
+   "sampled": 3579
+  },
+  "Philips_B120N10_Baby_Monitor/mirai_udp": {
+   "rows": 217034,
+   "sampled": 6582
+  },
+  "Philips_B120N10_Baby_Monitor/mirai_udpplain": {
+   "rows": 80808,
+   "sampled": 2487
+  },
+  "Provision_PT_737E_Security_Camera/normal": {
+   "rows": 62154,
+   "sampled": 1889
+  },
+  "Provision_PT_737E_Security_Camera/gafgyt_combo": {
+   "rows": 61380,
+   "sampled": 1813
+  },
+  "Provision_PT_737E_Security_Camera/gafgyt_junk": {
+   "rows": 30898,
+   "sampled": 885
+  },
+  "Provision_PT_737E_Security_Camera/gafgyt_scan": {
+   "rows": 29297,
+   "sampled": 857
+  },
+  "Provision_PT_737E_Security_Camera/gafgyt_tcp": {
+   "rows": 104510,
+   "sampled": 3168
+  },
+  "Provision_PT_737E_Security_Camera/gafgyt_udp": {
+   "rows": 104011,
+   "sampled": 3179
+  },
+  "Provision_PT_737E_Security_Camera/mirai_ack": {
+   "rows": 60554,
+   "sampled": 1828
+  },
+  "Provision_PT_737E_Security_Camera/mirai_scan": {
+   "rows": 96781,
+   "sampled": 2947
+  },
+  "Provision_PT_737E_Security_Camera/mirai_syn": {
+   "rows": 65746,
+   "sampled": 1968
+  },
+  "Provision_PT_737E_Security_Camera/mirai_udp": {
+   "rows": 156248,
+   "sampled": 4637
+  },
+  "Provision_PT_737E_Security_Camera/mirai_udpplain": {
+   "rows": 56681,
+   "sampled": 1765
+  },
+  "Provision_PT_838_Security_Camera/normal": {
+   "rows": 98514,
+   "sampled": 3031
+  },
+  "Provision_PT_838_Security_Camera/gafgyt_combo": {
+   "rows": 57530,
+   "sampled": 1704
+  },
+  "Provision_PT_838_Security_Camera/gafgyt_junk": {
+   "rows": 29068,
+   "sampled": 847
+  },
+  "Provision_PT_838_Security_Camera/gafgyt_scan": {
+   "rows": 28397,
+   "sampled": 828
+  },
+  "Provision_PT_838_Security_Camera/gafgyt_tcp": {
+   "rows": 89387,
+   "sampled": 2608
+  },
+  "Provision_PT_838_Security_Camera/gafgyt_udp": {
+   "rows": 104658,
+   "sampled": 3181
+  },
+  "Provision_PT_838_Security_Camera/mirai_ack": {
+   "rows": 57997,
+   "sampled": 1755
+  },
+  "Provision_PT_838_Security_Camera/mirai_scan": {
+   "rows": 97096,
+   "sampled": 2968
+  },
+  "Provision_PT_838_Security_Camera/mirai_syn": {
+   "rows": 61851,
+   "sampled": 1835
+  },
+  "Provision_PT_838_Security_Camera/mirai_udp": {
+   "rows": 158608,
+   "sampled": 4711
+  },
+  "Provision_PT_838_Security_Camera/mirai_udpplain": {
+   "rows": 53785,
+   "sampled": 1572
+  },
+  "Samsung_SNH_1011_N_Webcam/normal": {
+   "rows": 52150,
+   "sampled": 1533
+  },
+  "Samsung_SNH_1011_N_Webcam/gafgyt_combo": {
+   "rows": 58669,
+   "sampled": 1812
+  },
+  "Samsung_SNH_1011_N_Webcam/gafgyt_junk": {
+   "rows": 28305,
+   "sampled": 822
+  },
+  "Samsung_SNH_1011_N_Webcam/gafgyt_scan": {
+   "rows": 27698,
+   "sampled": 861
+  },
+  "Samsung_SNH_1011_N_Webcam/gafgyt_tcp": {
+   "rows": 97783,
+   "sampled": 2892
+  },
+  "Samsung_SNH_1011_N_Webcam/gafgyt_udp": {
+   "rows": 110617,
+   "sampled": 3296
+  },
+  "SimpleHome_XCS7_1002_WHT_Security_Camera/normal": {
+   "rows": 46585,
+   "sampled": 1388
+  },
+  "SimpleHome_XCS7_1002_WHT_Security_Camera/gafgyt_combo": {
+   "rows": 54283,
+   "sampled": 1614
+  },
+  "SimpleHome_XCS7_1002_WHT_Security_Camera/gafgyt_junk": {
+   "rows": 28579,
+   "sampled": 854
+  },
+  "SimpleHome_XCS7_1002_WHT_Security_Camera/gafgyt_scan": {
+   "rows": 27825,
+   "sampled": 834
+  },
+  "SimpleHome_XCS7_1002_WHT_Security_Camera/gafgyt_tcp": {
+   "rows": 88816,
+   "sampled": 2657
+  },
+  "SimpleHome_XCS7_1002_WHT_Security_Camera/gafgyt_udp": {
+   "rows": 103720,
+   "sampled": 3097
+  },
+  "SimpleHome_XCS7_1002_WHT_Security_Camera/mirai_ack": {
+   "rows": 111480,
+   "sampled": 3320
+  },
+  "SimpleHome_XCS7_1002_WHT_Security_Camera/mirai_scan": {
+   "rows": 45930,
+   "sampled": 1358
+  },
+  "SimpleHome_XCS7_1002_WHT_Security_Camera/mirai_syn": {
+   "rows": 125715,
+   "sampled": 3797
+  },
+  "SimpleHome_XCS7_1002_WHT_Security_Camera/mirai_udp": {
+   "rows": 151879,
+   "sampled": 4430
+  },
+  "SimpleHome_XCS7_1002_WHT_Security_Camera/mirai_udpplain": {
+   "rows": 78244,
+   "sampled": 2313
+  },
+  "SimpleHome_XCS7_1003_WHT_Security_Camera/normal": {
+   "rows": 19528,
+   "sampled": 545
+  },
+  "SimpleHome_XCS7_1003_WHT_Security_Camera/gafgyt_combo": {
+   "rows": 59398,
+   "sampled": 1791
+  },
+  "SimpleHome_XCS7_1003_WHT_Security_Camera/gafgyt_junk": {
+   "rows": 27413,
+   "sampled": 806
+  },
+  "SimpleHome_XCS7_1003_WHT_Security_Camera/gafgyt_scan": {
+   "rows": 28572,
+   "sampled": 935
+  },
+  "SimpleHome_XCS7_1003_WHT_Security_Camera/gafgyt_tcp": {
+   "rows": 98075,
+   "sampled": 2964
+  },
+  "SimpleHome_XCS7_1003_WHT_Security_Camera/gafgyt_udp": {
+   "rows": 102980,
+   "sampled": 3171
+  },
+  "SimpleHome_XCS7_1003_WHT_Security_Camera/mirai_ack": {
+   "rows": 107187,
+   "sampled": 3194
+  },
+  "SimpleHome_XCS7_1003_WHT_Security_Camera/mirai_scan": {
+   "rows": 43674,
+   "sampled": 1330
+  },
+  "SimpleHome_XCS7_1003_WHT_Security_Camera/mirai_syn": {
+   "rows": 122479,
+   "sampled": 3592
+  },
+  "SimpleHome_XCS7_1003_WHT_Security_Camera/mirai_udp": {
+   "rows": 157084,
+   "sampled": 4732
+  },
+  "SimpleHome_XCS7_1003_WHT_Security_Camera/mirai_udpplain": {
+   "rows": 84436,
+   "sampled": 2535
+  }
+ }
+}

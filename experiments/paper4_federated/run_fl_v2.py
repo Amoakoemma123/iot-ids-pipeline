@@ -80,7 +80,7 @@ CENTRAL_LR = (1e-3, 3e-3, 6e-3, 1e-2)
 # on both other datasets (SGD lr 1.0) or were never close (FedAdam server lr 0.003)
 NB_TUNE_SEEDS = (100, 101)
 NB_GRIDS = {
-    'a': {'fedavg': ('lr', (1e-3, 3e-3, 6e-3, 1e-2)), 'scaffold': ('lr', (0.01, 0.03, 0.1, 0.3)),
+    'a': {'fedavg': ('lr', (3e-4, 1e-3, 3e-3, 6e-3, 1e-2)), 'scaffold': ('lr', (0.01, 0.03, 0.1, 0.3)),
           'fedavgsgd': ('lr', (0.01, 0.03, 0.1, 0.3))},
     'b': {'fedprox': ('mu', (1e-5, 1e-4, 1e-3, 1e-2)), 'fedadam': ('server_lr', (0.01, 0.03, 0.1))},
     'lc': {'fedlc': ('tau', (0.3, 1.0, 3.0, 10.0, 30.0, 100.0))},
@@ -541,7 +541,8 @@ def run_federated(D, cfg, rep):
         assign(gmodel, best_w)
         sel_full = ev.scores(D['Xte'], D['yte'], full=True)
         sel_site = ev.site_scores(site_te) if site_te is not None else None
-        ft = local_finetune(cmodel, lt, best_w, D, clients, site_te, cfg['finetune'], rep) if cfg.get('finetune') and site_te is not None else None
+        ft = (local_finetune2(cmodel, best_w, D, clients, site_te, cfg, rep) if cfg.get('ft_modes') else
+              local_finetune(cmodel, lt, best_w, D, clients, site_te, cfg['finetune'], rep)) if cfg.get('finetune') and site_te is not None else None
     else:
         sel_full = sel_site = ft = None
     assign(gmodel, gw)
@@ -580,6 +581,53 @@ def local_finetune(cmodel, lt, w0, D, clients, site_te, epochs, rep):
             rec[str(E)] = dict(test_f1=evc.scores(D['Xte'], D['yte'])['f1'], site=evc.site_scores([site_te[k]])[0])
         out.append(rec)
     del evc
+    return out
+
+
+FT_MU = 0.1   # proximal weight for proximal fine-tuning, fixed in advance (no selection)
+
+
+def binary(pred, y, normal):
+    """Attack detection rate and benign false-positive rate of an attack/benign decision."""
+    att = pred != normal
+    return dict(attack_detection=float(att[y != normal].mean()) if (y != normal).any() else None,
+                benign_fpr=float(att[y == normal].mean()) if (y == normal).any() else None)
+
+
+def local_finetune2(cmodel, w0, D, clients, site_te, cfg, rep):
+    """Round 6: personalisation baselines. Each site adapts the validation-selected global model w0 with
+    'full' (Adam, same lr), 'low' (Adam, lr / 10) or 'prox' (Adam, same lr, proximal term FT_MU/2 ||w - w0||^2)
+    for the cumulative epoch counts in cfg['finetune'] (fixed in advance, no selection). Every variant is scored on the
+    common test set and on the site's own test traffic, and so is the two-model combination 'either' (alert if the
+    global or the adapted model predicts an attack: attack detection and benign FPR)."""
+    evc = Evaluator(cmodel, D)
+    nrm = D['normal']
+    trainers = {'full': LocalTrainer(cmodel, D['Xtr'], D['ytr'], 'fedavg', cfg['lr']),
+                'low': LocalTrainer(cmodel, D['Xtr'], D['ytr'], 'fedavg', cfg['lr'] / 10),
+                'prox': LocalTrainer(cmodel, D['Xtr'], D['ytr'], 'fedprox', cfg['lr'], mu=FT_MU)}
+    assign(cmodel, w0)
+    g_test = evc.predict(D['Xte'])
+    out = []
+    for k, idx in enumerate(clients):
+        sk = site_te[k]; ys, yt = D['yte'][sk], D['yte']
+        g_site = g_test[sk]
+        rec = dict(global_site=binary(g_site, ys, nrm), global_test=binary(g_test, yt, nrm))
+        for mode, tr in [(m, trainers[m]) for m in cfg['ft_modes']]:
+            frng = np.random.default_rng(4000 + rep)
+            assign(cmodel, w0); tr.reset_optimizer()
+            if mode == 'prox':
+                for a, v in zip(tr.gw, cmodel.trainable_variables):
+                    a.assign(v)
+            done, r = 0, {}
+            for E in cfg['finetune']:
+                tr.run(idx, E - done, frng); done = E
+                p_test = evc.predict(D['Xte']); p_site = p_test[sk]
+                r[str(E)] = dict(test_f1=evc.scores(D['Xte'], D['yte'])['f1'], site=evc.site_scores([sk])[0],
+                                 either_site=binary(np.where(g_site != nrm, g_site, p_site), ys, nrm),
+                                 either_test=binary(np.where(g_test != nrm, g_test, p_test), yt, nrm))
+            rec[mode] = r
+        out.append(rec)
+    del evc, trainers
     return out
 
 
@@ -671,6 +719,8 @@ def experiments(ds, group):
         for algo, (key, grid) in grids.items():
             for v in grid:
                 c = base_cfg(algo=algo, lr=T.get('fedavg', LR) if algo in ('fedprox', 'fedadam', 'fedlc') else LR)
+                if ds == 'N_BaIoT':   # round 6: N-BaIoT is tuned on its device partition (nine clients)
+                    c.update(partition='device', alpha=None, n_clients=9)
                 c[key] = v
                 E[f'tune3_{algo}_{key}{v:g}'] = c
         return E
@@ -737,6 +787,22 @@ def experiments(ds, group):
         E['fedavg_iid9'] = base_cfg(alpha=None, n_clients=9, lr=lr_adam)
         for a in (0.5, 0.1):
             E[f'fedavg_a{a:g}_N9'] = base_cfg(alpha=a, n_clients=9, lr=lr_adam)
+    if group == 'personal':
+        # round 6: personalisation baselines (full / low-lr / proximal fine-tuning) and the two-model combination
+        modes = dict(finetune=[1, 2, 5], ft_modes=['full', 'low', 'prox'])
+        if ds == 'N_BaIoT':
+            E['fedavg_dev_pers'] = base_cfg(lr=lr_adam, partition='device', alpha=None, n_clients=9, **modes)
+        else:
+            E['fedavg_natr_pers'] = base_cfg(lr=lr_adam, partition='natural', alpha=None, randomized=True, **modes)
+    if group == 'dpsmall':
+        # round 6: smaller noise levels on the short DP schedule (TON-IoT, CPU)
+        for sg in (0.2, 0.3):
+            E[f'dp_sigma{sg:g}'] = base_cfg(algo='dpsgd', rounds=DP_ROUNDS, local_epochs=DP_LOCAL_EPOCHS, lr=lr_adam, clip=CLIP, sigma=sg)
+    if group == 'natr_noports':
+        # round 6: own-traffic comparison on the host partition without the port features (shortcut check)
+        nat = dict(partition='natural', alpha=None, randomized=True)
+        E['local_natr_noports'] = base_cfg(kind='local', lr=lr_adam, **nat)
+        E['fedavg_natr_noports_ft'] = base_cfg(lr=lr_adam, finetune=[1, 2, 5], **nat)
     if group == 'finetune':
         # round 5b: does local adaptation of the federated model recover each site's own-traffic accuracy?
         if ds == 'N_BaIoT':
@@ -868,12 +934,27 @@ def prepare_rerun(ds):
     print('changed', sorted(changed), 'moved', moved)
 
 
+def code_version():
+    """git commit of the code that produced a result (with '-dirty' if run_fl_v2.py has uncommitted changes)."""
+    import subprocess
+    try:
+        h = subprocess.run(['git', 'rev-parse', '--short', 'HEAD'], cwd=HERE, capture_output=True, text=True).stdout.strip()
+        dirty = subprocess.run(['git', 'status', '--porcelain', '--', str(Path(__file__).name)], cwd=HERE,
+                               capture_output=True, text=True).stdout.strip()
+        return h + ('-dirty' if dirty else '')
+    except Exception:
+        return 'unknown'
+
+
+CODE_VERSION = code_version()
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--dataset', required=True, choices=['TON_IoT', 'UNSW_NB15', 'N_BaIoT'])
     ap.add_argument('--group', required=True, choices=['tune', 'core', 'extra', 'dp', 'followup', 'finalize_tuning', 'tune3a', 'tune3b',
                                          'finalize3a', 'finalize3b', 'prepare_rerun', 'ports', 'bnrecal', 'dptune',
-                                         'natural', 'natural_r', 'device', 'bnfed', 'tunecentral', 'portsalg', 'dptune2', 'fedlc', 'tunelc', 'finalizelc', 'long', 'followup2', 'dpfull', 'finetune'])
+                                         'natural', 'natural_r', 'device', 'bnfed', 'tunecentral', 'portsalg', 'dptune2', 'fedlc', 'tunelc', 'finalizelc', 'long', 'followup2', 'dpfull', 'finetune', 'natr_noports', 'personal', 'dpsmall'])
     ap.add_argument('--seeds', default='0')
     ap.add_argument('--only', default=None, help='comma-separated experiment names')
     ap.add_argument('--smoke', action='store_true', help='2 rounds, results_v2_smoke/')
@@ -882,8 +963,9 @@ def main():
     global OUT
     if a.smoke:
         OUT = HERE / 'results_v2_smoke'
-    if a.group == 'finalize_tuning':
-        finalize_tuning(a.dataset); return
+    if a.group in ('tune', 'finalize_tuning'):
+        # the round-2 single-stage tuning tuned FedProx/FedAdam at a mismatched client lr; superseded by tune3a/tune3b
+        print('superseded: use tune3a/finalize3a, tune3b/finalize3b and tunelc/finalizelc'); return
     if a.group in ('finalize3a', 'finalize3b'):
         finalize_tuning3(a.dataset, a.group[-1]); return
     if a.group == 'finalizelc':
@@ -892,7 +974,7 @@ def main():
         print('natural partition needs IP addresses (TON-IoT only)'); return
     if a.group == 'prepare_rerun':
         prepare_rerun(a.dataset); return
-    D = load_data(a.dataset, drop=PORTS if a.group in ('ports', 'portsalg') else (), meta=a.group in ('natural', 'natural_r', 'finetune'))
+    D = load_data(a.dataset, drop=PORTS if a.group in ('ports', 'portsalg', 'natr_noports') else (), meta=a.group in ('natural', 'natural_r', 'finetune', 'natr_noports', 'personal'))
     print(f"===== {a.dataset}: train {len(D['ytr'])} val {len(D['yva'])} test {len(D['yte'])} features {D['Xtr'].shape[1]}", flush=True)
     E = experiments(a.dataset, a.group)
     if a.only:
@@ -915,6 +997,7 @@ def main():
             kind = cfg.get('kind')
             r = run_centralised(D, cfg, rep) if kind == 'central' else run_local_only(D, cfg, rep) if kind == 'local' \
                 else run_federated(D, {**cfg, 'keep_best': True}, rep)
+            r['code_version'] = CODE_VERSION
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_text(json.dumps(r, indent=1))
             sel = r.get('test_f1_selected', r.get('test_f1_selected_mean'))
