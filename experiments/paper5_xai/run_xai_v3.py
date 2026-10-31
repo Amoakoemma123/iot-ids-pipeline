@@ -310,7 +310,7 @@ def stage_local(D, seed):
         rows = []
         for i in range(len(X)):
             s = sv[i, :, pred[i]]
-            l, r2 = lime_attr(expl, X[i], fn, int(pred[i]), nf)
+            l, r2 = _lime_attr(expl, X[i], fn, int(pred[i]), nf)
             fs, fl = field_attr(s, fields), field_attr(l, fields)
             row = dict(test_idx=int(idx[i]), true=int(y[i]), pred=int(pred[i]), correct=bool(y[i] == pred[i]),
                        j5=jaccard(topk(s, 5), topk(l, 5)), shared5=len(set(topk(s, 5)) & set(topk(l, 5))),
@@ -358,7 +358,7 @@ def stage_local(D, seed):
 # mean and s.d. (LIME's sampling distribution); cond = values of the 10 training
 # records nearest to x on the features that are NOT replaced (conditional, neither
 # explainer's distribution).
-DEL_STRATS = ('mean', 'record', 'gauss', 'cond')
+DEL_STRATS = ('mean', 'record', 'gauss', 'cond', 'condx')   # condx: cond without exact copies of x among the donors
 N_COND = 10
 
 
@@ -373,6 +373,9 @@ def _replacements(x, js, ctx, rng, n=10):
     d = ((donors[:, rest] - x[rest]) ** 2).sum(1) if len(rest) else rng.random(len(donors))
     nn = np.argpartition(d, N_COND)[:N_COND]
     Z = np.repeat(x[None], N_COND, 0); Z[:, js] = donors[nn][:, js]; out['cond'] = Z
+    d = np.where(np.all(donors == x, axis=1), np.inf, d)
+    nn = np.argpartition(d, N_COND)[:N_COND]
+    Z = np.repeat(x[None], N_COND, 0); Z[:, js] = donors[nn][:, js]; out['condx'] = Z
     return out
 
 
@@ -401,7 +404,7 @@ def stage_deletion(D, seed):
         rows = []
         for i in range(len(X)):
             s = sv[i, :, pred[i]]
-            l, _ = lime_attr(expl, X[i], fn, int(pred[i]), nf)
+            l, _ = _lime_attr(expl, X[i], fn, int(pred[i]), nf)
             row = dict(test_idx=int(idx[i]), true=int(y[i]), pred=int(pred[i]), j5=jaccard(topk(s, 5), topk(l, 5)))
             batches, keys = [], []
             for k in DEL_K:
@@ -502,8 +505,7 @@ def stage_stability(D, seed):
         for ns, nruns in ((1000, N_RUNS), (5000, 5)):
             expl = lime_explainer(D['X_tr'], D['feat'], D['classes'], seed)
             for i in range(len(X)):
-                W = np.stack([lime_attr(expl, X[i], fn, int(pred[i]), nf)[0] if ns == 1000 else
-                              _lime_ns(expl, X[i], fn, int(pred[i]), nf, ns) for _ in range(nruns)])
+                W = np.stack([_lime_attr(expl, X[i], fn, int(pred[i]), nf, ns)[0] for _ in range(nruns)])
                 if ns == 1000:
                     s_ref = shap_runs[0, i]
                     rows.append(dict(test_idx=int(idx[i]), true=int(y[i]),
@@ -524,12 +526,31 @@ def stage_stability(D, seed):
     return out
 
 
-def _lime_ns(expl, x, fn, label, nf, ns):
+# LIME without discretisation fits its ridge model on (x - mean) / sd, so its weights are
+# slopes per s.d.  LIME_CONTRIB=True ranks by the contribution w_j (x_j - mean_j) / sd_j instead,
+# which, like interventional SHAP, is relative to the training mean (stages *_c, round 3).
+LIME_CONTRIB = False
+
+
+def _lime_attr(expl, x, fn, label, nf, ns=1000):
     e = expl.explain_instance(x, fn, labels=[label], num_features=nf, num_samples=ns)
     w = np.zeros(nf)
     for j, v in e.as_map()[label]:
         w[j] = v
-    return w
+    if LIME_CONTRIB:
+        w = w * (x - expl.scaler.mean_) / expl.scaler.scale_
+    return w, float(e.score)
+
+
+def _contrib(stage):
+    def run(D, seed):
+        global LIME_CONTRIB
+        LIME_CONTRIB = True
+        try:
+            return stage(D, seed)
+        finally:
+            LIME_CONTRIB = False
+    return run
 
 
 # ── counterfactuals ───────────────────────────────────────────────────────────
@@ -678,7 +699,7 @@ def stage_hardening(D, seed, attacker_only=False):
     # distribution, same support check) applied to random training attacks of each class,
     # WITHOUT requiring the model to call the result benign
     crng = np.random.default_rng(seed + 3000)
-    cpy_X = []
+    cpy_X, n_cpy_unsupported = [], 0
     for ci, k in zip(aug_y, aug_k):
         pool = np.where(D['y_tr'] == ci)[0]
         for _ in range(50):
@@ -688,6 +709,8 @@ def stage_hardening(D, seed, attacker_only=False):
                 z[groups[g][1]] = d[groups[g][1]]
             if supA.ok(z[None])[0]:
                 break
+        else:
+            n_cpy_unsupported += 1      # no supported copy in 50 tries: the last one is kept
         cpy_X.append(z)
     cpy_X = np.array(cpy_X)
     # candidate query superset: test attacks detected by the original model (up to 2*N_CF per class)
@@ -721,6 +744,7 @@ def stage_hardening(D, seed, attacker_only=False):
         del m; gc.collect()
     common = sorted(set.intersection(*(r['detected'] for r in res.values())))
     out = dict(groups=[g[0] for g in groups], n_augmented=int(len(aug_y)), n_query=len(common),
+               n_copy_unsupported=n_cpy_unsupported,
                query_per_class={D['classes'][ci]: int(sum(D['y_te'][t] == ci for t in common)) for ci in attack_classes})
     for name, r in res.items():
         ev = [r['succ'][t] for t in common]
@@ -792,8 +816,10 @@ SEEDLESS = [('train_seeds', stage_train_seeds)]
 PER_SEED = [('performance', stage_performance), ('local', stage_local), ('counterfactual', stage_counterfactual),
             ('hardening', stage_hardening),
             ('hardening_attacker', lambda D, seed: stage_hardening(D, seed, attacker_only=True)),
-            ('deletion', stage_deletion)]
-SEED42_ONLY = [('stability', stage_stability), ('ttl_reselect', stage_ttl_reselect), ('shap_budget', stage_shap_budget)]
+            ('deletion', stage_deletion),
+            ('hardening_attacker_r3', lambda D, seed: stage_hardening(D, seed, attacker_only=True)),
+            ('local_c', _contrib(stage_local)), ('deletion_c', _contrib(stage_deletion))]
+SEED42_ONLY = [('stability', stage_stability), ('stability_c', _contrib(stage_stability)), ('ttl_reselect', stage_ttl_reselect), ('shap_budget', stage_shap_budget)]
 
 
 def main():
