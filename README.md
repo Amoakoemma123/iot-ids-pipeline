@@ -22,7 +22,15 @@ https://doi.org/10.5281/zenodo.21844113
   re-estimation of its statistics. Results in `experiments/paper4_federated/results_v2/<dataset>/<experiment>/seed<r>.json`
   (superseded runs kept in `_bn_superseded/`, `_superseded_r2/` and `_stale/` for transparency). N-BaIoT is prepared by
   `experiments/paper4_federated/prepare_nbaiot.py` (3% sample per device–class file, seed 42; counts in `dataset4/`).
-* Other papers of the series (1–3, 6, 7) are being revised; their scripts in this archive are the
+* **Paper 3 (class-incremental learning)** — `experiments/paper3_continual/run_cl_v2.py` (replaces the
+  version-1 `experiments/continual_learning/`): benign traffic in every task, pre-processing fitted on Task 0
+  only, fine-tuning, joint retraining, online EWC, LwF, A-GEM and experience replay, five seeds and four random
+  task orders, random-forest reference. Metrics in `analyze_cl_v2.py`. Results in
+  `experiments/paper3_continual/results_v3/<dataset>/<group>/<strategy>_o<order>_s<seed>.json` (groups: tune, main,
+  orders, oracle, rf, and on TON-IoT factorial and benignbuf; `tuned.json` holds the selected EWC/LwF weights,
+  `tuned_pre_ext.json` the selection before the LwF grid was extended). `results_v2/` keeps the earlier
+  configuration (min–max inputs, shorter budget) that the factorial group reconstructs.
+* Other papers of the series (1, 2, 6, 7) are being revised; their scripts in this archive are the
   version-1 code and have not yet been re-run on the corrected pipeline.
 
 ## Not included
@@ -50,6 +58,7 @@ From the archive root:
     python -m experiments.paper4_federated.run_fl_v2 --dataset TON_IoT --group core --seeds 0,1,2,3,4   # Paper 4
     python -m experiments.paper4_federated.prepare_nbaiot                                           # N-BaIoT sample
     python -m experiments.paper4_federated.run_fl_v2 --dataset N_BaIoT --group device --seeds 0,1,2,3,4
+    python -m experiments.paper3_continual.run_cl_v2 --dataset TON_IoT --group tune     # Paper 3 (then main, orders, oracle, rf)
 
 See the docstrings of each script for the experiment groups.
 
