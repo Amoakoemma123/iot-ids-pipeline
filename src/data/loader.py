@@ -43,7 +43,8 @@ def load_dataset(csv_path: str | Path,
                  drop_ports: bool = False,
                  drop_id: bool = True,
                  deduplicate: bool = True,
-                 return_meta: bool = False) -> dict:
+                 return_meta: bool = False,
+                 meta_row: bool = False) -> dict:
     """
     Load, clean and split the dataset.
 
@@ -86,7 +87,10 @@ def load_dataset(csv_path: str | Path,
     # (return_meta: keep the IP addresses aside, aligned by row index, e.g. for a
     #  natural device-level federated partition; they never become features)
     meta = df[[c for c in ('src_ip', 'dst_ip') if c in df.columns]].copy() if return_meta else None
-    drop = [c for c in _DROP_COLS if c in df.columns and (drop_id or c != 'id')]
+    if meta is not None and meta_row:
+        # row number in the CSV file (file order), e.g. for a blocked per-site split (Paper 4 final round)
+        meta['row'] = np.arange(len(df))
+    drop =[c for c in _DROP_COLS if c in df.columns and (drop_id or c != 'id')]
     df.drop(columns=drop, inplace=True)
 
     # ── 2. Drop binary label when multi-class label exists ────────────────────

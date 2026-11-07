@@ -22,6 +22,8 @@ https://doi.org/10.5281/zenodo.21844113
   re-estimation of its statistics. Results in `experiments/paper4_federated/results_v2/<dataset>/<experiment>/seed<r>.json`
   (superseded runs kept in `_bn_superseded/`, `_superseded_r2/` and `_stale/` for transparency). N-BaIoT is prepared by
   `experiments/paper4_federated/prepare_nbaiot.py` (3% sample per device–class file, seed 42; counts in `dataset4/`).
+  Final-round diagnostics (blocked per-site split, label-prior correction, DP-SGD with SGD-momentum and a larger batch)
+  are in `experiments/paper4_federated/run_p4final.py`, results in `results_p4final/<dataset>/<experiment>/seed<r>.json`.
 * **Paper 3 (class-incremental learning)** — `experiments/paper3_continual/run_cl_v2.py` (replaces the
   version-1 `experiments/continual_learning/`): benign traffic in every task, pre-processing fitted on Task 0
   only, fine-tuning, joint retraining, online EWC, LwF, A-GEM and experience replay, five seeds and four random
