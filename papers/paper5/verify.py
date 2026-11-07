@@ -33,6 +33,9 @@ def R2_(ds, stage):
 
 
 text = (HERE / 'Manuscript_filled.md').read_text(encoding='utf-8')
+_sp = HERE / 'Supplement_filled.md'   # detail moved to the Supplementary Material (12k-word cap)
+supp = _sp.read_text(encoding='utf-8') if _sp.exists() else ''
+text_all = text + chr(10) + supp
 
 print('Placeholders and anonymity')
 for name in ('Manuscript_v2.docx', 'Manuscript_v2_anon.docx'):
@@ -45,6 +48,11 @@ for name in ('Manuscript_v2.docx', 'Manuscript_v2_anon.docx'):
             check(not any(n in body for n in ('Amoako', 'Amadu', 'Quayson', 'Donkor', 'Apraku', 'amoakopuyol')) and not d.core_properties.author,
                   f'{name}: anonymous')
 check('⟦' not in text, 'Manuscript_filled.md: no unfilled placeholders')
+check(bool(supp) and '⟦' not in supp, 'Supplement_filled.md built, no unfilled placeholders')
+for n in range(1, 5):
+    check(re.search(rf'Tables? (?:S\d+ and )?S{n}(?!\d)', text_all) is not None, f'Table S{n} cited')
+_words = len(text[text.index('## Abstract'):].split())
+check(_words <= 12000, f'main text incl. abstract and references within the 12,000-word cap ({_words})')
 check('<!-- UNSW_' not in (HERE / 'Manuscript.md').read_text(encoding='utf-8'), 'no UNSW to-do markers left in Manuscript.md')
 for n in range(1, 5):
     check(f'Figure {n}' in text, f'Figure {n} cited in the text')
@@ -209,7 +217,7 @@ check(0 < float(V['UNSW_rf_f1']) - T['rf_macro_f1'] < 0.05, 'UNSW TTL removal co
 
 print('Consistency with the run settings')
 for k, want in (('N_LOCAL', 'up to {} test records per class'), ('N_RUNS', 'LIME {} times'), ('N_STAB', 'For {} test records per class')):
-    check(want.format(V[k]) in text, f'text quotes {k}={V[k]}')
+    check(want.format(V[k]) in text_all, f'text quotes {k}={V[k]}')
 for tag in ('TON', 'UNSW'):
     check(V[f'{tag}_hard_att_nseeds'] == '3' and V[f'{tag}_hard_all_nseeds'] == '3', f'{tag} hardening has three seeds')
 check('v2 release to be added' not in text, 'data-availability link is final')
@@ -233,7 +241,7 @@ for t in ('TON', 'UNSW'):
     if f'{t}_hp_reproduces' in V:
         check(V[f'{t}_hp_reproduces'] == 'True' or float(V[f'{t}_hp_maxdiff']) <= 1.0, f'{t}: hardening_paired reproduces Table 9 (exactly, or within 1 point as stated in the text)')
         if V[f'{t}_hp_reproduces'] != 'True':
-            check('second run of the hardening experiment' in text, f'{t}: small rerun difference disclosed')
+            check('second run of the hardening experiment' in text_all, f'{t}: small rerun difference disclosed')
     else:
         print(f'  PENDING {t}: hardening_paired (queue p5final) not finished')
 for k in ('ls_lead_cells', 'decf_interaction_ci', 'TON_rf_cfmono_mono'):
