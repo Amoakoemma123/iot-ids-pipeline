@@ -14,6 +14,8 @@ https://doi.org/10.5281/zenodo.21844113
 * **Paper 5 (explainability)** — `experiments/paper5_xai/run_xai_v3.py`, `leakage_decomposition*.py`,
   `feature_space_copies.py`; results in `experiments/paper5_xai/results_v3/` (and `results_v2/` for global
   SHAP and the port check).
+  Final-round analyses (paired decomposition intervals, LIME configuration sensitivity, monotone counterfactuals,
+  paired hardening with per-record outcomes) are in `run_xai_final.py` and `twin_mask.py`; results in `results_final/`.
 * **Paper 4 (federated learning)** — rebuilt in `experiments/paper4_federated/run_fl_v2.py`: validation-based
   round selection, client partitions redrawn per repetition, tuned baselines, matched centralised and
   local-only references, group normalisation, record-level DP-SGD with an RDP accountant, natural
