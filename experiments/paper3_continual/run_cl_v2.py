@@ -31,9 +31,27 @@ Protocol
     later-task values). The MinMax-scaled flow counts are heavy-tailed (median ~0); without the map the
     batch-normalised CNN failed silently on TON-IoT (joint retraining macro-F1 0.77 against 0.965 for an RF
     on the same features and data; results_v2, superseded). Same failure as Paper 6 v2.
+  * final review round (2026-11-07), results in results_p3final/<dataset>/<group>/ (results_v3 untouched):
+      - 'agem2' (group agemfix: semantic order x 5 seeds, then the 4 random orders): A-GEM with a corrected
+        reference loss. In 'agem' the reference loss on the memory reused the current task's class weights, which
+        are 0 for every earlier attack class, so the projection protected only the benign memory records. 'agem2'
+        weights the memory loss with class weights computed over the memory's own labels (every stored class counts
+        equally) and evaluates it in inference mode (training=False), so the memory batch neither updates the
+        batch-normalisation statistics nor uses dropout.
+      - 'er2000p' (group replayabl, semantic order x 5 seeds): replay-weighting ablation. ER-2000 draws 512 memory
+        records (with replacement) for every 512 current records AND weights the loss with class weights computed
+        over task + memory, so earlier classes are up-weighted twice. 'er2000p' adds the same class-balanced memory
+        once to the training pool (no 1:1 mixing, no resampling); the class weights over pool + memory are unchanged,
+        so every seen class gets equal total weight per epoch. Same memory contents as ER-2000 for a given seed.
+      - group rfmem (semantic order x 5 seeds): random forest retrained after every task on the ER-2000 memory plus
+        the current task ('rf_er2000'; identical memory contents to the CNN ER-2000 run of the same seed), and the
+        all-data random forest after every task ('rf_joint'; its last stage equals the 'rf' reference).
+      - group rangeshare (no training): share of values outside the Task-0 min-max range [0, 1] before the
+        compression map, per split and task, and the overlap of the Task-0 and all-data feature selections.
 Results: results_v3/<dataset>/<group>/<strategy>_o<order>_s<seed>.json (resumable).
 Run from `Papers pipeline/`:
   python -m experiments.paper3_continual.run_cl_v2 --dataset TON_IoT --group tune|main|orders|oracle|rf [--smoke]
+  python -m experiments.paper3_continual.run_cl_v2 --dataset TON_IoT --group agemfix|replayabl|rfmem|rangeshare
 """
 import argparse, contextlib, io, json, os, sys, time
 from pathlib import Path
@@ -50,6 +68,8 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 HERE = Path(__file__).resolve().parent
 OUT = HERE / 'results_v3'
+OUT_FINAL = HERE / 'results_p3final'   # final review round (agemfix, replayabl, rfmem, rangeshare)
+FINAL_GROUPS = ('agemfix', 'replayabl', 'rfmem', 'rangeshare')
 CACHE = HERE / 'cache_v2'
 DATASETS = ('TON_IoT', 'UNSW_NB15', 'N_BaIoT')
 
@@ -133,9 +153,10 @@ def build_tasks(D, tasks, order):
     return out
 
 
-def preprocess(D, T, order, oracle=False):
+def preprocess(D, T, order, oracle=False, raw_minmax=False):
     """Fit feature selection + scaling on Task-0 training rows (or all rows for the oracle ablation);
-    cached per dataset and order. Returns scaled float32 splits and the selected feature names."""
+    cached per dataset and order. Returns scaled float32 splits and the selected feature names.
+    raw_minmax=True (diagnostics only): min-max values without the compression map and without clipping."""
     import joblib
     CACHE.mkdir(parents=True, exist_ok=True)
     key = CACHE / f"{D['ds']}_{'oracle' if oracle else f'o{order}'}.pkl"
@@ -159,6 +180,9 @@ def preprocess(D, T, order, oracle=False):
     S = {}
     for split in ('tr', 'va', 'te'):
         X = tf_(D['X' + split]).astype(np.float32)
+        if raw_minmax:
+            S[split] = X
+            continue
         if USE_ASINH:
             X = (np.arcsinh(ASINH_C * X) / np.arcsinh(ASINH_C)).astype(np.float32)
         S['clip_share_' + split] = float(((X < CLIP[0]) | (X > CLIP[1])).mean())
@@ -232,10 +256,12 @@ def run(D, S, T, strategy, seed, hp, smoke=False, cache_key=None):
         return build_model(n_feat, n_cls)
 
     model = fresh()
+    is_agem = strategy in ('agem', 'agem2')
+    pooled = strategy.startswith('er') and strategy.endswith('p')   # 'er2000p': memory added once to the pool
     bsize = int(''.join(ch for ch in strategy[2:] if ch.isdigit())) if strategy.startswith('er') else 2000
     bnb = strategy.startswith('er') and strategy.endswith('b')
     buf = Buffer(bsize, np.random.default_rng(seed + 1), benign=D['classes'].index('normal') if bnb else None,
-                 benign_share=BENIGN_SHARE if bnb else None) if strategy.startswith('er') or strategy == 'agem' else None
+                 benign_share=BENIGN_SHARE if bnb else None) if strategy.startswith('er') or is_agem else None
     ewc_F, ewc_star, teacher, old_seen = None, None, None, []
     stages, seen = [], []
     for t, task in enumerate(T):
@@ -249,12 +275,19 @@ def run(D, S, T, strategy, seed, hp, smoke=False, cache_key=None):
             cfg = dict(cfg, epochs=10)
         Xt, yt = S['tr'][tr], D['ytr'][tr]
         Xv, yv = S['va'][va], D['yva'][va]
-        pool_y = yt if buf is None or buf.y is None or strategy == 'agem' else np.concatenate([yt, buf.y])
+        pool_y = yt if buf is None or buf.y is None or is_agem else np.concatenate([yt, buf.y])
         w = tf.constant(class_weights(pool_y, n_cls))
+        # 'agem2': the reference loss on the memory is weighted over the memory's own labels (each stored class equally)
+        w_ref = tf.constant(class_weights(buf.y, n_cls)) if strategy == 'agem2' and buf.y is not None else w
+        # training pool: the current task, plus (er...p only) the memory, each memory record once per epoch
+        if pooled and buf.y is not None and t > 0:
+            Xfit, yfit = np.vstack([Xt, buf.X]), np.concatenate([yt, buf.y])
+        else:
+            Xfit, yfit = Xt, yt
         mask = np.full(n_cls, -1e9, np.float32); mask[seen] = 0; mask = tf.constant(mask)
         old_mask = np.zeros(n_cls, np.float32); old_mask[old_seen] = 1; old_mask = tf.constant(old_mask)
         opt = tf.keras.optimizers.Adam(cfg['lr'])
-        use_mem = buf is not None and buf.y is not None and t > 0
+        use_mem = buf is not None and buf.y is not None and t > 0 and not pooled
         use_ewc = strategy == 'ewc' and ewc_F is not None
         use_lwf = strategy == 'lwf' and teacher is not None
         lam, alpha = hp.get('lam', 0.0), hp.get('alpha', 0.0)
@@ -265,6 +298,12 @@ def run(D, S, T, strategy, seed, hp, smoke=False, cache_key=None):
             lg = model(x, training=training) + mask
             l = tf.nn.softmax_cross_entropy_with_logits(tf.one_hot(y, n_cls), lg)
             return tf.reduce_sum(l * tf.gather(w, y)) / tf.reduce_sum(tf.gather(w, y)), lg
+
+        def ce_ref(x, y):
+            """'agem2' reference loss: memory-label class weights, inference mode (no BN-statistic update, no dropout)."""
+            lg = model(x, training=False) + mask
+            l = tf.nn.softmax_cross_entropy_with_logits(tf.one_hot(y, n_cls), lg)
+            return tf.reduce_sum(l * tf.gather(w_ref, y)) / tf.reduce_sum(tf.gather(w_ref, y))
 
         @tf.function(reduce_retracing=True)
         def step(x, y, xm, ym):
@@ -281,9 +320,11 @@ def run(D, S, T, strategy, seed, hp, smoke=False, cache_key=None):
                     ls = tf.nn.log_softmax((lg + om) / LWF_T)
                     loss += alpha * LWF_T ** 2 * tf.reduce_mean(-tf.reduce_sum(pt * ls * old_mask, 1))
                 if use_mem and strategy == 'agem':
-                    lref, _ = ce(xm, ym)
+                    lref, _ = ce(xm, ym)   # flawed (kept for the record): current-task weights, 0 for old attacks
+                if use_mem and strategy == 'agem2':
+                    lref = ce_ref(xm, ym)
             g = tape.gradient(loss, model.trainable_variables)
-            if use_mem and strategy == 'agem':
+            if use_mem and is_agem:
                 gr = tape.gradient(lref, model.trainable_variables)
                 dot = tf.add_n([tf.reduce_sum(a * b) for a, b in zip(g, gr)])
                 nn = tf.add_n([tf.reduce_sum(b * b) for b in gr]) + 1e-12
@@ -293,21 +334,21 @@ def run(D, S, T, strategy, seed, hp, smoke=False, cache_key=None):
             return loss
 
         best, best_w, bad, ep_run, t0 = -1.0, None, 0, 0, time.time()
-        nb = max(len(yt) // BATCH, 1)
+        nb = max(len(yfit) // BATCH, 1)
         # Task 0 is identical for every strategy (same seed, data, model and budget): train it once per
         # (dataset, order, seed, preprocessing) and reuse the stored weights (exact, deterministic ops).
         t0_file = CACHE / 'task0' / f'{cache_key}.pkl' if (t == 0 and cache_key) else None
         cached = t0_file is not None and t0_file.exists()
         for ep in range(0 if cached else cfg['epochs']):
-            perm = rng.permutation(len(yt))
+            perm = rng.permutation(len(yfit))
             for b in range(nb):
                 ii = perm[b * BATCH:(b + 1) * BATCH]
                 if use_mem:
                     jj = rng.integers(0, len(buf.y), len(ii))
                     xm, ym = buf.X[jj][:, :, None], buf.y[jj]
                 else:
-                    xm, ym = Xt[ii[:1]][:, :, None], yt[ii[:1]]
-                step(tf.constant(Xt[ii][:, :, None]), tf.constant(yt[ii]), tf.constant(xm), tf.constant(ym))
+                    xm, ym = Xfit[ii[:1]][:, :, None], yfit[ii[:1]]
+                step(tf.constant(Xfit[ii][:, :, None]), tf.constant(yfit[ii]), tf.constant(xm), tf.constant(ym))
             ep_run += 1
             f1v = f1_score(yv, masked_pred(predict_logits(model, Xv), seen), average='macro', labels=sorted(set(yv)))
             if f1v > best + 1e-4:
@@ -365,6 +406,7 @@ def run(D, S, T, strategy, seed, hp, smoke=False, cache_key=None):
         val_seen_f1 = float(f1_score(D['yva'][va_all], masked_pred(predict_logits(model, S['va'][va_all]), seen),
                                      average='macro', labels=seen))
         stages.append(dict(task=t, seen=[int(c) for c in seen], epochs=ep_run, train_s=round(train_s, 2), n_train=int(len(yt)),
+                           **({'n_fit': int(len(yfit))} if pooled else {}),
                            best_val_f1=float(best), val_seen_f1=val_seen_f1, cm=cm.tolist(),
                            macro_f1_seen=float(f1_score(D['yte'][seen_te], pred[seen_te], average='macro', labels=seen)),
                            buffer=int(len(buf.y)) if buf is not None else 0))
@@ -381,6 +423,65 @@ def rf_reference(D, S, T, seed):
     rf.fit(S['tr'][tr], D['ytr'][tr])
     return dict(cm=confusion_matrix(D['yte'], rf.predict(S['te']), labels=range(len(D['classes']))).tolist(),
                 train_s=round(time.time() - t0, 1))
+
+
+def rf_stagewise(D, S, T, seed, mode, mem_size=2000, n_jobs=-1):
+    """Random forest after every task (final review round, referee M4), same hyperparameters as rf_reference.
+    mode 'memory': retrained on the current task plus the class-balanced memory; the memory uses the same generator
+    (seed + 1) and the same update as the CNN ER-2000 run, so its contents are identical for a given seed.
+    mode 'joint': retrained on all task data so far (the last stage equals rf_reference).
+    Output has the layout of run() (stages with confusion matrices), so analyze_cl_v2.metrics applies."""
+    from sklearn.ensemble import RandomForestClassifier
+    from sklearn.metrics import confusion_matrix, f1_score
+    buf = Buffer(mem_size, np.random.default_rng(seed + 1)) if mode == 'memory' else None
+    stages, seen = [], []
+    for t, task in enumerate(T):
+        seen = sorted(set(seen) | set(task['classes']))
+        if mode == 'joint':
+            tr = np.concatenate([T[k]['tr'] for k in range(t + 1)])
+            Xf, yf = S['tr'][tr], D['ytr'][tr]
+        else:
+            Xt, yt = S['tr'][task['tr']], D['ytr'][task['tr']]
+            Xf, yf = (Xt, yt) if buf.y is None else (np.vstack([Xt, buf.X]), np.concatenate([yt, buf.y]))
+        t0 = time.time()
+        rf = RandomForestClassifier(200, max_depth=20, min_samples_leaf=2, n_jobs=n_jobs, random_state=seed)
+        rf.fit(Xf, yf)
+        train_s = time.time() - t0
+        pred = rf.predict(S['te'])
+        if buf is not None:
+            buf.add(Xt, yt)
+        cm = confusion_matrix(D['yte'], pred, labels=range(len(D['classes'])))
+        seen_te = np.isin(D['yte'], seen)
+        stages.append(dict(task=t, seen=[int(c) for c in seen], epochs=0, train_s=round(train_s, 2), n_train=int(len(yf)),
+                           cm=cm.tolist(), buffer=int(len(buf.y)) if buf is not None else 0,
+                           macro_f1_seen=float(f1_score(D['yte'][seen_te], pred[seen_te], average='macro', labels=seen))))
+    return dict(stages=stages, hp={}, params=0)
+
+
+def range_share(D, T, order):
+    """No training (final review round, M6/C4): share of min-max-scaled values outside the Task-0 range [0, 1], before
+    the compression map and before clipping, per split; for the training and validation splits also per task; and
+    the share beyond the effective clip of the compressed inputs. TON/UNSW: also the Task-0 and all-data feature sets."""
+    S = preprocess(D, T, order, raw_minmax=True)   # cached Task-0 pipeline; min-max values, no map, no clip
+    out = {}
+    hi_eff = float(np.sinh(CLIP[1] * np.arcsinh(ASINH_C)) / ASINH_C)   # min-max value mapped to the upper clip (~2,000)
+    for split in ('tr', 'va', 'te'):
+        X = S[split]
+        out[split] = dict(out01=float(((X < 0) | (X > 1)).mean()), below0=float((X < 0).mean()), above1=float((X > 1).mean()),
+                          beyond_clip=float(((X < CLIP[0]) | (X > hi_eff)).mean()),
+                          rows_any_out01=float(((X < 0) | (X > 1)).any(1).mean()))
+        if split in ('tr', 'va'):
+            out[split]['per_task'] = [float(((X[t_[split]] < 0) | (X[t_[split]] > 1)).mean()) for t_ in T]
+    out['upper_clip_minmax_units'] = hi_eff
+    out['n_features'] = len(S['feat'])
+    out['features_task0'] = list(map(str, S['feat']))
+    if D['raw']:
+        So = preprocess(D, T, order, oracle=True)
+        f0, fo = set(map(str, S['feat'])), set(map(str, So['feat']))
+        out['features_oracle'] = sorted(fo)
+        out['n_features_oracle'] = len(fo)
+        out['n_features_common'] = len(f0 & fo)
+    return out
 
 
 # ── driver ────────────────────────────────────────────────────────────────────
@@ -400,14 +501,19 @@ def main():
     import tensorflow as tf
     ap = argparse.ArgumentParser()
     ap.add_argument('--dataset', choices=DATASETS, required=True)
-    ap.add_argument('--group', choices=('tune', 'main', 'orders', 'oracle', 'rf', 'factorial', 'benignbuf', 'budget'), required=True)
+    ap.add_argument('--group', choices=('tune', 'main', 'orders', 'oracle', 'rf', 'factorial', 'benignbuf', 'budget') + FINAL_GROUPS,
+                    required=True)
     ap.add_argument('--smoke', action='store_true')
     a = ap.parse_args()
     for g in tf.config.list_physical_devices('GPU'):
         tf.config.experimental.set_memory_growth(g, True)
     tf.config.experimental.enable_op_determinism()
     D = load(a.dataset)
-    out = OUT / a.dataset if not a.smoke else HERE / 'results_v3_smoke' / a.dataset
+    if a.group in FINAL_GROUPS:
+        out = (OUT_FINAL if not a.smoke else HERE / 'results_p3final_smoke') / a.dataset
+    else:
+        out = OUT / a.dataset if not a.smoke else HERE / 'results_v3_smoke' / a.dataset
+    print(f"{a.dataset} {a.group}: devices {[d.name for d in tf.config.list_logical_devices()]}, output {out}", flush=True)
 
     def job(order, seed, strategy, hp, group, oracle=False, tag=None, variant=None):
         p = out / group / f"{tag or strategy}_o{order}_s{seed}.json"
@@ -487,6 +593,40 @@ def main():
             if not p.exists():
                 save(p, dict(rf_reference(D, S, T, seed), classes=D['classes'], seed=seed))
                 print('rf', seed, flush=True)
+    # ── final review round (2026-11-07): results_p3final/<dataset>/<group>/ ──
+    elif a.group == 'agemfix':
+        # corrected A-GEM: semantic order x 5 seeds (main/), then one seed on each random order (orders/);
+        # same shared Task-0 models as results_v3 (cache keys unchanged)
+        for seed in seeds:
+            job(0, seed, 'agem2', {}, 'main')
+        for o in range(1, (1 if a.smoke else N_RANDOM_ORDERS) + 1):
+            job(o, o, 'agem2', {}, 'orders')
+    elif a.group == 'replayabl':
+        # replay-weighting ablation: memory added once to the training pool, no 1:1 mixing (same memory contents)
+        for seed in seeds:
+            job(0, seed, 'er2000p', {}, 'replayabl')
+    elif a.group == 'rfmem':
+        T = build_tasks(D, task_order(D, 0), 0)
+        S = preprocess(D, T, 0)
+        tasks_named = [[D['classes'][c] for c in t['classes']] for t in T]
+        for seed in seeds:
+            for mode, name in (('memory', 'rf_er2000'), ('joint', 'rf_joint')):
+                p = out / 'rfmem' / f'{name}_o0_s{seed}.json'
+                if p.exists():
+                    continue
+                t0 = time.time()
+                r = rf_stagewise(D, S, T, seed, mode)
+                r.update(dataset=a.dataset, order=0, seed=seed, strategy=name, oracle=False, tasks=tasks_named,
+                         features=S['feat'], classes=D['classes'], wall_s=round(time.time() - t0, 1), variant=None)
+                save(p, r)
+                print(f"{a.dataset} rfmem {name} s{seed}: final macro-F1(seen) {r['stages'][-1]['macro_f1_seen']:.4f} "
+                      f"({r['wall_s']:.0f} s)", flush=True)
+    elif a.group == 'rangeshare':
+        p = out / 'rangeshare.json'
+        if not p.exists():
+            T = build_tasks(D, task_order(D, 0), 0)
+            save(p, dict(range_share(D, T, 0), dataset=a.dataset, order=0))
+            print(f'{a.dataset} rangeshare saved', flush=True)
 
 
 if __name__ == '__main__':

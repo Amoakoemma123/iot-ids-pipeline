@@ -33,7 +33,11 @@ https://doi.org/10.5281/zenodo.21844113
   `experiments/paper3_continual/results_v3/<dataset>/<group>/<strategy>_o<order>_s<seed>.json` (groups: tune, main,
   orders, oracle, rf, and on TON-IoT factorial and benignbuf; `tuned.json` holds the selected EWC/LwF weights,
   `tuned_pre_ext.json` the selection before the LwF grid was extended). `results_v2/` keeps the earlier
-  configuration (min–max inputs, shorter budget) that the factorial group reconstructs.
+  configuration (min–max inputs, shorter budget) that the factorial group reconstructs; `results_v3/<dataset>/budget/`
+  holds ER-2000 with the full training budget. The final review round is in `results_p3final/<dataset>/<group>/`
+  (corrected A-GEM `agemfix`, replay-weighting ablation `replayabl`, random forest on the replay memory `rfmem`,
+  range-share diagnostic `rangeshare`; queue `experiments/paper3_continual/p3final_queue.sh`). Manuscript scripts
+  (placeholders, `compute_values.py`, `verify.py`) are in `papers/paper3/`.
 * Other papers of the series (1, 2, 6, 7) are being revised; their scripts in this archive are the
   version-1 code and have not yet been re-run on the corrected pipeline.
 
