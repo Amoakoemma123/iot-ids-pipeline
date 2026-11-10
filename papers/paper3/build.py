@@ -40,10 +40,10 @@ EXTRA = {
 # Elsevier (JNCA): 3–5 highlights, each ≤ 85 characters including spaces (separate file).
 # Check the JNCA Guide for Authors (abstract length, reference style) before the final build.
 HIGHLIGHTS = [
-    'Replay of 2,000 records recovered {{UNSW_er2000_orders_gap_closed}}–{{TON_er2000_gap_closed}}% of the gap to full retraining',
-    'A random forest retrained on the same replay memory beat the CNN with replay',
+    'Replay of 2,000 records recovered {{UNSW_er2000_orders_gap_closed}}–{{TON_er2000_gap_closed}}% of the gap to retraining across task orders',
+    'A random forest on the same replay memory beat CNN replay on two of three datasets',
     'Forgotten attack classes were mostly still flagged as attacks',
-    'Replaying memory once per task, not per batch, cut TON-IoT false alarms {{TON_er2000_fpr_final}}→{{P3F_TON_er2000p_fpr_final}}',
+    'Memory in the training pool, not in every batch, cut TON-IoT false alarms {{TON_er2000_fpr_final}}→{{P3F_TON_er2000p_fpr_final}}',
     'A random-forest reference showed the CNN needs compressed heavy-tailed inputs',
 ]
 ABSTRACT_MAX_WORDS = 250

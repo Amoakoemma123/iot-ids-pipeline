@@ -1,0 +1,71 @@
+{
+ "TON_IoT": {
+  "rf_er2000": {
+   "nodes": 215144,
+   "kib": 30331.7,
+   "pred_s_per_10k": 0.1793,
+   "f1_check": 0.9391,
+   "f1_stored": 0.9391,
+   "matches": true
+  },
+  "rf_joint": {
+   "nodes": 473114,
+   "kib": 66609.2,
+   "pred_s_per_10k": 0.2194,
+   "f1_check": 0.9653,
+   "f1_stored": 0.9653,
+   "matches": true
+  },
+  "cnn": {
+   "params": 23946,
+   "kib": 93.5,
+   "pred_s_per_10k": 0.1454
+  }
+ },
+ "UNSW_NB15": {
+  "rf_er2000": {
+   "nodes": 348392,
+   "kib": 49070.2,
+   "pred_s_per_10k": 0.2145,
+   "f1_check": 0.4734,
+   "f1_stored": 0.4734,
+   "matches": true
+  },
+  "rf_joint": {
+   "nodes": 1448554,
+   "kib": 203780.5,
+   "pred_s_per_10k": 0.3941,
+   "f1_check": 0.5745,
+   "f1_stored": 0.5745,
+   "matches": true
+  },
+  "cnn": {
+   "params": 23946,
+   "kib": 93.5,
+   "pred_s_per_10k": 0.2725
+  }
+ },
+ "N_BaIoT": {
+  "rf_er2000": {
+   "nodes": 26370,
+   "kib": 3574.6,
+   "pred_s_per_10k": 0.1642,
+   "f1_check": 0.9915,
+   "f1_stored": 0.9915,
+   "matches": true
+  },
+  "rf_joint": {
+   "nodes": 53338,
+   "kib": 7157.0,
+   "pred_s_per_10k": 0.1499,
+   "f1_check": 0.9998,
+   "f1_stored": 0.9998,
+   "matches": true
+  },
+  "cnn": {
+   "params": 23881,
+   "kib": 93.3,
+   "pred_s_per_10k": 0.621
+  }
+ }
+}

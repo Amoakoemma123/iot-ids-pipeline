@@ -253,11 +253,29 @@ else:
 if V.get('P3F_rfmem_done') == 'yes':
     for d in DSETS:
         check(V[f'P3F_{d}_rfjoint_last_equals_rf'] == 'yes', f'{d}: all-data forest after the last task equals the RF reference')
-    check('better than the CNN with replay on TON-IoT, UNSW-NB15 and N-BaIoT' in V['P3F_rfmem_verdict'],
-          'highlight "RF on the same memory beat the CNN with replay" holds on all three')
-    check(f('P3F_UNSW_er2000p_f1') > f('P3F_UNSW_rfmem_f1'), '§5.2: UNSW pooled CNN numerically ahead of RF + memory')
+    # pre-submission review: RF + memory against BOTH CNN replay variants
+    check(V['P3F_rfmem_hi_er2000'] == 'TON-IoT, UNSW-NB15 and N-BaIoT', 'RF + memory above ER-2000 on all three (p < 0.05)')
+    check(V['P3F_rfmem_hi_pool'] == 'TON-IoT and N-BaIoT' and V['P3F_rfmem_lo_pool'] == 'UNSW-NB15',
+          'highlight "beat CNN replay on two of three datasets": above ER-2000-pool on TON/NB, below on UNSW (p < 0.05)')
+    check(V['P3F_rfmem_above_joint'] == 'TON-IoT and N-BaIoT', '§5.2/§6.1: RF + memory above CNN joint retraining on TON/NB only')
+    check(f('P3F_UNSW_rfmem_old_det') < 0.8 < min(f('UNSW_er2000_old_det'), f('P3F_UNSW_er2000p_old_det')),
+          '§5.2: on UNSW the forest misses earlier attacks that CNN replay flags')
+    check('not' not in V['P3F_rfmem_verdict'].split('but')[0], 'RF verdict: no hedge in the ER-2000 part')
+    for d in DSETS:
+        check(f(f'P3F_{d}_rfmem_fpr_final') < f(f'{d}_er2000_fpr_final'), f'{d}: §6.1 RF + memory FPR below ER-2000')
+    # pooled replay: "rose clearly only on UNSW-NB15", "marginal on TON-IoT"
+    pv = lambda k: 0.0 if V[k].startswith('<') else float(V[k])
+    check(pv('P3F_UNSW_er2000p_p') < 0.01 and 0.01 <= pv('P3F_TON_er2000p_p') < 0.05 and pv('P3F_NB_er2000p_p') > 0.05,
+          'ER-2000-pool macro-F1: clear only on UNSW, marginal on TON, none on NB')
 else:
     pend('random forest on the replay memory (group rfmem) not complete: abstract, §5.2 tree-model paragraph, §6.1 advice')
+if V.get('P3F_size_done') == 'yes':
+    for d in DSETS:
+        check(f(f'P3F_{d}_sz_cnn_kib') < 100, f'{d}: network under 100 KiB')
+        check(float(V[f'P3F_{d}_sz_rf_er2000_kib'].replace(',', '')) > 300, f'{d}: "few hundred kilobytes": RF + memory > 300 KiB')
+    check(float(V['P3F_sz_ratio_min'].replace(',', '')) >= 3, '§6.1 "forests are far larger": at least 3x the network')
+else:
+    pend('size benchmark (bench_p3_size.py, logs/p3size_gate.sh) not run: §6.1 RF size / prediction-time sentence')
 
 print('§5.3 class vs alert retention')
 for d in DSETS:

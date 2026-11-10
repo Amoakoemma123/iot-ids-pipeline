@@ -400,6 +400,7 @@ if AG_DONE:
     neg = [d for d in D3 if V[f'{d}_agem_vs_naive_sig'] == 'yes' and fl(f'{d}_agem_vs_naive_d') < 0]
     gaps = {d: fl(f'{d}_agem_gap_closed') for d in D3}
     er_gaps = {d: fl(f'{d}_er2000_gap_closed') for d in D3}
+    NB_AG = [m[1]['final_macro_f1'] for m in GALL['NB'][0]['agem'].values()]   # per-seed spread (review: SD 0.204)
     if not pos and not neg:
         V['P3F_agem_verdict_short'] = 'did not significantly improve on it either'
     elif pos and not neg:
@@ -411,7 +412,10 @@ if AG_DONE:
     V['P3F_agem_mechanism'] = (
         'With the same memory, using it as training data closed far more of the gap than using it only to constrain '
         'the gradient direction.' if max(gaps.values()) < 0.5 * min(er_gaps.values()) else
-        'Used only to constrain the gradient direction, the memory recovered a sizeable part of what replay recovers.')
+        'Used only to constrain the gradient direction, the memory recovered a sizeable part of what replay recovers on '
+        + names([d for d in D3 if gaps[d] >= 0.25 * er_gaps[d]])
+        + ', but far less on ' + names([d for d in D3 if gaps[d] < 0.25 * er_gaps[d]])
+        + (f'; on N-BaIoT the seeds ranged from {f3(min(NB_AG))} to {f3(max(NB_AG))}.' if 'NB_AG' in dir() else '.'))
     V['P3F_fig1_agem'] = ' A-GEM is the corrected version (Section 4.2).'
     V['P3F_ranges_note'] = 'Ranges cover all seven strategies.'
     n_beat = sum(agem_beats)
@@ -423,7 +427,8 @@ if AG_DONE:
 # replay-weighting ablation: ER-2000 with the memory added once to the training pool (no 1:1 mixing)
 RP = {d: load_final(SH2DS[d], 'replayabl', 'er2000p', 5) for d in D3}
 if all(v is not None for v in RP.values()):
-    shrunk, moved, persists = [], [], []
+    shrunk, moved, persists, worst = [], [], [], []
+    SHORT = {'TON': 'TON-IoT', 'UNSW': 'UNSW-NB15', 'NB': 'N-BaIoT'}
     for d in D3:
         G, seeds = GALL[d]; P = RP[d]; ks = sorted(set(P) & set(G['er2000']))
         a = np.array([P[k][1]['final_macro_f1'] for k in ks]); b = np.array([G['er2000'][k][1]['final_macro_f1'] for k in ks])
@@ -452,6 +457,8 @@ if all(v is not None for v in RP.values()):
             shrunk.append(d)
         if early_p >= sf_p:
             moved.append(d)
+            jw = max((0, 1), key=lambda j: fl(f'{d}_joint_Rlast_t{j}') - Rm[-1, j])
+            worst.append(f'{SHORT[d]} Task {jw}: {f3(Rm[-1, jw])} against {fl(f"{d}_joint_Rlast_t{jw}"):.3f}')
         if sf_p > early_p and sf_p >= 0.5 * sf_er:
             persists.append(d)
         fp, fe = fl(f'P3F_{d}_er2000p_fpr_final'), fl(f'{d}_er2000_fpr_final')
@@ -461,10 +468,13 @@ if all(v is not None for v in RP.values()):
                                               'depend on the double weighting.')
     else:
         parts = []
+        nm = lambda L: 'all three datasets' if len(L) == 3 else names(L)
+        worst_txt = '; '.join(worst)
         if shrunk:
-            parts.append(f'the newest-task shortfall shrank by more than half on {names(shrunk)}')
+            parts.append(f'the newest-task shortfall shrank by more than half on {nm(shrunk)}')
         if moved:
-            parts.append(f'at least one earlier task now fell as far below the joint level as the newest task, or further, on {names(moved)}')
+            parts.append(f'at least one earlier task now fell as far below the joint level as the newest task, or further, on '
+                         f'{nm(moved)} ({worst_txt})')
         s_ = '; '.join(parts) if parts else 'the pattern changed'
         V['P3F_er2000p_shortfall_verdict'] = (s_[0].upper() + s_[1:] + ', so the location of the shortfall depends partly on '
                                               'the double weighting.')
@@ -494,26 +504,45 @@ if all(v is not None for v in list(RM.values()) + list(RJ.values())):
             V[f'P3F_{d}_rfjoint_f1_t{t}'] = f3(np.mean([J[k][1]['macro_f1_stage'][t] for k in kj]))
         V[f'P3F_{d}_rfjoint_FM'] = f3(np.mean([J[k][1]['FM'] for k in kj]))
         V[f'P3F_{d}_rfjoint_last_equals_rf'] = 'yes' if abs(np.mean([J[k][1]['final_macro_f1'] for k in kj]) - fl(f'{d}_rf_f1')) < 6e-4 else 'NO'
+    # second comparison (pre-submission review): RF + memory against the CNN with ER-2000-pool (same memory contents)
+    hi_p, lo_p = [], []
+    for d in D3:
+        G, seeds = GALL[d]; M = RM[d]; P = RP[d]; ks = sorted(set(M) & set(P))
+        a = np.array([M[k][1]['final_macro_f1'] for k in ks]); b = np.array([P[k][1]['final_macro_f1'] for k in ks])
+        p_ = stats.ttest_rel(a, b).pvalue
+        V[f'P3F_{d}_rfmem_vs_er2000p_d'] = f'{np.mean(a - b):+.3f}'
+        V[f'P3F_{d}_rfmem_vs_er2000p_p'] = pfmt(p_)
+        (hi_p if np.mean(a - b) > 0 and p_ < 0.05 else lo_p if np.mean(a - b) < 0 and p_ < 0.05 else []).append(d)
+        # detection-level retention of the earlier tasks, and per earlier task (last stage)
+        V[f'P3F_{d}_rfmem_old_det_t1'] = f3(np.mean([M[k][1]['Rd'][-1][1] for k in ks]))
+        cj = np.array([fl(f'{d}_joint_f1')])
+        V[f'P3F_{d}_rfmem_vs_joint_cnn'] = f'{fl(f"P3F_{d}_rfmem_f1") - cj[0]:+.3f}'
+    V['P3F_rfmem_hi_er2000'] = names(higher) if higher else 'no dataset'
+    V['P3F_rfmem_hi_pool'] = names(hi_p) if hi_p else 'no dataset'
+    V['P3F_rfmem_lo_pool'] = names(lo_p) if lo_p else 'no dataset'
+    above_joint = [d for d in D3 if fl(f'P3F_{d}_rfmem_f1') > fl(f'{d}_joint_f1')]
+    V['P3F_rfmem_above_joint'] = names(above_joint) if above_joint else 'no dataset'
     # phrase completing "A random forest retrained on the same memory was ..." (paired over seeds, uncorrected p < 0.05)
     lab = []
     if higher:
-        lab.append(f'better than the CNN with replay on {names(higher)}')
+        lab.append(f'better than the CNN with ER-2000 on {"all three datasets" if len(higher) == 3 else names(higher)}')
     if lower:
-        lab.append(f'worse on {names(lower)}' if higher else f'worse than the CNN with replay on {names(lower)}')
+        lab.append(f'worse than it on {names(lower)}')
     rest = [d for d in D3 if d not in higher + lower]
     if rest:
-        lab.append(f'not significantly different on {names(rest)}' if lab else
-                   'not significantly different from the CNN with replay on any dataset')
-    V['P3F_rfmem_verdict'] = lab[0] if len(lab) == 1 else ', '.join(lab[:-1]) + ' and ' + lab[-1]
-    if len(higher) == 3:
-        V['P3F_rfmem_advice'] = ('A random forest retrained on the same memory beat the CNN with replay on all three datasets, '
-                                 'so where a tree model fits the deployment it is the simpler and stronger choice.')
-    elif not higher:
-        V['P3F_rfmem_advice'] = ('A random forest retrained on the same memory did not beat the CNN with replay on any dataset, '
-                                 'so here the memory is best spent on the network.')
-    else:
-        V['P3F_rfmem_advice'] = (f'A random forest retrained on the same memory beat the CNN with replay on {names(higher)}, '
-                                 'so a tree model on the memory is a serious alternative where it fits the deployment.')
+        lab.append(f'not significantly different on {names(rest)}')
+    s_ = lab[0] if len(lab) == 1 else ', '.join(lab[:-1]) + ' and ' + lab[-1]
+    if lo_p:
+        s_ += f', but worse than the CNN with ER-2000-pool on {names(lo_p)}'
+    V['P3F_rfmem_verdict'] = s_
+    V['P3F_rfmem_advice'] = (
+        f'A random forest retrained on the same memory had a higher macro-F1 and a lower benign FPR than the CNN with '
+        f'ER-2000 on {"all three datasets" if len(higher) == 3 else names(higher)}'
+        + (f'; on {names(lo_p)} the CNN with ER-2000-pool had the higher macro-F1, and the forest flagged only '
+           f'{V[f"P3F_{lo_p[0]}_rfmem_old_det"]} of the earlier attack records, against '
+           f'{V[f"P3F_{lo_p[0]}_er2000p_old_det"]} for that network' if lo_p else '')
+        + '. Where a tree model fits the deployment, it is a strong alternative to a continually trained network and '
+          'should be the reference any such network is compared with.')
     V['P3F_rfmem_done'] = 'yes'
 
 # range share: min-max values outside the Task-0 range [0, 1], before the compression map
@@ -522,14 +551,33 @@ RS = {d: (p if p.exists() else RESF / SH2DS[d] / 'rangeshare.json') for d, p in 
 if all(p.exists() for p in RS.values()):
     for d, p in RS.items():
         r = json.loads(p.read_text())
-        V[f'P3F_{d}_out01_te'] = f"{100 * r['te']['out01']:.2f}"
+        x_ = 100 * r['te']['out01']   # small shares keep two significant digits instead of rounding to 0.00
+        V[f'P3F_{d}_out01_te'] = f"{x_:.2f}" if x_ >= 0.1 or x_ == 0 else f"{x_:.2g}"
         V[f'P3F_{d}_out01_rows_te'] = f"{100 * r['te']['rows_any_out01']:.1f}"
-        V[f'P3F_{d}_out01_later_tr'] = f"{100 * np.mean(r['tr']['per_task'][1:]):.2f}"
+        y_ = 100 * np.mean(r['tr']['per_task'][1:])
+        V[f'P3F_{d}_out01_later_tr'] = f"{y_:.2f}" if y_ >= 0.1 or y_ == 0 else f"{y_:.2g}"
         V[f'P3F_{d}_beyond_clip_te'] = f"{100 * r['te']['beyond_clip']:.3f}"
         if 'n_features_oracle' in r:
             V[f'P3F_{d}_feat_oracle'] = str(r['n_features_oracle'])
             V[f'P3F_{d}_feat_common'] = str(r['n_features_common'])
     V['P3F_rangeshare_done'] = 'yes'
+
+# model size and prediction time (pre-submission review; experiments/paper3_continual/bench_p3_size.py, seed 0)
+SZ = RESF / 'size_bench.json'
+if SZ.exists():
+    zb = json.loads(SZ.read_text())
+    for d in D3:
+        z = zb[SH2DS[d]]
+        assert z['rf_er2000']['matches'] and z['rf_joint']['matches'], f'{d}: rebuilt forest differs from the stored run'
+        for m in ('rf_er2000', 'rf_joint'):
+            V[f'P3F_{d}_sz_{m}_nodes'] = f"{z[m]['nodes']:,}"
+            V[f'P3F_{d}_sz_{m}_kib'] = f"{z[m]['kib']:,.0f}"
+            V[f'P3F_{d}_sz_{m}_ms10k'] = f"{1000 * z[m]['pred_s_per_10k']:.0f}"
+        V[f'P3F_{d}_sz_cnn_kib'] = f"{z['cnn']['kib']:.0f}"
+        V[f'P3F_{d}_sz_cnn_ms10k'] = f"{1000 * z['cnn']['pred_s_per_10k']:.0f}"
+    kibs = [zb[SH2DS[d]]['rf_er2000']['kib'] / zb[SH2DS[d]]['cnn']['kib'] for d in D3]
+    V['P3F_sz_ratio_min'], V['P3F_sz_ratio_max'] = f'{min(kibs):,.0f}', f'{max(kibs):,.0f}'
+    V['P3F_size_done'] = 'yes'
 
 
 # ---- tables ----
