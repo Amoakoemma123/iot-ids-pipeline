@@ -8,7 +8,7 @@ from pathlib import Path
 from docx import Document
 
 HERE = Path(__file__).resolve().parent
-PIPE = HERE.parents[1]   # repository root
+PIPE = HERE.parents[1] / 'Papers pipeline'
 R3 = PIPE / 'experiments' / 'paper5_xai' / 'results_v3'
 R2 = PIPE / 'experiments' / 'paper5_xai' / 'results_v2'
 V = json.loads((HERE / 'values.json').read_text(encoding='utf-8'))
@@ -38,7 +38,7 @@ supp = _sp.read_text(encoding='utf-8') if _sp.exists() else ''
 text_all = text + chr(10) + supp
 
 print('Placeholders and anonymity')
-for name in ('Manuscript_v2.docx', 'Manuscript_v2_anon.docx'):
+for name in ('Manuscript_v2.docx', 'Manuscript_v2_anon.docx', 'Manuscript_Elsevier.docx', 'Manuscript_Elsevier_anon.docx'):
     p = HERE / name
     if p.exists():
         d = Document(p)
@@ -52,7 +52,7 @@ check(bool(supp) and '⟦' not in supp, 'Supplement_filled.md built, no unfilled
 for n in range(1, 5):
     check(re.search(rf'Tables? (?:S\d+ and )?S{n}(?!\d)', text_all) is not None, f'Table S{n} cited')
 _words = len(text[text.index('## Abstract'):].split())
-check(_words <= 12000, f'main text incl. abstract and references within the 12,000-word cap ({_words})')
+print(f'  info: main text incl. abstract and references = {_words} words (C&S 12k cap no longer applies; ESWA limit not confirmed)')
 check('<!-- UNSW_' not in (HERE / 'Manuscript.md').read_text(encoding='utf-8'), 'no UNSW to-do markers left in Manuscript.md')
 for n in range(1, 5):
     check(f'Figure {n}' in text, f'Figure {n} cited in the text')
@@ -244,6 +244,28 @@ for t in ('TON', 'UNSW'):
             check('second run of the hardening experiment' in text_all, f'{t}: small rerun difference disclosed')
     else:
         print(f'  PENDING {t}: hardening_paired (queue p5final) not finished')
+# ESWA transfer test (Section 4.7 / 5.4 / Table 6)
+for t in ('TON', 'UNSW'):
+    if f'{t}_tr_reproduces' not in V:
+        print(f'  PENDING {t}: hardening transfer (run_xai_transfer) not finished')
+        continue
+    check(V[f'{t}_tr_reproduces'] == 'True', f'{t}: transfer rebuild reproduces the original-search outcomes exactly, as stated')
+    for att in ('original_search', 'greedy', 'interp', 'union'):
+        check(int(V[f'{t}_tr_{att}_counterfactual_ev']) < int(V[f'{t}_tr_{att}_original_ev']), f'{t} {att}: cf below original')
+        check(V[f'{t}_tr_{att}_orig_nsig_cf'] == '3' and V[f'{t}_tr_{att}_orig_pooled_p'] == 'p < 0.001', f'{t} {att}: cf vs original significant in every seed, pooled p < 0.001')
+        check(int(V[f'{t}_tr_{att}_control_ev']) >= int(V[f'{t}_tr_{att}_counterfactual_ev']), f'{t} {att}: interpolation control does not beat cf')
+    check(V[f'{t}_tr_cf_below_orig_all'] == 'True', f'{t}: cf below original under every search in every seed')
+    check(int(V[f'{t}_tr_interp_original_ev']) < int(V[f'{t}_tr_greedy_original_ev']) < int(V[f'{t}_tr_original_search_original_ev']) + 1,
+          f'{t}: partial moves find fewer evasions than the copying searches')
+    check(V[f'{t}_tr_union_copy_nsig_cf'] == '3' and V[f'{t}_tr_union_copy_pooled_p'] == 'p < 0.001', f'{t}: union cf beats copy in every seed, pooled p < 0.001')
+    check(int(V[f'{t}_tr_union_gain']) <= 6, f'{t}: union adds only a few points')
+for att in ('original_search', 'greedy', 'interp', 'union'):
+    check(V[f'UNSW_tr_{att}_copy_cf_better'] == 'True', f'UNSW {att}: cf ahead of copy under every search')
+_p = V['UNSW_tr_interp_copy_pooled_p']
+check(V['UNSW_tr_interp_copy_nsig_cf'] == '0' and (_p == 'p < 0.001' or float(_p.split('=')[-1]) < 0.05), 'UNSW interp: cf vs copy significant only when pooled')
+check(V['TON_tr_greedy_copy_cf_better'] == 'True' and int(V['TON_tr_greedy_copy_nsig_cf']) < 3, 'TON greedy: cf ahead of copy but not robust')
+check(V['TON_tr_interp_copy_cf_better'] == 'False' and V['TON_tr_interp_copy_nsig_other'] == '3', 'TON interp: copy control better, significant in all seeds')
+check('⟦table:transfer⟧' not in text_all and 'Table 6' in text_all, 'Table 6 present')
 for k in ('ls_lead_cells', 'decf_interaction_ci', 'TON_rf_cfmono_mono'):
     if k not in V:
         print(f'  PENDING {k} (queue p5final) not finished')

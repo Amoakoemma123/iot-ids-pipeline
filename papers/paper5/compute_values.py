@@ -17,10 +17,10 @@ import pandas as pd
 
 HERE = Path(__file__).resolve().parent
 PROJ = HERE.parents[1]
-PIPE = HERE.parents[1]   # repository root (authors' tree: <project>/Papers pipeline)
+PIPE = PROJ / 'Papers pipeline'
 R3 = PIPE / 'experiments' / 'paper5_xai' / 'results_v3'
 R2 = PIPE / 'experiments' / 'paper5_xai' / 'results_v2'
-V1 = PROJ / '_v1_backup_2026-10-24' / 'experiments' / 'baseline' / 'results'   # earlier-pipeline results, not in this repository
+V1 = PROJ / '_v1_backup_2026-10-24' / 'experiments' / 'baseline' / 'results'
 V2 = PIPE / 'experiments' / 'baseline' / 'results'
 DS = {'TON_IoT': 'TON', 'UNSW_NB15': 'UNSW'}
 SEEDS = (42, 43, 44)
@@ -862,6 +862,58 @@ for tag in PRETTY:
     rows.append(f"| {PRETTY[tag]} | CNN | {V[f'{tag}_cnn_f1']} | {V[f'{tag}_cnn_f1_seeds']} | {V[f'{tag}_cnn_fpr']} | "
                 f"{V[f'{tag}_cnn_mb']} MB ({V[f'{tag}_cnn_params']} parameters) | {V[f'{tag}_cnn_ms1000']} |")
 tables['perf'] = '\n'.join(rows)
+# ── ESWA revision: transfer of the hardening to two other searches (run_xai_transfer.py) ──
+RT = PIPE / 'experiments' / 'paper5_xai' / 'results_transfer'
+ATT = ('original_search', 'greedy', 'interp', 'union')
+ARMS4 = ('original', 'counterfactual', 'control', 'control_copy')
+from scipy.stats import binomtest as _bt
+for ds, tag in DS.items():
+    T = {s: json.loads((RT / ds / f'seed{s}' / 'hardening_transfer.json').read_text())
+         for s in SEEDS if (RT / ds / f'seed{s}' / 'hardening_transfer.json').exists()}
+    if len(T) < 3:
+        continue
+    V[f'{tag}_tr_reproduces'] = str(all(T[s]['reproduces_hardening_paired'] for s in SEEDS))
+    V['tr_ndonor'] = f"{T[42]['n_donor']}"
+    V['tr_lams'] = andjoin(f'{l:g}' for l in T[42]['lams'])
+    EV = {}
+    for s in SEEDS:
+        for a in ARMS4:
+            for att in ATT[:3]:
+                EV[(att, a, s)] = np.array(T[s][att][a]['evaded'], bool)
+            EV[('union', a, s)] = EV[('original_search', a, s)] | EV[('greedy', a, s)] | EV[('interp', a, s)]
+    for att in ATT:
+        for a in ARMS4:
+            ev = [EV[(att, a, s)].mean() for s in SEEDS]
+            V[f'{tag}_tr_{att}_{a}_ev'] = f"{100 * np.mean(ev):.0f}"
+            V[f'{tag}_tr_{att}_{a}_ev_seeds'] = rng_str(ev, 0, 100)
+        for other, lab in (('control_copy', 'copy'), ('original', 'orig'), ('control', 'ctl')):
+            per = []
+            b_ = c_ = 0
+            for s in SEEDS:
+                o, cf_ = EV[(att, other, s)], EV[(att, 'counterfactual', s)]
+                b1, c1 = int((o & ~cf_).sum()), int((~o & cf_).sum())
+                b_, c_ = b_ + b1, c_ + c1
+                per.append((b1, c1, _bt(b1, b1 + c1, 0.5).pvalue if b1 + c1 else 1.0))
+            # direction: True = counterfactual model evaded less often than the other model
+            V[f'{tag}_tr_{att}_{lab}_cf_better'] = str(b_ > c_)
+            V[f'{tag}_tr_{att}_{lab}_pooled_p'] = pfull(_bt(b_, b_ + c_, 0.5).pvalue) if b_ + c_ else 'p = 1.000'
+            V[f'{tag}_tr_{att}_{lab}_nsig_cf'] = str(sum(p < 0.05 and b1 > c1 for b1, c1, p in per))
+            V[f'{tag}_tr_{att}_{lab}_nsig_other'] = str(sum(p < 0.05 and c1 > b1 for b1, c1, p in per))
+            V[f'{tag}_tr_{att}_{lab}_diff_3s'] = ci(boot2([EV[(att, other, s)].astype(float) - EV[(att, 'counterfactual', s)].astype(float) for s in SEEDS]), pct=True)
+    # how much the two new searches add to the original one
+    V[f'{tag}_tr_union_gain'] = f"{100 * np.mean([EV[('union', 'original', s)].mean() - EV[('original_search', 'original', s)].mean() for s in SEEDS]):.0f}"
+    V[f'{tag}_tr_union_gain_cf'] = f"{100 * np.mean([EV[('union', 'counterfactual', s)].mean() - EV[('original_search', 'counterfactual', s)].mean() for s in SEEDS]):.0f}"
+    V[f'{tag}_tr_cf_below_orig_all'] = str(all(EV[(att, 'counterfactual', s)].mean() < EV[(att, 'original', s)].mean() for att in ATT for s in SEEDS))
+rows = ['| Dataset | RF trained on | Search used in Table 5 | Greedy, new donors | Partial moves, new donors | Any of the three |',
+        '|---|---|---|---|---|---|']
+for tag in PRETTY:
+    if f'{tag}_tr_union_original_ev' not in V:
+        continue
+    for arm, alab in (('original', 'original data'), ('control', '+ interpolated attacks (control)'),
+                      ('control_copy', '+ benign-donor copies (control)'), ('counterfactual', '+ counterfactuals')):
+        rows.append(f"| {PRETTY[tag]} | {alab} | " + ' | '.join(f"{V[f'{tag}_tr_{att}_{arm}_ev']} ({V[f'{tag}_tr_{att}_{arm}_ev_seeds']})" for att in ATT) + ' |')
+tables['transfer'] = '\n'.join(rows)
+
 rows = ['| Dataset | Counterfactuals may change | RF trained on | Evasion (%), mean (range over seeds) | Evasion (%), seed 42 [95% CI] | Macro-F1 | Benign FPR (%) |',
         '|---|---|---|---|---|---|---|']
 for tag in PRETTY:

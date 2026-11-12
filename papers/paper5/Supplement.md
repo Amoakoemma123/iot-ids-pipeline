@@ -2,7 +2,7 @@
 
 ## Title
 
-**Supplementary Material: When SHAP Finds the Leak: Auditing Agreement, Faithfulness and Feasible Counterfactuals in Network Intrusion Detection**
+**Supplementary Material: From Explanation Audit to Hardening: Leakage, Attribution Reliability and Transferable Counterfactual Training for Network Intrusion Detection**
 
 This supplement gives the details behind the main text. Section, table and figure numbers without an "S" refer to the main article, where the references are listed.
 
