@@ -1,0 +1,97 @@
+{
+ "union": {
+  "strongest_b0.5": 0.9980879541108987,
+  "strongest_volume_b0.5": 0.2177607818143191,
+  "strongest_plus_b0.5": 0.9980879541108987,
+  "strongest_plus_volume_b0.5": 0.2179732313575526,
+  "strongest_plus_b0.5_per_class": {
+   "analysis": 1.0,
+   "backdoor": 1.0,
+   "dos": 0.9978260869565218,
+   "exploits": 0.993431855500821,
+   "fuzzers": 1.0,
+   "generic": 1.0,
+   "reconnaissance": 1.0,
+   "shellcode": 1.0,
+   "worms": 1.0
+  },
+  "ev_strongest_plus_b0.5": "//////////////////////////////////////////////////////f/////////////////////////////////////////////////////////////////////////////////////////////////////////f//////////////////////////////////////////+///////////////////////////////////////////////////////////////////3/////////////////////////////////////////////////v/////////////////////////////////v///////////////////////////////////////////////9///////////////////////////////////////////////////////////////////////////////////+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////f//////////4A==",
+  "ev_strongest_plus_volume_b0.5": "AGIEAAAAIACBAAcAzNQAAZgKBDVmAgMGAAAZkAAAECQgQACAJYIFIAKAQFqHAEAyAAEgBCAqwANlQQABAIQWBEIYIEivAJRgQIBIFBAQAAAQYsAEAgglSIGMBABSIABACagAAsAg8oMBsZIAMKCgkBAGBIMAERTCIkAAAJFSpBCIgEQADgEAQAAwAHAgPIQAgFCBAA4AQAEAQeAQQGTGggVRIAAAAGFS8JwACIhiQBIgUgEhDBBAQAIxECGAYAAKBTEGFiAEIiBCIUkkInAkASTgGMAFKKABFCADmFoCJAaAJAgQJBARAUxoAAgMASEgAAFgw7AAmKCwASCBoESEGAA5GAAAAgCEGlMFXikSBRQIlpyAgJYEAGEKFEQICAgQaEA4QcBBWBAIEiUiCLiAGhAABBHEBQCaAIAiwIEEoCZIQ0BBE4IMAAAkAoChBIAxQBgAEEzCkCCEAAIMkAEqRADgEBMABkHgSTDQAoAegRFABgQkBMJoCEKIEAEAUNQCAIImAIAhIIKIAAkJwFwAAYBEQQBIJAKAGACMQuYRUArGAAUhSAAKkJgwYAACOAKEAiKAiAIGlhGljAEQAoMOIEgBEoCAEANgI0sAkoIicMgBiIAhqoDAMY0AAmgJKEwAhISBDJYCISwAAAAAWRISIAQBiAQIEFAhAFAaEBJQBigCgAQAh5CEAAACmGASGCACAAAnATpIkIBgBDEIFSrkEQKAQISI4AOgCgAaBsCACAsxKRwRYAgAIJAYRhADgkQEYCAyBQMA8BoAFFASgA=="
+ },
+ "fs": {
+  "bb_corners_e0.005": 0.5683025281495645,
+  "bb_mut_e0.005": 0.4238368387507967,
+  "bb_mut_inc_e0.005": 0.11748459740811558,
+  "wb_bpda_e0.005": 0.41831315062672614,
+  "wb_bpda_mutable_e0.005": 0.12619502868068833,
+  "fs_strongest_e0.005": 0.6377735287869131,
+  "fs_strongest_mutable_e0.005": 0.4242617378372637,
+  "bb_corners_e0.01": 0.5094540046738899,
+  "bb_mut_e0.01": 0.45825366475462076,
+  "bb_mut_inc_e0.01": 0.14956447843637136,
+  "wb_bpda_e0.01": 0.4246866369237306,
+  "wb_bpda_mutable_e0.01": 0.136180157212662,
+  "fs_strongest_e0.01": 0.6588060335670278,
+  "fs_strongest_mutable_e0.01": 0.45825366475462076,
+  "bb_corners_e0.02": 0.4839600594858721,
+  "bb_mut_e0.02": 0.4973443807095815,
+  "bb_mut_inc_e0.02": 0.21733588272785215,
+  "wb_bpda_e0.02": 0.5164648396005949,
+  "wb_bpda_mutable_e0.02": 0.18483110261312938,
+  "fs_strongest_e0.02": 0.6904610155088167,
+  "fs_strongest_mutable_e0.02": 0.4973443807095815,
+  "bb_corners_e0.05": 0.32611004886339495,
+  "bb_mut_e0.05": 0.543870830677714,
+  "bb_mut_inc_e0.05": 0.23709369024856597,
+  "wb_bpda_e0.05": 0.698534098151689,
+  "wb_bpda_mutable_e0.05": 0.21499893775228382,
+  "fs_strongest_e0.05": 0.7654557042702358,
+  "fs_strongest_mutable_e0.05": 0.543870830677714,
+  "bb_corners_e0.1": 0.6175908221797323,
+  "bb_mut_e0.1": 0.5487571701720841,
+  "bb_mut_inc_e0.1": 0.2377310388782664,
+  "wb_bpda_e0.1": 0.7246653919694073,
+  "wb_bpda_mutable_e0.1": 0.2203101763331209,
+  "fs_strongest_e0.1": 0.7886127044826854,
+  "fs_strongest_mutable_e0.1": 0.5489696197153177
+ },
+ "op": {
+  "native": {
+   "detected": 0.9414,
+   "test_fpr": 0.2198098663926002,
+   "asr_volume": 0.21436158912258338,
+   "asr": 0.9980879541108987,
+   "e2e_volume": 0.2604,
+   "e2e": 0.9982,
+   "attack": "grid + adaptive"
+  },
+  "fpr1": {
+   "detected": 0.13,
+   "test_fpr": 0.011048304213771839,
+   "asr_volume": 0.92,
+   "asr": 1.0,
+   "e2e_volume": 0.9896,
+   "e2e": 1.0,
+   "tau": 0.011793523533269762,
+   "attack": "grid + adaptive"
+  },
+  "fpr_match": {
+   "detected": 0.8048,
+   "test_fpr": 0.19514388489208634,
+   "asr_volume": 0.21868787276341947,
+   "asr": 0.9997514910536779,
+   "e2e_volume": 0.3712,
+   "e2e": 0.9998,
+   "tau": 0.17990291753222923,
+   "attack": "grid + adaptive"
+  }
+ },
+ "feas": {
+  "grid_both": 0.9980879541108987,
+  "grid_volume": 0.2001274697259401,
+  "feas_both": 0.9980879541108987,
+  "feas_volume": 0.2011897174421075,
+  "lost_both": 0.0,
+  "gained_both": 0.0
+ }
+}

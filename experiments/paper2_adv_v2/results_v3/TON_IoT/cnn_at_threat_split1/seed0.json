@@ -1,0 +1,209 @@
+{
+ "train_s": 1884.6255090236664,
+ "epochs": 12,
+ "best_epoch": 7,
+ "steps_per_epoch": 200,
+ "val_loss_best": 0.220900297164917,
+ "eps_train_used": 0.05,
+ "beta_train_used": 0.5,
+ "bpda": false,
+ "macro_f1": 0.8899363840401107,
+ "accuracy": 0.9317183016743544,
+ "per_class_f1": {
+  "backdoor": 0.9808939526730938,
+  "ddos": 0.9262365223344172,
+  "dos": 0.9536574284416175,
+  "injection": 0.8106032906764168,
+  "mitm": 0.505800464037123,
+  "normal": 0.9710144927536232,
+  "password": 0.8723566103757797,
+  "ransomware": 0.9854200416570238,
+  "scanning": 0.9697512081618042,
+  "xss": 0.9236298292902066
+ },
+ "attack_detection": 0.9986348444193381,
+ "benign_fpr": 0.051987281399046105,
+ "clean_macro_f1": 0.8901252606063871,
+ "clean_n": 27500,
+ "macro_pr_auc": 0.9171448104912697,
+ "rare_classes": [
+  "mitm"
+ ],
+ "benign_fpr_check": 0.051987281399046105,
+ "n_attacked": 5000,
+ "n_detected": 4988,
+ "det_flows": "/////////////////////////////////////////////////////////////////3///////////////////////7//////////////////////////////////////////////////////9/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////3///////////////////////9///////////////////////////////////////////7v//////////////////////////////////////////////////////////////////////////////////////////////////////v/////////////+//////+///////////////////////////////////////////////////7///////////////////////////////////////////////////////////////////////////////////////////////////////////////////9/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////w==",
+ "n_detected_per_class": {
+  "backdoor": 629,
+  "ddos": 603,
+  "dos": 599,
+  "injection": 599,
+  "mitm": 153,
+  "password": 626,
+  "ransomware": 587,
+  "scanning": 599,
+  "xss": 593
+ },
+ "bb_both_b0.1": 0.0,
+ "bb_volume_b0.1": 0.0,
+ "bb_both_b0.25": 0.0,
+ "bb_volume_b0.25": 0.0,
+ "bb_both_b0.5": 0.0,
+ "bb_volume_b0.5": 0.0,
+ "bb_both_b0.5_per_class": {
+  "backdoor": 0.0,
+  "ddos": 0.0,
+  "dos": 0.0,
+  "injection": 0.0,
+  "mitm": 0.0,
+  "password": 0.0,
+  "ransomware": 0.0,
+  "scanning": 0.0,
+  "xss": 0.0
+ },
+ "bb_volume_b0.5_per_class": {
+  "backdoor": 0.0,
+  "ddos": 0.0,
+  "dos": 0.0,
+  "injection": 0.0,
+  "mitm": 0.0,
+  "password": 0.0,
+  "ransomware": 0.0,
+  "scanning": 0.0,
+  "xss": 0.0
+ },
+ "ev_both_b0.5": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+ "ev_volume_b0.5": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+ "queries_first_success_median": null,
+ "queries_total": 128,
+ "min_action_per_class": {
+  "backdoor": {
+   "budget_frac": null,
+   "bytes": null,
+   "pkts": null,
+   "delay_s": null
+  },
+  "ddos": {
+   "budget_frac": null,
+   "bytes": null,
+   "pkts": null,
+   "delay_s": null
+  },
+  "dos": {
+   "budget_frac": null,
+   "bytes": null,
+   "pkts": null,
+   "delay_s": null
+  },
+  "injection": {
+   "budget_frac": null,
+   "bytes": null,
+   "pkts": null,
+   "delay_s": null
+  },
+  "mitm": {
+   "budget_frac": null,
+   "bytes": null,
+   "pkts": null,
+   "delay_s": null
+  },
+  "password": {
+   "budget_frac": null,
+   "bytes": null,
+   "pkts": null,
+   "delay_s": null
+  },
+  "ransomware": {
+   "budget_frac": null,
+   "bytes": null,
+   "pkts": null,
+   "delay_s": null
+  },
+  "scanning": {
+   "budget_frac": null,
+   "bytes": null,
+   "pkts": null,
+   "delay_s": null
+  },
+  "xss": {
+   "budget_frac": null,
+   "bytes": null,
+   "pkts": null,
+   "delay_s": null
+  }
+ },
+ "bb_only_bytes_b0.5": 0.0,
+ "bb_only_pkts_b0.5": 0.0,
+ "bb_only_delay_b0.5": 0.00020048115477145148,
+ "bb_only_bytes_pkts_b0.5": 0.0,
+ "bb_both_b0.5_floor0.0": 0.0,
+ "bb_volume_b0.5_floor0.0": 0.0,
+ "bb_both_b0.5_floor0.5": 0.0,
+ "bb_volume_b0.5_floor0.5": 0.0,
+ "bb_both_b0.5_floor2.0": 0.011627906976744186,
+ "bb_volume_b0.5_floor2.0": 0.011627906976744186,
+ "bb_both_b1.0": 0.01222935044105854,
+ "bb_volume_b1.0": 0.01222935044105854,
+ "bb_both_b2.0": 0.022253408179631114,
+ "bb_volume_b2.0": 0.022253408179631114,
+ "ad_none_b0.5": 0.00020048115477145148,
+ "bb_unconstrained_e0.01": 1.0,
+ "bb_unconstrained_e0.05": 1.0,
+ "bb_unconstrained_e0.1": 1.0,
+ "wb_action_b0.1": 0.0,
+ "wb_action_b0.25": 0.0,
+ "wb_action_b0.5": 0.0,
+ "wb_action_b1.0": 0.0,
+ "wb_action_b2.0": 0.0022052927024859663,
+ "wbs_action_b0.5": 0.00020048115477145148,
+ "wbs_action_b2.0": 0.0032076984763432237,
+ "wb_unconstrained_e0.01": 0.5898155573376103,
+ "wb_unconstrained_mutable_e0.01": 0.13071371291098638,
+ "wb_unconstrained_e0.05": 0.6146752205292703,
+ "wb_unconstrained_mutable_e0.05": 0.12570168404170007,
+ "wb_unconstrained_e0.1": 0.6343223736968725,
+ "wb_unconstrained_mutable_e0.1": 0.1277064955894146,
+ "strongest_volume_b0.5": 0.00020048115477145148,
+ "strongest_b0.5": 0.00020048115477145148,
+ "strongest_b0.5_per_class": {
+  "backdoor": 0.0,
+  "ddos": 0.0,
+  "dos": 0.0,
+  "injection": 0.0,
+  "mitm": 0.006535947712418301,
+  "password": 0.0,
+  "ransomware": 0.0,
+  "scanning": 0.0,
+  "xss": 0.0
+ },
+ "strongest_volume_b0.5_per_class": {
+  "backdoor": 0.0,
+  "ddos": 0.0,
+  "dos": 0.0,
+  "injection": 0.0,
+  "mitm": 0.006535947712418301,
+  "password": 0.0,
+  "ransomware": 0.0,
+  "scanning": 0.0,
+  "xss": 0.0
+ },
+ "ev_strongest_b0.5": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+ "ev_strongest_volume_b0.5": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+ "strongest_components": [
+  "grid",
+  "grid_vol",
+  "ad_none",
+  "wbs"
+ ],
+ "eval_s": 570.1984593868256,
+ "cfg": {
+  "model": "cnn",
+  "defence": "at_threat",
+  "seed": 0,
+  "split": 1,
+  "variant": "splits",
+  "beta_train": 0.5,
+  "eps_train": 0.05,
+  "version": "v3"
+ }
+}

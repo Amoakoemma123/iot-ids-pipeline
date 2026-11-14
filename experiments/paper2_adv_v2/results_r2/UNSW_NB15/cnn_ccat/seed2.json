@@ -1,0 +1,104 @@
+{
+ "union": {
+  "strongest_b0.5": 1.0,
+  "strongest_volume_b0.5": 0.13480885311871227,
+  "strongest_plus_b0.5": 1.0,
+  "strongest_plus_volume_b0.5": 0.13567116987640127,
+  "strongest_plus_b0.5_per_class": {
+   "analysis": 1.0,
+   "backdoor": 1.0,
+   "dos": 1.0,
+   "exploits": 1.0,
+   "fuzzers": 1.0,
+   "generic": 1.0,
+   "reconnaissance": 1.0,
+   "shellcode": 1.0,
+   "worms": 1.0
+  },
+  "ev_strongest_plus_b0.5": "///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////+",
+  "ev_strongest_plus_volume_b0.5": "AAQBAAAEAAAQAkACEgAFAADACAIQBQAAAIIASAjgAAIAAIsIAAwDAAgBASAAFgAAAIBBAGQgAABAAAAAoQEAAUoEAACEAAIiwAUIBAACIAgCEIAEAJCAwYAiEgJgIiCACAAIAhAIJAiAIAAQKCAIgACAAAAgGxAkggEAAgkABCgogECABEgwAAASIAwAADQBBEAREAACkAGAQKAQyDCKQIsIEiQoQAEAKAAAAACAAAAEBIgAQiAgSCBIQgAAAIABAABAAAlACCQSgAgQKFkAKQooQBAAACBCYFQAAQAbRAIDAgAABARCABEIAAHAEAAgUIAAgCACAIAIAAxAJCgQAaEBAAAAwIACACAgFogEAQCQADEAQQAAAABSBaAEEAAAAQAABBIAYAAAGgACAAQAgQRCAAiQAAEEgEhAAAAAAAQkAECgAAEABAAC4CKCAAIAFBFQgQAAhADQh5QARABEkAoAAIABBMAByAAFIkQAQCARAQEAAAIglAAwwAAAAAgKAAQMJCQAAIACIQQAAVQAECKEBCRABgAAJEgAhCAABNkACogAADAAQAABAARAQAAAKQAY"
+ },
+ "fs": {
+  "bb_corners_e0.005": 0.5550445530324806,
+  "bb_mut_e0.005": 0.48404713998275367,
+  "bb_mut_inc_e0.005": 0.34636389767174475,
+  "wb_bpda_e0.005": 0.3420523138832998,
+  "wb_bpda_mutable_e0.005": 0.055475711411325096,
+  "fs_strongest_e0.005": 0.5938488071284852,
+  "fs_strongest_mutable_e0.005": 0.484622017821213,
+  "bb_corners_e0.01": 0.5363610232825524,
+  "bb_mut_e0.01": 0.49669445242885885,
+  "bb_mut_inc_e0.01": 0.36475998850244323,
+  "wb_bpda_e0.01": 0.37884449554469674,
+  "wb_bpda_mutable_e0.01": 0.06668582926128198,
+  "fs_strongest_e0.01": 0.5955734406438632,
+  "fs_strongest_mutable_e0.01": 0.49669445242885885,
+  "bb_corners_e0.02": 0.3432020695602185,
+  "bb_mut_e0.02": 0.5007185972980741,
+  "bb_mut_inc_e0.02": 0.3429146306409888,
+  "wb_bpda_e0.02": 0.5559068697901696,
+  "wb_bpda_mutable_e0.02": 0.08105777522276517,
+  "fs_strongest_e0.02": 0.6631215866628342,
+  "fs_strongest_mutable_e0.02": 0.5007185972980741,
+  "bb_corners_e0.05": 0.8163265306122449,
+  "bb_mut_e0.05": 0.5179649324518539,
+  "bb_mut_inc_e0.05": 0.48720896809428,
+  "wb_bpda_e0.05": 0.7116987640126473,
+  "wb_bpda_mutable_e0.05": 0.13193446392641564,
+  "fs_strongest_e0.05": 0.8350100603621731,
+  "fs_strongest_mutable_e0.05": 0.5182523713710836,
+  "bb_corners_e0.1": 0.6536361023282552,
+  "bb_mut_e0.1": 0.5225639551595286,
+  "bb_mut_inc_e0.1": 0.4932451853981029,
+  "wb_bpda_e0.1": 0.8554182236274792,
+  "wb_bpda_mutable_e0.1": 0.20063236562230527,
+  "fs_strongest_e0.1": 0.8669157803966657,
+  "fs_strongest_mutable_e0.1": 0.5225639551595286
+ },
+ "op": {
+  "native": {
+   "detected": 0.6958,
+   "test_fpr": 0.21261562178828367,
+   "asr_volume": 0.1345214141994826,
+   "asr": 1.0,
+   "e2e_volume": 0.3978,
+   "e2e": 1.0,
+   "attack": "grid + adaptive"
+  },
+  "fpr1": {
+   "detected": 0.1414,
+   "test_fpr": 0.009249743062692703,
+   "asr_volume": 0.9985855728429985,
+   "asr": 1.0,
+   "e2e_volume": 0.9998,
+   "e2e": 1.0,
+   "tau": 0.027661252282559872,
+   "attack": "grid + adaptive"
+  },
+  "fpr_match": {
+   "detected": 0.6512,
+   "test_fpr": 0.19976875642343267,
+   "asr_volume": 0.1845823095823096,
+   "asr": 1.0,
+   "e2e_volume": 0.469,
+   "e2e": 1.0,
+   "tau": 0.22641754271950715,
+   "attack": "grid + adaptive"
+  }
+ },
+ "feas": {
+  "grid_both": 1.0,
+  "grid_volume": 0.11210117849956884,
+  "feas_both": 1.0,
+  "feas_volume": 0.1123886174187985,
+  "lost_both": 0.0,
+  "gained_both": 0.0
+ },
+ "bpa": {
+  "bpda_action_b0.5": 1.0,
+  "bpda_action_volume_b0.5": 0.09456740442655935,
+  "bpda_new_vs_strongest_b0.5": 0.0,
+  "strongest_with_bpda_b0.5": 1.0,
+  "ev_bpda_action_b0.5": "///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////+"
+ }
+}

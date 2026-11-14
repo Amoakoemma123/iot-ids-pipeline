@@ -1,0 +1,79 @@
+{
+ "union": {
+  "strongest_b0.5": 0.4322948482997353,
+  "strongest_volume_b0.5": 0.42944410507025044,
+  "strongest_plus_b0.5": 0.43494196701282833,
+  "strongest_plus_volume_b0.5": 0.43412746894726123,
+  "strongest_plus_b0.5_per_class": {
+   "analysis": 0.8350515463917526,
+   "backdoor": 0.7105263157894737,
+   "dos": 0.32447817836812143,
+   "exploits": 0.1873198847262248,
+   "fuzzers": 0.5336743393009378,
+   "generic": 0.8638132295719845,
+   "reconnaissance": 0.36877523553162855,
+   "shellcode": 0.38650306748466257,
+   "worms": 0.05263157894736842
+  },
+  "ev_strongest_plus_b0.5": "rqSJlgY/LtTEAgWCwgUUIPhrVoaOSTdF9JRmmToKopxBSUaRg08IY18M6RERGKyyIJUHYgAZTQpn5TKKEtkF3q3Qui3D5WoDqBxaOgZhmj4W7KSFCArr4oj2LgNOh7EGe3400NyPGxreStCSlMFemJlBb1sUN25IV1CvwNzcSkoVIU9q7shwZepqGMHowIIJlq6+4jOJOcwZ0VQ2OmzICAkIYqrCKzixAbMZND8iDLDQzxf0D2YtVDwhEjqlKIoBmTpRAwO95kAOMv8e94lqoyUoxKgiVNYyjUBzrGmwDhaHYExoEsMHtuGnmEYc45+wOQRvkASUtAK9sCYmrGaWjA8jbi2gIgNJ3oEBIAfHEyJUjVW1ZHkhG0grz4yVt0eJCfAIcCQGfSG1PD4yqqwio6DDFBWBSVTHLTMSUSCcKASEhWH90KDjc2PbYVGqzlzIGES4iUIaIi5IFTab/QMxCr/k/HGL+G0Y3QemzC6RCDYnZGUBj4GAkWnLmQ505AIcwqBEyiZc2cTlPj6K/ogmLYWWnim8DwjDAD+QHetAD7kQgq78/BBE+aXMryHOKDfC5kAEOh0ZEFdVoJhnOhbPo8W4jYgJO8ttgbEEJBDksmxKqPKXAFVvMSuEdPps80xoo2FWit6qoK1KoZX3CFmRScXEkfhZ0EEwLUTVoruBnlxJFyB1WUAklUEnxfM4lYX1TSwDwX80FJYAebUvpALN4poW8eTZ1eHgnZQdBqyUKXnRAaAk2SAiyKkLfsmIIJCgch4sisdImmkA4GgLAehMdjBaFYWQFAANk35IR2yWvDPfrSIi4kw=",
+  "ev_strongest_plus_volume_b0.5": "rqSJlgY7LtTEAgWCwgUUIPhrVoaOSTdF9JRmmToKopxBSUaRg08IY18M6RERGKyyIJUHYgAZTQpn5TKKEtkF3q3Qui3D5WoDqBxaOgZhmj4W7KSFCArr4oj2LgNOh7EGe3400NyPGxreStCSlMFemJlBb1sUN25IV1CvwNzcSkoVIU9q7shwZepqGMHowIIJlq6+4jOJOcwZ0VQ2OmzICAkIYqrCKzixAbMZND8iDLDQzxf0D2YtVDwhEjqlKIoBmTpRAwO95kAOMv8e94lqoyUoxKgiVNYyjUBzrGmwDhaHYExoEsMHtuGnmEYc45+wOQRvkASUtAK9sCYmrGaWjA8jbi2gIgNJ3oEBIAfHEyJUjVW1ZHkhGUgrz4yVt0eJCfAIcCQGfSG1PD4yqqwio6DDFBWBSVTHLTMSUSCcKASEhWH90KDjc2PbYVGqzlzIGES4iUIaIi5IFTab/QMxCr/k/HGL+G0Y3QemzC6RCDYnZGUBj4GAkWnLmQ505AIcwqBEyiZc2cTlPj6K/ogmLYWWnim8DwjDAD+QHetAD7kQgq78/ABE+aXMryHOKDfC5kAEOh0ZEFdVoJhnOhbPo8W4jYgJO8ttgbEEJBDksmxKqPKXAFVvMSuEdPps80xoo2FWit6qoK1KoZX3CFmRScXEkfhZ0EEwLUTVoruBnlxJFyB1WUAklUEnxfM4lYX1TSwDwX80FJYAebUvpALN4poW8eTZ1eFgnZQdBqyUKXnRAaAk2SAiyKkLfsmIIJCgch4sisdImmkA4GgLAehMdjBaFYWQFAANk35IR2yWvDPfrSIi4kw="
+ },
+ "fs": {
+  "bb_corners_e0.005": 1.0,
+  "bb_mut_e0.005": 0.984728161270617,
+  "bb_mut_inc_e0.005": 0.6796986357157402,
+  "wb_bpda_e0.005": 0.9898187741804113,
+  "wb_bpda_mutable_e0.005": 0.9462431276725718,
+  "fs_strongest_e0.005": 1.0,
+  "fs_strongest_mutable_e0.005": 0.9849317857870088,
+  "bb_corners_e0.01": 1.0,
+  "bb_mut_e0.01": 0.9932803909590715,
+  "bb_mut_inc_e0.01": 0.7069843209122378,
+  "wb_bpda_e0.01": 0.9965383832213398,
+  "wb_bpda_mutable_e0.01": 0.9723070657707188,
+  "fs_strongest_e0.01": 1.0,
+  "fs_strongest_mutable_e0.01": 0.9934840154754633,
+  "bb_corners_e0.02": 1.0,
+  "bb_mut_e0.02": 0.9961311341885563,
+  "bb_mut_inc_e0.02": 0.7668499287314192,
+  "wb_bpda_e0.02": 0.9985746283852576,
+  "wb_bpda_mutable_e0.02": 0.9888006515984524,
+  "fs_strongest_e0.02": 1.0,
+  "fs_strongest_mutable_e0.02": 0.9961311341885563,
+  "bb_corners_e0.05": 1.0,
+  "bb_mut_e0.05": 0.998167379352474,
+  "bb_mut_inc_e0.05": 0.870494807574832,
+  "wb_bpda_e0.05": 1.0,
+  "wb_bpda_mutable_e0.05": 0.9993891264508247,
+  "fs_strongest_e0.05": 1.0,
+  "fs_strongest_mutable_e0.05": 0.9995927509672164,
+  "bb_corners_e0.1": 1.0,
+  "bb_mut_e0.1": 0.9985746283852576,
+  "bb_mut_inc_e0.1": 0.8827122785583384,
+  "wb_bpda_e0.1": 1.0,
+  "wb_bpda_mutable_e0.1": 0.9991855019344329,
+  "fs_strongest_e0.1": 1.0,
+  "fs_strongest_mutable_e0.1": 0.9997963754836082
+ },
+ "op": {
+  "native": {
+   "detected": 0.9822,
+   "test_fpr": 0.1923175745118191,
+   "asr_volume": 0.4251679902260232,
+   "asr": 0.4251679902260232,
+   "e2e_volume": 0.4354,
+   "e2e": 0.4354,
+   "attack": "grid + adaptive"
+  },
+  "fpr1": {
+   "detected": 0.5828,
+   "test_fpr": 0.01091983556012333,
+   "asr_volume": 0.7930679478380234,
+   "asr": 0.7930679478380234,
+   "e2e_volume": 0.8794,
+   "e2e": 0.8794,
+   "tau": 0.021540395095944406,
+   "attack": "grid + adaptive"
+  }
+ }
+}

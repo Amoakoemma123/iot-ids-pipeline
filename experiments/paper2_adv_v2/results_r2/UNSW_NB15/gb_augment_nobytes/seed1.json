@@ -1,0 +1,96 @@
+{
+ "union": {
+  "strongest_b0.5": 0.3988,
+  "strongest_volume_b0.5": 0.0166,
+  "strongest_plus_b0.5": 0.3998,
+  "strongest_plus_volume_b0.5": 0.0178,
+  "strongest_plus_b0.5_per_class": {
+   "analysis": 0.9175257731958762,
+   "backdoor": 0.7905759162303665,
+   "dos": 0.36622390891840606,
+   "exploits": 0.11882605583392986,
+   "fuzzers": 0.4105793450881612,
+   "generic": 0.8850174216027874,
+   "reconnaissance": 0.2934051144010767,
+   "shellcode": 0.5792682926829268,
+   "worms": 0.05263157894736842
+  },
+  "ev_strongest_plus_b0.5": "voWJMgefF7ElEIECsIFJjKIoMWhhVJp0dUqrNCnwdW5wBC0eWQSaSMafCcJyBjFbKARcT2EICeTBI8aVQQklATTqcE4aZPkaBOoMEqiBkHKqrT8X0KABd5xQHyKEHOJx0iHb8GPCTM0DUoxRgckgNFGuDDQTRsWG7aRKOSZHgZk8nIwqUJa1V5Hg59LUMc+RAAbJJqS49hOJG45AUlQ2YujICgiMIhFhFRUQ4MmNmh8CxpBZYgukRbGJWM2qYkcWhjAALRdLEhF/55IimuVStcYB1QZKUYgaADvFowgYTDBPAAvCUPxJDEiKQrbWNKAtScSx2w7IMYxncOJY15KCTEHIUn0cBgYGHYEiImlUQsDQA6vJkQpZgea4pkSHWgvxQyVlUYILEiCHCQAyqQzp4emlFrCLiYFIQWeFNCmMEnIgoEAaUDCEwcluMjicamdv3iJ0iUsZAwmGq5xA0QSgAYHQr+iJiH9/UZHCb6nYGLINC5pJShINTsBKo1dBBWIQl3w9oWgAK8PECmQDIlzwcI9eJUMqCIPhQStywOhScQgijsBzDwBuwoAKvfOQAA96Zw1aQ51CtqTPMIaZDAiIbdAohhHOqmxRP48oiECwjTHSESgIQCEFZVkaILLVAG+1mYzACmwgecc1yqDJAE8l0EK3AMDz5PGyN2yYkzyjKwYiBSqYkEUEWPhGSBECgusBMmGkshXM540F4go6DUFsNNQbgj3aUpYBdvBHCshmRjQ4fCwlBkWjBEpKckA4ChbsCDpqCN0ZQDJcChmP5CIY6DMNIowCYFAtQGCxxGhrApAggFqDXrBCLAaNNNoKkVl7Ag==",
+  "ev_strongest_plus_volume_b0.5": "AAAAAAAABAAAAIEAAAAAgAIAAAAAAAAAAAAAEAgAAAAAAAAAAAAAAAAAAAAAAgEACAAAAAAAACAAAAAAAAAAAAAAAAQAAAAAAAAAAACAAAAAACAAQAAAAAgABAAAAIAAAAAAIABAAAAAAAAAAEAABACAAAAAAAAEICAAAAAAAAAAAAAAAAAQAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAQAAAAAAAAAAAAAAAAAEAAAAAAAAAgAAAAAAAAAAQAgAAAAAAAAAAAAAAAAAIAAABIAAAAAACAAAAAAAACAAAAAAAAAAIAAAAAAAAEAAAAAAAAAACAAAAQAAAAAAEAAAAAAAAAAAAAAAAAAARAAAABAAAAAAgAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAgAAAACAAAABAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAABAAAABAAAAAAAAAAAAAAAAAgQAAAAAAAAAAgAAAAAAAAgAAAgAAAAEAAAAAAAEAAAAAAEAAIAAAAAABAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAABAAAAAAACgAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAEAAAAAAAAAAAAIAAAAAAEAAAAAAAAAAAAACAAAAAAEAACAAAAAAAAAAAAAAEAAAAgAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAIEAAAAAAAAAAABAEABAAAAAAAAAAAAAAAAAAAAAAAAAA=="
+ },
+ "fs": {
+  "bb_corners_e0.005": 0.4826,
+  "bb_mut_e0.005": 0.1156,
+  "bb_mut_inc_e0.005": 0.0248,
+  "fs_strongest_e0.005": 0.5142,
+  "fs_strongest_mutable_e0.005": 0.1156,
+  "bb_corners_e0.01": 0.4928,
+  "bb_mut_e0.01": 0.2574,
+  "bb_mut_inc_e0.01": 0.0852,
+  "fs_strongest_e0.01": 0.5542,
+  "fs_strongest_mutable_e0.01": 0.2574,
+  "bb_corners_e0.02": 0.8472,
+  "bb_mut_e0.02": 0.4306,
+  "bb_mut_inc_e0.02": 0.0822,
+  "fs_strongest_e0.02": 0.8612,
+  "fs_strongest_mutable_e0.02": 0.4306,
+  "bb_corners_e0.05": 1.0,
+  "bb_mut_e0.05": 0.65,
+  "bb_mut_inc_e0.05": 0.2112,
+  "fs_strongest_e0.05": 1.0,
+  "fs_strongest_mutable_e0.05": 0.65,
+  "bb_corners_e0.1": 1.0,
+  "bb_mut_e0.1": 0.72,
+  "bb_mut_inc_e0.1": 0.2348,
+  "fs_strongest_e0.1": 1.0,
+  "fs_strongest_mutable_e0.1": 0.72
+ },
+ "op": {
+  "native": {
+   "detected": 1.0,
+   "test_fpr": 0.12692702980472764,
+   "asr_volume": 0.0016,
+   "asr": 0.005,
+   "e2e_volume": 0.0016,
+   "e2e": 0.005,
+   "attack": "grid only"
+  },
+  "fpr1": {
+   "detected": 0.9984,
+   "test_fpr": 0.014131551901336074,
+   "asr_volume": 0.028645833333333332,
+   "asr": 0.06650641025641026,
+   "e2e_volume": 0.0302,
+   "e2e": 0.068,
+   "tau": 0.036075366636039025,
+   "attack": "grid only"
+  },
+  "fpr_match": {
+   "detected": 1.0,
+   "test_fpr": 0.14003083247687564,
+   "asr_volume": 0.0012,
+   "asr": 0.0028,
+   "e2e_volume": 0.0012,
+   "e2e": 0.0028,
+   "tau": 0.5363402843369048,
+   "attack": "grid only"
+  }
+ },
+ "feas": {
+  "grid_both": 0.005,
+  "grid_volume": 0.0016,
+  "feas_both": 0.005,
+  "feas_volume": 0.0004,
+  "lost_both": 0.0004,
+  "gained_both": 0.0004
+ },
+ "sat": {
+  "n_sub": 500,
+  "strongest_sub": 0.4,
+  "grid_r3": 0.01,
+  "grid_r5": 0.014,
+  "grid_r7": 0.03,
+  "long_adaptive_new": 0.048,
+  "union_sub": 0.448
+ }
+}

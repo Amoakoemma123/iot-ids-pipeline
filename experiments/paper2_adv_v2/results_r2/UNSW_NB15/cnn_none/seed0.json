@@ -1,0 +1,121 @@
+{
+ "union": {
+  "strongest_b0.5": 0.9947591714499626,
+  "strongest_volume_b0.5": 0.6513601197903669,
+  "strongest_plus_b0.5": 0.9947591714499626,
+  "strongest_plus_volume_b0.5": 0.6518592463189419,
+  "strongest_plus_b0.5_per_class": {
+   "analysis": 0.9921875,
+   "backdoor": 1.0,
+   "dos": 0.9855421686746988,
+   "exploits": 0.9880952380952381,
+   "fuzzers": 0.9977142857142857,
+   "generic": 1.0,
+   "reconnaissance": 1.0,
+   "shellcode": 1.0,
+   "worms": 1.0
+  },
+  "ev_strongest_plus_b0.5": "//////////////////////////////////////////////v///3//////////////////////////////////////////////////v/////////////////9///////////////////////////3/////////////////////////3/////////////v//////////////////////////////////////////f/////////////////////////////////////////7//////////////////////f/////v////////////////////////////////////////7////////////////////////////9//////////////////////////////////////////3//////////////////////////////////////////////////////////////////////////////////////////////////+///////////////////////////////////////f/////vf////////////////////////////f////////////////////////////////////////////////////////////////////f/+//////+",
+  "ev_strongest_plus_volume_b0.5": "jd4/SH+/tvQMdW3n6XS5fZ194X36arMy/h69cSNmaSfZ3/v1tvx/VqGqL9VHbXcz+t6hZTP/9/C6+v/jeur9Bpd5+/skL0Tf8nfzpr7eezv8N5zdD3+Rr631faeuW9bqP//foz6f7k5BfWq7v8jz33a/dXpCUw6bXvXM7rnu3tuLl0zrhdvXfFe63h/G2z9fc966f+v/lFW9fsrdGh7frmy/v9e3/3v205S/XTW3//dn+DsX9U8Nr9Sf9Ev/vfd0tz0f2eL79m5f5/5z7l3X998N8ak++17LEaDv/ObXzL29nP//7fu9fu/TtzcZx+m/uO3+47282c0pePw7TaepzNh3rTSfP1/u85c/7/vObr9t98y/3uK9LllAHxf03J///e+Lf39ptHxc7UZfcvey8a6shf+98O32Rr2fk7d33vffE+7P79Fk9j1bLThXoKpewe+1Z7Mx7339BM/+8yu35/q9vdTPXNuLfVbf/997r1+vTpbabuFhaRHq7vXfvkf3+a83Teb/vq899p7q9Vf3FZ/fX2f/T1nePz7qH/+PYKxn5mTHbNvcHnBlYXvzlReB2h+36xS7C+732F/lXJV07dXuiVW296/J77mppf/iLt/y//sRiHnvdPn/02b9h/rF/kj/x2f85jwC1/9x2tR2u9+qv3/E"
+ },
+ "fs": {
+  "bb_corners_e0.005": 0.9942600449213875,
+  "bb_mut_e0.005": 0.9757923633641128,
+  "bb_mut_inc_e0.005": 0.8847017718991764,
+  "wb_bpda_e0.005": 0.8939356126778139,
+  "wb_bpda_mutable_e0.005": 0.6838033441477415,
+  "fs_strongest_e0.005": 0.9967556775642625,
+  "fs_strongest_mutable_e0.005": 0.9762914898926878,
+  "bb_corners_e0.01": 0.9982530571499876,
+  "bb_mut_e0.01": 0.9910157224856501,
+  "bb_mut_inc_e0.01": 0.9286249064137759,
+  "wb_bpda_e0.01": 0.9141502370851011,
+  "wb_bpda_mutable_e0.01": 0.7471924132767657,
+  "fs_strongest_e0.01": 0.999500873471425,
+  "fs_strongest_mutable_e0.01": 0.9912652857499377,
+  "bb_corners_e0.02": 1.0,
+  "bb_mut_e0.02": 0.9987521836785626,
+  "bb_mut_inc_e0.02": 0.9560768654854005,
+  "wb_bpda_e0.02": 0.9495882206139257,
+  "wb_bpda_mutable_e0.02": 0.8475168455203395,
+  "fs_strongest_e0.02": 1.0,
+  "fs_strongest_mutable_e0.02": 0.9987521836785626,
+  "bb_corners_e0.05": 1.0,
+  "bb_mut_e0.05": 0.9997504367357125,
+  "bb_mut_inc_e0.05": 0.9703019715497879,
+  "wb_bpda_e0.05": 0.9745445470426753,
+  "wb_bpda_mutable_e0.05": 0.9016720738707262,
+  "fs_strongest_e0.05": 1.0,
+  "fs_strongest_mutable_e0.05": 0.9997504367357125,
+  "bb_corners_e0.1": 1.0,
+  "bb_mut_e0.1": 1.0,
+  "bb_mut_inc_e0.1": 0.9698028450212128,
+  "wb_bpda_e0.1": 0.9865235837284752,
+  "wb_bpda_mutable_e0.1": 0.9121537309708011,
+  "fs_strongest_e0.1": 1.0,
+  "fs_strongest_mutable_e0.1": 1.0
+ },
+ "op": {
+  "native": {
+   "detected": 0.8014,
+   "test_fpr": 0.19797019527235354,
+   "asr_volume": 0.6508609932617918,
+   "asr": 0.9947591714499626,
+   "e2e_volume": 0.7202,
+   "e2e": 0.9958,
+   "attack": "grid + adaptive"
+  },
+  "fpr1": {
+   "detected": 0.508,
+   "test_fpr": 0.0105344295991778,
+   "asr_volume": 0.9118110236220472,
+   "asr": 0.9996062992125985,
+   "e2e_volume": 0.9552,
+   "e2e": 0.9998,
+   "tau": 0.02850962296128273,
+   "attack": "grid + adaptive"
+  }
+ },
+ "feas": {
+  "grid_both": 0.9932617918642376,
+  "grid_volume": 0.6286498627402046,
+  "feas_both": 0.9932617918642376,
+  "feas_volume": 0.6288994260044921,
+  "lost_both": 0.0,
+  "gained_both": 0.0
+ },
+ "opu": {
+  "val_fpr": 0.1948869475847893,
+  "tau": 0.4981508505858963,
+  "detected": 0.8296,
+  "test_fpr": 0.19822713257965058,
+  "asr_volume": 0.6371745419479267,
+  "asr": 0.9944551591128254,
+  "e2e_volume": 0.699,
+  "e2e": 0.9954,
+  "attack": "grid + adaptive"
+ },
+ "bpa": {
+  "bpda_action_b0.5": 0.9905165959570751,
+  "bpda_action_volume_b0.5": 0.559021712003993,
+  "bpda_new_vs_strongest_b0.5": 0.0,
+  "strongest_with_bpda_b0.5": 0.9947591714499626,
+  "ev_bpda_action_b0.5": "//////////////////////////////////////////////v///3/////////////////////////////9///v//////////////7/v/////////////////9///////////////v///////////3///////7/////////////////3/////////////v////////////////////3/////////////////////f///9////////////f////////////////////////7//////9///////////////f/////u////////////////////////////////////////7/////7//////////9///////////9///f//////////////////////////////////////3///////////////////////////////////////////////////////////////////////////////////////////////f//+////////////////////f//////////////////f/////vf////////////////////////////f/////////////////////////+///////////////////////////////////v//////f/+//////+"
+ },
+ "relax": {
+  "relax_b0.5": 0.7369603194409783,
+  "relax_union_b0.5": 0.7412028949338657,
+  "relax_corners_b0.5": 0.7159970052408285,
+  "realistic_volume_b0.5": 0.6513601197903669,
+  "relax_new_vs_realistic": 0.08984277514349888,
+  "realistic_not_relax": 0.004242575492887447,
+  "median_width_mm": [
+   9.559843069300366e-05,
+   6.102198480497945e-06,
+   0.09009078557312256,
+   0.04836210708713549,
+   5.318701505655589e-05
+  ],
+  "ev_relax_b0.5": "jfp/SH+/vvQMfW3n+3T9/c996336erMy/h698StnfSfY3/v11vx/V6PqL/dXbX8z+t6zZTP///C6/v/jfvv9Vpf9+/s9r2f/8n/39v7++3/9N53df/2z7631f6+uW9buP//foz+f709Jf277v8z7336/9XpiVz7ffvXM7rn+7tuLl1/rzZvf/H+631/H+79f89/7/+v/lNW9/s7dGl7fr3y/v9/3f3v285S/f3W3//dn+n8X8V89r9S/9Wv/vff1tz0f2eb79m5/9/5z7l3X//+v+bl+/17LEbDv/ObX7L//nv//7/u9/v/7v39Z3+3/uu/+67+8+c0/+Px7z/ep7Nr37TTfP3/u878/79vPfr/t98y/3uq9btlh3zf2/J///++rf39rtH5d7cZ/Zvey9//9hf/98u3/Xr2fk/d3///fE+7P79H9/n17bX9X9qpf0e+3b7M573/9F8///2u/9/q9v/zvXNuL/Fbf/997/3/vTpbafuFhbxHr7vXf/m/3+a93X+//vq8/9v7+9Vf3NZ///2f/T9nfv77qXf+fcOzn52XPbPvdHnJlZ3v7lZeB/p+36zS7z+732F/1Xp3//dXujVW296/Z7/nv7//6rp/a//tRjPnv9Pn++279x/rt/sl/x/f97nxC3/9z2tR/u9/7///0"
+ }
+}

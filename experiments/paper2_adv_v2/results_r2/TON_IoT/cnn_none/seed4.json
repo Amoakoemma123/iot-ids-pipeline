@@ -1,0 +1,120 @@
+{
+ "union": {
+  "strongest_b0.5": 0.46562123039806996,
+  "strongest_volume_b0.5": 0.4650180940892642,
+  "strongest_plus_b0.5": 0.46763168476075595,
+  "strongest_plus_volume_b0.5": 0.46763168476075595,
+  "strongest_plus_b0.5_per_class": {
+   "backdoor": 0.0016313213703099511,
+   "ddos": 0.28833333333333333,
+   "dos": 0.12372881355932204,
+   "injection": 0.3539967373572594,
+   "mitm": 0.20512820512820512,
+   "password": 0.6241830065359477,
+   "ransomware": 0.9666110183639399,
+   "scanning": 0.825944170771757,
+   "xss": 0.6288659793814433
+  },
+  "ev_strongest_plus_b0.5": "roIojEeQwwKwL7aMKhzSGnTENluPFui+AUryy/gnWAgk6J5NqrLKeEzwgVkFJgbEYBQhOBg1VkIWOqNxniP0YcZCKNwCJoXMp3MGytyNO+Ex4A4kxlEazT34V1v4RxxifI3Jrmu6zUCewxyD0ys8HEa3+ewFUwUakMD3Ax5RYWaVxPJS+JEGvuah9x+FYhGgl9vQDf+YDM4II0i0MTeyGyEpvPgLaZZSziVd+O1r5bUBiNOsXHU4XVysj15Gs/pbagCAk1ebrluBt1bJiNNFjFryI89fnQBWJk9kxGxDlk5G3hGYNwC+p7+k4KExnk57mN+tl9b4MK02Hy0FMzcLr8mhCbPk8PxNmo9F6YOYLp/3hmbBA7ytTccHYwV2bKKHvZFughAiqaXmhk58JQ0xgBAfN4wyCowgELFSSYBYtX004SroiGkgwIkH+kHWGfrF6Brlwh4NOh878GxPqu9aHFE2JAiTkwFxxlzDkSNoMyIUSQ0dazjHSVM3wcZmHvOE2iSZNokLlkRdOWAVbhNvMwfh56u4cPy3MtVzVPAGTs7IVDgbMEkpCgkggPjksK3whMpim0eHLj0riNBAAvxDCuvVtaS588/L6Eny0d3DnZxa4G6MgFF5fpSfxAhyuCZkjvjfwsgUG6LWplR7rxyi5fTArlWLszHITwGXzEBR4P838l8AVpAbTiUoRfrz32EaCzGP5rzQVkBuD4KEoD9RxYOUUBXzWLRL/GASfhGCZ3SvMI4QOpA8BAG+OP6STu1KhLeil4JsYNgvFwUPDqmYZCzWHHUjny6pkZd4U6LOG4ZdUkuUyIcGrYqC7KsLaA==",
+  "ev_strongest_plus_volume_b0.5": "roIojEeQwwKwL7aMKhzSGnTENluPFui+AUryy/gnWAgk6J5NqrLKeEzwgVkFJgbEYBQhOBg1VkIWOqNxniP0YcZCKNwCJoXMp3MGytyNO+Ex4A4kxlEazT34V1v4RxxifI3Jrmu6zUCewxyD0ys8HEa3+ewFUwUakMD3Ax5RYWaVxPJS+JEGvuah9x+FYhGgl9vQDf+YDM4II0i0MTeyGyEpvPgLaZZSziVd+O1r5bUBiNOsXHU4XVysj15Gs/pbagCAk1ebrluBt1bJiNNFjFryI89fnQBWJk9kxGxDlk5G3hGYNwC+p7+k4KExnk57mN+tl9b4MK02Hy0FMzcLr8mhCbPk8PxNmo9F6YOYLp/3hmbBA7ytTccHYwV2bKKHvZFughAiqaXmhk58JQ0xgBAfN4wyCowgELFSSYBYtX004SroiGkgwIkH+kHWGfrF6Brlwh4NOh878GxPqu9aHFE2JAiTkwFxxlzDkSNoMyIUSQ0dazjHSVM3wcZmHvOE2iSZNokLlkRdOWAVbhNvMwfh56u4cPy3MtVzVPAGTs7IVDgbMEkpCgkggPjksK3whMpim0eHLj0riNBAAvxDCuvVtaS588/L6Eny0d3DnZxa4G6MgFF5fpSfxAhyuCZkjvjfwsgUG6LWplR7rxyi5fTArlWLszHITwGXzEBR4P838l8AVpAbTiUoRfrz32EaCzGP5rzQVkBuD4KEoD9RxYOUUBXzWLRL/GASfhGCZ3SvMI4QOpA8BAG+OP6STu1KhLeil4JsYNgvFwUPDqmYZCzWHHUjny6pkZd4U6LOG4ZdUkuUyIcGrYqC7KsLaA=="
+ },
+ "fs": {
+  "bb_corners_e0.005": 1.0,
+  "bb_mut_e0.005": 0.9983916365098512,
+  "bb_mut_inc_e0.005": 0.7490952955367913,
+  "wb_bpda_e0.005": 0.906312826698834,
+  "wb_bpda_mutable_e0.005": 0.7973462002412546,
+  "fs_strongest_e0.005": 1.0,
+  "fs_strongest_mutable_e0.005": 0.9983916365098512,
+  "bb_corners_e0.01": 1.0,
+  "bb_mut_e0.01": 0.9985926819461198,
+  "bb_mut_inc_e0.01": 0.7698029754724568,
+  "wb_bpda_e0.01": 0.8843988741455568,
+  "wb_bpda_mutable_e0.01": 0.8039806996381182,
+  "fs_strongest_e0.01": 1.0,
+  "fs_strongest_mutable_e0.01": 0.9985926819461198,
+  "bb_corners_e0.02": 1.0,
+  "bb_mut_e0.02": 0.9985926819461198,
+  "bb_mut_inc_e0.02": 0.7716123843988741,
+  "wb_bpda_e0.02": 0.8520305589063129,
+  "wb_bpda_mutable_e0.02": 0.7981503819863289,
+  "fs_strongest_e0.02": 1.0,
+  "fs_strongest_mutable_e0.02": 0.9985926819461198,
+  "bb_corners_e0.05": 1.0,
+  "bb_mut_e0.05": 0.9985926819461198,
+  "bb_mut_inc_e0.05": 0.77221552070768,
+  "wb_bpda_e0.05": 0.8799758745476478,
+  "wb_bpda_mutable_e0.05": 0.7736228387615601,
+  "fs_strongest_e0.05": 1.0,
+  "fs_strongest_mutable_e0.05": 0.9985926819461198,
+  "bb_corners_e0.1": 1.0,
+  "bb_mut_e0.1": 0.9985926819461198,
+  "bb_mut_inc_e0.1": 0.7724165661439485,
+  "wb_bpda_e0.1": 0.9045034177724166,
+  "wb_bpda_mutable_e0.1": 0.7740249296340973,
+  "fs_strongest_e0.1": 1.0,
+  "fs_strongest_mutable_e0.1": 0.9985926819461198
+ },
+ "op": {
+  "native": {
+   "detected": 0.9948,
+   "test_fpr": 0.014308426073131956,
+   "asr_volume": 0.4609971853638922,
+   "asr": 0.4609971853638922,
+   "e2e_volume": 0.4638,
+   "e2e": 0.4638,
+   "attack": "grid + adaptive"
+  },
+  "fpr1": {
+   "detected": 0.9962,
+   "test_fpr": 0.015580286168521463,
+   "asr_volume": 0.3710098373820518,
+   "asr": 0.3710098373820518,
+   "e2e_volume": 0.3734,
+   "e2e": 0.3734,
+   "tau": 0.6399588006734848,
+   "attack": "grid + adaptive"
+  }
+ },
+ "feas": {
+  "grid_both": 0.4378769601930036,
+  "grid_volume": 0.4378769601930036,
+  "feas_both": 0.41777241656614394,
+  "feas_volume": 0.41777241656614394,
+  "lost_both": 0.021511861680739847,
+  "gained_both": 0.0014073180538801769
+ },
+ "opu": {
+  "val_fpr": 0.009538950715421303,
+  "tau": 0.6156052387954697,
+  "detected": 0.996,
+  "test_fpr": 0.015421303656597773,
+  "asr_volume": 0.37248995983935745,
+  "asr": 0.37248995983935745,
+  "e2e_volume": 0.375,
+  "e2e": 0.375,
+  "attack": "grid + adaptive"
+ },
+ "bpa": {
+  "bpda_action_b0.5": 0.3791716928025734,
+  "bpda_action_volume_b0.5": 0.3791716928025734,
+  "bpda_new_vs_strongest_b0.5": 0.0002010454362685967,
+  "strongest_with_bpda_b0.5": 0.46582227583433855,
+  "ev_bpda_action_b0.5": "jgIohAeQgwCQK6YIIhzSGlDENluLFOi+AUrSy/AFWAAg6J4NKrLIcEzwgFkFBATEQBAhEBAhFkIEOqJRniM0YcZCIMwCJoTIpnIGgtSFO+ExYA4EwkEazTm4R1P4BxxifI3Jrms6xUCYwQyCkys8FEa3uewBQwUakIChAx5BYUaExLJSWJEGvkah8h8FIgGgF5MQDRuYDI4AI0i0MDOiGyEpgHgLaZQSzCRd2O1r5LUBAEMsWDQoXUSkj15Gs+pbagCAg1KbLBuAM1bBgMFFBFpyIw8fnQBWJEtkhGxAlk5G1BGYNwC2pb+k4IExhkZbGJusl9boAKk2GSwFMTcKr8ihCbDkcNxJko0BiYOQJo2hhmTBArypRYMHYgU2bKKHnZFighAgqYHmhE5YJQwxgBAfE4wyAgwgEDFCSQAINX0w4QroiGEggIkD2kDGGfLB6BjkwgwNOg8a8ExLqu9YHFEwJAiSkwBxxlxDASIoIwIASA0QajjFSRI0AIIiHvOE0CSREogLlEBdOWAVbhNOIwdh56mIcOy1MtVyUOAGSs7IVBgaAEEpCgEggLDEkI3ghMpgmweGLi0piJBAAuxDCOuVlaS50s/LyEnS0Y0DjZxS4G6MgFF5fBSPxAhyOCBkjvDXwsgUC6LSphAxCxyixVTArlUKswCIAwEXwEBA4N82cl8AVhAaTiUgQdrxm2EaCzCL5rjQRkBuD4KEoD0RxYGUUBBzSLRLnEASABGCJ1QNII4QOpAoBACYOP4STuFKALeil4JsYNgPFwUPDikYZCiGHHEDnyapgYd4UwDEG4RYUkOUyAUCpIKC7KkLSA=="
+ },
+ "relax": {
+  "relax_b0.5": 0.5655408122235626,
+  "relax_union_b0.5": 0.5703659026940089,
+  "relax_corners_b0.5": 0.524929634097306,
+  "realistic_volume_b0.5": 0.4650180940892642,
+  "relax_new_vs_realistic": 0.10534780860474467,
+  "realistic_not_relax": 0.0048250904704463205,
+  "median_width_mm": [
+   1.2850645382850704e-07,
+   0.0004307981514842954,
+   5.348331063378367e-06,
+   0.00023974188400519012
+  ],
+  "ev_relax_b0.5": "r6M9DE+4wwKwv7eMLpzSGnzVtlvPFuj+BUrz3/i/Wh4k6p4Pqrrqekz64VkHphzEY1QlvBp1VkMWOqNxnyP8ZefyONwTJ53Mp3POzt2PO+G56A40xlFezT34d1v8Vxx7fJ3Jrmv/7VCewxyX26s8PEa3++wFVycasdD/Qx7R4WaV5Lpa+JGX/val9x+FYhHkl5/XDf/dDI6II1y0MDeym6cpvPiLaZZSzqdf+O1r5rUBmdfsVP26XVzsj15G8/rfagKAk1ebrtuht1bNqtPVrfryY89fnStWLm9s1Gxznk5X/x38Nwi+r/+s4qUx3u57mP+tn9b4cP02X20FOzcLr9m1ibPk8P1Pku9FuYOcLt/zhmbNA7yvze+ncwX3fKrHvZFvqhguua32hk/9Jd35wBCfN6w6Gq1gmLFzSaBM9X005aroyGmgwdkH+lHXm/7FaBrmwh5Nuh8/9G1fru9enFk3piibmyF5xl7DsWMp82IcW91d6zzHSVs/wcZunvOE8iSZdskL1s79eWIV/hN/Pw/l76+6dvy3Mtl3VPAnTs/IVplbIF2piw00mfrksv3wrNrim8eHLj1riJBDo/1DWu/XtaS598/f6k3y0d/jn51a4W6PkVF5fpbf9Cp6uCZkrvn/w+gUP6L2plA7/xyi5ffk7n+fsznozwnX7EBR4P83838CVtAf3i1oZfrz32Uai73r5rzRVkDuT5KFtD95xYOUVBXzWLxL/GGyfhWC43TvMI8QOpk9BEu+uP7eT+3/rbeyt4JubNgtFwXPn6mcZGz/H3czny7tmd98U6LuG6bd/m+06KcGr4qC7LsreA=="
+ }
+}

@@ -1,0 +1,206 @@
+{
+ "train_s": 260.73636293411255,
+ "epochs": 48,
+ "best_epoch": 33,
+ "macro_f1": 0.9502900888707018,
+ "accuracy": 0.9825663748955799,
+ "per_class_f1": {
+  "backdoor": 0.9996436208125445,
+  "ddos": 0.9769709194822659,
+  "dos": 0.9761959787381558,
+  "injection": 0.9674714956405097,
+  "mitm": 0.6462882096069869,
+  "normal": 0.9929824561403509,
+  "password": 0.9922349763673194,
+  "ransomware": 0.9979016087666123,
+  "scanning": 0.9892742223811226,
+  "xss": 0.9639374007711499
+ },
+ "attack_detection": 0.9988702160711764,
+ "benign_fpr": 0.010174880763116057,
+ "clean_macro_f1": 0.9502866805480146,
+ "clean_n": 27500,
+ "macro_pr_auc": 0.9709871044896982,
+ "rare_classes": [
+  "mitm"
+ ],
+ "benign_fpr_check": 0.010174880763116057,
+ "n_attacked": 5000,
+ "n_detected": 4171,
+ "det_flows": "9/93//5/v+//v+79//d/9vL+nf+fRX/32/9v/97+3/f//+3/Sv0/7u/3/3/9Zq+3eL/Wn//+6//sq//f1fv9f/73/jPv3///3/+/z/bb////9v2yVffXn+b++9+/3t/////7Pn3+9ufvt/L37t//f399+/u93//z//vb+r///X9p//fbd8//v6/+/v//7b//v7/++1u//96X9ev//+c+/X37/b/Wv39/b///9383/n///1vzz//+r//1+/37/9uf3/99/99ftZ3/ny/u792739/f/q3vmx6/vuf/7/+5VXv8ef///u//v2/3e+/7///3f2//r+3+Xfdof39//+//Xy//6v/vtL//r393v/v///f/ut3ve5//9/v//2979ve/3+39/73P3/+Xf//v3/+z3//3f/////vb/f9t3u333/7f////d79X/+33v/v//b+v38/f7/9//9fm/6//vh/+/t//Z557f9Aifv+///vd3+9/d/f+19bP93/ev//b/+/9/2f7x////+/X7f327e7/X//Nt+9/7bZ//8///X/50f/fZ97/b/b8/dzd/t8/frf//f8f/7/////37/79l1b39z//74v//39779/1f9P//f/38N3/e/Xr+/+//7///bt//V/v/nn/P3/5nn///d/b//x//+R9f7/3/v79/vX37fP+59zL//N///Pbfv/Pf27//3v//3v91+u+/n2v99/u3/3v9p1///vf//u/1/v/+/vv/nbfu/d9r5Xbv79v/3/vn/U///+37+2/T/v3f9r3/////7/7+3Pvv6//X9/39//fO/f/7/z///+/vf1e/evqGg==",
+ "n_detected_per_class": {
+  "backdoor": 617,
+  "ddos": 598,
+  "dos": 596,
+  "injection": 536,
+  "mitm": 151,
+  "password": 409,
+  "ransomware": 548,
+  "scanning": 197,
+  "xss": 519
+ },
+ "bb_both_b0.1": 0.5209781826900024,
+ "bb_volume_b0.1": 0.5209781826900024,
+ "bb_both_b0.25": 0.6377367537760729,
+ "bb_volume_b0.25": 0.6377367537760729,
+ "bb_both_b0.5": 0.7607288420043156,
+ "bb_volume_b0.5": 0.7607288420043156,
+ "bb_both_b0.5_per_class": {
+  "backdoor": 0.993517017828201,
+  "ddos": 0.822742474916388,
+  "dos": 0.3573825503355705,
+  "injection": 0.7276119402985075,
+  "mitm": 0.6026490066225165,
+  "password": 0.7212713936430318,
+  "ransomware": 1.0,
+  "scanning": 0.7969543147208121,
+  "xss": 0.720616570327553
+ },
+ "bb_volume_b0.5_per_class": {
+  "backdoor": 0.993517017828201,
+  "ddos": 0.822742474916388,
+  "dos": 0.3573825503355705,
+  "injection": 0.7276119402985075,
+  "mitm": 0.6026490066225165,
+  "password": 0.7212713936430318,
+  "ransomware": 1.0,
+  "scanning": 0.7969543147208121,
+  "xss": 0.720616570327553
+ },
+ "ev_both_b0.5": "//1985330w9v13/7vn+dvvbz/f0vrb/9vfn/f+9b/97/vHVvdeu/9f5nfn8O9b2v0/6T3b39f3zz/rc7j/v/3/3u/fWa+2f2/9zn8fv79199/bXf+u7O3/nqHv3v/z1v/997y3737yR+uP/79+127/fya3/3xvUfLuan7f3/mV7enJtvvvvX//f/r2+37/ff37rec//ljx253/+Zvo/n7du99q3/5/r7e/331W5+/O+9+v6e9/Hvny/ff3fX+zb3vP99/q//42f9v38d7Lu/fK/+74vv9vv++9wc0fN16///vj/de/2P/7//vK3/d7tu1j93b68bX7/p/e762//79v//972P/t7Lv/lJvX3/qv///vVd3t/vt9hP6r332vnn9uz11Pfvvr7fz39Z/u/97/9/X2Xe97nfuf/5/qiXf1v9fzd9X//5/ea/W7m75S//3d2bq8xv75Rb3R33/7////9f/dc+91f77afve+X//7ff35v+6ve/vb1y//93xe3t9//+5f/d2znvX94+5R3/+d//X+7fWP/rt23PPPz//1q++TXnvu7f+avCb9t6ed/bv8/de6s/////XJXvaD+WL/f97//773L/Tu0Xf9/793e3K21Vx//v9/7/1t533O/6t/Vz328P/+/v6r267m+/+8fefouT/5vN//3//yhfv/+d1393xVvN/ffg",
+ "ev_volume_b0.5": "//1985330w9v13/7vn+dvvbz/f0vrb/9vfn/f+9b/97/vHVvdeu/9f5nfn8O9b2v0/6T3b39f3zz/rc7j/v/3/3u/fWa+2f2/9zn8fv79199/bXf+u7O3/nqHv3v/z1v/997y3737yR+uP/79+127/fya3/3xvUfLuan7f3/mV7enJtvvvvX//f/r2+37/ff37rec//ljx253/+Zvo/n7du99q3/5/r7e/331W5+/O+9+v6e9/Hvny/ff3fX+zb3vP99/q//42f9v38d7Lu/fK/+74vv9vv++9wc0fN16///vj/de/2P/7//vK3/d7tu1j93b68bX7/p/e762//79v//972P/t7Lv/lJvX3/qv///vVd3t/vt9hP6r332vnn9uz11Pfvvr7fz39Z/u/97/9/X2Xe97nfuf/5/qiXf1v9fzd9X//5/ea/W7m75S//3d2bq8xv75Rb3R33/7////9f/dc+91f77afve+X//7ff35v+6ve/vb1y//93xe3t9//+5f/d2znvX94+5R3/+d//X+7fWP/rt23PPPz//1q++TXnvu7f+avCb9t6ed/bv8/de6s/////XJXvaD+WL/f97//773L/Tu0Xf9/793e3K21Vx//v9/7/1t533O/6t/Vz328P/+/v6r267m+/+8fefouT/5vN//3//yhfv/+d1393xVvN/ffg",
+ "queries_first_success_median": 4.0,
+ "queries_total": 128,
+ "min_action_per_class": {
+  "backdoor": {
+   "budget_frac": 0.1974347917430247,
+   "bytes": 38.30112684886333,
+   "pkts": 0.5423749252012824,
+   "delay_s": 0.0987339803938871
+  },
+  "ddos": {
+   "budget_frac": 0.6894261213760352,
+   "bytes": 325.3045048268969,
+   "pkts": 2.9752712726110926,
+   "delay_s": 0.28203542981916174
+  },
+  "dos": {
+   "budget_frac": 0.87546039918584,
+   "bytes": 452.85477187005154,
+   "pkts": 1.4758925307633586,
+   "delay_s": 0.17581594609147738
+  },
+  "injection": {
+   "budget_frac": 0.24807661508589707,
+   "bytes": 30.083594198839375,
+   "pkts": 1.2562847572516733,
+   "delay_s": 0.1292641581609497
+  },
+  "mitm": {
+   "budget_frac": 0.6735437037855273,
+   "bytes": 361.7305023559238,
+   "pkts": 0.9396819612155876,
+   "delay_s": 0.28768800387410487
+  },
+  "password": {
+   "budget_frac": 0.09861362276386954,
+   "bytes": 44.23780151043715,
+   "pkts": 0.7396021707290215,
+   "delay_s": 0.0333195247275211
+  },
+  "ransomware": {
+   "budget_frac": 0.3076700911914664,
+   "bytes": 141.75443261432784,
+   "pkts": 0.7131391749352473,
+   "delay_s": 0.14493288271180366
+  },
+  "scanning": {
+   "budget_frac": 0.09861362276386954,
+   "bytes": 38.30112684886333,
+   "pkts": 0.5916817365832172,
+   "delay_s": 0.040425597951628346
+  },
+  "xss": {
+   "budget_frac": 0.9561320219245817,
+   "bytes": 141.49244165537772,
+   "pkts": 3.0727784204299913,
+   "delay_s": 0.0997146189756235
+  }
+ },
+ "bb_only_bytes_b0.5": 0.5600575401582354,
+ "bb_only_pkts_b0.5": 0.32582114600815154,
+ "bb_only_delay_b0.5": 0.058259410213378084,
+ "bb_only_bytes_pkts_b0.5": 0.7408295372812275,
+ "bb_both_b0.5_floor0.0": 0.16231119635578997,
+ "bb_volume_b0.5_floor0.0": 0.16231119635578997,
+ "bb_both_b0.5_floor0.5": 0.6667465835531048,
+ "bb_volume_b0.5_floor0.5": 0.6667465835531048,
+ "bb_both_b0.5_floor2.0": 0.821625509470151,
+ "bb_volume_b0.5_floor2.0": 0.821625509470151,
+ "bb_both_b1.0": 0.8278590266123231,
+ "bb_volume_b1.0": 0.8278590266123231,
+ "bb_both_b2.0": 0.853032845840326,
+ "bb_volume_b2.0": 0.853032845840326,
+ "ad_none_b0.5": 0.8053224646367777,
+ "bb_unconstrained_e0.01": 1.0,
+ "bb_unconstrained_e0.05": 1.0,
+ "bb_unconstrained_e0.1": 1.0,
+ "wb_action_b0.1": 0.3440421961160393,
+ "wb_action_b0.25": 0.45240949412610887,
+ "wb_action_b0.5": 0.5854711100455526,
+ "wb_action_b1.0": 0.6818508750899065,
+ "wb_action_b2.0": 0.7271637497003117,
+ "wbs_action_b0.5": 0.6988731719012228,
+ "wbs_action_b2.0": 0.8393670582594102,
+ "wb_unconstrained_e0.01": 0.8832414289139295,
+ "wb_unconstrained_mutable_e0.01": 0.6614720690481899,
+ "wb_unconstrained_e0.05": 0.8981059697914169,
+ "wb_unconstrained_mutable_e0.05": 0.6545192999280748,
+ "wb_unconstrained_e0.1": 0.8863581874850156,
+ "wb_unconstrained_mutable_e0.1": 0.6540397986094462,
+ "strongest_volume_b0.5": 0.8053224646367777,
+ "strongest_b0.5": 0.8072404699112923,
+ "strongest_b0.5_per_class": {
+  "backdoor": 0.993517017828201,
+  "ddos": 0.8729096989966555,
+  "dos": 0.5050335570469798,
+  "injection": 0.7369402985074627,
+  "mitm": 0.609271523178808,
+  "password": 0.7995110024449877,
+  "ransomware": 1.0,
+  "scanning": 0.8274111675126904,
+  "xss": 0.7822736030828517
+ },
+ "strongest_volume_b0.5_per_class": {
+  "backdoor": 0.993517017828201,
+  "ddos": 0.8712374581939799,
+  "dos": 0.5033557046979866,
+  "injection": 0.7369402985074627,
+  "mitm": 0.609271523178808,
+  "password": 0.7921760391198044,
+  "ransomware": 1.0,
+  "scanning": 0.8274111675126904,
+  "xss": 0.7764932562620424
+ },
+ "ev_strongest_b0.5": "//198/332y//93/7v/+9vv7z//0vrf/9v/n/f/9b/97/vPXv9eu/9f5nfv8e9f2/0/6T3b39f3zz/vc/3/v/3/3u/f2e+2f+//zn8/v791/9/fXf+u7O3/nrH/3v/z1v//97637372b+uP/7/+9/7/fy73//xvUfPuen7f3/mV7e3L9vvvv3//f/r2//7//f37ref//t7x253/+b/q/n7fu9963/5/r7e/331W9+/O+9+v+e9/H/ny/ff3f3+z/3vP///q//42f//3+d7Lv/fq//74vv//v+/9wc8fN1+////j/de/2P////vK//f7tu3j93b68bX7/5/+762//79v//9/3P/v7Lv/vJvX3/6v///v193v/v//hv6r332/nn9vz11f//vr7/z/9Z/u/97/9/X2X/973fu//9/ri/f9v/fzd/X//7/eb/+7n75a//3f3bu8x/75Rf3Z33/7////9f/9c+91f7/a/v/+X///f/35v/6ve//716///3xf//9//+5f/9+3nvf94/5x3/+d//f+/fWv/vt+3fvPz//1q++z3nv+7f+a/y7996ed/bv9/9+6s/////XZX/an+WL/f97//773L/Tu83f9//93e3q2/9x//v9/7/1t933O/7t/Vz338f/+/v6r267m+/+8fefoub/7vN//3//yh/v/+d1393xVvN/ffg",
+ "ev_strongest_volume_b0.5": "//198/330y//93/7v/+9vv7z//0vrf/9v/n/f/9b/97/vPXv9eu/9f5nfv8e9f2/0/6T3b39f3zz/rc/3/v/3/3u/f2e+2f+//zn8/v791/9/fXf+u7O3/nrH/3v/z1v//97637372b+uP/7/+9/7/fy73//xvUfPuen7f3/mV7e3L9vvvv3//f/r2//7//f37ref//t7x253/+b/q/n7fu9963/5/r7e/331W9+/O+9+v6e9/H/ny/ff3f3+z/3vP///q//42f//3+d7Lv/fq//74vv//v+/9wc0fN1+////j/de/2P/7//vK//f7tu3j93b68bX7/5/+762//79v//9/3P/t7Lv/vJvX3/6v///v193v/v//hv6r332/nn9vz11f//vr7/z/9Z/u/97/9/X2X/973fu//9/ri/f9v/fzd/X//7/eb/+7n75a//3f3bu8x/75Rf3Z33/7////9f/9c+91f7/a/v/+X///f/35v/6ve//b16///3xf//9//+5f/9+3nvf94/5x3/+d//f+/fWv/vt+3fvPz//1q++z3nvu7f+a/y7996ed/bv9/9+6s/////XZX/an+WL/f97//773L/Tu83f9//93e3q2/9x//v9/7/1t933O/7t/Vz338f/+/v6r267m+/+8fefoub/7vN//3//yh/v/+d1393xVvN/ffg",
+ "strongest_components": [
+  "grid",
+  "grid_vol",
+  "ad_none",
+  "wbs"
+ ],
+ "transfer_action_b0.5": 0.47590505873891153,
+ "transfer_action_b1.0": 0.5555022776312635,
+ "eval_s": 545.0850207805634,
+ "cfg": {
+  "model": "mlp",
+  "defence": "none",
+  "seed": 0,
+  "split": 1,
+  "variant": "splits",
+  "beta_train": 0.5,
+  "eps_train": 0.05,
+  "version": "v3"
+ }
+}

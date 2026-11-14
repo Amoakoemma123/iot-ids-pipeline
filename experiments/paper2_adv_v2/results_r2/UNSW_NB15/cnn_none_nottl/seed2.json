@@ -1,0 +1,79 @@
+{
+ "union": {
+  "strongest_b0.5": 0.33654425045153524,
+  "strongest_volume_b0.5": 0.3351394742123219,
+  "strongest_plus_b0.5": 0.33694561509131044,
+  "strongest_plus_volume_b0.5": 0.3363435681316476,
+  "strongest_plus_b0.5_per_class": {
+   "analysis": 0.6752577319587629,
+   "backdoor": 0.6631578947368421,
+   "dos": 0.2656546489563567,
+   "exploits": 0.11303095752339813,
+   "fuzzers": 0.31561181434599156,
+   "generic": 0.872822299651568,
+   "reconnaissance": 0.25471698113207547,
+   "shellcode": 0.37423312883435583,
+   "worms": 0.0
+  },
+  "ev_strongest_plus_b0.5": "joUSJAg+K2JiAQKFYUKKEWYCQtDUySTojpVGIZKwKlTiClo0lgkEAIk2E4ZEBGKw0EAoDsIAUUACR8EighNMAu8UYBQE4fK0AdRMDRUDEMQdSH4pIQICohigOkXAaVDrACen4KWAmB4gNRSBoYIASA9MCCAnjYsJS8kUcok2BkTCUgCpClpT1kIBD1JQzQ5AAABEmtLriIwkpzAHQVDYSaIgIDQRiEeERjFiEaYyaDoEGSEpgC6gVs4tVDgwiR1CGEABCDgQgIHmfAABjkdjmOEsRGQhEIWCBaa0QjcIghmgADBaHIAhKApKBtKGlkGIGIcbYLkGN0gCSEgAUlBJiAkJIaMCyNHBkARATSqQICQA6MJkQpRAWwIFkhGUgrzQSVk0aIJMgCHAQASiQ2o4dGFFrAKHIMMYE4FciuMUmIAoEA0UCCEhUHuqjicbkY7fAI0MpUSRhEsgDCBIoJAAQFhP5ADECZ3JaOAXYdgRsAVDMIKUIdiZgZAENgYCBKUqQDmD0ABFl4BEygCcmUDhDiwDrkQRBmEFJosng2mMIAEbAd40ALuAAAqH52CCLckMJGkOcQjbAxkAEMBkREFkgUAyznVTZsHyWERESk7S3TCyAIQCEJZJmKoLKXAEqTmBRACmQgeYI007AJQA0F0FShEMHHCcIkUnFhJHgUdBBECkExIKrAY4EBIEQOCigFyQQScF8zjKQHgihgGAV00FJsBPNiAkgFG8ElJaOJGdHAYJGUEQasECgpQQCgJNngIsiIA3jJCAAiYMQ9KALHSJppAOAzAsBqEgseFoFhYAQAA3BryAolktKCG1VQIm4kw=",
+  "ev_strongest_plus_volume_b0.5": "joUSJAg+K2JiAQKFYUKKEWYCQtDUySTojpVGIZKwKlTiClo0lgkEAIk2E4ZEBGKw0EAoDsIAUUACR8EighNMAu8UYBQE4fK0AdRMDRUDEMQdSH4pIQICohigOkXAaVDrACen4KWAmB4gNRSBoYIASA9MCCAnjYsJS8kUcok2BkTCUgCpClpT1kIBD1JQzQ5AAABEmtLriIwkpzAHQVDYSaIgIDQRiEeERjFiEaYyaDoEGSEpgC6gVs4tVDgwiR1CGEABCDgQgIHmfAABjkdjmOEsRGQhEIWCBaa0QjcIghGgADBaHIAhKApKBtKGlkGIGIcbYLkGN0gCSEgAUlBJiAkJIaMCyNHBkARATSqQICQA6MJkQpRAWwIFkhGUgrzQSVk0aIJMgCHAQASiQ2o4dGFFrAKHIMMYE4FciuMUmIAoEA0UCCEhUHuqjicbkY7fAI0MpUSRhEsgDCBIoBAAQFhP5ADECZ3JaOAXYdgRsAVDMIKUIdiZgZAENgYCBKUqQDmD0ABFl4BEygCcmUDhDiwDrkQRBmEFJosng2mMIAEbAd40ALuAAAqH52CCLckMJGkOcQjbAxkAEMBkREFkgUAyznVTZsHyWERESk7S3TCyAIQCEJZJmKoLKXAEqTmBRACmQgeYI006AJQA0F0FShEMHHCcIkUnFhJHgUdBBECkExIKrAY4EBIEQOCigFyQQScF8zjKQHgihgGAV00FJsBPNiAkgFG8ElJaOJGdHAYJGUEQasECgpQQCgJNngIsiIA3jJCAAiYMQ9KALHSJppAOAzAsBqEgseFoFhYAQAA3BryAolktKCG1VQIm4kw="
+ },
+ "fs": {
+  "bb_corners_e0.005": 0.9785269917720248,
+  "bb_mut_e0.005": 0.7650010034115995,
+  "bb_mut_inc_e0.005": 0.3556090708408589,
+  "wb_bpda_e0.005": 0.6189042745334136,
+  "wb_bpda_mutable_e0.005": 0.46116797110174595,
+  "fs_strongest_e0.005": 0.9815372265703391,
+  "fs_strongest_mutable_e0.005": 0.7708207906883403,
+  "bb_corners_e0.01": 0.9911699779249448,
+  "bb_mut_e0.01": 0.8510937186433876,
+  "bb_mut_inc_e0.01": 0.3945414408990568,
+  "wb_bpda_e0.01": 0.7210515753562111,
+  "wb_bpda_mutable_e0.01": 0.562512542644993,
+  "fs_strongest_e0.01": 0.9927754364840458,
+  "fs_strongest_mutable_e0.01": 0.8575155528797913,
+  "bb_corners_e0.02": 0.9977924944812362,
+  "bb_mut_e0.02": 0.9666867348986554,
+  "bb_mut_inc_e0.02": 0.4316676700782661,
+  "wb_bpda_e0.02": 0.8751755970299017,
+  "wb_bpda_mutable_e0.02": 0.733694561509131,
+  "fs_strongest_e0.02": 0.9985952237607867,
+  "fs_strongest_mutable_e0.02": 0.9692956050571945,
+  "bb_corners_e0.05": 1.0,
+  "bb_mut_e0.05": 0.9877583784868553,
+  "bb_mut_inc_e0.05": 0.5691350592012844,
+  "wb_bpda_e0.05": 0.9859522376078668,
+  "wb_bpda_mutable_e0.05": 0.8840056191049569,
+  "fs_strongest_e0.05": 1.0,
+  "fs_strongest_mutable_e0.05": 0.9881597431266306,
+  "bb_corners_e0.1": 1.0,
+  "bb_mut_e0.1": 0.9923740718442705,
+  "bb_mut_inc_e0.1": 0.5466586393738712,
+  "wb_bpda_e0.1": 0.998394541440899,
+  "wb_bpda_mutable_e0.1": 0.8824001605458559,
+  "fs_strongest_e0.1": 1.0,
+  "fs_strongest_mutable_e0.1": 0.9933774834437086
+ },
+ "op": {
+  "native": {
+   "detected": 0.9966,
+   "test_fpr": 0.2040082219938335,
+   "asr_volume": 0.3317278747742324,
+   "asr": 0.3317278747742324,
+   "e2e_volume": 0.334,
+   "e2e": 0.334,
+   "attack": "grid + adaptive"
+  },
+  "fpr1": {
+   "detected": 0.575,
+   "test_fpr": 0.01079136690647482,
+   "asr_volume": 0.7210434782608696,
+   "asr": 0.7210434782608696,
+   "e2e_volume": 0.8396,
+   "e2e": 0.8396,
+   "tau": 0.025419136583805083,
+   "attack": "grid + adaptive"
+  }
+ }
+}

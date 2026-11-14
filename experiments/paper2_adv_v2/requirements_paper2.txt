@@ -1,0 +1,9 @@
+# Exact versions used for Paper 2 (Python 3.10.11, Windows 11, NVIDIA driver 610.60)
+tensorflow==2.10.0
+scikit-learn==1.7.2
+numpy==1.26.4
+scipy==1.15.3
+pandas==2.3.3
+joblib==1.5.3
+imbalanced-learn==0.14.2
+matplotlib==3.10.9

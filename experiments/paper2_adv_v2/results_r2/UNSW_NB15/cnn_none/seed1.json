@@ -1,0 +1,121 @@
+{
+ "union": {
+  "strongest_b0.5": 0.977687074829932,
+  "strongest_volume_b0.5": 0.5414965986394558,
+  "strongest_plus_b0.5": 0.977687074829932,
+  "strongest_plus_volume_b0.5": 0.5417687074829932,
+  "strongest_plus_b0.5_per_class": {
+   "analysis": 0.9148936170212766,
+   "backdoor": 0.9333333333333333,
+   "dos": 0.9720496894409938,
+   "exploits": 0.9717514124293786,
+   "fuzzers": 0.9727177334732424,
+   "generic": 0.9905482041587902,
+   "reconnaissance": 0.9897510980966325,
+   "shellcode": 0.9938271604938271,
+   "worms": 1.0
+  },
+  "ev_strongest_plus_b0.5": "//f/////////9/////3//////f/7/////+////+///3//////+9/////////+///7/////////7///////9//////////////////////9/////+v///////v//////f/////v//f//3+///vv////////////////7///////v//////////////////9/////////////f/////////////9///////f//9+/////v///////////+//////9+7v/v///////+///N/v/////f///////////f/+///////////////////////v////////////////////////////v//////9///////////f//+/////////9///////////////////////////////u///3f//////////////////v/////3+///////////+///9/f/f////////////////7//v//////3/////////////+//////////vv/7///3///////v//v//////////3v/3//////f///////////////////9////////7////////////////3/////////////4A==",
+  "ev_strongest_plus_volume_b0.5": "jfT4E52fSyJh8VvPISl2w3o0/WpiZegB1yFamwe3Xaj6m/H5qixEYyI1fTf68sUsSzkvxW/Ha1DjprVNzhcEnsCBqG93zfL/F3z01i+dMNGHX0PUvoSjypuVv+r7BPjGwgfLXM8TPE+j+yAMFI01+65o+wslZcWdbuDCwbn8j/uSNxPR6vjt7DfpeynY89Su+oJNmpk09vydz33uEnr7zNl7u8kwfxNUpBa6ASixM3UtdL503pGP7ciG0DidhtN8ilwrlQh7pcsYSFbEaro5ufOXe5pvdM/6ln8ax8q2xt+dbHXJEHeRhVmiSJlWeNhE1UOu5Tc5eqR9PbT5yGaSLMmQwXKJ/R+nq8OQVl+Z09Fd4ZdsW5JyWuEVv+UL1hJ49HdN9N67voKbEyqC1hV6lr4o22AsU/GK/Azbl45l2OVa6bqu/cKvmoMj3c76eefY/5emnupuxhmHAa6i/e1NuWfCcFT/IXah2PQ+6myr2dP+d5NycoWPExAp8r7LUIwhTjLNx5d5yTi7t5RfLMTur3hR0j+bqymvgWVB3GjdALlvZkOX4S9k/uQp6u7AkJxn+rZu2bee6tew6/J+PXbAcGW/3ebZXf1eqoHaQA=="
+ },
+ "fs": {
+  "bb_corners_e0.005": 0.9945578231292517,
+  "bb_mut_e0.005": 0.9434013605442176,
+  "bb_mut_inc_e0.005": 0.4356462585034014,
+  "wb_bpda_e0.005": 0.5425850340136055,
+  "wb_bpda_mutable_e0.005": 0.6152380952380953,
+  "fs_strongest_e0.005": 0.9972789115646259,
+  "fs_strongest_mutable_e0.005": 0.9545578231292517,
+  "bb_corners_e0.01": 0.9858503401360544,
+  "bb_mut_e0.01": 0.9610884353741497,
+  "bb_mut_inc_e0.01": 0.4993197278911565,
+  "wb_bpda_e0.01": 0.5760544217687075,
+  "wb_bpda_mutable_e0.01": 0.6353741496598639,
+  "fs_strongest_e0.01": 0.9989115646258503,
+  "fs_strongest_mutable_e0.01": 0.9708843537414966,
+  "bb_corners_e0.02": 1.0,
+  "bb_mut_e0.02": 0.9853061224489796,
+  "bb_mut_inc_e0.02": 0.672108843537415,
+  "wb_bpda_e0.02": 0.604625850340136,
+  "wb_bpda_mutable_e0.02": 0.7142857142857143,
+  "fs_strongest_e0.02": 1.0,
+  "fs_strongest_mutable_e0.02": 0.9918367346938776,
+  "bb_corners_e0.05": 1.0,
+  "bb_mut_e0.05": 0.9997278911564625,
+  "bb_mut_inc_e0.05": 0.953469387755102,
+  "wb_bpda_e0.05": 0.9161904761904762,
+  "wb_bpda_mutable_e0.05": 0.8955102040816326,
+  "fs_strongest_e0.05": 1.0,
+  "fs_strongest_mutable_e0.05": 0.9997278911564625,
+  "bb_corners_e0.1": 1.0,
+  "bb_mut_e0.1": 1.0,
+  "bb_mut_inc_e0.1": 0.9798639455782313,
+  "wb_bpda_e0.1": 0.964625850340136,
+  "wb_bpda_mutable_e0.1": 0.924625850340136,
+  "fs_strongest_e0.1": 1.0,
+  "fs_strongest_mutable_e0.1": 1.0
+ },
+ "op": {
+  "native": {
+   "detected": 0.735,
+   "test_fpr": 0.19809866392600206,
+   "asr_volume": 0.5404081632653062,
+   "asr": 0.9752380952380952,
+   "e2e_volume": 0.6622,
+   "e2e": 0.9818,
+   "attack": "grid + adaptive"
+  },
+  "fpr1": {
+   "detected": 0.48,
+   "test_fpr": 0.011305241521068859,
+   "asr_volume": 0.7945833333333333,
+   "asr": 0.9925,
+   "e2e_volume": 0.9014,
+   "e2e": 0.9964,
+   "tau": 0.028948385659605263,
+   "attack": "grid + adaptive"
+  }
+ },
+ "feas": {
+  "grid_both": 0.9610884353741497,
+  "grid_volume": 0.5080272108843538,
+  "feas_both": 0.9610884353741497,
+  "feas_volume": 0.5080272108843538,
+  "lost_both": 0.0,
+  "gained_both": 0.0
+ },
+ "opu": {
+  "val_fpr": 0.1947584789311408,
+  "tau": 0.49310229763097657,
+  "detected": 0.7594,
+  "test_fpr": 0.1986125385405961,
+  "asr_volume": 0.5059257308401369,
+  "asr": 0.9715564919673426,
+  "e2e_volume": 0.6248,
+  "e2e": 0.9784,
+  "attack": "grid + adaptive"
+ },
+ "bpa": {
+  "bpda_action_b0.5": 0.9567346938775511,
+  "bpda_action_volume_b0.5": 0.42775510204081635,
+  "bpda_new_vs_strongest_b0.5": 0.0,
+  "strongest_with_bpda_b0.5": 0.977687074829932,
+  "ev_bpda_action_b0.5": "//f////f/3//9/////3//////f/7///v3+/7+/+///3/3////+939///////+///7/////////7///3///9//////////f///3/////f/dv////+v///////v//////f+////v//fX/3+///vv////////9///////7///////v/v///7////////////9/+/////9/////f///////////+/9///////f//9e3////v//9////////+/X////9+7v/v9//////+///N/v/////f/97/////+/7f/+///////v/93f///////////v/f////////+/7///////7///////v//9///9///3////1//f//+/////////V//////////////9/f/37///////7///u///2f///////3/v///////+v/////3+/7/////7///+///9/f/f/39///+3////////7/3v//////3///////////t/+/////9////vv/5///3///v///v//v//7/9////7nv/3//////f///f///+///////////9////////7/////////////7//3///////////3/4A=="
+ },
+ "relax": {
+  "relax_b0.5": 0.6549659863945578,
+  "relax_union_b0.5": 0.6571428571428571,
+  "relax_corners_b0.5": 0.6005442176870748,
+  "realistic_volume_b0.5": 0.5414965986394558,
+  "relax_new_vs_realistic": 0.11564625850340136,
+  "realistic_not_relax": 0.0021768707482993197,
+  "median_width_mm": [
+   0.00010147408174888595,
+   4.429202814335112e-06,
+   0.08260869565217392,
+   0.04971790757904158,
+   6.625581875392982e-05
+  ],
+  "ev_relax_b0.5": "jfX+w/2fWypj8fvPMzn94nq+/WpiZ/gh1yHauw+3X/j7m/H5qi5EayY9fTf+89Us63uv1e/n71DrprX9zz9EnsLv6O9/3fr/l3/83i/dvNnXX0v0voSj7tudv+77BfjWwhfLXs+TPF/3+zqNlp81+758+w9lZcWfbuTC6bn8z/uyPxPb6vn973fpfyne89S+/o7N3tt0/vydz3/uGn77zP36+8nw/zf9pJa+Aaixt/9v9L9+35HP7eiG8Hmdxvt+ivzv1Ul7pcsYSN7M6v59ufOX+5pvdP/+ln4e5+q+xt/9fHXdVHeRhV32zNlWfN7E9VPu9b9/eqd9Pbb5zGaS7M2UxfLt/9/nu9OVXl+509Fd+ZdsW9b+2uFVv+UL1lZ49W9t99/bv9abey6C3h/6lr4o2+E8W/GO/Rzb345n2u1a7fqu/cLvnoNz3c76eefZ/5emnurvxh+XDe6i9e9Pu2fK/fT/uX6jXPc+7m+v29P+d7P6dtePsxC79r7rXp9xfnrtx5f53Ti795RfLeXuv3h707+/vymv02VV3Pv/YLlvZmvX+S/k/uQ/+v7Nkdzv+v7u2b+e+vew+/b+PXfI8HX/3eb5X/1e6oXaQA=="
+ }
+}

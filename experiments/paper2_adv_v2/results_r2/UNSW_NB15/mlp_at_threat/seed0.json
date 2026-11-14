@@ -1,0 +1,104 @@
+{
+ "union": {
+  "strongest_b0.5": 0.43023543990086743,
+  "strongest_volume_b0.5": 0.20693928128872366,
+  "strongest_plus_b0.5": 0.43023543990086743,
+  "strongest_plus_volume_b0.5": 0.20743494423791822,
+  "strongest_plus_b0.5_per_class": {
+   "analysis": 0.03571428571428571,
+   "backdoor": 0.21164021164021163,
+   "dos": 0.46867167919799496,
+   "exploits": 0.6590909090909091,
+   "fuzzers": 0.30409914204003813,
+   "generic": 0.05380333951762523,
+   "reconnaissance": 0.7342419080068143,
+   "shellcode": 0.5,
+   "worms": 0.9166666666666666
+  },
+  "ev_strongest_plus_b0.5": "cS1TdwOCoeXXIVrcHWTRRtTQXKkMTOBF8knOMoQYS3g7rYNDIMYIuAqNAvXGpueKsWQx9Egyg8idSeRSPlQaAko1cQAp5+DsWdAM4wsZsYHBZI3KC8gOQKnC0yWHODgho0ktpZaptEgIQnY0UgIur5QSh1onPLh9lfCGIgCo42k04KoGTzYBdlAxApOsfImRCLHvEn0qwStESJCaQIU0/KqLm2MQh8HxsjBR8Bi9I+0yIRKixsd9z4hjM7eJSRtGEqQKhVIhJuhKQFEGCtroITcSKEq9wj5o0lRyul/iQIWprjhHCAxiksjCxUSBlZSJR1bJSkxhhklKNi14XhOupPUlbNcgmMn5uPRSQAMIDABCOVedNLbkoo3CtG7lycHCgZwBFhxQFGS5BYVKBEmwKkDmf2WzYiHEOEQn3kJP1RDRxEcgXsxZx3GjhBr4XoGwVYOjuDuuR+0As2Zi1Ga1SA6SGaSiWbu7MGKA70UVgicC1KxoxwEg+U3dIqCYIguklqe4KClR3MBbCMisCYT9oAlqVeyyhmKSoDpzYPamG3RhcYK0+w9U1w83QxLbPFFoEyBlATEtj/yFIgvhUHQaAIwMGLExe0jpjutAZlKxXy4WF80qHCcR5bqjQSPke0ZHiRziYjXxB0pBtZW7gcwppIKOcQY1EJAOAA==",
+  "ev_strongest_plus_volume_b0.5": "ACkSQAGCACBDAUqYHGRBQIRACAEEAKBA4ElGAgAYQAggJYFBAAYIMAgEAuFABOCKgUQBdAggg0iAAOQSJEQIAAoxMAAIY4AAQQAEAQoIIICBZAGKCsAIACBAUwQCGAAggUEoIQYhJEgAAmQQQAACAwAShFgjJKAQAJAGAgCIYggAwIIEDAYAFgAwAoGsAIiQCLBMABgqAAlACJCAAIAEsKiBEEEAAwEwEhAAkAgQIAwSAQCCAAddC4BAMJGBCAlEECQKBUAAIihCQFACCAqAAQYQIEg5wApAEBBgmAjAAASAAhhFCAhigoCChQQBhRSJAkYJSkBgBkFCBg1gUgMIoCAlRMEAgEgxgORQAAAADAAAMRYIJADAgokAMAiFSQACAJQAABRABAAZBARIAEAAAECiLkChIiFAIAQHhgAO0ABBAEMABkAIQhCihBBgToGQUAGhGBsCAgwAAAYAFAK0AAyQEIQiAJMrAAKAxgQAgCEAQKQgAAAAuQnQIgCIIAGAgCEgAAkAlIBCCIAgAITYAAEgReCyBgIAoDJjACSkAlBAMYCQwgEAlwIEQRITDBBoEiBFARAlBPiFAghBEHAIAAAMAIAhCQDgCoNAZFKhTSQCF4AoHAIB4RqjAQAEGkQAiRBiYCVBBwJBpAELAEgghIAOUQAgAJAKAA=="
+ },
+ "fs": {
+  "bb_corners_e0.005": 0.7452292441140025,
+  "bb_mut_e0.005": 0.6166047087980173,
+  "bb_mut_inc_e0.005": 0.47905824039653033,
+  "wb_bpda_e0.005": 0.6401486988847583,
+  "wb_bpda_mutable_e0.005": 0.19256505576208177,
+  "fs_strongest_e0.005": 0.7990086741016109,
+  "fs_strongest_mutable_e0.005": 0.6644361833952912,
+  "bb_corners_e0.01": 0.7566294919454771,
+  "bb_mut_e0.01": 0.6934324659231722,
+  "bb_mut_inc_e0.01": 0.4966542750929368,
+  "wb_bpda_e0.01": 0.6525402726146221,
+  "wb_bpda_mutable_e0.01": 0.2852540272614622,
+  "fs_strongest_e0.01": 0.812639405204461,
+  "fs_strongest_mutable_e0.01": 0.7561338289962826,
+  "bb_corners_e0.02": 0.8688971499380421,
+  "bb_mut_e0.02": 0.8195786864931847,
+  "bb_mut_inc_e0.02": 0.5209417596034697,
+  "wb_bpda_e0.02": 0.7444857496902106,
+  "wb_bpda_mutable_e0.02": 0.4057001239157373,
+  "fs_strongest_e0.02": 0.898636926889715,
+  "fs_strongest_mutable_e0.02": 0.8587360594795539,
+  "bb_corners_e0.05": 0.9598513011152416,
+  "bb_mut_e0.05": 0.9390334572490706,
+  "bb_mut_inc_e0.05": 0.6552664188351921,
+  "wb_bpda_e0.05": 0.9412639405204462,
+  "wb_bpda_mutable_e0.05": 0.5323420074349442,
+  "fs_strongest_e0.05": 0.9767038413878563,
+  "fs_strongest_mutable_e0.05": 0.9524163568773234,
+  "bb_corners_e0.1": 0.9769516728624535,
+  "bb_mut_e0.1": 0.9734820322180917,
+  "bb_mut_inc_e0.1": 0.7491945477075589,
+  "wb_bpda_e0.1": 0.9771995043370508,
+  "wb_bpda_mutable_e0.1": 0.5769516728624535,
+  "fs_strongest_e0.1": 0.9913258983890955,
+  "fs_strongest_mutable_e0.1": 0.9742255266418836
+ },
+ "op": {
+  "native": {
+   "detected": 0.807,
+   "test_fpr": 0.21518499486125386,
+   "asr_volume": 0.20198265179677818,
+   "asr": 0.42973977695167287,
+   "e2e_volume": 0.356,
+   "e2e": 0.5398,
+   "attack": "grid + adaptive"
+  },
+  "fpr1": {
+   "detected": 0.2616,
+   "test_fpr": 0.012076053442959919,
+   "asr_volume": 0.9311926605504587,
+   "asr": 0.9923547400611621,
+   "e2e_volume": 0.982,
+   "e2e": 0.998,
+   "tau": 0.001477875574491918,
+   "attack": "grid + adaptive"
+  },
+  "fpr_match": {
+   "detected": 0.6876,
+   "test_fpr": 0.1960431654676259,
+   "asr_volume": 0.21204188481675393,
+   "asr": 0.5014543339150669,
+   "e2e_volume": 0.4582,
+   "e2e": 0.6572,
+   "tau": 0.18086948470889236,
+   "attack": "grid + adaptive"
+  }
+ },
+ "feas": {
+  "grid_both": 0.42131350681536556,
+  "grid_volume": 0.18042131350681537,
+  "feas_both": 0.42131350681536556,
+  "feas_volume": 0.18066914498141265,
+  "lost_both": 0.0,
+  "gained_both": 0.0
+ },
+ "bpa": {
+  "bpda_action_b0.5": 0.39355638166047086,
+  "bpda_action_volume_b0.5": 0.13779429987608427,
+  "bpda_new_vs_strongest_b0.5": 0.0,
+  "strongest_with_bpda_b0.5": 0.43023543990086743,
+  "ev_bpda_action_b0.5": "cC1TcwGCoOXTIVrcHGTRRNTQWAkMTOBF4ElOMoQYS3g7rYJDIMYIuAqNAvXGJuWKsWQx9AAgg8idQeRSPlQaAkoxcQAp58DsSdAM4wsZsIHBZA3KC8gIACnA0yWCODgho0ktpZaptEgIQnYwUgIOr5QSh1ojLLg8ldCGIgCIY2Ek4KoGTzYBdlAxApOsVImRCLHvEn0KwStESJCaAIU0/IiLk2MQh8GxMjBQUBi9I+0yIRKixsd9z4hhM5eJSRtGEqQKhVIhJuhKQFEGCtroITcSIEi5wjpo0hRyuk7iQIWprjhFCAxigsDCxUSBlZSJR1aJSkxhhklCFiloXAOspHUlTNcgiEn5uPRQQAMIDABCOVedNLbkoo1CNGzlScHCgZwBFhxQFGS5BYFIBEmwKkCifkWjYiHEMAQn3kJP1RDRQEMAXswZw3GjhBJ4XoGwVYOjmDuqR+0AMWZi1AK1SA6SGaSiCZu7MGKA70UVgicC1KxoxwEA+U3YIqCIIgmklqW4KClR3MBTCMCsAYT9oAlqVeyyhmISoDJzQPamA3BhcYK0+wtU1wcXQxLaLBFoEyBFAREtjfiFIgvhEHQaAIQMGJExS0jpjqtAZlKxXy4WF80qHCcB5bqjQSPkO0ZHiRziYjXxB0pBtRW7gcwppIKOcQYVAJAOAA=="
+ }
+}

@@ -1,0 +1,69 @@
+{
+ "union": {
+  "strongest_b0.5": 0.39641634789611435,
+  "strongest_volume_b0.5": 0.39641634789611435,
+  "strongest_plus_b0.5": 0.39782564928528286,
+  "strongest_plus_volume_b0.5": 0.39782564928528286,
+  "strongest_plus_b0.5_per_class": {
+   "analysis": 0.873015873015873,
+   "backdoor": 0.6910994764397905,
+   "dos": 0.36242884250474383,
+   "exploits": 0.16522988505747127,
+   "fuzzers": 0.5128424657534246,
+   "generic": 0.8902439024390244,
+   "reconnaissance": 0.15881561238223418,
+   "shellcode": 0.17682926829268292,
+   "worms": 0.05263157894736842
+  },
+  "ev_strongest_plus_b0.5": "vAkTJk87L0pAsQIDaRKTEEUUYtjwKQTuaNTWqBOk61TAWEt8kgkWUAl8E4RkTGq+dCkoDMQAJoI2nBpXhCaRFlatYXhpkKTmC6iQjzKGAciuNObDSqAVcbNBVIsAU4HHRI9HyU9RMDQNa0IUBhCARBjggoBoyLH/tIFFpRj0MjagkYbLEtqcQGgZ1KUMS8RAQWCT0lx9CZSOxgRpKxsRNELEFEARCPYCioxAMMZNF4MjCDwzhtom2dToRsgySxCkGEAvJ0IQMH7jkiII5VO0x4H3D1NRiBoAWsejCC5ENEdGB4Jh3gELKIlAZ841oA1IxpC7QIijCMepiSJOSykxBXdjPHApCxg+IIiZ5VOGDKA1WEyIUog8yRTogOpBLChsrAowQESAIYWAHXSGdfD02q9aRdYghCCzn9gAxEk5UFkADCgREjC4vxEUTzfytcgiVIlr2QsIjshUcpGIog+gkGn8iYh53xCRwq6x2BCwFSDYQUKQHJmblQTvAgrEIQrYOwWoEOsPUKkwDAhyw5J0dBasAyopiktJFg4HFhCIDOYHENABzUQAu50NgACMpOjXJbXGK3obTCCEoSoiTz5LAYRysvsUT0LS5hQos2zoiLEUoVCi9oyBDVlryDarEwiClshAM4ZqEUEaEO5usJVqCYHHSOfkTKJibfJAqCychryRBJSBz49MgZAieCgTrBWzUvnMwoD0BRwCIK8aCg3Anz4560CnfCaNbjOjG5wMMhKV4NGCJSU5IBwEi0cEPREgbIygGQAFDsXaAGR8OYaVTgUgKFfgaFjnNE8CMCBiGpN+IEF8Foy104gio/IE",
+  "ev_strongest_plus_volume_b0.5": "vAkTJk87L0pAsQIDaRKTEEUUYtjwKQTuaNTWqBOk61TAWEt8kgkWUAl8E4RkTGq+dCkoDMQAJoI2nBpXhCaRFlatYXhpkKTmC6iQjzKGAciuNObDSqAVcbNBVIsAU4HHRI9HyU9RMDQNa0IUBhCARBjggoBoyLH/tIFFpRj0MjagkYbLEtqcQGgZ1KUMS8RAQWCT0lx9CZSOxgRpKxsRNELEFEARCPYCioxAMMZNF4MjCDwzhtom2dToRsgySxCkGEAvJ0IQMH7jkiII5VO0x4H3D1NRiBoAWsejCC5ENEdGB4Jh3gELKIlAZ841oA1IxpC7QIijCMepiSJOSykxBXdjPHApCxg+IIiZ5VOGDKA1WEyIUog8yRTogOpBLChsrAowQESAIYWAHXSGdfD02q9aRdYghCCzn9gAxEk5UFkADCgREjC4vxEUTzfytcgiVIlr2QsIjshUcpGIog+gkGn8iYh53xCRwq6x2BCwFSDYQUKQHJmblQTvAgrEIQrYOwWoEOsPUKkwDAhyw5J0dBasAyopiktJFg4HFhCIDOYHENABzUQAu50NgACMpOjXJbXGK3obTCCEoSoiTz5LAYRysvsUT0LS5hQos2zoiLEUoVCi9oyBDVlryDarEwiClshAM4ZqEUEaEO5usJVqCYHHSOfkTKJibfJAqCychryRBJSBz49MgZAieCgTrBWzUvnMwoD0BRwCIK8aCg3Anz4560CnfCaNbjOjG5wMMhKV4NGCJSU5IBwEi0cEPREgbIygGQAFDsXaAGR8OYaVTgUgKFfgaFjnNE8CMCBiGpN+IEF8Foy104gio/IE"
+ },
+ "fs": {
+  "bb_corners_e0.005": 0.9051741493859472,
+  "bb_mut_e0.005": 0.7600161063015904,
+  "bb_mut_inc_e0.005": 0.4813770887859875,
+  "fs_strongest_e0.005": 0.9305415743909805,
+  "fs_strongest_mutable_e0.005": 0.7600161063015904,
+  "bb_corners_e0.01": 0.9494664787598148,
+  "bb_mut_e0.01": 0.8830279846990134,
+  "bb_mut_inc_e0.01": 0.6865311052949467,
+  "fs_strongest_e0.01": 0.9758405476142541,
+  "fs_strongest_mutable_e0.01": 0.8830279846990134,
+  "bb_corners_e0.02": 0.9885242601167706,
+  "bb_mut_e0.02": 0.9200724783571572,
+  "bb_mut_inc_e0.02": 0.6941815985504328,
+  "fs_strongest_e0.02": 0.9983893698409503,
+  "fs_strongest_mutable_e0.02": 0.9200724783571572,
+  "bb_corners_e0.05": 1.0,
+  "bb_mut_e0.05": 0.9917455204348702,
+  "bb_mut_inc_e0.05": 0.7354539963760821,
+  "fs_strongest_e0.05": 1.0,
+  "fs_strongest_mutable_e0.05": 0.9917455204348702,
+  "bb_corners_e0.1": 1.0,
+  "bb_mut_e0.1": 0.9997986712301188,
+  "bb_mut_inc_e0.1": 0.9784578216227099,
+  "fs_strongest_e0.1": 1.0,
+  "fs_strongest_mutable_e0.1": 0.9997986712301188
+ },
+ "op": {
+  "native": {
+   "detected": 0.9934,
+   "test_fpr": 0.12859712230215828,
+   "asr_volume": 0.28628951077108916,
+   "asr": 0.28628951077108916,
+   "e2e_volume": 0.291,
+   "e2e": 0.291,
+   "attack": "grid only"
+  },
+  "fpr1": {
+   "detected": 0.9298,
+   "test_fpr": 0.014003083247687564,
+   "asr_volume": 0.49731124973112495,
+   "asr": 0.49731124973112495,
+   "e2e_volume": 0.5326,
+   "e2e": 0.5326,
+   "tau": 0.032476656590804454,
+   "attack": "grid only"
+  }
+ }
+}

@@ -1,0 +1,97 @@
+{
+ "union": {
+  "strongest_b0.5": 0.5210204081632653,
+  "strongest_volume_b0.5": 0.13448979591836735,
+  "strongest_plus_b0.5": 0.5271428571428571,
+  "strongest_plus_volume_b0.5": 0.13612244897959183,
+  "strongest_plus_b0.5_per_class": {
+   "analysis": 0.25925925925925924,
+   "backdoor": 0.18947368421052632,
+   "dos": 0.5583657587548638,
+   "exploits": 0.7080561714708056,
+   "fuzzers": 0.49871244635193135,
+   "generic": 0.07992895204262877,
+   "reconnaissance": 0.7254374158815612,
+   "shellcode": 0.4573170731707317,
+   "worms": 0.6842105263157895
+  },
+  "ev_strongest_plus_b0.5": "cSh2zfugyE2ljv3wnv1t5Lu+uS0xdmsTFiCBG1C/Kg4160gGCmky6onQ0OzvpnItIjoWE1b956+3DounvKSVsMlX2cWZBkX5EHP9Vg5PnFdbwMAs2/wdpXvBsteMdjk3uLAuZE+sF80CdK+ny90VaR55PYcjRuoJODDabhkZAxE+QsaUp9W1uygvSNasZ4t8N9K+jjH0LGjjdVu8n9B6Xn5Q3c3T9dSt64eMmFRp/H7ph/2X5pK9qZGqQpg0OY79taKmlvoJD+V7RdYlPP+NLNQTXfr7xDJAf09Hr8n9QPK4p9PNLunulriF6AritEJPI3LvsiOEJMsTX2CHzWdxUYl4+WF4WdstTrXwv+VwgLqtc+TGLxGXik4Ca82puuuVzpjNHNdpLlZ6x8bOSSD/Hq+FyplhP9ibtnb5SvSyvzPfYaSMbjocrcQEH5i3O1pVPd50Ue9KtneJv1doErgzgMSmbi0iqB+cJknREievYRUB/Z/vdzb35BMEWBNU/91Dk/9YGzs0Y/OUKnec8ec9nTypinxetD3EV8RqMsJWIar7CkHN594UoRrQtYxfuapIzbiSa3agJluCcxjBFg6/A9NPkJj6LuKeWn5V866TEFzdyaxPMooRrs76wO3CHMGSr4t+sXgQ1rV0dlBmPN0wDt77h/ip8ZvmcB101x5w+0MNz4+iln3yxpv1FYoJNQb54dX77xZXyP+AQv7B6QAec8zOrMctIR6ex43S588hqG39XlWa+vmqvsjp7/7Z07O4Cf/vF+jyX1FVmi/2Dr4Qfykp+sx9mpXnCnnuhBs48FtWY2gOgA==",
+  "ev_strongest_plus_volume_b0.5": "ACACAACgCAAAAACgBAkIBKM0EAgQICAQEAAAEAAAAAIAgQAAAAAyAIAAUAghgFAAIAAAEwAgAC0AAICAAAAAAIBAGAGABEUYAGAFAAAKFBAJwAAAECwQgCAAkoAIQCAgCAACQAgoAIAAQCiBgMAEAAgABAICAOAICACIQAgRAQAkAIQEpAWAiAAMABIgAAgAEIAAgABACAAAIAAACIBAABAQBAhSEEQgCICAAEBA/CSAAQUGJICQAAEoQgAgAQABESAAADAIBQQyQFQkEGgIAIAASaiLwCAACQAFqAgBACIoAQFMBOAGhDgBAAAAAAIIIBBBAACAIIkRAEAGwAdgAIAgiCEAEBgECCAAAEAgAAAAAiRACACEAgACAoAJIMIABAiAEEYIBgQAwAQMACAxBAgAABgAAQCRAETAAFCQACCKAAQAIAAArQAAAgAUElIQEQJAAQAAEgEIEVAAAiAAgICCIAACiAgAIAAAEAIGAAAArAQKIAAjZAIAQAEQAAAAAUIQAAgAIkAAABCAEAQBgACJgCAEJAwEQQQAEIAAASAAAgEAJAIAIBAAlYAeMAoADBAAAQAAAFAAIAiAAAAcAAEHEIACAIAQQgQAAAIAEACYgQBAEIAAAADYAADABACCBgAAIRAABCAQBlBAJBEwCBCQAUAhEAEkIBAEkgAACAEAAAIiAAQQABMBBQAAEARAoASijAAAQEAAAuQAgAAAUAzAiEAAAACAhAkCRkIAgAgACEQCoAEAgkCBQIgQEgAwADBgAQAASBAEggCwBIAQCAAgAgQACICCAABIABkA8BgGAiAAAA=="
+ },
+ "fs": {
+  "bb_corners_e0.005": 0.9938775510204082,
+  "bb_mut_e0.005": 0.7842857142857143,
+  "bb_mut_inc_e0.005": 0.5391836734693878,
+  "wb_bpda_e0.005": 0.9453061224489796,
+  "wb_bpda_mutable_e0.005": 0.4089795918367347,
+  "fs_strongest_e0.005": 0.9946938775510205,
+  "fs_strongest_mutable_e0.005": 0.843469387755102,
+  "bb_corners_e0.01": 0.9985714285714286,
+  "bb_mut_e0.01": 0.8846938775510204,
+  "bb_mut_inc_e0.01": 0.6283673469387755,
+  "wb_bpda_e0.01": 0.970204081632653,
+  "wb_bpda_mutable_e0.01": 0.4614285714285714,
+  "fs_strongest_e0.01": 0.9987755102040816,
+  "fs_strongest_mutable_e0.01": 0.9089795918367347,
+  "bb_corners_e0.02": 1.0,
+  "bb_mut_e0.02": 0.9455102040816327,
+  "bb_mut_inc_e0.02": 0.7671428571428571,
+  "wb_bpda_e0.02": 0.9948979591836735,
+  "wb_bpda_mutable_e0.02": 0.5797959183673469,
+  "fs_strongest_e0.02": 1.0,
+  "fs_strongest_mutable_e0.02": 0.9610204081632653,
+  "bb_corners_e0.05": 1.0,
+  "bb_mut_e0.05": 0.9885714285714285,
+  "bb_mut_inc_e0.05": 0.9359183673469388,
+  "wb_bpda_e0.05": 0.9987755102040816,
+  "wb_bpda_mutable_e0.05": 0.8361224489795919,
+  "fs_strongest_e0.05": 1.0,
+  "fs_strongest_mutable_e0.05": 0.9928571428571429,
+  "bb_corners_e0.1": 1.0,
+  "bb_mut_e0.1": 0.9885714285714285,
+  "bb_mut_inc_e0.1": 0.9577551020408164,
+  "wb_bpda_e0.1": 0.9995918367346939,
+  "wb_bpda_mutable_e0.1": 0.9369387755102041,
+  "fs_strongest_e0.1": 1.0,
+  "fs_strongest_mutable_e0.1": 0.9940816326530613
+ },
+ "op": {
+  "native": {
+   "detected": 0.98,
+   "test_fpr": 0.230344295991778,
+   "asr_volume": 0.13326530612244897,
+   "asr": 0.5159183673469387,
+   "e2e_volume": 0.1506,
+   "e2e": 0.5256,
+   "attack": "grid + adaptive"
+  },
+  "fpr1": {
+   "detected": 0.4788,
+   "test_fpr": 0.012846865364850977,
+   "asr_volume": 0.9536340852130326,
+   "asr": 0.993734335839599,
+   "e2e_volume": 0.9778,
+   "e2e": 0.997,
+   "tau": 0.0059658628469333045,
+   "attack": "grid + adaptive"
+  },
+  "fpr_match": {
+   "detected": 0.9374,
+   "test_fpr": 0.19912641315519014,
+   "asr_volume": 0.28120332835502454,
+   "asr": 0.5909963729464476,
+   "e2e_volume": 0.3262,
+   "e2e": 0.6166,
+   "tau": 0.17414629526957026,
+   "attack": "grid + adaptive"
+  }
+ },
+ "feas": {
+  "grid_both": 0.47244897959183674,
+  "grid_volume": 0.11081632653061224,
+  "feas_both": 0.47,
+  "feas_volume": 0.11061224489795918,
+  "lost_both": 0.002857142857142857,
+  "gained_both": 0.00040816326530612246
+ }
+}

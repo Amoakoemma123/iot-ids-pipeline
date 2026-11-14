@@ -1,0 +1,120 @@
+{
+ "union": {
+  "strongest_b0.5": 0.6263321492007105,
+  "strongest_volume_b0.5": 0.6258880994671403,
+  "strongest_plus_b0.5": 0.6520870337477798,
+  "strongest_plus_volume_b0.5": 0.6520870337477798,
+  "strongest_plus_b0.5_per_class": {
+   "backdoor": 0.8333333333333334,
+   "ddos": 0.6615646258503401,
+   "dos": 0.24915254237288137,
+   "injection": 0.5076923076923077,
+   "mitm": 0.5882352941176471,
+   "password": 0.671875,
+   "ransomware": 0.981651376146789,
+   "scanning": 0.9359605911330049,
+   "xss": 0.3462214411247803
+  },
+  "ev_strongest_plus_b0.5": "L/M7/t9wsB6Vf7Lp4bS3ROM8+/4s/EVvb73ftT1jPdn0l/R/r6/7FTsmy9jb1Lp/2pD++5/m7r9f9/l8biZnf7JZlOzt3vP4e2idaaEO9tv/yvvc9f9P3802HaPftV8y9/d10S8cjyf/b3z6N8s0v7ma1Z03Zi9L3HFr++06xGVZ3H+Df3j/feHJ08Oum5m/O5eebeN+1e7iTTG2LXW/f50nu3Wd+7V36vrYX39nehVL/rnZ3V/3dv/unv7bmNmO/ztWuHn65r+bn3f/9D//c/+qf/rxU9fvTvZv/n5f9fstX1lKbkuN0/+Vibubhqd/LTacc5+n28zOOi/v77+/c0Hz/evjubHV0nK3/333IP+/9/XhTs/f31Q15BfsHLz0cVXl/91bHR9zDL6D+rPP3fpqP+qfPv0Xfn+72u7w6Ue2x/ptvvL3zJodyr69Ln7P+v1zstLWz+n/XnveV8vlnb2fxu79StbrOWb++vze9/7flu5/m1/D41f6VAv+aG9GJXY/6/Lj96P+q7feNazu1naLvPupvx8+fmXfzD/8n+VX/2ufVH2//Vas0ju/2Vu7jfct2fsro1Yvf/Uzs1/fUH3/yf176w+dd4J1pMWHt+2/v9Kv/SL1r7fv/712hwfe/9r4Hl7uX7OONNNlVo+xUXf1r63uxvdf1eP0n8/g8s1EvZT2v8fP1mvvvbuK+NNpLVVdBP2/cuRG7pbNm7mfbcP3VcWp35/+d7jp/hXqqP7LsvY=",
+  "ev_strongest_plus_volume_b0.5": "L/M7/t9wsB6Vf7Lp4bS3ROM8+/4s/EVvb73ftT1jPdn0l/R/r6/7FTsmy9jb1Lp/2pD++5/m7r9f9/l8biZnf7JZlOzt3vP4e2idaaEO9tv/yvvc9f9P3802HaPftV8y9/d10S8cjyf/b3z6N8s0v7ma1Z03Zi9L3HFr++06xGVZ3H+Df3j/feHJ08Oum5m/O5eebeN+1e7iTTG2LXW/f50nu3Wd+7V36vrYX39nehVL/rnZ3V/3dv/unv7bmNmO/ztWuHn65r+bn3f/9D//c/+qf/rxU9fvTvZv/n5f9fstX1lKbkuN0/+Vibubhqd/LTacc5+n28zOOi/v77+/c0Hz/evjubHV0nK3/333IP+/9/XhTs/f31Q15BfsHLz0cVXl/91bHR9zDL6D+rPP3fpqP+qfPv0Xfn+72u7w6Ue2x/ptvvL3zJodyr69Ln7P+v1zstLWz+n/XnveV8vlnb2fxu79StbrOWb++vze9/7flu5/m1/D41f6VAv+aG9GJXY/6/Lj96P+q7feNazu1naLvPupvx8+fmXfzD/8n+VX/2ufVH2//Vas0ju/2Vu7jfct2fsro1Yvf/Uzs1/fUH3/yf176w+dd4J1pMWHt+2/v9Kv/SL1r7fv/712hwfe/9r4Hl7uX7OONNNlVo+xUXf1r63uxvdf1eP0n8/g8s1EvZT2v8fP1mvvvbuK+NNpLVVdBP2/cuRG7pbNm7mfbcP3VcWp35/+d7jp/hXqqP7LsvY="
+ },
+ "fs": {
+  "bb_corners_e0.005": 1.0,
+  "bb_mut_e0.005": 0.98601243339254,
+  "bb_mut_inc_e0.005": 0.7853019538188277,
+  "wb_bpda_e0.005": 1.0,
+  "wb_bpda_mutable_e0.005": 0.7793072824156305,
+  "fs_strongest_e0.005": 1.0,
+  "fs_strongest_mutable_e0.005": 0.9875666074600356,
+  "bb_corners_e0.01": 1.0,
+  "bb_mut_e0.01": 0.9869005328596803,
+  "bb_mut_inc_e0.01": 0.8117229129662522,
+  "wb_bpda_e0.01": 1.0,
+  "wb_bpda_mutable_e0.01": 0.7904085257548845,
+  "fs_strongest_e0.01": 1.0,
+  "fs_strongest_mutable_e0.01": 0.9891207815275311,
+  "bb_corners_e0.02": 1.0,
+  "bb_mut_e0.02": 0.9877886323268206,
+  "bb_mut_inc_e0.02": 0.8137211367673179,
+  "wb_bpda_e0.02": 1.0,
+  "wb_bpda_mutable_e0.02": 0.786190053285968,
+  "fs_strongest_e0.02": 1.0,
+  "fs_strongest_mutable_e0.02": 0.9886767317939609,
+  "bb_corners_e0.05": 1.0,
+  "bb_mut_e0.05": 0.9882326820603907,
+  "bb_mut_inc_e0.05": 0.8137211367673179,
+  "wb_bpda_e0.05": 1.0,
+  "wb_bpda_mutable_e0.05": 0.7781971580817052,
+  "fs_strongest_e0.05": 1.0,
+  "fs_strongest_mutable_e0.05": 0.9886767317939609,
+  "bb_corners_e0.1": 1.0,
+  "bb_mut_e0.1": 0.9886767317939609,
+  "bb_mut_inc_e0.1": 0.8137211367673179,
+  "wb_bpda_e0.1": 1.0,
+  "wb_bpda_mutable_e0.1": 0.7717584369449378,
+  "fs_strongest_e0.1": 1.0,
+  "fs_strongest_mutable_e0.1": 0.9893428063943162
+ },
+ "op": {
+  "native": {
+   "detected": 0.9008,
+   "test_fpr": 0.015580286168521463,
+   "asr_volume": 0.6247779751332149,
+   "asr": 0.6247779751332149,
+   "e2e_volume": 0.662,
+   "e2e": 0.662,
+   "attack": "grid + adaptive"
+  },
+  "fpr1": {
+   "detected": 0.9004,
+   "test_fpr": 0.013990461049284579,
+   "asr_volume": 0.6123944913371835,
+   "asr": 0.6123944913371835,
+   "e2e_volume": 0.651,
+   "e2e": 0.651,
+   "tau": 0.432671235203743,
+   "attack": "grid + adaptive"
+  }
+ },
+ "feas": {
+  "grid_both": 0.58348134991119,
+  "grid_volume": 0.58348134991119,
+  "feas_both": 0.5821492007104796,
+  "feas_volume": 0.5821492007104796,
+  "lost_both": 0.006216696269982238,
+  "gained_both": 0.004884547069271759
+ },
+ "opu": {
+  "val_fpr": 0.010651828298887122,
+  "tau": 0.4640709712082707,
+  "detected": 0.9022,
+  "test_fpr": 0.015103338632750398,
+  "asr_volume": 0.608734205275992,
+  "asr": 0.608734205275992,
+  "e2e_volume": 0.647,
+  "e2e": 0.647,
+  "attack": "grid + adaptive"
+ },
+ "bpa": {
+  "bpda_action_b0.5": 0.5182060390763765,
+  "bpda_action_volume_b0.5": 0.5182060390763765,
+  "bpda_new_vs_strongest_b0.5": 0.0004440497335701599,
+  "strongest_with_bpda_b0.5": 0.6267761989342806,
+  "ev_bpda_action_b0.5": "D+M5hF8gMBSUc5Lp4ZS3RCM8+X4s9EFOa7xOpS1jNdHUFWQ/j6XSFTskyxDYlKhjApDG6x+m5i0c9ekYbiZnO6IZlOjtzPO4WmCcKQEK9ln9Srnc9fNF300mHaLflV8y56c10Q4cjSbvaBRyFco0HrmaxYgXZiRLSBBL++w6xGFZkH0Df3i9PeGI0YEuG5i/GpcebUM+VeRiSTGmKVWfdgAnu2WdqrEX6nrQXn9nagFL/rlY3VLzVsnODqrTiJkOvzpGqBjyZL8ZnkZV9C/Lc2+qX+pxU9cvRqRt/n5d9LMtHlkKTkuNk2wVibmbhqQvLCacco+nwYyKOC/rzau3c0Hy7OvjsbDF0HC1/W33IPW99/ThSk8LzlQ1pBcsGLjUIVXll9lbGRszDD4D+jPO3egqP+qOLt0Xfmu6mu7wyUc2x3pltmLzjJodyjY5KhiHYL1ystLWj6DuRnveF+HllbWPxO74CsRrOGb++Oxe9trXFuZbm1eDY0f4VAr4YG1EIVQ/6/Lj94NsozceFKxu1maCONiprB8+bGXejD38nuUV9yOYUF2/eRIs0Dk/0VO7DDct0bsDolYvKvUhox3eQGX9yblz6wWdNIJVpMSHB+23t9KpbCKVj7bv/710hwXef9q4DFjuR5KONBNlFg6wUUfVC6nmhvNf1WCgnU7g8k1EuQRWvcfN1gvvkbsKeFMJLFUNBN0+UuBG7pbNm5mfbQO2VYGp3Q78d7DoxhQqqK7LsjY="
+ },
+ "relax": {
+  "relax_b0.5": 0.691607460035524,
+  "relax_union_b0.5": 0.7095914742451155,
+  "relax_corners_b0.5": 0.6718472468916519,
+  "realistic_volume_b0.5": 0.6258880994671403,
+  "relax_new_vs_realistic": 0.08370337477797514,
+  "realistic_not_relax": 0.017984014209591476,
+  "median_width_mm": [
+   1.2850645382850704e-07,
+   0.0004307981514842954,
+   5.347665408493491e-06,
+   0.00023974188400519012
+  ],
+  "ev_relax_b0.5": "L/M//t90sN6Vfzrp5bS/ReN8//4s/EVPb73ftT3zfdv0l/V/76/7lTs2y9jf9Lp/25L++5/m7r9f9/ldfm5nf7pZnczt3uP8e2idabEu9tv/Wv/Y9f9P/882HaP/t9+69/c10S8cjyf/bn36N8s2/7ma9Z+Xdidv3HFr++06wHdp3PeLf3j/fOHN0+cuu92/O5efbet+1e7j7fn6P3e/d50nu/Xd+7136vrZf39neDUv+r3Z3X/3f//unv776dmP9ztevnny9r+bn3//9D//f//6//vxV/f/zvYvfn5f9ftvX9lqL8uP1z/VibuPh6dvLb7fe7+n+8zPOjvv//+/c8Hz/OvnubH91nK3/3/3Kf+/9/Xlbs9f31U19BfsHLj0c9e1/91bGx93DL6D+rPfvPrqv+7ffv0ffn+72u7w6Ue2x/pvv/L3zJod6r6/Lv/P2v1zstLW3+n+fmmeV5vhnf3fxu75W/bhOWr++v7e99bfnu5/u3/Ho1f6UB/7SG9XbXY/+/Lj96e++/fOf6w/1v7LvP3ov18/dm3f3D/+n+3V/2ubFH2n/Vas0nm/2Vu7jfcv2fMrq15vf/cjs1/fU33/zf1744/dd5J8pO2HP+y//9Lr/SL1r7ftv712jw/e/9j4Hl7uV7OeNNNl1s+x03f1r63vxv9f1eP1n8/o8s1OvfT2n9fP1mvvvbuL/PNvLVVdhP+/euRG7pbdm72/fcP1V8Wp39/+97nt/pX6uP7Ls/c="
+ }
+}

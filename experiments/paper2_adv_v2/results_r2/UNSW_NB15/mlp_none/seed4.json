@@ -1,0 +1,121 @@
+{
+ "union": {
+  "strongest_b0.5": 0.9334269662921348,
+  "strongest_volume_b0.5": 0.48792134831460676,
+  "strongest_plus_b0.5": 0.9334269662921348,
+  "strongest_plus_volume_b0.5": 0.48792134831460676,
+  "strongest_plus_b0.5_per_class": {
+   "analysis": 0.9929577464788732,
+   "backdoor": 0.9878048780487805,
+   "dos": 0.9198113207547169,
+   "exploits": 0.8933601609657947,
+   "fuzzers": 0.9327628361858191,
+   "generic": 0.9636363636363636,
+   "reconnaissance": 0.9588477366255144,
+   "shellcode": 0.968944099378882,
+   "worms": 1.0
+  },
+  "ev_strongest_plus_b0.5": "//////////f+///df/Z//3e+/3//3/////P/f/+/v/3/9+////73///u//+f//39//////////////v/e9/79/////P///2/3v////3//////+//99/3/++//7f3v////v////+t+/////////////79//7/v/9///X7v/n+/9/v///////////37////v/+/////+/9/Xvf//3v///+/b////f+9//7//3v////////////n/z/377+/6//v//f6///7////97////////9///u/////7///v+///+/3////73////ff/f//////u/9/7f/////t///fv///9//n9/////b3/6//f//v/9/////f1zv+v////t9////////31//7////////7/9f/////////+////////9v//v/f///v//////z///398/v++f//7/+///v/7//v/9v///v//3v+/9/9////9//733/f+/3////+v//+/////////f/t////v////bfvr/v/+////7////7f/97//+/v/f///v///++/////7//3///9+//+v+/////b///7d/3w==",
+  "ev_strongest_plus_volume_b0.5": "NsOcG6HIIMLatjnJbaIslTSkUlB12PRiO2DiKL4cN1RPI4i34NyjUM4oAWgKfRS4F14t0nzJWhudMzKhWFgAl/iHhpPWMr062uJQaMHiGTI41SUO8hGgvqW8uyDXn36A0NnimkiJghuT74DtzwOZV+aYwSIiMcQVWJUTv7i8xhPMS7atV+NP0qagCu6zTqyUnk9Wm8OVqHsMtr1MlR6ySTl3+LXogb8zq7BuNazEt0yspd1hERQ2TZIcdY0NF4LBI1CYQokzGpQNC6/f2BpUMOwO/Bd+OLFcNvYTGjYtXHNv9Cm8ZwHCXpankLf7qOwd04Fs8usDpQNUXtUNSw+ckxb/OmNLx0KhUYDJkitYYW/6dwzN4Om+u6gVxfOed6o220SKK0LF3wKN3TrQS6bUf5oQKLYC0/9+tF5sIq1nQPrWGP1NzBVgiLLUHx0uMUMPK/yyOa9Xmqq3nifUqHlkBHuHq4z9IhfFLF5o1qFE0FktQR+EsGozOE1Tdce7JA6CTlRDvRMBcuaQNnC7ijQyeqCa8Lp2iO2twX9kKnxO1wDgJ7VoU9akW1YNORevCNgm6wOCBPaXrS/H6ZMzyA=="
+ },
+ "fs": {
+  "bb_corners_e0.005": 0.8834269662921348,
+  "bb_mut_e0.005": 0.7702247191011236,
+  "bb_mut_inc_e0.005": 0.475,
+  "wb_bpda_e0.005": 0.880056179775281,
+  "wb_bpda_mutable_e0.005": 0.423876404494382,
+  "fs_strongest_e0.005": 0.9752808988764045,
+  "fs_strongest_mutable_e0.005": 0.847752808988764,
+  "bb_corners_e0.01": 0.9466292134831461,
+  "bb_mut_e0.01": 0.8073033707865168,
+  "bb_mut_inc_e0.01": 0.5160112359550562,
+  "wb_bpda_e0.01": 0.873876404494382,
+  "wb_bpda_mutable_e0.01": 0.42443820224719103,
+  "fs_strongest_e0.01": 0.973314606741573,
+  "fs_strongest_mutable_e0.01": 0.8584269662921349,
+  "bb_corners_e0.02": 0.998876404494382,
+  "bb_mut_e0.02": 0.9258426966292135,
+  "bb_mut_inc_e0.02": 0.6398876404494382,
+  "wb_bpda_e0.02": 0.9651685393258427,
+  "wb_bpda_mutable_e0.02": 0.5446629213483146,
+  "fs_strongest_e0.02": 0.9991573033707866,
+  "fs_strongest_mutable_e0.02": 0.948876404494382,
+  "bb_corners_e0.05": 1.0,
+  "bb_mut_e0.05": 0.9907303370786517,
+  "bb_mut_inc_e0.05": 0.8446629213483146,
+  "wb_bpda_e0.05": 0.9941011235955056,
+  "wb_bpda_mutable_e0.05": 0.6814606741573034,
+  "fs_strongest_e0.05": 1.0,
+  "fs_strongest_mutable_e0.05": 0.9943820224719101,
+  "bb_corners_e0.1": 1.0,
+  "bb_mut_e0.1": 0.998314606741573,
+  "bb_mut_inc_e0.1": 0.9367977528089888,
+  "wb_bpda_e0.1": 0.9941011235955056,
+  "wb_bpda_mutable_e0.1": 0.6390449438202247,
+  "fs_strongest_e0.1": 1.0,
+  "fs_strongest_mutable_e0.1": 0.9985955056179775
+ },
+ "op": {
+  "native": {
+   "detected": 0.712,
+   "test_fpr": 0.18987667009249742,
+   "asr_volume": 0.48342696629213483,
+   "asr": 0.9328651685393259,
+   "e2e_volume": 0.6322,
+   "e2e": 0.9522,
+   "attack": "grid + adaptive"
+  },
+  "fpr1": {
+   "detected": 0.431,
+   "test_fpr": 0.011819116135662899,
+   "asr_volume": 0.877030162412993,
+   "asr": 0.9508120649651972,
+   "e2e_volume": 0.947,
+   "e2e": 0.9788,
+   "tau": 0.032374761216342446,
+   "attack": "grid + adaptive"
+  }
+ },
+ "feas": {
+  "grid_both": 0.928932584269663,
+  "grid_volume": 0.43286516853932583,
+  "feas_both": 0.928932584269663,
+  "feas_volume": 0.43258426966292135,
+  "lost_both": 0.0,
+  "gained_both": 0.0
+ },
+ "opu": {
+  "val_fpr": 0.18615107913669066,
+  "tau": 0.4908486250385964,
+  "detected": 0.7414,
+  "test_fpr": 0.1894912641315519,
+  "asr_volume": 0.4410574588616132,
+  "asr": 0.9290531427029943,
+  "e2e_volume": 0.5856,
+  "e2e": 0.9474,
+  "attack": "grid + adaptive"
+ },
+ "bpa": {
+  "bpda_action_b0.5": 0.9036516853932585,
+  "bpda_action_volume_b0.5": 0.3463483146067416,
+  "bpda_new_vs_strongest_b0.5": 0.0,
+  "strongest_with_bpda_b0.5": 0.9334269662921348,
+  "ev_bpda_action_b0.5": "//////////f+//vdf/Zf/3e+/n//3///+/P/f/+/v/3/9+////73//9u7/+f//39////////v/////v/e9/79/9///P///2/2v/f7+37/zv//+//99/3/+e//7P3v////v////+t+f//3//////7//69//5/Pf11//X7v/n+/9/u////9//////37v///v/+/////+/9/Wrf/73v///+/b////f8t//7//3v////v3//////l/z/3778/6//v//f6/7/7//735q///////99///u/7///7/99v+/3/+/3///973////ff/fv/v///u/9/7f//v//t///fP+/78//n5/////b3/6//Z/7v+9+//9/f1zv+v////t9//v///7/21/77////f///7/9f///79/7//+3/////v/9v//n/f//+v//v/37z///398/v++f//77+///v/733n/9v///vf/3v+/9v9///39//723/f+t3////2v//+//////f/+b7t////v///fbfvrfv/+////7////6f/97//+7v7f/7/v/99++/////5//3///9+v/+v+/////b///7d/3w=="
+ },
+ "relax": {
+  "relax_b0.5": 0.6491573033707865,
+  "relax_union_b0.5": 0.6530898876404494,
+  "relax_corners_b0.5": 0.6008426966292135,
+  "realistic_volume_b0.5": 0.48792134831460676,
+  "relax_new_vs_realistic": 0.1651685393258427,
+  "realistic_not_relax": 0.003932584269662922,
+  "median_width_mm": [
+   0.00010202988657849642,
+   5.4126334238318375e-06,
+   0.08614130434782608,
+   0.05045514700155067,
+   6.64153625116176e-05
+  ],
+  "ev_relax_b0.5": "Ns+/n+nIOMLev7ndfbKsnzWkU3z32ffyP2H6KP4dN13f44m3+Nyzcu74Q2mafTy5F34t333pGnvfPzKzWtly1/qnlpv2d7263+9RftHnGbY79yXu95XhvaW8s6DXn36E8Nn2v0uJwh+z/5Ht70+Z1/7ZySo7v8Y3X9VTv/j8/h/Oy77tV+PP2qejz++3Tu6evo/228uVuXsNv71N99/62Tn3/6fuhf87u/buda3uv+6mrf3xmVU3TZIedY8fP4LVI/CYY+u/mtzNa+//2XvfduxO/Xf+erncNveTPj69Xnvv97u+b4XCfsf31ff7qO6924ds8vvbpUtWXvVNW1+dn97/P+tb10KxUcjJkq9/ae/79wzt6u3/v+hd7fO+d6s220aqK0PF3wKf3zrVW6f0f5qwqDYe8/9//N5sLu3v9f7X/v9N3JfsirrcH38vMcvPe/z2eT9Xnr7/3ufUuT99Bvu3v6/9uhfHf1543rFU8H8v2X+useqzuG1Tfcf/NM+qXtR3vxMA8v6Qdnq7iv6+eqja+Lp+7P396X98Kv7O30ThP/1o2d/2W1rdez+vXd0+6wOuhP6f7a/v67N3wg=="
+ }
+}

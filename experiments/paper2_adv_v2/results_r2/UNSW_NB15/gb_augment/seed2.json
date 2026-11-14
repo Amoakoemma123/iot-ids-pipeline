@@ -1,0 +1,96 @@
+{
+ "union": {
+  "strongest_b0.5": 0.4008,
+  "strongest_volume_b0.5": 0.0104,
+  "strongest_plus_b0.5": 0.4048,
+  "strongest_plus_volume_b0.5": 0.011,
+  "strongest_plus_b0.5_per_class": {
+   "analysis": 0.8865979381443299,
+   "backdoor": 0.8167539267015707,
+   "dos": 0.3681214421252372,
+   "exploits": 0.12598425196850394,
+   "fuzzers": 0.39378673383711166,
+   "generic": 0.9024390243902439,
+   "reconnaissance": 0.33378196500672946,
+   "shellcode": 0.5548780487804879,
+   "worms": 0.0
+  },
+  "ev_strongest_plus_b0.5": "voSJsgSfH7ElFIEGsIlJjOKgMWxpVIp1dEqrMA3SNe5wTC0+WQybQkSbCcJyAjHZKgRcX2EICODhJ8aVQRklATTKME8aZPkeDe4sAqiDkHKqpD9X0KAFcQxQXyKENOJxkiHT8mLCTE8CUoxQjMsgFNGuDDQTRsWE7aQKPSZHgZk5nMwrWJa1V9CA59KcMUuQQILJJqS47huZG45AUl52QujAmCiAIhPlFTSQoMGNmg4GBgB5YAugDbHJWMyqYkcWhjgAbRdCEhB/b5AqXuRztYYB1w5CWQgcADvHqwgYTDRPAAvCUPQJDEiKQibWNqgtTeSx2wzIsYRndOJI0pqCTEPIcl8cRgYGHIkyAmlUYoTUQqvLkQpRgWRYB0SHWovxQyVgUYILciSHCwQyyQzp9cmFHrCLCQFIQWalMKmMMmYgsUgSUDKkIdluMnica2dv3gJ0CEsJAwiOytxA0YQgAIHQL+qJiHd/UZHCLunYGLYNC9pJWpINTsBYglcJBQIQl/Q8oWoAO8PSAnQCIlzoco9XJcMqCINhQSsy0OhScAjiTsJzDyBu0oAOvfGQAA96Zw1aQ50iMoTOMIaZjCiIbNAoFhHOq+xVPwspCECknTHSESgIRqcFZVkaMLKVgG+1mQTBCmwgecc1yqDNAE8F0EClRNDThOGSJ2iY+jwDKwciNSyYkEEEGPBCSBEKhuuBOuGMkhXM540F6go4BUFMNFQbgD3eEpYJfvBHGuxkRjYwXGwlRsWnBCpKckB4ChYqDD4qCN0RQJCcCliv5AIY6BONIQwCaFKtQmCx1GjrAtAggV6HXrBCPBYMsNoKkVl7Ag==",
+  "ev_strongest_plus_volume_b0.5": "AAAAAAAIBAAAAAAAAAAAAAAAAAAgAAJAAAACAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAgAAAAAAAAAAACAAAAAAAAAQAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAEIAAAAAAAAQAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAQAAAAAAAgAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAgAAAAAAAAAAQAAAAAAAAAAAAAAQAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAQAAAAAAAAAAAAAAABAAAAAAAAAACAAAAAAAAAAAAAAAAAABAAAABAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAACAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAgAEAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIEAAAAgAAIAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAgAAIAAAAAAAAAAAAAAAAAAABAAAAAAACAAAAAAAAAAACAAAAAA=="
+ },
+ "fs": {
+  "bb_corners_e0.005": 0.7022,
+  "bb_mut_e0.005": 0.094,
+  "bb_mut_inc_e0.005": 0.0026,
+  "fs_strongest_e0.005": 0.7122,
+  "fs_strongest_mutable_e0.005": 0.094,
+  "bb_corners_e0.01": 0.7734,
+  "bb_mut_e0.01": 0.2008,
+  "bb_mut_inc_e0.01": 0.0136,
+  "fs_strongest_e0.01": 0.7908,
+  "fs_strongest_mutable_e0.01": 0.2008,
+  "bb_corners_e0.02": 0.914,
+  "bb_mut_e0.02": 0.2754,
+  "bb_mut_inc_e0.02": 0.0304,
+  "fs_strongest_e0.02": 0.929,
+  "fs_strongest_mutable_e0.02": 0.2754,
+  "bb_corners_e0.05": 1.0,
+  "bb_mut_e0.05": 0.462,
+  "bb_mut_inc_e0.05": 0.0798,
+  "fs_strongest_e0.05": 1.0,
+  "fs_strongest_mutable_e0.05": 0.462,
+  "bb_corners_e0.1": 1.0,
+  "bb_mut_e0.1": 0.4768,
+  "bb_mut_inc_e0.1": 0.0922,
+  "fs_strongest_e0.1": 1.0,
+  "fs_strongest_mutable_e0.1": 0.4768
+ },
+ "op": {
+  "native": {
+   "detected": 1.0,
+   "test_fpr": 0.1248715313463515,
+   "asr_volume": 0.0016,
+   "asr": 0.0412,
+   "e2e_volume": 0.0016,
+   "e2e": 0.0412,
+   "attack": "grid only"
+  },
+  "fpr1": {
+   "detected": 0.999,
+   "test_fpr": 0.012718396711202467,
+   "asr_volume": 0.03423423423423423,
+   "asr": 0.15395395395395395,
+   "e2e_volume": 0.0352,
+   "e2e": 0.1548,
+   "tau": 0.03231220362913117,
+   "attack": "grid only"
+  },
+  "fpr_match": {
+   "detected": 1.0,
+   "test_fpr": 0.12564234326824256,
+   "asr_volume": 0.0014,
+   "asr": 0.0288,
+   "e2e_volume": 0.0014,
+   "e2e": 0.0288,
+   "tau": 0.482451203115913,
+   "attack": "grid only"
+  }
+ },
+ "feas": {
+  "grid_both": 0.0412,
+  "grid_volume": 0.0016,
+  "feas_both": 0.0496,
+  "feas_volume": 0.0014,
+  "lost_both": 0.0028,
+  "gained_both": 0.0112
+ },
+ "sat": {
+  "n_sub": 500,
+  "strongest_sub": 0.386,
+  "grid_r3": 0.01,
+  "grid_r5": 0.076,
+  "grid_r7": 0.06,
+  "long_adaptive_new": 0.122,
+  "union_sub": 0.508
+ }
+}

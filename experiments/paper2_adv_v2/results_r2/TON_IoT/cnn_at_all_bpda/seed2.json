@@ -1,0 +1,104 @@
+{
+ "union": {
+  "strongest_b0.5": 0.4347359381708888,
+  "strongest_volume_b0.5": 0.43452125375697725,
+  "strongest_plus_b0.5": 0.4351653069987119,
+  "strongest_plus_volume_b0.5": 0.4351653069987119,
+  "strongest_plus_b0.5_per_class": {
+   "backdoor": 0.9901477832512315,
+   "ddos": 0.051926298157453935,
+   "dos": 0.02891156462585034,
+   "injection": 0.03924914675767918,
+   "mitm": 0.0392156862745098,
+   "password": 0.18804920913884007,
+   "ransomware": 0.9909502262443439,
+   "scanning": 0.9638752052545156,
+   "xss": 0.42574257425742573
+  },
+  "ev_strongest_plus_b0.5": "mvZksCrIFBBVcTRtFIBGkASssywioyh26k11xlSz5FCHI8qjVGKouOg7BiGwnFZm0sMQByXhFgBZOUBw7z2Rwkdye7iUgCAjeuiayM5UjBCWNTTS5oCKIhOkQ2MTEhxVk6aAqBaa9MqWiRApXjYVXUY1aa7VDHhUhcxDI9s1mlkfQoJ5hmCBftK2xcLPyjy6RxLpoSY0YuDAIBVlENAJYpMGE30SHjMApmyTUseKzjrC8Q7NWsYZQcI1LOlzZhVRSbTxS/DDKDF+UnrDiZ5QTkqbHpLoGbziRYzmPAk1II0oLdw/IBVtQpGQurCgrQPCAuhqAqMIDj0xkzwBMDgxQHjLthEJKD3FcagLcwIMNukL1QMruIVSYAveCaHjiKco2WOjAVhp2GkLAG+MlnBR4FACsOomFQlBfy34mQkBwEwo4J590WE2Oql0Yuly8wArvsbxkYDZWmjBy5Rlukagoa02wpUCXec0TxgIM6wMzpLy6ph+UEJFueXxQmkcBDqj2FTD/JSv+ESQiSEavCDbDNuFIaFhs+UPSXdRYtYBiCb0D0CFJ5i+ZB8GN2obxVPcAiGosLZdWAADVl/51K8IEshc5B7+hFJfhIU8pmsC2cAq6JvpjHSDgMp5SIGRBu7HHvBhYgC/VJLLquopUYB5zGAUwBvJaLl16Sy2VztAoVGGKMwa1RDQAAUNbKqCEuAgKmLZ5gHK8pDILU5GziygGe0lg2yA58+5mOYQPD6Uzu0DtA59YsQpBPFC/FzrhVEO+BgsUcz1gA==",
+  "ev_strongest_plus_volume_b0.5": "mvZksCrIFBBVcTRtFIBGkASssywioyh26k11xlSz5FCHI8qjVGKouOg7BiGwnFZm0sMQByXhFgBZOUBw7z2Rwkdye7iUgCAjeuiayM5UjBCWNTTS5oCKIhOkQ2MTEhxVk6aAqBaa9MqWiRApXjYVXUY1aa7VDHhUhcxDI9s1mlkfQoJ5hmCBftK2xcLPyjy6RxLpoSY0YuDAIBVlENAJYpMGE30SHjMApmyTUseKzjrC8Q7NWsYZQcI1LOlzZhVRSbTxS/DDKDF+UnrDiZ5QTkqbHpLoGbziRYzmPAk1II0oLdw/IBVtQpGQurCgrQPCAuhqAqMIDj0xkzwBMDgxQHjLthEJKD3FcagLcwIMNukL1QMruIVSYAveCaHjiKco2WOjAVhp2GkLAG+MlnBR4FACsOomFQlBfy34mQkBwEwo4J590WE2Oql0Yuly8wArvsbxkYDZWmjBy5Rlukagoa02wpUCXec0TxgIM6wMzpLy6ph+UEJFueXxQmkcBDqj2FTD/JSv+ESQiSEavCDbDNuFIaFhs+UPSXdRYtYBiCb0D0CFJ5i+ZB8GN2obxVPcAiGosLZdWAADVl/51K8IEshc5B7+hFJfhIU8pmsC2cAq6JvpjHSDgMp5SIGRBu7HHvBhYgC/VJLLquopUYB5zGAUwBvJaLl16Sy2VztAoVGGKMwa1RDQAAUNbKqCEuAgKmLZ5gHK8pDILU5GziygGe0lg2yA58+5mOYQPD6Uzu0DtA59YsQpBPFC/FzrhVEO+BgsUcz1gA=="
+ },
+ "fs": {
+  "bb_corners_e0.005": 1.0,
+  "bb_mut_e0.005": 0.8812795191069128,
+  "bb_mut_inc_e0.005": 0.4566337483898669,
+  "wb_bpda_e0.005": 0.7438814942035208,
+  "wb_bpda_mutable_e0.005": 0.6676685272649205,
+  "fs_strongest_e0.005": 1.0,
+  "fs_strongest_mutable_e0.005": 0.8960927436668098,
+  "bb_corners_e0.01": 1.0,
+  "bb_mut_e0.01": 0.8851438385573207,
+  "bb_mut_inc_e0.01": 0.45749248604551307,
+  "wb_bpda_e0.01": 0.6895663374838986,
+  "wb_bpda_mutable_e0.01": 0.650279089738085,
+  "fs_strongest_e0.01": 1.0,
+  "fs_strongest_mutable_e0.01": 0.9003864319450408,
+  "bb_corners_e0.02": 1.0,
+  "bb_mut_e0.02": 0.8868613138686131,
+  "bb_mut_inc_e0.02": 0.4579218548733362,
+  "wb_bpda_e0.02": 0.71468441391155,
+  "wb_bpda_mutable_e0.02": 0.6431945040790039,
+  "fs_strongest_e0.02": 1.0,
+  "fs_strongest_mutable_e0.02": 0.901245169600687,
+  "bb_corners_e0.05": 1.0,
+  "bb_mut_e0.05": 0.8875053671103478,
+  "bb_mut_inc_e0.05": 0.4579218548733362,
+  "wb_bpda_e0.05": 0.7191927866036926,
+  "wb_bpda_mutable_e0.05": 0.6182911120652641,
+  "fs_strongest_e0.05": 1.0,
+  "fs_strongest_mutable_e0.05": 0.9016745384285101,
+  "bb_corners_e0.1": 1.0,
+  "bb_mut_e0.1": 0.8875053671103478,
+  "bb_mut_inc_e0.1": 0.4579218548733362,
+  "wb_bpda_e0.1": 0.7440961786174324,
+  "wb_bpda_mutable_e0.1": 0.6004723057106054,
+  "fs_strongest_e0.1": 1.0,
+  "fs_strongest_mutable_e0.1": 0.9016745384285101
+ },
+ "op": {
+  "native": {
+   "detected": 0.9316,
+   "test_fpr": 0.2972972972972973,
+   "asr_volume": 0.43452125375697725,
+   "asr": 0.43452125375697725,
+   "e2e_volume": 0.4732,
+   "e2e": 0.4732,
+   "attack": "grid + adaptive"
+  },
+  "fpr1": {
+   "detected": 0.705,
+   "test_fpr": 0.013354531001589825,
+   "asr_volume": 0.6553191489361702,
+   "asr": 0.6553191489361702,
+   "e2e_volume": 0.757,
+   "e2e": 0.757,
+   "tau": 0.12615310341119768,
+   "attack": "grid + adaptive"
+  },
+  "fpr_match": {
+   "detected": 0.7078,
+   "test_fpr": 0.01589825119236884,
+   "asr_volume": 0.6527267589714608,
+   "asr": 0.6527267589714608,
+   "e2e_volume": 0.7542,
+   "e2e": 0.7542,
+   "tau": 0.12690580438449386,
+   "attack": "grid + adaptive"
+  }
+ },
+ "feas": {
+  "grid_both": 0.42636324602833836,
+  "grid_volume": 0.42636324602833836,
+  "feas_both": 0.4117647058823529,
+  "feas_volume": 0.4117647058823529,
+  "lost_both": 0.014598540145985401,
+  "gained_both": 0.0
+ },
+ "bpa": {
+  "bpda_action_b0.5": 0.37333619579218547,
+  "bpda_action_volume_b0.5": 0.37333619579218547,
+  "bpda_new_vs_strongest_b0.5": 0.0,
+  "strongest_with_bpda_b0.5": 0.4347359381708888,
+  "ev_bpda_action_b0.5": "mvYksCJIFBBRcTRNFIBGkASksSwiIwh2wg1wxlCzZFCHI8KjVGKouOg7BiGwmFZm0MEQBQThBgAJOUAw7w2BgkdiexgUgCADesiayM5UhBCWJTSS5oCKIhOgQSITEhgFk6aAIBaa9IoWiRApFiIRXUYkaC4VDFgUhcxCI8s1mkkbAgJ5BmCAftIWhcKNyjyqRxLooSQ0YKCAABVhENAJQpMGE3UCHjMApmySUoeITBqA8Q7MWsYZQYIxLOBzJhVRSbBxC/BDKDFeUnjDCZ4QTkAbHpKIGbyCQQzkNAk0IA0oLVw0IBVsQhCQOpCArQPCAohqACEICjwxkzwBMDgxQDjDthEBKD3FcagLcwAMJukJVQMrOIUAIAjaCaHjiKco2WOjAVBp2GkLAG6EFFBBoFACsOomFQlBXy1YmQgBwEwowJp90WAkOqlUYOhScwArnsbwEIDZWmjBS5RlqgQgoaUWgpQCXeM0SxAIIawMzJLy6hh+UAJFucXxQmEcADqj2FTDXJSP+ECQiSEaPCDTDNqFIaFhs+UHSTdQYNYBiAb0B0CBJ5i+ZB8GNmoLhVPYAiCoMKZdWAADQl/51I0IEshc5B7+hEJfBIUYpCoC2cAq4JupjHSDgMpZSIERBq6DHnBhYgCXVILAqmopUYBpzGAUwBsJaLl16SyyVztAoVCEIMwaxQDQAAUNZKqCEqAgAiLZ5AGK8pBILU5CzgygGG0lg2iA5cy5mOYQLD6UTKkDlA4tYkQpBPFC/EzphVEGsBgsUczxgA=="
+ }
+}

@@ -1,0 +1,213 @@
+{
+ "train_s": 1902.4464392662048,
+ "epochs": 17,
+ "best_epoch": 12,
+ "steps_per_epoch": 200,
+ "val_loss_best": 0.10653561353683472,
+ "macro_f1": 0.9280433885222028,
+ "accuracy": 0.9701449170086804,
+ "per_class_f1": {
+  "backdoor": 0.9983948635634029,
+  "ddos": 0.9494097807757167,
+  "dos": 0.971704623878537,
+  "injection": 0.9548387096774194,
+  "mitm": 0.5169340463458111,
+  "normal": 0.9813544273145532,
+  "password": 0.9882194547290475,
+  "ransomware": 0.9915927136851939,
+  "scanning": 0.9878787878787879,
+  "xss": 0.9401064773735581
+ },
+ "attack_detection": 0.999058513392647,
+ "benign_fpr": 0.03354531001589825,
+ "clean_macro_f1": 0.9290016459615661,
+ "clean_n": 27498,
+ "macro_pr_auc": 0.9492007340301708,
+ "rare_classes": [
+  "mitm"
+ ],
+ "benign_fpr_check": 0.03354531001589825,
+ "n_attacked": 5000,
+ "n_detected": 4991,
+ "det_flows": "//////////////////////////v////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////3/////////////////////////////////////////////////////////////////////////////7/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////7///////////////////////////////////////////////////////////////////////////////////////////////////////////9//////////////////////////////////+//////////////////////////////////////////////////////////////////////////////////////////////////v///////////////////////////////////9///////////////v///////////////////////////////////////w==",
+ "n_detected_per_class": {
+  "backdoor": 612,
+  "ddos": 603,
+  "dos": 590,
+  "injection": 616,
+  "mitm": 156,
+  "password": 613,
+  "ransomware": 599,
+  "scanning": 609,
+  "xss": 593
+ },
+ "bb_both_b0.1": 0.18533360048086556,
+ "bb_volume_b0.1": 0.18533360048086556,
+ "bb_both_b0.25": 0.20476858345021037,
+ "bb_volume_b0.25": 0.20476858345021037,
+ "bb_both_b0.5": 0.2296133039471048,
+ "bb_volume_b0.5": 0.2296133039471048,
+ "bb_both_b0.5_per_class": {
+  "backdoor": 0.0,
+  "ddos": 0.014925373134328358,
+  "dos": 0.06949152542372881,
+  "injection": 0.00487012987012987,
+  "mitm": 0.0,
+  "password": 0.009787928221859706,
+  "ransomware": 0.9015025041736227,
+  "scanning": 0.7569786535303776,
+  "xss": 0.14502529510961215
+ },
+ "bb_volume_b0.5_per_class": {
+  "backdoor": 0.0,
+  "ddos": 0.014925373134328358,
+  "dos": 0.06949152542372881,
+  "injection": 0.00487012987012987,
+  "mitm": 0.0,
+  "password": 0.009787928221859706,
+  "ransomware": 0.9015025041736227,
+  "scanning": 0.7569786535303776,
+  "xss": 0.14502529510961215
+ },
+ "ev_both_b0.5": "DAIgDAKQQYCAIZCEIggAAkAEAhCLAKCKAQoSSXAtSAggQBwFKoKIYAiSABkBAAYAAAQgEBgAgiEACQAoDhA2AOMFFCoBEULiQgAAAWogDGBAKAMAKARGMk5yARRgAcMCThERIcUCDEQBKBDIKDKhgEQIC4bAFCARqAwGEDGoiQkEAiOSFkQIFdAgDjgMAQAMJCyYgAy8AGAwAAJBoYGJAFgYBAFAwSwACQCUAgCUCRKEQAFIoREAoUEygjRUAUG0pEABQQQkMhWqAMlRBANFBpBggAoZLBQBwBAgEQExCkgYAcAAIMBCwgMXAEFAITgANRA/EFKsqBAgFBUHADAHAARAIAVgwIA4hiASiwAEAAwQBw7MgAQpABsALAQAZEBBBlEg1QAgRUIBFIAOHAQIEYAQGhMMMgAEIBAwQkEAQBRhJuAgwQAAAEAgAUIASghtIpANIMAGBBALjRgEJsVVJAYokwIAAUmAeOMiAICBFAABAgABADqAAFJEwwBCnYYYwTIIBAmCAqmAFAIIAACAAIhBwGDCKAQCDUS0BJA8AQSjsBQJAgoAJQBAJAAXGBIAGAAJBBIAcAFgUiACAAAhBACAnxFISA8BQGgBPFCRhQIjECAGgEAAAAQoQPwAhSACRkGKADgYAUAyAAhEBrCBSAAVRAjgSKEAAIBgGCQMJAgHcZcE0ABhABIhCUIsnYZwAMAYgBgELwChABAWChIATAQWBBBAUMUAgWyAgEAIBAAI0ACAOAAKAEQABAjhcAAxAAAATIIKAZgCQCBIADg4pEGAIBAwBEcwBKkAFVBQogATgARCCjCAgwCkAwBElIGk",
+ "ev_volume_b0.5": "DAIgDAKQQYCAIZCEIggAAkAEAhCLAKCKAQoSSXAtSAggQBwFKoKIYAiSABkBAAYAAAQgEBgAgiEACQAoDhA2AOMFFCoBEULiQgAAAWogDGBAKAMAKARGMk5yARRgAcMCThERIcUCDEQBKBDIKDKhgEQIC4bAFCARqAwGEDGoiQkEAiOSFkQIFdAgDjgMAQAMJCyYgAy8AGAwAAJBoYGJAFgYBAFAwSwACQCUAgCUCRKEQAFIoREAoUEygjRUAUG0pEABQQQkMhWqAMlRBANFBpBggAoZLBQBwBAgEQExCkgYAcAAIMBCwgMXAEFAITgANRA/EFKsqBAgFBUHADAHAARAIAVgwIA4hiASiwAEAAwQBw7MgAQpABsALAQAZEBBBlEg1QAgRUIBFIAOHAQIEYAQGhMMMgAEIBAwQkEAQBRhJuAgwQAAAEAgAUIASghtIpANIMAGBBALjRgEJsVVJAYokwIAAUmAeOMiAICBFAABAgABADqAAFJEwwBCnYYYwTIIBAmCAqmAFAIIAACAAIhBwGDCKAQCDUS0BJA8AQSjsBQJAgoAJQBAJAAXGBIAGAAJBBIAcAFgUiACAAAhBACAnxFISA8BQGgBPFCRhQIjECAGgEAAAAQoQPwAhSACRkGKADgYAUAyAAhEBrCBSAAVRAjgSKEAAIBgGCQMJAgHcZcE0ABhABIhCUIsnYZwAMAYgBgELwChABAWChIATAQWBBBAUMUAgWyAgEAIBAAI0ACAOAAKAEQABAjhcAAxAAAATIIKAZgCQCBIADg4pEGAIBAwBEcwBKkAFVBQogATgARCCjCAgwCkAwBElIGk",
+ "queries_first_success_median": 3.0,
+ "queries_total": 128,
+ "min_action_per_class": {
+  "backdoor": {
+   "budget_frac": null,
+   "bytes": null,
+   "pkts": null,
+   "delay_s": null
+  },
+  "ddos": {
+   "budget_frac": 0.4639031629255591,
+   "bytes": 90.97078157170284,
+   "pkts": 3.015370559016134,
+   "delay_s": 0.018842717593953947
+  },
+  "dos": {
+   "budget_frac": 0.09861362276386954,
+   "bytes": 38.30112684886333,
+   "pkts": 7.559275254313621,
+   "delay_s": 0.05008869170542548
+  },
+  "injection": {
+   "budget_frac": 0.8355254093543386,
+   "bytes": 229.4745940161078,
+   "pkts": 3.015370559016134,
+   "delay_s": 0.0818212422194215
+  },
+  "mitm": {
+   "budget_frac": null,
+   "bytes": null,
+   "pkts": null,
+   "delay_s": null
+  },
+  "password": {
+   "budget_frac": 0.5799511067925429,
+   "bytes": 318.25276958343056,
+   "pkts": 4.349633300944072,
+   "delay_s": 0.02006325725251339
+  },
+  "ransomware": {
+   "budget_frac": 0.35162802427465756,
+   "bytes": 108.30131309213576,
+   "pkts": 1.4758925307633586,
+   "delay_s": 0.17581401213732878
+  },
+  "scanning": {
+   "budget_frac": 0.09861362276386954,
+   "bytes": 38.30112684886333,
+   "pkts": 0.5423749252012824,
+   "delay_s": 0.03323872139964157
+  },
+  "xss": {
+   "budget_frac": 0.35162802427465756,
+   "bytes": 108.30131309213576,
+   "pkts": 1.4758925307633586,
+   "delay_s": 0.13395537071328917
+  }
+ },
+ "bb_only_bytes_b0.5": 0.07473452213985174,
+ "bb_only_pkts_b0.5": 0.06812262071729112,
+ "bb_only_delay_b0.5": 0.0,
+ "bb_only_bytes_pkts_b0.5": 0.10959727509517131,
+ "bb_both_b0.5_floor0.0": 0.0002003606491685033,
+ "bb_volume_b0.5_floor0.0": 0.0002003606491685033,
+ "bb_both_b0.5_floor0.5": 0.20476858345021037,
+ "bb_volume_b0.5_floor0.5": 0.20476858345021037,
+ "bb_both_b0.5_floor2.0": 0.24504107393307956,
+ "bb_volume_b0.5_floor2.0": 0.24504107393307956,
+ "bb_both_b1.0": 0.2484472049689441,
+ "bb_volume_b1.0": 0.2484472049689441,
+ "bb_both_b2.0": 0.26347425365658184,
+ "bb_volume_b2.0": 0.26347425365658184,
+ "bb_dense24_both_b0.5": 0.2226006812262072,
+ "bb_dense24_volume_b0.5": 0.2226006812262072,
+ "bb_grid_plus1000_both_b0.5": 0.23822881186135042,
+ "bb_grid_plus1000_volume_b0.5": 0.23822881186135042,
+ "ad_none_b0.5": 0.2494490082147866,
+ "ad_none_b2.0": 0.28831897415347624,
+ "bb_unconstrained_e0.01": 1.0,
+ "bb_unconstrained_e0.05": 1.0,
+ "bb_unconstrained_e0.1": 1.0,
+ "wb_action_b0.1": 0.1025846523742737,
+ "wb_action_b0.25": 0.1458625525946704,
+ "wb_action_b0.5": 0.1763173712682829,
+ "wb_action_b1.0": 0.1937487477459427,
+ "wb_action_b2.0": 0.19314766579843717,
+ "wbs_action_b0.5": 0.2053696653977159,
+ "wbs_action_b2.0": 0.21939491083951113,
+ "wb_unconstrained_e0.01": 0.6780204367862152,
+ "wb_unconstrained_mutable_e0.01": 0.19755560008014425,
+ "wb_unconstrained_e0.05": 0.7090763374073332,
+ "wb_unconstrained_mutable_e0.05": 0.20116209176517733,
+ "wb_unconstrained_e0.1": 0.7044680424764577,
+ "wb_unconstrained_mutable_e0.1": 0.19555199358845923,
+ "strongest_volume_b0.5": 0.2494490082147866,
+ "strongest_b0.5": 0.24984972951312362,
+ "strongest_b0.5_per_class": {
+  "backdoor": 0.0,
+  "ddos": 0.01658374792703151,
+  "dos": 0.06949152542372881,
+  "injection": 0.00487012987012987,
+  "mitm": 0.0,
+  "password": 0.01631321370309951,
+  "ransomware": 0.9549248747913188,
+  "scanning": 0.7799671592775042,
+  "xss": 0.22934232715008432
+ },
+ "strongest_volume_b0.5_per_class": {
+  "backdoor": 0.0,
+  "ddos": 0.01658374792703151,
+  "dos": 0.06949152542372881,
+  "injection": 0.00487012987012987,
+  "mitm": 0.0,
+  "password": 0.01631321370309951,
+  "ransomware": 0.9549248747913188,
+  "scanning": 0.7799671592775042,
+  "xss": 0.22596964586846544
+ },
+ "ev_strongest_b0.5": "LEIgDAKQQYCAKZCEIggAAkAEAhCLAKDKQQoSSXAtSAggQBwFKoKIYAiSABkBAAYAAAQgEBgEgiEACQAoDhA2COMFFCoBE0LiUgAAIWogDGBAKAMAKARGMk5yBRRwAcMCThERIcUiDMQBKBDIKDKhgEQIC4bAVCARqAwGEDGoiQkEAiOSFsQIFdAgDjgMAQCNJCyYgAy8AGAwAAJBoYGJAFgYBAFAwSwACQCUAkCUiRKEQAFIoREA4UFygjRUAUG0pEQBQQQkMhWuANlRBANFBpFggAoZPBQBwBAwEQExKkgYAeAAIMBCwgMXAEFAITgANxA/EFKsqBAgFBVHATAHAAXBIAVgyIA4hiESiwAEAAwQhw7MgARpABsALAQAZEBBBlkg1QAgRUIBFMAOHAQIEYAQGhMMMgAFIBAwUkkAQBRxJuAgwQAAEMAhAUIASghtIpANIMAGBBALnRgEJsVVJQYokwIAAUmAeOMiAICBFAAFAgABAjrAAFJEwwBCnYccwTaIBAmCAqmAFQIIAQCAgIhBwGDCKgQCDUS0BZA8EZSrsBUJAioAJSBAJAAXGBIAGAAJBBIAcAFiUiACAAAhBCCgnxFMSA+BQGgBPFC1hQIjECAGwEAAAASoQPwAhSACZkGLAHgYAUAyAAhkBrCBSAAVREjgSKkCAIBgGGQMJAgHcZ8E8ABhABIhCUounYZwAMAYgBgELwChABA2ChIATAQWBBBAUMUAgWyAgEAIBAEI0ACAOAAKAFQABAjhcEAxAAAATKIKAZgCQDBIADg6pEGAIFAwBEcwBKkAFVhQogQTgARCCjCAgwCkAwBElIGk",
+ "ev_strongest_volume_b0.5": "LEIgDAKQQYCAKZCEIggAAkAEAhCLAKDKQQoSSXAtSAggQBwFKoKIYAiSABkBAAYAAAQgEBgEgiEACQAoDhA2COMFFCoBE0LiUgAAIWogDGBAKAMAKARGMk5yBRRwAcMCThERIcUCDMQBKBDIKDKhgEQIC4bAVCARqAwGEDGoiQkEAiOSFsQIFdAgDjgMAQCNJCyYgAy8AGAwAAJBoYGJAFgYBAFAwSwACQCUAkCUiRKEQAFIoREA4UFygjRUAUG0pEQBQQQkMhWuANlRBANFBpFggAoZPBQBwBAwEQExKkgYAeAAIMBCwgMXAEFAITgANxA/EFKsqBAgFBVHATAHAAXBIAVgyIA4hiESiwAEAAwQhw7MgARpABsALAQAZEBBBlkg1QAgRUIBFMAOHAQIEYAQGhMMMgAFIBAwUkkAQBRxJuAgwQAAEMAhAUIASghtIpANIMAGBBALnRgEJsVVJQYokwIAAUmAeOMiAICBFAAFAgABAjrAAFJEwwBCnYccwTaIBAmCAqmAFQIIAQCAgIhBwGDCKgQCDUS0BZA8EZSrsBUJAioAJSBAJAAXGBIAGAAJBBIAcAFiUiACAAAhBCCgnxFMSA+BQGgBPFC1hQIjECAGwEAAAASoQPwAhSACZkGLAHgYAUAyAAhEBrCBSAAVREjgSKkCAIBgGGQMJAgHcZ8E8ABhABIhCUounYZwAMAYgBgELwChABA2ChIATAQWBBBAUMUAgWyAgEAIBAEI0ACAOAAKAFQABAjhcEAxAAAATKIKAZgCQDBIADg6pEGAIFAwBEcwBKkAFVhQogQTgARCCjCAgwCkAwBElIGk",
+ "strongest_components": [
+  "grid",
+  "grid_vol",
+  "dense1000",
+  "dense1000_vol",
+  "ad_none",
+  "wbs"
+ ],
+ "eval_s": 767.6387588977814,
+ "cfg": {
+  "model": "cnn",
+  "defence": "clean_loop",
+  "seed": 0,
+  "split": 0,
+  "variant": "defend_nets",
+  "beta_train": 0.5,
+  "eps_train": 0.05,
+  "version": "v3"
+ }
+}
