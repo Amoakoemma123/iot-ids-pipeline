@@ -1,0 +1,56 @@
+{
+ "train_s": 104.6907730102539,
+ "epochs": 25,
+ "params": 6346,
+ "best_epoch": 10,
+ "restored_epoch": 10,
+ "macro_f1": 0.5245265817182548,
+ "accuracy": 0.7422297722410973,
+ "per_class_f1": {
+  "analysis": 0.29013854930725347,
+  "backdoor": 0.21867881548974943,
+  "dos": 0.28987993138936535,
+  "exploits": 0.6841663166736666,
+  "fuzzers": 0.6814789687924017,
+  "generic": 0.8648194794290512,
+  "normal": 0.888270944741533,
+  "reconnaissance": 0.7810967454302273,
+  "shellcode": 0.4088050314465409,
+  "worms": 0.13793103448275862
+ },
+ "attack_detection": 0.9985203452527743,
+ "benign_fpr": 0.19976875642343267,
+ "clean_macro_f1": 0.5086746633511201,
+ "clean_n": 13308,
+ "macro_pr_auc": 0.5854054872710484,
+ "size_bytes": 25384,
+ "int8": {
+  "size_bytes": 17536,
+  "macro_f1": 0.5149621615075026,
+  "benign_fpr": 0.20053956834532374,
+  "attack_detection": 0.9990135635018496,
+  "macro_pr_auc": 0.5644727081466103,
+  "agreement": 0.9295331571662262
+ },
+ "cfg": {
+  "config": "cnn_w0.5",
+  "exp": "cnn_w0.5",
+  "seed": 2,
+  "features": [
+   "sbytes",
+   "dbytes",
+   "sttl",
+   "sload",
+   "dload",
+   "ackdat",
+   "smean",
+   "ct_state_ttl",
+   "ct_dst_src_ltm",
+   "ct_srv_dst"
+  ],
+  "kind": "cnn",
+  "width": 0.5,
+  "epochs_budget": 100,
+  "jit_compile": true
+ }
+}

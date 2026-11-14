@@ -1,0 +1,55 @@
+{
+ "train_s": 53.26807188987732,
+ "macro_f1": 0.9582933520137337,
+ "accuracy": 0.986016779864163,
+ "per_class_f1": {
+  "backdoor": 0.9992872416250891,
+  "ddos": 0.9839411174305788,
+  "dos": 0.9777369749827863,
+  "injection": 0.9740672578216497,
+  "mitm": 0.7022900763358778,
+  "normal": 0.9955385595920969,
+  "password": 0.9919082939986514,
+  "ransomware": 0.9988331388564761,
+  "scanning": 0.9887359198998749,
+  "xss": 0.9705949395942558
+ },
+ "attack_detection": 0.9993409593748529,
+ "benign_fpr": 0.006677265500794912,
+ "clean_macro_f1": 0.9583289746083263,
+ "clean_n": 27503,
+ "macro_pr_auc": 0.9739525156751258,
+ "n_iter": 63,
+ "n_iter_raw": 83,
+ "best_iter": 63,
+ "val_score_best": -0.0269992592861277,
+ "val_score_last": -0.027418463588062145,
+ "train_score_best": -0.0067388040110228685,
+ "train_score_last": -0.004330303650058719,
+ "rolled_back": true,
+ "raw_macro_f1": 0.9568958767225686,
+ "raw_clean_macro_f1": 0.9569313286537939,
+ "raw_benign_fpr": 0.006518282988871224,
+ "val_macro_f1": 0.9637918036152634,
+ "params": {
+  "learning_rate": 0.1,
+  "max_leaf_nodes": 127
+ },
+ "v4_macro_f1": 0.9586274286376973,
+ "cfg": {
+  "arch": "gb",
+  "exp": "gb_split3",
+  "seed": 3,
+  "split": 3,
+  "s1": [
+   "duration",
+   "src_bytes",
+   "dst_bytes",
+   "src_pkts",
+   "src_ip_bytes",
+   "dst_pkts",
+   "dst_ip_bytes"
+  ],
+  "rollback": true
+ }
+}

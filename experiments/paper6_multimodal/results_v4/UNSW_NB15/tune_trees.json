@@ -1,0 +1,62 @@
+{
+ "rf": {
+  "grid": [
+   {
+    "max_depth": 20,
+    "min_samples_leaf": 1
+   },
+   {
+    "max_depth": 20,
+    "min_samples_leaf": 2
+   },
+   {
+    "max_depth": null,
+    "min_samples_leaf": 1
+   },
+   {
+    "max_depth": null,
+    "min_samples_leaf": 2
+   }
+  ],
+  "val_macro_f1": [
+   0.6164303898593418,
+   0.6147758840601916,
+   0.6113246275362673,
+   0.6152973535687437
+  ],
+  "best": {
+   "max_depth": 20,
+   "min_samples_leaf": 1
+  }
+ },
+ "gb": {
+  "grid": [
+   {
+    "learning_rate": 0.05,
+    "max_leaf_nodes": 31
+   },
+   {
+    "learning_rate": 0.05,
+    "max_leaf_nodes": 127
+   },
+   {
+    "learning_rate": 0.1,
+    "max_leaf_nodes": 31
+   },
+   {
+    "learning_rate": 0.1,
+    "max_leaf_nodes": 127
+   }
+  ],
+  "val_macro_f1": [
+   0.6197678543998711,
+   0.610872271409014,
+   0.6027802208117214,
+   0.6105378525713371
+  ],
+  "best": {
+   "learning_rate": 0.05,
+   "max_leaf_nodes": 31
+  }
+ }
+}

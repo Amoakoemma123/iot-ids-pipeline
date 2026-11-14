@@ -1,0 +1,46 @@
+{
+ "train_s": 36.06683135032654,
+ "size_bytes": 535914065,
+ "compact_bytes": 55817650,
+ "macro_f1": 0.6079278531688048,
+ "accuracy": 0.8005536680508368,
+ "per_class_f1": {
+  "analysis": 0.24786324786324787,
+  "backdoor": 0.23300970873786409,
+  "dos": 0.38285714285714284,
+  "exploits": 0.8038820728804248,
+  "fuzzers": 0.7370926400585865,
+  "generic": 0.891156462585034,
+  "normal": 0.9110315383555984,
+  "reconnaissance": 0.7864253393665158,
+  "shellcode": 0.5674418604651162,
+  "worms": 0.5185185185185185
+ },
+ "attack_detection": 0.9848335388409372,
+ "benign_fpr": 0.15017985611510792,
+ "clean_macro_f1": 0.6466716822254917,
+ "clean_n": 13308,
+ "macro_pr_auc": 0.658785912949415,
+ "nodes": 3721110,
+ "cfg": {
+  "config": "rf_v1",
+  "exp": "rf_v1",
+  "seed": 3,
+  "features": [
+   "sbytes",
+   "dbytes",
+   "sttl",
+   "sload",
+   "dload",
+   "ackdat",
+   "smean",
+   "ct_state_ttl",
+   "ct_dst_src_ltm",
+   "ct_srv_dst"
+  ],
+  "kind": "rf",
+  "n_estimators": 200,
+  "max_depth": 20,
+  "min_samples_leaf": 2
+ }
+}

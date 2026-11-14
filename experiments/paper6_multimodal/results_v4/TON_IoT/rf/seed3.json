@@ -1,0 +1,38 @@
+{
+ "train_s": 21.208634614944458,
+ "macro_f1": 0.9607011255506345,
+ "accuracy": 0.9873969418515963,
+ "per_class_f1": {
+  "backdoor": 0.9994655264564404,
+  "ddos": 0.9830905742507953,
+  "dos": 0.9832837188000916,
+  "injection": 0.9755852842809365,
+  "mitm": 0.712468193384224,
+  "normal": 0.9958552526701737,
+  "password": 0.9951137320977254,
+  "ransomware": 0.9995329285380663,
+  "scanning": 0.9908749329039184,
+  "xss": 0.9717411121239745
+ },
+ "attack_detection": 0.9995763310266912,
+ "benign_fpr": 0.006836248012718601,
+ "clean_macro_f1": 0.9606996032508812,
+ "clean_n": 27498,
+ "macro_pr_auc": 0.9766809517393471,
+ "cfg": {
+  "arch": "rf",
+  "exp": "rf",
+  "seed": 3,
+  "split": 0,
+  "epochs_budget": 120,
+  "s1": [
+   "duration",
+   "src_bytes",
+   "dst_bytes",
+   "src_pkts",
+   "src_ip_bytes",
+   "dst_pkts",
+   "dst_ip_bytes"
+  ]
+ }
+}

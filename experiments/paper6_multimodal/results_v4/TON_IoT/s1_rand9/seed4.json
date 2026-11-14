@@ -1,0 +1,38 @@
+{
+ "train_s": 291.59277415275574,
+ "epochs": 55,
+ "params": 34634,
+ "best_epoch": 45,
+ "macro_f1": 0.8448078687220061,
+ "accuracy": 0.9090182689863073,
+ "per_class_f1": {
+  "backdoor": 0.9886506935687264,
+  "ddos": 0.9014229384536259,
+  "dos": 0.9238160603980783,
+  "injection": 0.871890336774412,
+  "mitm": 0.30119176598049835,
+  "normal": 0.9694209499024072,
+  "password": 0.9504917486247708,
+  "ransomware": 0.8407298941202974,
+  "scanning": 0.9876983419504368,
+  "xss": 0.7127659574468085
+ },
+ "attack_detection": 0.9978345808030881,
+ "benign_fpr": 0.05246422893481717,
+ "latency_ms": 2.6080279999951017,
+ "cfg": {
+  "arch": "s1",
+  "exp": "s1_rand9",
+  "seed": 4,
+  "s1": [
+   "src_ip_bytes",
+   "dst_pkts",
+   "dns_qtype",
+   "proto_tcp",
+   "dns_RA_f",
+   "dns_rejected_f",
+   "dns_rejected_t"
+  ]
+ },
+ "reused_from": "results_v3 (stopped early at epoch 55 < 60; no saved predictions)"
+}

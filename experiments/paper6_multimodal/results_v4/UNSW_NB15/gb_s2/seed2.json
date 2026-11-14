@@ -1,0 +1,38 @@
+{
+ "train_s": 60.94877338409424,
+ "macro_f1": 0.3638590517585143,
+ "accuracy": 0.64426827733736,
+ "per_class_f1": {
+  "analysis": 0.17573221757322174,
+  "backdoor": 0.17006802721088435,
+  "dos": 0.058319039451114926,
+  "exploits": 0.681586978636826,
+  "fuzzers": 0.5774225774225774,
+  "generic": 0.7135377711293942,
+  "normal": 0.8906583250391014,
+  "reconnaissance": 0.16535994297933002,
+  "shellcode": 0.18997361477572558,
+  "worms": 0.015932023366967606
+ },
+ "attack_detection": 0.9977805178791616,
+ "benign_fpr": 0.19527235354573483,
+ "clean_macro_f1": 0.31028500012028826,
+ "clean_n": 13308,
+ "macro_pr_auc": 0.3748430015082794,
+ "n_iter": 423,
+ "cfg": {
+  "arch": "gb_s2",
+  "exp": "gb_s2",
+  "seed": 2,
+  "split": 0,
+  "epochs_budget": 120,
+  "s1": [
+   "sbytes",
+   "dbytes",
+   "sload",
+   "dload",
+   "smean",
+   "ackdat"
+  ]
+ }
+}

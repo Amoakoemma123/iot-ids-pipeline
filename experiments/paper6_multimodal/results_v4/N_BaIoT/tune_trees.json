@@ -1,0 +1,62 @@
+{
+ "rf": {
+  "grid": [
+   {
+    "max_depth": 20,
+    "min_samples_leaf": 1
+   },
+   {
+    "max_depth": 20,
+    "min_samples_leaf": 2
+   },
+   {
+    "max_depth": null,
+    "min_samples_leaf": 1
+   },
+   {
+    "max_depth": null,
+    "min_samples_leaf": 2
+   }
+  ],
+  "val_macro_f1": [
+   0.9996269838044424,
+   0.9994590697947301,
+   0.9995924525759246,
+   0.9994590697947301
+  ],
+  "best": {
+   "max_depth": 20,
+   "min_samples_leaf": 1
+  }
+ },
+ "gb": {
+  "grid": [
+   {
+    "learning_rate": 0.05,
+    "max_leaf_nodes": 31
+   },
+   {
+    "learning_rate": 0.05,
+    "max_leaf_nodes": 127
+   },
+   {
+    "learning_rate": 0.1,
+    "max_leaf_nodes": 31
+   },
+   {
+    "learning_rate": 0.1,
+    "max_leaf_nodes": 127
+   }
+  ],
+  "val_macro_f1": [
+   0.9995073220769805,
+   0.9996753341136103,
+   0.9995913490651935,
+   0.999591446940391
+  ],
+  "best": {
+   "learning_rate": 0.05,
+   "max_leaf_nodes": 127
+  }
+ }
+}

@@ -1,0 +1,54 @@
+{
+ "train_s": 241.12081241607666,
+ "macro_f1": 0.5576934187305375,
+ "accuracy": 0.767144834528753,
+ "per_class_f1": {
+  "analysis": 0.2358604091456077,
+  "backdoor": 0.2635228848821082,
+  "dos": 0.2926829268292683,
+  "exploits": 0.726953125,
+  "fuzzers": 0.7035878564857406,
+  "generic": 0.8743718592964824,
+  "normal": 0.9008934136713069,
+  "reconnaissance": 0.7795864496260448,
+  "shellcode": 0.4891304347826087,
+  "worms": 0.3103448275862069
+ },
+ "attack_detection": 0.9813810110974106,
+ "benign_fpr": 0.1644398766700925,
+ "clean_macro_f1": 0.5371960651500797,
+ "clean_n": 13308,
+ "macro_pr_auc": 0.6279225816761155,
+ "n_iter": 997,
+ "n_iter_raw": 1000,
+ "best_iter": 997,
+ "val_score_best": -0.6354762937042834,
+ "val_score_last": -0.6354910652372955,
+ "train_score_best": -0.5938196265290008,
+ "train_score_last": -0.5937226805230144,
+ "rolled_back": true,
+ "raw_macro_f1": 0.5578488292654233,
+ "raw_clean_macro_f1": 0.5377708057736039,
+ "raw_benign_fpr": 0.164568345323741,
+ "val_macro_f1": 0.5519103657202583,
+ "params": {
+  "learning_rate": 0.05,
+  "max_leaf_nodes": 31
+ },
+ "v4_macro_f1": 0.5578488292654233,
+ "cfg": {
+  "arch": "gb_s2",
+  "exp": "gb_s2_rand4",
+  "seed": 4,
+  "split": 0,
+  "s1": [
+   "dbytes",
+   "sload",
+   "dload",
+   "ackdat",
+   "ct_state_ttl",
+   "ct_srv_dst"
+  ],
+  "rollback": true
+ }
+}

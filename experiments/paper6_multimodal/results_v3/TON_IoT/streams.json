@@ -1,0 +1,123 @@
+{
+ "s1": [
+  "duration",
+  "src_bytes",
+  "dst_bytes",
+  "src_pkts",
+  "src_ip_bytes",
+  "dst_pkts",
+  "dst_ip_bytes"
+ ],
+ "s2": [
+  "src_port",
+  "dst_port",
+  "dns_qclass",
+  "dns_qtype",
+  "dns_rcode",
+  "proto_tcp",
+  "proto_udp",
+  "service_dns",
+  "service_http",
+  "conn_state_rej",
+  "conn_state_s0",
+  "conn_state_s1",
+  "conn_state_sf",
+  "conn_state_sh",
+  "dns_RD_t",
+  "dns_RA_f",
+  "dns_rejected_f",
+  "dns_rejected_t"
+ ],
+ "random": {
+  "0": [
+   "src_bytes",
+   "src_ip_bytes",
+   "dst_pkts",
+   "dst_ip_bytes",
+   "proto_tcp",
+   "service_dns",
+   "conn_state_s0"
+  ],
+  "1": [
+   "src_port",
+   "src_pkts",
+   "dns_qclass",
+   "dns_rcode",
+   "conn_state_s0",
+   "conn_state_sh",
+   "dns_RD_t"
+  ],
+  "2": [
+   "src_bytes",
+   "src_ip_bytes",
+   "dns_qclass",
+   "service_http",
+   "dns_RD_t",
+   "dns_RA_f",
+   "dns_rejected_f"
+  ],
+  "3": [
+   "src_port",
+   "dst_bytes",
+   "src_ip_bytes",
+   "dst_ip_bytes",
+   "dns_qclass",
+   "dns_rcode",
+   "dns_rejected_t"
+  ],
+  "4": [
+   "dst_bytes",
+   "src_ip_bytes",
+   "dst_pkts",
+   "dst_ip_bytes",
+   "service_http",
+   "conn_state_s0",
+   "conn_state_sh"
+  ],
+  "5": [
+   "src_bytes",
+   "dst_bytes",
+   "dst_pkts",
+   "dns_qtype",
+   "dns_rcode",
+   "conn_state_rej",
+   "dns_RA_f"
+  ],
+  "6": [
+   "duration",
+   "src_bytes",
+   "src_ip_bytes",
+   "dst_ip_bytes",
+   "dns_rcode",
+   "service_dns",
+   "conn_state_s0"
+  ],
+  "7": [
+   "duration",
+   "dst_bytes",
+   "src_pkts",
+   "dns_rcode",
+   "conn_state_s1",
+   "conn_state_sh",
+   "dns_RD_t"
+  ],
+  "8": [
+   "src_ip_bytes",
+   "dst_pkts",
+   "dst_ip_bytes",
+   "dns_qclass",
+   "proto_udp",
+   "service_http",
+   "conn_state_s1"
+  ],
+  "9": [
+   "src_ip_bytes",
+   "dst_pkts",
+   "dns_qtype",
+   "proto_tcp",
+   "dns_RA_f",
+   "dns_rejected_f",
+   "dns_rejected_t"
+  ]
+ }
+}

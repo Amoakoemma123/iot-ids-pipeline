@@ -1,0 +1,62 @@
+{
+ "gb": {
+  "grid": [
+   {
+    "learning_rate": 0.05,
+    "max_leaf_nodes": 31
+   },
+   {
+    "learning_rate": 0.05,
+    "max_leaf_nodes": 127
+   },
+   {
+    "learning_rate": 0.1,
+    "max_leaf_nodes": 31
+   },
+   {
+    "learning_rate": 0.1,
+    "max_leaf_nodes": 127
+   }
+  ],
+  "val_macro_f1": [
+   0.9995073220769805,
+   0.9996753341136103,
+   0.9995913490651935,
+   0.999591446940391
+  ],
+  "iters_kept_fitted": [
+   [
+    108,
+    128
+   ],
+   [
+    230,
+    250
+   ],
+   [
+    101,
+    121
+   ],
+   [
+    110,
+    128
+   ]
+  ],
+  "best": {
+   "learning_rate": 0.05,
+   "max_leaf_nodes": 127
+  },
+  "v4_val_macro_f1": [
+   0.9995073220769805,
+   0.9996753341136103,
+   0.9995913490651935,
+   0.999591446940391
+  ],
+  "v4_best": {
+   "learning_rate": 0.05,
+   "max_leaf_nodes": 127
+  },
+  "changed": false,
+  "source": "re-tuned with rollback"
+ }
+}

@@ -1,0 +1,1 @@
+["src_port", "dst_port", "duration", "src_bytes", "dst_bytes", "src_pkts", "src_ip_bytes", "dst_pkts", "dst_ip_bytes", "dns_qclass", "dns_qtype", "dns_rcode", "proto_tcp", "proto_udp", "service_dns", "service_http", "conn_state_rej", "conn_state_s0", "conn_state_s1", "conn_state_sf", "conn_state_sh", "dns_RD_t", "dns_RA_f", "dns_rejected_f", "dns_rejected_t"]

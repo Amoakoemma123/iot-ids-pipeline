@@ -1,0 +1,45 @@
+{
+ "train_s": 25.3625807762146,
+ "size_bytes": 1679620,
+ "compact_bytes": 176000,
+ "macro_f1": 0.579691497596393,
+ "accuracy": 0.7677110859443815,
+ "per_class_f1": {
+  "analysis": 0.2711864406779661,
+  "backdoor": 0.26256983240223464,
+  "dos": 0.3526315789473684,
+  "exploits": 0.7432512315270936,
+  "fuzzers": 0.7070567986230637,
+  "generic": 0.87751677852349,
+  "normal": 0.8895023713456501,
+  "reconnaissance": 0.7929203539823009,
+  "shellcode": 0.4864864864864865,
+  "worms": 0.41379310344827586
+ },
+ "attack_detection": 0.9926017262638718,
+ "benign_fpr": 0.19283144912641315,
+ "clean_macro_f1": 0.582371460536641,
+ "clean_n": 13308,
+ "macro_pr_auc": 0.6247481555771437,
+ "n_iter": 200,
+ "cfg": {
+  "config": "gb_l7",
+  "exp": "gb_l7",
+  "seed": 0,
+  "features": [
+   "sbytes",
+   "dbytes",
+   "sttl",
+   "sload",
+   "dload",
+   "ackdat",
+   "smean",
+   "ct_state_ttl",
+   "ct_dst_src_ltm",
+   "ct_srv_dst"
+  ],
+  "kind": "gb",
+  "max_leaf_nodes": 7,
+  "learning_rate": 0.1
+ }
+}

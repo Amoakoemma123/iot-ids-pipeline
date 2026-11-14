@@ -1,0 +1,56 @@
+{
+ "train_s": 96.74889326095581,
+ "epochs": 35,
+ "params": 55050,
+ "best_epoch": 20,
+ "restored_epoch": 20,
+ "macro_f1": 0.5611679838642167,
+ "accuracy": 0.7705423430225242,
+ "per_class_f1": {
+  "analysis": 0.2832369942196532,
+  "backdoor": 0.2678983833718245,
+  "dos": 0.3220910623946037,
+  "exploits": 0.7364522417153996,
+  "fuzzers": 0.7070596797671034,
+  "generic": 0.8677685950413223,
+  "normal": 0.9018105849582173,
+  "reconnaissance": 0.7916854948034342,
+  "shellcode": 0.45297504798464494,
+  "worms": 0.2807017543859649
+ },
+ "attack_detection": 0.9875462392108508,
+ "benign_fpr": 0.1681654676258993,
+ "clean_macro_f1": 0.5595550075556706,
+ "clean_n": 13308,
+ "macro_pr_auc": 0.6291258021495034,
+ "size_bytes": 220200,
+ "int8": {
+  "size_bytes": 59088,
+  "macro_f1": 0.5535889600207626,
+  "benign_fpr": 0.18538026721479958,
+  "attack_detection": 0.9940813810110974,
+  "macro_pr_auc": 0.6111804815676936,
+  "agreement": 0.9123568642254939
+ },
+ "cfg": {
+  "config": "mlp_w2",
+  "exp": "mlp_w2",
+  "seed": 0,
+  "features": [
+   "sbytes",
+   "dbytes",
+   "sttl",
+   "sload",
+   "dload",
+   "ackdat",
+   "smean",
+   "ct_state_ttl",
+   "ct_dst_src_ltm",
+   "ct_srv_dst"
+  ],
+  "kind": "mlp",
+  "width": 2,
+  "epochs_budget": 100,
+  "jit_compile": true
+ }
+}

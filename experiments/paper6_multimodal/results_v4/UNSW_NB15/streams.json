@@ -1,0 +1,160 @@
+{
+ "s1": [
+  "sbytes",
+  "dbytes",
+  "sload",
+  "dload",
+  "smean",
+  "ackdat"
+ ],
+ "s2": [
+  "sttl",
+  "ct_state_ttl",
+  "ct_dst_src_ltm",
+  "ct_srv_dst"
+ ],
+ "random": {
+  "0": [
+   "sttl",
+   "sload",
+   "dload",
+   "smean",
+   "ct_state_ttl",
+   "ct_srv_dst"
+  ],
+  "1": [
+   "dbytes",
+   "dload",
+   "ackdat",
+   "smean",
+   "ct_state_ttl",
+   "ct_srv_dst"
+  ],
+  "2": [
+   "sbytes",
+   "dbytes",
+   "ackdat",
+   "smean",
+   "ct_state_ttl",
+   "ct_dst_src_ltm"
+  ],
+  "3": [
+   "sbytes",
+   "sttl",
+   "dload",
+   "smean",
+   "ct_state_ttl",
+   "ct_dst_src_ltm"
+  ],
+  "4": [
+   "dbytes",
+   "sload",
+   "dload",
+   "ackdat",
+   "ct_state_ttl",
+   "ct_srv_dst"
+  ],
+  "5": [
+   "sbytes",
+   "dbytes",
+   "dload",
+   "ct_state_ttl",
+   "ct_dst_src_ltm",
+   "ct_srv_dst"
+  ],
+  "6": [
+   "dbytes",
+   "sttl",
+   "dload",
+   "smean",
+   "ct_state_ttl",
+   "ct_dst_src_ltm"
+  ],
+  "7": [
+   "sttl",
+   "sload",
+   "dload",
+   "ackdat",
+   "smean",
+   "ct_dst_src_ltm"
+  ],
+  "8": [
+   "sbytes",
+   "dbytes",
+   "dload",
+   "ackdat",
+   "smean",
+   "ct_dst_src_ltm"
+  ],
+  "9": [
+   "sbytes",
+   "dbytes",
+   "sttl",
+   "sload",
+   "smean",
+   "ct_dst_src_ltm"
+  ]
+ },
+ "colorder": {
+  "0": [
+   "sload",
+   "ct_state_ttl",
+   "dbytes",
+   "ct_srv_dst",
+   "sttl",
+   "ct_dst_src_ltm",
+   "ackdat",
+   "smean",
+   "sbytes",
+   "dload"
+  ],
+  "1": [
+   "ct_srv_dst",
+   "sload",
+   "ackdat",
+   "smean",
+   "dload",
+   "dbytes",
+   "ct_dst_src_ltm",
+   "sttl",
+   "sbytes",
+   "ct_state_ttl"
+  ],
+  "2": [
+   "ct_dst_src_ltm",
+   "sttl",
+   "sbytes",
+   "dbytes",
+   "sload",
+   "ct_state_ttl",
+   "ct_srv_dst",
+   "dload",
+   "ackdat",
+   "smean"
+  ],
+  "3": [
+   "sload",
+   "ackdat",
+   "dbytes",
+   "ct_srv_dst",
+   "dload",
+   "smean",
+   "ct_state_ttl",
+   "sbytes",
+   "sttl",
+   "ct_dst_src_ltm"
+  ],
+  "4": [
+   "ct_srv_dst",
+   "dload",
+   "smean",
+   "ct_state_ttl",
+   "ackdat",
+   "sload",
+   "ct_dst_src_ltm",
+   "sttl",
+   "sbytes",
+   "dbytes"
+  ]
+ }
+}
