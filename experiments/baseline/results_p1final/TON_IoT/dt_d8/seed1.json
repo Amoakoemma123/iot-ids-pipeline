@@ -1,0 +1,39 @@
+{
+ "train_s": 1.645982027053833,
+ "size_bytes": 30380,
+ "compact_bytes": 3050,
+ "macro_f1": 0.8999297544316158,
+ "accuracy": 0.9531834525841717,
+ "per_class_f1": {
+  "backdoor": 0.9964387464387464,
+  "ddos": 0.9131016042780749,
+  "dos": 0.9758700696055684,
+  "injection": 0.9147861232738296,
+  "mitm": 0.3523573200992556,
+  "normal": 0.9742013748483623,
+  "password": 0.990711028542476,
+  "ransomware": 0.9971988795518207,
+  "scanning": 0.9834575531721506,
+  "xss": 0.9011748445058743
+ },
+ "attack_detection": 0.9975521348208821,
+ "benign_fpr": 0.0424483306836248,
+ "clean_macro_f1": 0.9005345685033405,
+ "clean_n": 27498,
+ "macro_pr_auc": 0.8924704757588053,
+ "val_macro_f1": 0.8991220596858369,
+ "val_benign_fpr": 0.03386327503974563,
+ "val_attack_detection": 0.9971284658475733,
+ "val_log_loss": 0.20417650104926086,
+ "nodes": 203,
+ "cfg": {
+  "config": "dt_d8",
+  "exp": "dt_d8",
+  "seed": 1,
+  "kind": "dt",
+  "group": "small_trees",
+  "max_depth": 8,
+  "early_stopping_on": null,
+  "rollback": false
+ }
+}

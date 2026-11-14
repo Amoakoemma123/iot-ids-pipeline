@@ -1,0 +1,41 @@
+{
+ "train_s": 3.2746212482452393,
+ "size_bytes": 360109,
+ "compact_bytes": 36590,
+ "macro_f1": 0.4754303546342914,
+ "accuracy": 0.7156159557065559,
+ "per_class_f1": {
+  "analysis": 0.2846911369740376,
+  "backdoor": 0.17553191489361702,
+  "dos": 0.18867924528301888,
+  "exploits": 0.6914634146341463,
+  "fuzzers": 0.6511069160803158,
+  "generic": 0.8928571428571429,
+  "normal": 0.8853585229712323,
+  "reconnaissance": 0.6261425959780622,
+  "shellcode": 0.29863013698630136,
+  "worms": 0.05984251968503937
+ },
+ "attack_detection": 0.9995067817509248,
+ "benign_fpr": 0.2052929085303186,
+ "clean_macro_f1": 0.4698146721943239,
+ "clean_n": 13308,
+ "macro_pr_auc": 0.5421456935711311,
+ "val_macro_f1": 0.4789751809942605,
+ "val_benign_fpr": 0.20310894141829394,
+ "val_attack_detection": 0.9997533908754624,
+ "val_log_loss": 0.8703281703778599,
+ "nodes": 2431,
+ "cfg": {
+  "config": "rf_t25_d6",
+  "exp": "rf_t25_d6",
+  "seed": 2,
+  "kind": "rf",
+  "group": "small_trees",
+  "n_estimators": 25,
+  "max_depth": 6,
+  "min_samples_leaf": 1,
+  "early_stopping_on": null,
+  "rollback": false
+ }
+}

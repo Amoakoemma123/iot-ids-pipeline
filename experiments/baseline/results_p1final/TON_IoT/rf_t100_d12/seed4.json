@@ -1,0 +1,42 @@
+{
+ "train_s": 11.760911703109741,
+ "size_bytes": 17464012,
+ "compact_bytes": 1815740,
+ "macro_f1": 0.9466929647931766,
+ "accuracy": 0.9811498928558458,
+ "per_class_f1": {
+  "backdoor": 0.9994655264564404,
+  "ddos": 0.9734662835896569,
+  "dos": 0.9810710987996306,
+  "injection": 0.9637939826619072,
+  "mitm": 0.6205450733752621,
+  "normal": 0.992806905370844,
+  "password": 0.9922271037512673,
+  "ransomware": 0.9981343283582089,
+  "scanning": 0.989819610644758,
+  "xss": 0.9555997349237906
+ },
+ "attack_detection": 0.9994821823659559,
+ "benign_fpr": 0.012559618441971383,
+ "clean_macro_f1": 0.9467138819737064,
+ "clean_n": 27498,
+ "macro_pr_auc": 0.974085148510604,
+ "val_macro_f1": 0.9462160023955926,
+ "val_benign_fpr": 0.009697933227344992,
+ "val_attack_detection": 0.9990114390622793,
+ "val_log_loss": 0.07176500270089019,
+ "nodes": 121016,
+ "v2_macro_f1": 0.9466929647931766,
+ "cfg": {
+  "config": "rf_t100_d12",
+  "exp": "rf_t100_d12",
+  "seed": 4,
+  "kind": "rf",
+  "group": "trees_val",
+  "n_estimators": 100,
+  "max_depth": 12,
+  "min_samples_leaf": 1,
+  "early_stopping_on": null,
+  "rollback": false
+ }
+}

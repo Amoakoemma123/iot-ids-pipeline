@@ -1,0 +1,14 @@
+{
+ "val_macro_f1": 0.5310818786502833,
+ "val_benign_fpr": 0.19424460431654678,
+ "val_attack_detection": 0.9977805178791616,
+ "val_log_loss": 0.6364594606242654,
+ "test_macro_f1_check": 0.537701483605294,
+ "v2_macro_f1": 0.537701483605294,
+ "int8": {
+  "val_macro_f1": 0.522131397545832,
+  "val_benign_fpr": 0.19578622816032887,
+  "val_attack_detection": 0.9970406905055487,
+  "val_log_loss": 0.6703780951799801
+ }
+}

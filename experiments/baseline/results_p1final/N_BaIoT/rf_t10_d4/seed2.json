@@ -1,0 +1,40 @@
+{
+ "train_s": 1.2271418571472168,
+ "size_bytes": 39541,
+ "compact_bytes": 3624,
+ "macro_f1": 0.8228158358881112,
+ "accuracy": 0.9004587360263662,
+ "per_class_f1": {
+  "normal": 0.9977862749044073,
+  "gafgyt_combo": 0.7996765716595917,
+  "gafgyt_junk": 0.0,
+  "gafgyt_scan": 0.9973971889640812,
+  "mirai_ack": 0.820191906549854,
+  "mirai_scan": 0.9995768091409225,
+  "mirai_syn": 0.99812734082397,
+  "mirai_udp": 0.9067861066508915,
+  "mirai_udpplain": 0.8858003242992819
+ },
+ "attack_detection": 0.9997495993589743,
+ "benign_fpr": 0.002414486921529175,
+ "clean_macro_f1": 0.8228158358881112,
+ "clean_n": 22453,
+ "macro_pr_auc": 0.9207838860229131,
+ "val_macro_f1": 0.8257855022445962,
+ "val_benign_fpr": 0.004422999597909127,
+ "val_attack_detection": 0.9998001598721024,
+ "val_log_loss": 0.29322114868378085,
+ "nodes": 256,
+ "cfg": {
+  "config": "rf_t10_d4",
+  "exp": "rf_t10_d4",
+  "seed": 2,
+  "kind": "rf",
+  "group": "small_trees",
+  "n_estimators": 10,
+  "max_depth": 4,
+  "min_samples_leaf": 1,
+  "early_stopping_on": null,
+  "rollback": false
+ }
+}

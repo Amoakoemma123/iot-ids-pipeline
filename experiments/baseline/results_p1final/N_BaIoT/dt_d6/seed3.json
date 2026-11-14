@@ -1,0 +1,38 @@
+{
+ "train_s": 6.402095794677734,
+ "size_bytes": 8080,
+ "compact_bytes": 718,
+ "macro_f1": 0.9470789112682491,
+ "accuracy": 0.971985926156861,
+ "per_class_f1": {
+  "normal": 0.9973785037305909,
+  "gafgyt_combo": 0.8520446096654275,
+  "gafgyt_junk": 0.6837965390665968,
+  "gafgyt_scan": 0.996875,
+  "mirai_ack": 0.9984062333982646,
+  "mirai_scan": 0.9995771670190274,
+  "mirai_syn": 1.0,
+  "mirai_udp": 0.9986969471332837,
+  "mirai_udpplain": 0.9969352014010507
+ },
+ "attack_detection": 0.9999499198717948,
+ "benign_fpr": 0.00482897384305835,
+ "clean_macro_f1": 0.9470789112682491,
+ "clean_n": 22453,
+ "macro_pr_auc": 0.9323162842533765,
+ "val_macro_f1": 0.9496592426592161,
+ "val_benign_fpr": 0.0048250904704463205,
+ "val_attack_detection": 0.9999500399680256,
+ "val_log_loss": 0.07776714246962743,
+ "nodes": 51,
+ "cfg": {
+  "config": "dt_d6",
+  "exp": "dt_d6",
+  "seed": 3,
+  "kind": "dt",
+  "group": "small_trees",
+  "max_depth": 6,
+  "early_stopping_on": null,
+  "rollback": false
+ }
+}

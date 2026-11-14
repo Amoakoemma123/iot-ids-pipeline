@@ -1,0 +1,38 @@
+{
+ "train_s": 7.111185073852539,
+ "size_bytes": 11344,
+ "compact_bytes": 1054,
+ "macro_f1": 0.9685317352329353,
+ "accuracy": 0.9843673451209193,
+ "per_class_f1": {
+  "normal": 0.9989933561505939,
+  "gafgyt_combo": 0.9195075757575758,
+  "gafgyt_junk": 0.803955788248982,
+  "gafgyt_scan": 0.996875,
+  "mirai_ack": 0.9994693083318592,
+  "mirai_scan": 0.9995771670190274,
+  "mirai_syn": 1.0,
+  "mirai_udp": 0.9997203318728443,
+  "mirai_udpplain": 0.9986870897155361
+ },
+ "attack_detection": 0.9999499198717948,
+ "benign_fpr": 0.0016096579476861167,
+ "clean_macro_f1": 0.9685317352329353,
+ "clean_n": 22453,
+ "macro_pr_auc": 0.9811999823877294,
+ "val_macro_f1": 0.9723701288104003,
+ "val_benign_fpr": 0.0,
+ "val_attack_detection": 0.9999500399680256,
+ "val_log_loss": 0.03699839720962589,
+ "nodes": 75,
+ "cfg": {
+  "config": "dt_d8",
+  "exp": "dt_d8",
+  "seed": 4,
+  "kind": "dt",
+  "group": "small_trees",
+  "max_depth": 8,
+  "early_stopping_on": null,
+  "rollback": false
+ }
+}
