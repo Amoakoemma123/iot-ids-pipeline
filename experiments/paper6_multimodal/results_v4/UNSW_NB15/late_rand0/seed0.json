@@ -1,29 +1,35 @@
 {
- "train_s": 312.9630525112152,
+ "train_s": 239.6528081893921,
  "epochs": 30,
  "params": 85770,
  "best_epoch": 20,
- "macro_f1": 0.5710592403732991,
- "accuracy": 0.7692840065433497,
+ "restored_epoch": 20,
+ "val_loss_best": 0.5832586884498596,
+ "macro_f1": 0.5632850031515706,
+ "accuracy": 0.7690323392475148,
  "per_class_f1": {
-  "analysis": 0.29295774647887324,
-  "backdoor": 0.2911392405063291,
-  "dos": 0.34548335974643424,
-  "exploits": 0.7307161175774315,
-  "fuzzers": 0.702693062243624,
-  "generic": 0.8828980623420387,
-  "normal": 0.8986358866736621,
-  "reconnaissance": 0.787716955941255,
-  "shellcode": 0.45920303605313095,
-  "worms": 0.3191489361702128
+  "analysis": 0.28527131782945736,
+  "backdoor": 0.2846975088967972,
+  "dos": 0.34092694422623726,
+  "exploits": 0.7237943403746513,
+  "fuzzers": 0.7067805853481185,
+  "generic": 0.8842281879194631,
+  "normal": 0.9019362028137624,
+  "reconnaissance": 0.7830271216097988,
+  "shellcode": 0.4280701754385965,
+  "worms": 0.29411764705882354
  },
- "attack_detection": 0.9891491985203452,
- "benign_fpr": 0.17484583761562178,
- "latency_ms": 3.923921000023256,
+ "attack_detection": 0.9877928483353884,
+ "benign_fpr": 0.1681654676258993,
+ "clean_macro_f1": 0.5728904596902764,
+ "clean_n": 13308,
+ "macro_pr_auc": 0.6157299810513083,
  "cfg": {
   "arch": "late",
   "exp": "late_rand0",
   "seed": 0,
+  "split": 0,
+  "epochs_budget": 120,
   "s1": [
    "sttl",
    "sload",
@@ -32,6 +38,5 @@
    "ct_state_ttl",
    "ct_srv_dst"
   ]
- },
- "reused_from": "results_v3 (stopped early at epoch 30 < 60; no saved predictions)"
+ }
 }

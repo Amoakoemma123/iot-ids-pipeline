@@ -1,0 +1,52 @@
+{
+ "cpu": "Intel(R) Core(TM) i5-10200H CPU @ 2.40GHz",
+ "threads": 8,
+ "TON_IoT": {
+  "params": {
+   "learning_rate": 0.1,
+   "max_leaf_nodes": 127
+  },
+  "n_iter": 70,
+  "best_iter": 70,
+  "reproduces_seed0": true,
+  "seed0_macro_f1": 0.962182824967613,
+  "size_mb": 9.564411163330078,
+  "n_trees": 700,
+  "single_ms": 7.883845499891322,
+  "batch1000_ms": 32.225715000822674,
+  "single_ms_1thread": 5.559828999976162,
+  "batch1000_ms_1thread": 83.49791500077117
+ },
+ "UNSW_NB15": {
+  "params": {
+   "learning_rate": 0.05,
+   "max_leaf_nodes": 31
+  },
+  "n_iter": 1000,
+  "best_iter": 1000,
+  "reproduces_seed0": true,
+  "seed0_macro_f1": 0.6099920526181455,
+  "size_mb": 33.796546936035156,
+  "n_trees": 10000,
+  "single_ms": 130.07162550013163,
+  "batch1000_ms": 341.68632999935653,
+  "single_ms_1thread": 81.64877299990621,
+  "batch1000_ms_1thread": 688.4798749990296
+ },
+ "N_BaIoT": {
+  "params": {
+   "learning_rate": 0.05,
+   "max_leaf_nodes": 127
+  },
+  "n_iter": 230,
+  "best_iter": 230,
+  "reproduces_seed0": true,
+  "seed0_macro_f1": 0.9998317909543984,
+  "size_mb": 14.720789909362793,
+  "n_trees": 2070,
+  "single_ms": 25.17077850003261,
+  "batch1000_ms": 96.96963500027778,
+  "single_ms_1thread": 16.55509849995724,
+  "batch1000_ms_1thread": 236.2530300000799
+ }
+}

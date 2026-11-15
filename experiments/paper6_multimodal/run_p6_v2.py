@@ -48,6 +48,7 @@ ARCHS = ('s1', 's2', 'early', 'late', 'attn')
 TREES = ('rf', 'rf_s1', 'rf_s2', 'gb', 'gb_s1', 'gb_s2')
 EPOCHS, PATIENCE, BATCH, LR = 120, 10, 512, 1e-3
 OLD_CAP = 60               # v3 budget; v3 runs with epochs == OLD_CAP are re-run, others reused
+DROPOUT, WMULT = 0.3, 1.0  # final review round 2 (M3): network grid knobs (run_p6_nettune.py); defaults = the paper's networks
 WIDE = 1.6                 # early_wide: width factor matching late fusion's parameter count
 RF_GRID = [dict(max_depth=d, min_samples_leaf=l) for d in (20, None) for l in (1, 2)]
 GB_GRID = [dict(learning_rate=lr, max_leaf_nodes=n) for lr in (0.05, 0.1) for n in (31, 127)]
@@ -171,19 +172,19 @@ def build(arch, n1, n2, n_classes):
     if a in ('s1', 's2', 'early', 'early_wide', 'early_head'):
         n = {'s1': n1, 's2': n2}.get(a, n1 + n2)
         inp = L.Input((n, 1))
-        e = _encoder(inp, a, WIDE if a == 'early_wide' else 1.0, kind)
+        e = _encoder(inp, a, (WIDE if a == 'early_wide' else 1.0) * WMULT, kind)
         if a == 'early_head':      # same 128-unit head as late fusion
             e = L.Dense(128, activation='relu')(e)
-        return Model(inp, L.Dense(n_classes, activation='softmax')(L.Dropout(0.3)(e)))
+        return Model(inp, L.Dense(n_classes, activation='softmax')(L.Dropout(DROPOUT)(e)))
     i1, i2 = L.Input((n1, 1)), L.Input((n2, 1))
-    e1, e2 = _encoder(i1, 'e1', kind=kind), _encoder(i2, 'e2', kind=kind)
+    e1, e2 = _encoder(i1, 'e1', WMULT, kind=kind), _encoder(i2, 'e2', WMULT, kind=kind)
     if a in ('late', 'late_all'):
-        x = L.Dropout(0.3)(L.Dense(128, activation='relu')(L.Concatenate()([e1, e2])))
+        x = L.Dropout(DROPOUT)(L.Dense(128, activation='relu')(L.Concatenate()([e1, e2])))
         return Model([i1, i2], L.Dense(n_classes, activation='softmax')(x))
     att = L.Dense(2, activation='softmax', name='modality_attention')(L.Concatenate()([e1, e2]))
     fused = L.Add()([L.Multiply()([e1, L.Lambda(lambda t: t[:, :1])(att)]),
                      L.Multiply()([e2, L.Lambda(lambda t: t[:, 1:])(att)])])
-    x = L.Dropout(0.3)(L.Dense(64, activation='relu', name='head_d')(fused))
+    x = L.Dropout(DROPOUT)(L.Dense(64, activation='relu', name='head_d')(fused))
     return Model([i1, i2], L.Dense(n_classes, activation='softmax', name='head_out')(x))
 
 
@@ -291,6 +292,8 @@ def run_cnn(D, arch, s1, s2, seed):
                best_epoch=int(np.argmin(h.history['val_loss'])) + 1, restored_epoch=bw.epoch,
                val_loss_best=float(np.min(h.history['val_loss'])))
     assert bw.epoch == out['best_epoch'], 'restored epoch differs from best validation epoch'
+    from sklearn.metrics import f1_score as _f1     # validation macro-F1 of the restored model (network grid, M3)
+    out['val_macro_f1'] = float(_f1(D['yva'], m.predict(inputs(arch, D['Qva'], s1, s2), batch_size=4096, verbose=0).argmax(1), average='macro'))
     Xin = inputs(arch, D['Qte'], s1, s2)
     P = m.predict(Xin, batch_size=4096, verbose=0)
     pred = P.argmax(1)
@@ -406,6 +409,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--dataset', default='all', choices=('all',) + DATASETS)
     ap.add_argument('--group', default='main', choices=('tune', 'main', 'capacity', 'random', 'mlp', 'colorder', 'resplit'))
+    ap.add_argument('--no-reuse', action='store_true', help='final review round 2: never copy results_v3 runs; '
+                    're-train them (the reused files are moved to results_v4/_superseded_reused first)')
     ap.add_argument('--smoke', action='store_true', help='2 epochs, seed 0 / split 0 only, results_v4_smoke/')
     a = ap.parse_args()
     global OUT, EPOCHS, SEEDS, N_RANDOM, RESPLITS
@@ -441,7 +446,7 @@ def main():
                 continue
             for arch, exp, i1, i2, seed in jobs(D, a.group):
                 path = OUT / ds / exp / f'seed{seed}.json'
-                if path.exists() or (not a.smoke and reuse_v3(ds, exp, seed)):
+                if path.exists() or (not a.smoke and not a.no_reuse and reuse_v3(ds, exp, seed)):
                     continue
                 t0 = time.time()
                 res, pred = (run_tree if arch.split('_')[0] in ('rf', 'gb') else run_cnn)(D, arch, i1, i2, seed)

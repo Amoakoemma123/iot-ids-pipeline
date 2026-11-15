@@ -40,9 +40,9 @@ EXTRA = {
 # Elsevier: 3–5 highlights, each ≤ 85 characters including spaces (separate file)
 HIGHLIGHTS = [
     'Fusing two flow-feature streams helps little more than using all features',
-    'Late fusion beat one CNN on all features by only {{TON_IoT_d_late_early}} macro-F1 on TON-IoT',
-    'Tuned trees beat untuned CNNs in macro-F1; a {{TON_IoT_rf_t25_d12_mb}} MB forest fell below late fusion',
-    'Attention fusion: no significant gain; its weights tracked stream usefulness loosely',
+    'Once tuned, early and late fusion tied on TON-IoT ({{TON_IoT_d_late_tuned_early_tuned}} macro-F1)',
+    'Random feature groupings served the fused models about as well as semantic ones',
+    'Tree ensembles beat tuned fusion networks; the best needs {{TON_IoT_gb_size_mb}} MB on TON-IoT',
     'Min–max inputs silently broke one CNN branch and reversed the stream ranking',
 ]
 ABSTRACT_MAX_WORDS = 250
@@ -75,11 +75,14 @@ TABLE_CAPTIONS = {
             'Per-class test F1 on UNSW-NB15 (mean over five seeds).'],
     '5.3': ['Semantic against random splits: macro-F1 of the semantic split (mean of five seeds) and distribution over 10 random splits of the same sizes (one seed each). Within-seed difference: semantic run minus the mean of the two random splits trained with the same seed; differences below 10⁻⁶ count as ties.'],
     '5.5': ['Effect of input scaling on the CNNs (test macro-F1, mean over five seeds). The first run used the min–max scaled features; the second row of each dataset repeats it with the quantile transform and nothing else changed (60-epoch cap, best weights restored only when early stopping fired). The third row is the final run (Table 2: 120-epoch budget, best weights always restored). RF, stream 1: untuned RF in the first two rows, tuned RF in the final run.'],
-    '5.6': ['CPU inference time per record (batch of one; median over five repeats of the mean of 200 calls) and per 1,000 records (mean of 20 calls), measured in isolation on the laptop CPU. TensorFlow and the GBDT use all cores; the RF uses one thread for single records and all cores for batches. Model sizes are given in Section 5.6.'],
+    '5.6': ['CPU inference time per record (batch of one; median over five repeats of the mean of 200 calls) and per 1,000 records (mean of 20 calls), measured on the laptop CPU, and model size. TensorFlow uses its default thread pools; the RF and GBDT use one thread for single records and all cores for batches. The GBDT is the rolled-back model scored in Table 2. Sizes: networks = trainable parameters × 4 bytes (32-bit weights); trees = Python pickle of the fitted model (64-bit node arrays), so the two are not strictly comparable. Capacity controls are omitted; their times are in the released results.'],
     'A': ['Fusion, multi-view and attention-based IDS studies examined for Section 2.1. Source: FT = full text read, Abs = abstract only (absence of a control in an abstract is weak evidence). Columns: random grouping of features; single network with matched parameters; tree ensemble trained on the same data; results reported over several seeds or repeated runs.'],
-    'B': ['Confirmatory family (Section 4.3): paired differences in test macro-F1 over five seeds with unadjusted t-based 95% confidence intervals, unadjusted and Holm-adjusted p-values (eight tests), and the reading against the post hoc ±0.01 margin.',
-          'Test records with and without a training match on the selected features (semantic split, mean over five seeds). A match is a training record with the same selected-feature vector; its label was not saved. Accuracy is used for the two subsets because the matched subset lacks or nearly lacks several classes. On TON-IoT only {{TON_IoT_dup_n}} test records have a match.',
-          'Macro-F1, macro PR-AUC (one-vs-rest), attack detection rate (attack records flagged as any attack) and benign FPR on the semantic split (mean over five seeds).'],
+    'B': ['Confirmatory family (Section 4.3): paired differences in test macro-F1 over five seeds with unadjusted t-based 95% confidence intervals; a seeds × test-records bootstrap 95% interval (2,000 resamples), which adds test-sampling noise; the class contributing most to the mean difference (per-class F1 difference divided by the number of classes); unadjusted and Holm-adjusted p-values (eight tests); and the reading against the post hoc ±0.01 margin.',
+          'Test records with and without a training match on the selected features (semantic split, mean over five seeds). A match is a training record with the same selected-feature vector; Section 5.2 gives how often the matching training records carry another label. Accuracy is used for the two subsets because the matched subset lacks or nearly lacks several classes. On TON-IoT only {{TON_IoT_dup_n}} test records have a match.',
+          'Macro-F1, macro PR-AUC (one-vs-rest), attack detection rate (attack records flagged as any attack) and benign FPR on the semantic split (mean over five seeds).',
+          'Paired comparisons moved from Table 3: MLP-encoder fusion models and late against attention fusion (CNN). Mean difference in test macro-F1 over five seeds, t-based 95% confidence interval and seeds with a positive difference; descriptive.',
+          'Semantic against random splits, rows moved from Table 6: per-stream trees, MLP-encoder models and all N-BaIoT models. Columns as in Table 6.',
+          'Validation grid for the fusion CNNs (learning rate 10⁻³ or 3 × 10⁻⁴, dropout 0.1 or 0.3, encoder width ×1 or ×2). The configuration with the highest validation macro-F1 on seed 0 was trained with seeds 1–4; seed 0 is the grid run. Fixed = the configuration of Section 4.1 (10⁻³, 0.3, ×1). Tuned − fixed: paired difference over five seeds, t-based 95% confidence interval and seeds with a positive difference. For UNSW-NB15 late fusion the grid kept the fixed configuration, so the difference is run-to-run variation on the GPU.'],
 }
 
 

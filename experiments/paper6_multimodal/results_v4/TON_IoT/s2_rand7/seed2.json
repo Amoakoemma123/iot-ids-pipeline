@@ -1,29 +1,35 @@
 {
- "train_s": 273.17749762535095,
- "epochs": 50,
+ "train_s": 333.62330079078674,
+ "epochs": 70,
  "params": 34634,
- "best_epoch": 40,
- "macro_f1": 0.9417188672881025,
- "accuracy": 0.977554207678059,
+ "best_epoch": 60,
+ "restored_epoch": 60,
+ "val_loss_best": 0.07862153649330139,
+ "macro_f1": 0.9417801571405636,
+ "accuracy": 0.9779537282533687,
  "per_class_f1": {
-  "backdoor": 0.9982187388671179,
-  "ddos": 0.9654002713704206,
-  "dos": 0.9766905146549735,
-  "injection": 0.9603134048714018,
-  "mitm": 0.5995893223819302,
-  "normal": 0.9881940012763242,
-  "password": 0.9915540540540541,
-  "ransomware": 0.9965075669383003,
-  "scanning": 0.9884032114183765,
-  "xss": 0.952317587048126
+  "backdoor": 0.9985754985754985,
+  "ddos": 0.9668807029401825,
+  "dos": 0.9778393351800554,
+  "injection": 0.9600543940166582,
+  "mitm": 0.594704684317719,
+  "normal": 0.988080953523718,
+  "password": 0.9917215745903024,
+  "ransomware": 0.9967396367023754,
+  "scanning": 0.9891129751918615,
+  "xss": 0.9540918163672655
  },
- "attack_detection": 0.9975521348208821,
- "benign_fpr": 0.015262321144674086,
- "latency_ms": 1.8074669999987236,
+ "attack_detection": 0.9983523984371322,
+ "benign_fpr": 0.018124006359300476,
+ "clean_macro_f1": 0.941823030885353,
+ "clean_n": 27498,
+ "macro_pr_auc": 0.9632926944641031,
  "cfg": {
   "arch": "s2",
   "exp": "s2_rand7",
   "seed": 2,
+  "split": 0,
+  "epochs_budget": 120,
   "s1": [
    "duration",
    "dst_bytes",
@@ -33,6 +39,5 @@
    "conn_state_sh",
    "dns_RD_t"
   ]
- },
- "reused_from": "results_v3 (stopped early at epoch 50 < 60; no saved predictions)"
+ }
 }

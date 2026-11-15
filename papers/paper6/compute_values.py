@@ -274,6 +274,7 @@ COMP = [('early', 'best1', 'Early fusion − better single stream'),
         ('m_attn', 'm_early', 'MLP: attention − early fusion')]
 FAMILY = {('late', 'early'), ('attn', 'early'), ('late', 'early_wide'), ('late', 'late_all')}
 rows = [['Comparison'] + [DSN[ds] for ds in DSS]]
+rows_app = [list(rows[0])]
 pvals, famP = {}, {}
 for a, b, name in COMP:
     cells = []
@@ -291,7 +292,7 @@ for a, b, name in COMP:
         if Pc is not None:
             put(key + '_clean', Pc)
     if any(c != '–' for c in cells):
-        rows.append([name] + cells)
+        (rows_app if (a.startswith('m_') or (a, b) == ('late', 'attn')) else rows).append([name] + cells)   # M6: MLP, late − attention -> appendix
 # trees vs networks (Welch) and RF gain from all features
 for ds in DSS:
     for tr in ('rf', 'gb'):
@@ -305,9 +306,10 @@ for ds in DSS:
             bs = max((f'{tr}_s1', f'{tr}_s2'), key=lambda z: mean(runs(ds, z)))
             P = paired(ds, tr, bs)
             put(f'{ds}_d_{tr}_{tr}_best1', P)
-rows.append(['RF (all features) − late fusion (Welch)'] + [V.get(f'{ds}_d_rf_late', '–') + (f" (p = {V[f'{ds}_rf_late_welch_p']})" if f'{ds}_rf_late_welch_p' in V else '') for ds in DSS])
-rows.append(['GBDT (all features) − late fusion (Welch)'] + [V.get(f'{ds}_d_gb_late', '–') + (f" (p = {V[f'{ds}_gb_late_welch_p']})" if f'{ds}_gb_late_welch_p' in V else '') for ds in DSS])
+rows.append(['RF (all features) − late fusion (Welch)'] + [V.get(f'{ds}_d_rf_late', '–') + (f" (p {V[f'{ds}_rf_late_welch_p'] if V[f'{ds}_rf_late_welch_p'].startswith('<') else '= ' + V[f'{ds}_rf_late_welch_p']})" if f'{ds}_rf_late_welch_p' in V else '') for ds in DSS])
+rows.append(['GBDT (all features) − late fusion (Welch)'] + [V.get(f'{ds}_d_gb_late', '–') + (f" (p {V[f'{ds}_gb_late_welch_p'] if V[f'{ds}_gb_late_welch_p'].startswith('<') else '= ' + V[f'{ds}_gb_late_welch_p']})" if f'{ds}_gb_late_welch_p' in V else '') for ds in DSS])
 T['paired'] = md(rows)
+T['paired_app'] = md(rows_app)
 ks = sorted(pvals, key=pvals.get); m_ = len(ks); run_max = 0.0
 for i, k in enumerate(ks):
     run_max = max(run_max, min(1.0, (m_ - i) * pvals[k]))
@@ -326,11 +328,64 @@ def margin_verdict(P, mg=0.01):
     return 'inconclusive (CI crosses ±0.01)'
 
 
-rows = [['Dataset', 'Comparison', 'Mean difference [95% CI] (seeds > 0)', 'Unadjusted p', 'Holm-adjusted p', 'Margin reading']]
+# final review round 2 (referee M2): (a) a seeds x test-records bootstrap of each confirmatory difference, from the
+# saved test predictions (seed resampled, then records resampled; macro-F1 over all classes as in run_p6_v2.metrics),
+# which adds test-sampling uncertainty to the seed-only t-interval; (b) the class that contributes most to the
+# mean difference (per-class F1 difference / number of classes, averaged over seeds).
+def _mf1(y, p, K, w=None):
+    cm = np.bincount(y * K + p, weights=w, minlength=K * K).reshape(K, K)
+    tp = np.diag(cm).astype(float); fp = cm.sum(0) - tp; fn = cm.sum(1) - tp
+    d = 2 * tp + fp + fn
+    return float(np.mean(np.where(d > 0, 2 * tp / np.where(d > 0, d, 1), 0.0)))
+
+
+def boot_ci(ds, a, b, B=2000):
+    y = np.load(RES / ds / 'yte_split0.npy').astype(np.int64)
+    K = len(DATA[ds]['classes'])
+    pa = [np.load(res_for(a) / ds / a / f'seed{s}_pred.npy').astype(np.int64) for s in SEEDS]
+    pb = [np.load(res_for(b) / ds / b / f'seed{s}_pred.npy').astype(np.int64) for s in SEEDS]
+    for s, x in zip(SEEDS, pa):                     # the saved predictions reproduce the reported scores
+        assert abs(_mf1(y, x, K) - load(ds, a, s)['macro_f1']) < 1e-9, (ds, a, s)
+    rng = np.random.default_rng(0)
+    n, out = len(y), []
+    ca, cb = [y * K + x for x in pa], [y * K + x for x in pb]
+    for _ in range(B):                              # records resampled as multiplicity weights (same as indexing)
+        ss = rng.integers(0, len(SEEDS), len(SEEDS)); w = np.bincount(rng.integers(0, n, n), minlength=n).astype(float)
+        out.append(np.mean([_f1cm(np.bincount(ca[j], weights=w, minlength=K * K), K)
+                            - _f1cm(np.bincount(cb[j], weights=w, minlength=K * K), K) for j in ss]))
+    return np.percentile(out, [2.5, 97.5])
+
+
+def _f1cm(c, K):
+    cm = c.reshape(K, K); tp = np.diag(cm); d = 2 * tp + (cm.sum(0) - tp) + (cm.sum(1) - tp)
+    return float(np.mean(np.where(d > 0, 2 * tp / np.where(d > 0, d, 1), 0.0)))
+
+
+def top_class(ds, a, b):
+    A, Bs = runs(ds, a), runs(ds, b)
+    cls = list(A[0]['per_class_f1'])
+    K = len(cls)
+    contrib = {c: st.mean(x['per_class_f1'][c] - z['per_class_f1'][c] for x, z in zip(A, Bs)) / K for c in cls}
+    c = max(contrib, key=lambda q: abs(contrib[q]))
+    tot = sum(contrib.values())
+    n_test = int((np.load(RES / ds / 'yte_split0.npy') == cls.index(c)).sum())
+    return c, contrib[c], (contrib[c] / tot if tot else float('nan')), n_test
+
+
+rows = [['Dataset', 'Comparison', 'Mean difference [95% CI] (seeds > 0)', 'Seeds × records bootstrap 95% CI',
+         'Largest class contribution', 'Unadjusted p', 'Holm-adjusted p', 'Margin reading']]
 for ds in CONF:
     for k in [k for k in famP if famP[k][0] == ds]:
         _, name, P = famP[k]
+        ab = next((x for x in FAMILY if k == f'{ds}_d_{x[0]}_{x[1]}'), None)
+        lo, hi = boot_ci(ds, *ab)
+        c, cv, share, nte = top_class(ds, *ab)
+        V[k + '_boot_lo'], V[k + '_boot_hi'] = sgn(lo), sgn(hi)
+        V[k + '_topcls'], V[k + '_topcls_contrib'] = c, sgn(cv)
+        V[k + '_topcls_share'] = f'{100 * share:.0f}%' if share == share else '–'
+        V[k + '_topcls_n'] = f'{nte:,}'
         rows.append([DSN[ds], name, f"{sgn(P['mean'])} [{sgn(P['lo'])}, {sgn(P['hi'])}] ({P['pos']}/5)",
+                     f"[{sgn(lo)}, {sgn(hi)}]", f"{c} ({nte:,} test records): {sgn(cv)}",
                      pf(P['p']), pf(V[k + '_pholm_num']), margin_verdict(P)])
         V[k + '_margin'] = margin_verdict(P).split(' (')[0]
 T['holm'] = md(rows)
@@ -440,6 +495,7 @@ T['scaling'] = md(rows)
 # ── semantic vs random splits ────────────────────────────────────────────────
 rows = [['Dataset', 'Model', 'Semantic split (mean of 5 seeds)', 'Random splits: mean', 'Random splits: min–max',
          'Within-seed difference, semantic − random [95% CI]']]
+rows_app = [list(rows[0])]
 have_random = []
 for ds in DSS:
     ok = True
@@ -455,7 +511,8 @@ for ds in DSS:
         d = [S[s]['macro_f1'] - st.mean(R[r]['macro_f1'] for r in range(N_RANDOM) if r % 5 == s) for s in SEEDS]
         P = tci(d)
         cell = put(f'{ds}_semrand_{a}', P)
-        rows.append([DSN[ds], ARCH_NAME[a].replace(' (CNN)', ''), f3(mean(S)), f3(st.mean(x)), f'{f3(min(x))}–{f3(max(x))}', cell])
+        (rows if (ds in CONF and a in ('s1', 's2', 'late', 'attn')) else rows_app).append(   # M6: CNN rows of TON-IoT/UNSW-NB15 in the text
+            [DSN[ds], ARCH_NAME[a].replace(' (CNN)', ''), f3(mean(S)), f3(st.mean(x)), f'{f3(min(x))}–{f3(max(x))}', cell])
     if ok:
         have_random.append(ds)
         sem_gain = [load(ds, 'late', s)['macro_f1'] - max(load(ds, 's1', s)['macro_f1'], load(ds, 's2', s)['macro_f1']) for s in SEEDS]
@@ -468,6 +525,7 @@ for ds in DSS:
             V[f'{ds}_rand_late_minus_early'] = sgn(st.mean(lr) - mean(runs(ds, 'early')))
             V[f'{ds}_rand_late_above_early'] = str(sum(v > mean(runs(ds, 'early')) for v in lr))
 T['random'] = md(rows)
+T['random_app'] = md(rows_app)
 V['random_done'] = ', '.join(DSN[d] for d in have_random) or 'none'
 
 # ── column order (early fusion on 5 random feature orders) ───────────────────
@@ -481,12 +539,35 @@ for ds in CONF:
 
 # ── latency (bench_latency.py, CPU, isolated) ────────────────────────────────
 lat = RES / 'latency.json'
+LGB = RES_GB / 'latency_gb.json'      # final review round 2: the rolled-back GBDT that the paper scores (bench_p6_gb_rollback.py)
 if lat.exists():
     L = json.loads(lat.read_text())
-    rows = [['Model'] + [f'{DSN[ds]} (ms/record)' for ds in DSS] + [f'{DSN[ds]} (ms / 1,000 records)' for ds in DSS]]
+    if GB_ROLLBACK and LGB.exists():
+        G_ = json.loads(LGB.read_text())
+        for ds in DSS:
+            assert G_[ds]['reproduces_seed0'], f'{ds}: timed GBDT does not reproduce results_p6gb seed 0'
+            # single records on one thread, as for the RF (all-core single-record times are dominated by thread start-up)
+            L[ds]['gb'] = dict(single_ms=G_[ds]['single_ms_1thread'], batch1000_ms=G_[ds]['batch1000_ms'], size_mb=G_[ds]['size_mb'])
+            V[f'{ds}_gb_lat_allcores'] = f"{G_[ds]['single_ms']:.2f}"
+            V[f'{ds}_gb_lat_1thread'] = f"{G_[ds]['single_ms_1thread']:.2f}"
+            V[f'{ds}_gb_ntrees'] = f"{G_[ds]['n_trees']:,}"
+        V['gb_lat_source'] = 'rolled back'
+    else:
+        V.pop('gb_lat_source', None)
+    # final review round 2 (M6): main models only; batch times and sizes for the two confirmatory datasets
+    def _size(ds, a):
+        e = L[ds][a]
+        if 'size_mb' in e:
+            mb = e['size_mb'] * 2 ** 20 / 1e6
+            return f"{mb:.0f} MB" if mb >= 10 else f"{mb:.1f} MB"
+        return f"{e['params'] * 4 / 1000:.0f} kB"
+    rows = [['Model'] + [f'{DSN[ds]} (ms/record)' for ds in DSS] + [f'{DSN[ds]} (ms / 1,000 records)' for ds in CONF]
+            + [f'Size, {DSN[ds]}' for ds in CONF]]
     for a in ('s1', 's2', 'early', 'late', 'attn', 'early_wide', 'early_head', 'late_all', 'm_early', 'm_late', 'rf', 'gb'):
         if all(a in L.get(ds, {}) for ds in DSS):
-            rows.append([ARCH_NAME[a]] + [f"{L[ds][a]['single_ms']:.2f}" for ds in DSS] + [f"{L[ds][a]['batch1000_ms']:.1f}" for ds in DSS])
+            if a not in ('early_wide', 'early_head', 'late_all'):
+                rows.append([ARCH_NAME[a]] + [f"{L[ds][a]['single_ms']:.2f}" for ds in DSS]
+                            + [f"{L[ds][a]['batch1000_ms']:.1f}" for ds in CONF] + [_size(ds, a) for ds in CONF])
             for ds in DSS:
                 V[f'{ds}_{a}_lat'], V[f'{ds}_{a}_lat_batch'] = f"{L[ds][a]['single_ms']:.2f}", f"{L[ds][a]['batch1000_ms']:.1f}"
     T['latency'] = md(rows)
@@ -499,6 +580,8 @@ if lat.exists():
             V[f'{ds}_{a}_size_kb'] = f"{L[ds][a]['params'] * 4 / 1000:.0f}"    # float32 weights, kB = 1000 bytes
         V[f'{ds}_rf_nodes'] = f"{L[ds]['rf']['nodes']:,}"
         V[f'{ds}_rf_over_late_single'] = f"{L[ds]['rf']['single_ms'] / L[ds]['late']['single_ms']:.1f}"
+        V[f'{ds}_gb_over_late_size'] = f"{L[ds]['gb']['size_mb'] * 2 ** 20 / (L[ds]['late']['params'] * 4):.0f}"   # final review round 2 (M1)
+        V[f'{ds}_gb_over_late_single'] = f"{L[ds]['gb']['single_ms'] / L[ds]['late']['single_ms']:.0f}"
 
 # ── runs reused from results_v3 (stopped early before the old 60-epoch cap) ─────
 import re as _re
@@ -643,6 +726,13 @@ for ds in CONF:
     V[f'{ds}_d_rf_late_dup_acc'] = sgn(st.mean(acc_dup['rf']) - st.mean(acc_dup['late']))
     V[f'{ds}_d_rf_late_clean_acc'] = sgn(st.mean(acc_cl['rf']) - st.mean(acc_cl['late']))
 T['dup'] = md(rows)
+# final review round 2 (minor 2): labels of the training records that a matched test record coincides with (dup_labels.py)
+for ds in CONF:
+    f = RES / ds / 'dup_labels.json'
+    if f.exists():
+        J = json.loads(f.read_text()); nm = J['n_matched']
+        for k in ('any_other_label', 'majority_other_label', 'all_other_label'):
+            V[f'{ds}_dup_{k}_pct'] = f"{100 * J[k] / nm:.0f}%" if nm else '–'
 # (k) PR-AUC and attack detection rate for every model of Table 2 (referee m3)
 rows = [['Model'] + [f'{DSN[ds]} {m}' for ds in CONF for m in ('macro-F1', 'PR-AUC', 'detection rate', 'FPR')]]
 for a in ORDER:
@@ -666,6 +756,45 @@ for k, v in list(V.items()):
         V[k] = '−' + v[1:]
 
 V['tables'] = T
+# ── final review round 2 (M3): symmetric network grid for early and late fusion (run_p6_nettune.py) ─────
+def _cfg_txt(g):
+    lr = '10⁻³' if abs(g['lr'] - 1e-3) < 1e-12 else '3 × 10⁻⁴'
+    return f"learning rate {lr}, dropout {g['dropout']:g}, width ×{g['width']:g}"
+
+
+NT = {ds: json.loads((RES / ds / 'tune_net.json').read_text()) for ds in CONF if (RES / ds / 'tune_net.json').exists()}
+if len(NT) == len(CONF) and all(runs(ds, f'{a}_tuned') for ds in CONF for a in ('early', 'late')):
+    V['nettune_done'] = 'yes'
+    rows = [['Dataset', 'Model', 'Chosen configuration', 'Validation macro-F1 (seed 0): fixed → chosen',
+             'Test macro-F1: fixed', 'Test macro-F1: tuned', 'Tuned − fixed [95% CI]']]
+    for ds in CONF:
+        for a in ('early', 'late'):
+            J = NT[ds][a]
+            g = J['best']; dflt = J['default']
+            v_def = next(z['val_macro_f1'] for z in J['grid'] if z['grid'] == dflt)
+            v_best = max(z['val_macro_f1'] for z in J['grid'])
+            same = all(abs(g[k] - dflt[k]) < 1e-12 for k in g)
+            V[f'{ds}_{a}_tuned_cfg'] = 'the fixed configuration' if same else _cfg_txt(g)
+            V[f'{ds}_{a}_tuned_same'] = str(same)
+            V[f'{ds}_{a}_tuned_f1'] = f3(mean(runs(ds, f'{a}_tuned')))
+            V[f'{ds}_{a}_tuned_sd'] = f3(sd(runs(ds, f'{a}_tuned')))
+            P = paired(ds, f'{a}_tuned', a)
+            cell = put(f'{ds}_d_{a}_tuned_{a}', P)
+            rows.append([DSN[ds], ARCH_NAME[a].replace(' (CNN, all features)', ''), V[f'{ds}_{a}_tuned_cfg'],
+                         f'{v_def:.3f} → {v_best:.3f}', f3(mean(runs(ds, a))), V[f'{ds}_{a}_tuned_f1'], cell])
+        P = paired(ds, 'late_tuned', 'early_tuned')
+        put(f'{ds}_d_late_tuned_early_tuned', P)
+        best_net = max(('early_tuned', 'late_tuned', 'early', 'late', 'attn'), key=lambda z: mean(runs(ds, z)))
+        V[f'{ds}_best_net'] = {'early_tuned': 'tuned early fusion', 'late_tuned': 'tuned late fusion', 'early': 'early fusion', 'late': 'late fusion', 'attn': 'attention fusion'}[best_net]
+        V[f'{ds}_best_net_f1'] = f3(mean(runs(ds, best_net)))
+        for tr in ('rf', 'gb'):
+            x, y = [r['macro_f1'] for r in runs(ds, tr)], [r['macro_f1'] for r in runs(ds, best_net)]
+            V[f'{ds}_d_{tr}_bestnet'] = sgn(st.mean(x) - st.mean(y))
+            V[f'{ds}_{tr}_bestnet_welch_p'] = pf(stats.ttest_ind(x, y, equal_var=False).pvalue)
+    T['nettune'] = md(rows)
+    V['nettune_any_changed'] = str(any(V[f'{ds}_{a}_tuned_same'] == 'False' for ds in CONF for a in ('early', 'late')))
+
+
 out = HERE / ('values.json' if RES.name == 'results_v4' else f'values_{RES.name}.json')
 out.write_text(json.dumps(V, indent=1, ensure_ascii=False), encoding='utf-8')
 print(f'{RES.name}: {len(V) - 1} values, {len(T)} tables -> {out.name}; random splits: {V["random_done"]}')

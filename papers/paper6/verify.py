@@ -167,7 +167,7 @@ if all(rnd(ds, a) for ds in DSS for a in ('s1', 's2', 'late', 'attn', 'rf_s1', '
     for ds in ('TON_IoT', 'UNSW_NB15'):
         check(sum(m(ds, 'late') > v for v in rf1(ds, 'late')) == int(V[f'{ds}_rand_late_below'])
               and '{{%s_rand_late_below}} of the ten' % ds in src, f'{ds}: count of random splits below semantic late fusion stated from data')
-    check(fv('UNSW_NB15_semrand_late_p') >= 0.05 and 'it is not significant but inconclusive' in src, 'UNSW: within-seed semantic − random late not significant (as stated)')
+    check(fv('UNSW_NB15_semrand_late_p') < 0.05 and 'a small positive effect whose interval reaches just past the margin' in src, 'UNSW: within-seed semantic − random late small positive, p < 0.05 (as stated, descriptive)')
     for ds in ('TON_IoT', 'UNSW_NB15'):
         check(abs(fv(f'{ds}_semrand_late')) < 0.01 and abs(fv(f'{ds}_semrand_attn')) < 0.01, f'{ds}: within-seed semantic − random below 0.01')
     for a in ('late', 'attn'):
@@ -258,12 +258,13 @@ for s_ in range(5):
 import numpy as _np
 from scipy import stats as _stats
 h = _stats.t.ppf(0.975, 4) * _np.std(d, ddof=1) / _np.sqrt(5)
-check(_np.mean(d) - h > 0 and 'excluding zero at full precision' in src, 'TON semantic − random late: CI excludes zero')
+check(_np.mean(d) - h <= 0 and fv('TON_IoT_semrand_late_p') >= 0.05 and 'negligible by our margin, although the semantic mean lies above all ten' in src
+      and V['TON_IoT_rand_late_below'] == '10', 'TON semantic − random late: CI includes zero, negligible, semantic above all ten')
 check(abs(_np.mean(d)) + h < 0.01, 'TON semantic − random late: interval inside the ±0.01 margin ("negligible")')
 check(abs(_np.mean(d)) + h <= 0.0025, 'TON semantic − random late: "within 0.002" (upper CI rounds to 0.002)')
 lo, hi = (fv_s(x) for x in V['UNSW_NB15_semrand_late_ci'].strip('[]').split(', '))
-check(lo < 0 < hi and hi > 0.01, 'UNSW semantic − random late: crosses zero and the margin ("inconclusive")')
-check(hi <= 0.025, 'UNSW: "up to about 0.02 cannot be excluded" (upper CI <= 0.025)')
+check(0 < lo and 0.01 < hi <= 0.013, 'UNSW semantic − random late: CI above zero, reaching just past the margin')
+check(hi <= 0.015, 'UNSW: grouping effect "by about 0.01 at most" (upper CI <= 0.015)')
 lo, hi = (fv_s(x) for x in V['UNSW_NB15_d_late_late_all_ci'].strip('[]').split(', '))
 check(lo > 0 and fv('UNSW_NB15_d_late_late_all_pholm') >= 0.05, 'UNSW late − late_all: positive CI, not significant after Holm')
 check(fv('UNSW_NB15_d_rf_late_clean') > 0 and fv('TON_IoT_d_rf_late_clean') > 0, 'RF above late fusion on duplicate-free test records')
@@ -306,10 +307,17 @@ check('wider head' not in src and 'extra 128-unit dense layer' in src, '"wider h
 lo, hi = (fv_s(x) for x in V['TON_IoT_d_m_attn_m_early_ci'].strip('[]').split(', '))
 check(lo > 0 and 'gained nothing' not in src, 'MLP attention − early on TON excludes zero; no "gained nothing" claim')
 lo, hi = (fv_s(x) for x in V['UNSW_NB15_d_late_early_ci'].strip('[]').split(', '))
-check(lo > 0 and fv('UNSW_NB15_d_late_early_pholm') >= 0.05 and 'not significant after Holm correction' in src.split('**Keywords')[0],
+check(lo > 0 and fv('UNSW_NB15_d_late_early_pholm') >= 0.05 and 'no difference between fusion architectures was significant after Holm correction' in src.split('**Keywords')[0],
       'UNSW late − early: unadjusted CI > 0, n.s. only after Holm (abstract says so)')
-check('at most about 0.01 macro-F1' not in src and 'an effect up to about 0.02 cannot be excluded' in src.split('**Keywords')[0], 'abstract: no "at most 0.01" bound; 0.02 not excluded')
-check(V['n_reused_rand_late_all'] == V['n_rand_late_all'] == '30' and V['late_main_new_conf'] == 'True', 'all 30 late random-split runs reused; semantic late runs new (TON, UNSW)')
+check('at most about 0.01 macro-F1' not in src and '0.02' not in src.split('**Keywords')[0] and fv_s(V['UNSW_NB15_semrand_late_ci'].strip('[]').split(', ')[1]) < 0.015, 'abstract: no 0.02 claim; UNSW semantic−random CI upper < 0.015')
+check(all(V[f'n_reused_rand_{a}_conf'] == '0' for a in ('s1', 's2', 'late', 'attn')) and V['n_reused_rand_late_all'] == '10' and V['late_main_new_conf'] == 'True',
+      'no reused random-split run on TON/UNSW (only the 10 N-BaIoT late runs); semantic late runs new')
+# final review round 2: bootstrap, per-class concentration, timed GBDT = scored GBDT, label conflicts
+check(fv_s(V['TON_IoT_d_late_early_boot_lo']) > 0 and V['TON_IoT_d_late_early_topcls'] == 'mitm' and fv_s(V['TON_IoT_d_late_early_topcls_share'].rstrip('%')) >= 50,
+      'TON late − early: bootstrap CI > 0; mostly MITM (as stated)')
+check(V['UNSW_NB15_d_late_early_topcls'] == 'worms', 'UNSW late − early: largest contribution from worms')
+check(V.get('gb_lat_source') == 'rolled back', 'Table 8 GBDT = the rolled-back GBDT that is scored (compute_values asserts it reproduces seed 0)')
+check(fv_s(V['UNSW_NB15_dup_majority_other_label_pct'].rstrip('%')) > 20 and V['TON_IoT_dup_any_other_label_pct'] == '0%', 'label conflicts: UNSW majority-other share large, none on TON')
 check(fv('TON_IoT_rerun_dF_max') >= fv('TON_IoT_semrand_late_4') and fv('UNSW_NB15_rerun_dF_mean') > fv('TON_IoT_rerun_dF_mean'),
       'per-dataset reruns: TON max ≥ TON semantic − random; UNSW drives the pooled variation')
 for ds in ('TON_IoT', 'UNSW_NB15'):
@@ -334,12 +342,22 @@ check('2403.15511v1' in src, 'Dinh 2024b cites the 2024 version (v1)')
 abstract = text.split('## Abstract')[1].split('**Keywords')[0]
 check(len(abstract.split()) <= 250, f'abstract ≤ 250 words ({len(abstract.split())})')
 check('only non-saturated IoT benchmark' in abstract, 'abstract states TON-IoT is the only non-saturated IoT benchmark')
-check('untuned' in abstract, 'abstract qualifies the tree claim (untuned networks)')
+check('beat the tuned networks' in abstract and 'untuned networks' not in src, 'tree claim made against the tuned networks; no leftover "untuned networks"')
 import importlib.util as _ilu
 _spec = _ilu.spec_from_file_location('build', HERE / 'build.py'); _b = _ilu.module_from_spec(_spec); _spec.loader.exec_module(_b)
 _hl = [_b.fill(h, {**V, **_b.EXTRA})[0] for h in _b.HIGHLIGHTS]
 check(all(len(h) <= 85 for h in _hl), f'highlights ≤ 85 characters (longest {max(map(len, _hl))})')
-check(any('in macro-F1' in h for h in _hl) and not any('gained nothing' in h for h in _hl), 'Highlight 3 says "in macro-F1"; no "gained nothing"')
+check(any('tuned fusion networks' in h for h in _hl) and not any('gained nothing' in h or 'untuned' in h for h in _hl), 'highlights: trees vs tuned networks; no "untuned"')
+# final review round 2 (M3): network grid
+check(V.get('nettune_done') == 'yes', 'network grid complete (tune_net.json + all *_tuned runs)')
+_ci = lambda k: tuple(fv_s(x) for x in V[k].strip('[]').split(', '))
+check(_ci('TON_IoT_d_late_tuned_early_tuned_ci')[0] < 0 < _ci('TON_IoT_d_late_tuned_early_tuned_ci')[1] and 'tuned early fusion' in src or 'tuning early fusion' in src, 'TON: tuned late − tuned early CI spans 0; text says tuning early fusion matched it')
+check(_ci('TON_IoT_d_early_tuned_early_ci')[0] > 0 and V['TON_IoT_d_early_tuned_early_pos'] == '5', 'TON: tuning raised early fusion (CI > 0, 5/5)')
+check(all(fv(f'{ds}_d_{t}_bestnet') > 0 and V[f'{ds}_{t}_bestnet_welch_p'] == '< 0.001' for ds in ('TON_IoT', 'UNSW_NB15') for t in ('rf', 'gb')), 'RF and GBDT above the best (tuned) network on TON and UNSW, Welch p < 0.001')
+check(V['UNSW_NB15_late_tuned_same'] == 'True' and _ci('UNSW_NB15_d_late_tuned_late_ci')[1] < 0 and 'run-to-run variation' in src, 'UNSW late: grid kept fixed config, rerun lower (CI < 0) and text calls it run-to-run variation')
+check(V['TON_IoT_early_tuned_cfg'].endswith('width ×2') and V['TON_IoT_late_tuned_cfg'].endswith('width ×2') and 'twice the width for both fusion models on TON-IoT' in src, 'TON: both chosen configurations are width ×2 as stated')
+check('n_reused_rand}} of the' not in src, '6.3 no longer claims reused late-fusion random-split runs')
+check('{{table:nettune}}' in src and 'Table B.6' in src, 'network grid table in Appendix B')
 
 print(f'\n{len(fails)} failure(s), {len(pending)} pending')
 for f in fails:
