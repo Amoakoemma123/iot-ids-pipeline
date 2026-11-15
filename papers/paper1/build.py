@@ -44,14 +44,14 @@ HIGHLIGHTS = [      # final-only values stay ⟦…⟧ until the p1final queue h
     'From {{TON_IoT_tree_over_net_sig_kb}} KB (TON-IoT), {{UNSW_NB15_tree_over_net_sig_kb}} KB (UNSW-NB15) a tree significantly beats every network',
     'Int8 cost CNNs at most {{cnn_int8_drop_max_all}} and MLPs up to {{mlp_int8_drop_max_all}} macro-F1 (seed means)',
     'Tied-best TON-IoT tree models took {{TON_IoT_lat_tied_range}} ms/record on one thread, best CNN {{TON_IoT_lat_best_net_ms}} ms',
-    'Early-stopped scikit-learn GBDTs keep 20 extra, sometimes diverged, iterations',
+    'Early-stopped scikit-learn GBDTs keep up to 20 extra, sometimes diverged, iterations',
 ]
 ABSTRACT_MAX_WORDS = 250
 
 FIGURES = {
     '5.2': [(FIG / 'fig1_accuracy_size.png', 16.0,
              'Test macro-F1 against model size (log scale), one panel per dataset. Filled markers: float32 networks and tree '
-             'models (compact encoding, Section 4.2); open markers: the same networks after int8 quantisation. Bars: '
+             'models (compact encoding, Section 4.2; network and LR sizes include the input quantile table); open markers: the same networks after int8 quantisation. Bars: '
              'standard deviation over five seeds. Dashed line: best mean macro-F1 minus 0.01. Logistic regression, where it '
              'lies below the plotted range, is shown on the lower edge with its value. The ringed point is the forest '
              'configuration of the earlier draft. All GBDTs are rolled back to their best internal-validation iteration; '
@@ -70,14 +70,20 @@ TABLE_CAPTIONS = {
             'models: seed 0. Networks: TensorFlow (float32) and the TensorFlow Lite interpreter (int8, float input and output).',
             'TensorFlow Lite variants of the seed-0 networks: per-record time of the float32 file, of the int8 model of '
             'Table 2 (float fallback, float input and output) with and without the default XNNPACK delegate, and of a '
-            'full-integer int8 model (int8 operations, input and output); file sizes; seed-0 test macro-F1.'],
+            'full-integer int8 model (int8 operations, input and output); file sizes; seed-0 test macro-F1.',
+            'Sustained flow records per second on one CPU thread, computed from Table 3: single = one record per call '
+            '(1 / per-record time), batched = 1,000 records per call. Seed-0 models; scikit-learn for the trees, the '
+            'runtime of Table 3 for the networks. The compiled-library estimate multiplies the number of trees of the '
+            'most accurate GBDT by the LightGBM per-tree time (Section 5.4); it is an estimate, not a measured model. '
+            'Feature extraction is not included.'],
     '5.6': ['TON-IoT with and without the source and destination port numbers: test macro-F1 (mean over five seeds), '
             'difference (computed before rounding) and Welch p-value. GBDTs rolled back to their best iteration.'],
     'A': ['All configurations, sorted by compact size within each dataset: test macro-F1 (mean ± standard deviation over '
-          'five seeds), validation macro-F1 (mean over seeds; * seed 0 only), benign false-positive rate, attack detection '
+          'five seeds), validation macro-F1 (mean over seeds; * seed 0 only; the selection rule of Section 4.4 uses the seed-0 '
+          'scores quoted in Section 5.2, which can rank configurations differently from these means), benign false-positive rate, attack detection '
           'rate, macro PR-AUC (average precision), compact size and pickled scikit-learn size. Compact size: Section 4.2 '
           'encoding for tree models, four bytes per parameter for float32 networks, the TensorFlow Lite file for int8 '
-          'networks. GBDTs at both learning rates and with capped iterations are included, all rolled back.',
+          'networks; network and LR sizes include the input quantile table. GBDTs at both learning rates and with capped iterations are included, all rolled back.',
           'GBDTs of the main grid: test macro-F1 over five seeds (mean and lowest seed) of the learning-rate-0.1 models as '
           'first run (evaluated 20 iterations past their best point) and of both learning rates after rollback to the '
           'best internal-validation iteration, and the range of iterations kept.'],

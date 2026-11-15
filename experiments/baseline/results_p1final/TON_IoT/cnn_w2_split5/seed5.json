@@ -1,0 +1,42 @@
+{
+ "train_s": 198.5910542011261,
+ "epochs": 52,
+ "params": 92938,
+ "best_epoch": 37,
+ "restored_epoch": 37,
+ "macro_f1": 0.952262063719259,
+ "accuracy": 0.9838738967784113,
+ "per_class_f1": {
+  "backdoor": 0.9991098451130497,
+  "ddos": 0.9820077349924332,
+  "dos": 0.9801843317972351,
+  "injection": 0.9682460515378221,
+  "mitm": 0.6535947712418301,
+  "normal": 0.993781887755102,
+  "password": 0.9913807672807166,
+  "ransomware": 0.9992989016125263,
+  "scanning": 0.9900071377587437,
+  "xss": 0.9650092081031307
+ },
+ "attack_detection": 0.9990114390622793,
+ "benign_fpr": 0.009062003179650238,
+ "clean_macro_f1": 0.952338722514452,
+ "clean_n": 27488,
+ "macro_pr_auc": 0.9735130159634297,
+ "size_bytes": 371752,
+ "int8": {
+  "size_bytes": 108592,
+  "macro_f1": 0.9500038085672016,
+  "benign_fpr": 0.010969793322734499,
+  "attack_detection": 0.9991526620533823,
+  "macro_pr_auc": 0.9708968367330618,
+  "agreement": 0.9970217557113282
+ },
+ "cfg": {
+  "config": "cnn_w2",
+  "exp": "cnn_w2_split5",
+  "seed": 5,
+  "split": 5,
+  "group": "resplit"
+ }
+}

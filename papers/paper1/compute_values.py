@@ -49,7 +49,8 @@ CAPPED = [f'gbc{it}_l{l}' for it in (50, 100, 200, 400) for l in (7, 15, 31)]
 SMALL = ['dt_d4', 'dt_d6', 'dt_d8', 'dt_d12', 'rf_t10_d4', 'rf_t10_d6', 'rf_t25_d4', 'rf_t25_d6']
 NETS = [f'{k}_w{w}' for k in ('cnn', 'mlp') for w in (0.5, 1, 2)]
 PORT_CFGS = ('rf_t100_d16', 'rf_v1', 'gb_l31', 'gb05_l31', 'cnn_w1', 'mlp_w1')
-BUDGET = 110 * 1024      # "about 100 KB": the int8 CNN of width 2 (106 KB) is the largest network under it
+BUDGET = 110 * 1024      # superseded (final review round 2): see BUDGET_DS below
+BUDGET_DS = {}           # per dataset: size of the largest int8 network including its input table (set with the points)
 V, T, VF, TF = {}, {}, {}, {}
 
 
@@ -88,6 +89,37 @@ def kb(b):
 def rng(xs, f='.2f'):
     a, b = f'{min(xs):{f}}', f'{max(xs):{f}}'
     return a if a == b else f'{a}–{b}'
+
+
+YTE = BASE.parent / 'paper6_multimodal' / 'results_v4'     # the shared split-0 test labels (yte_split0.npy)
+
+
+def _pred(ds, cfg, seed):
+    for root in (FIN, RES):
+        f = root / ds / cfg / f'seed{seed}_pred.npy'
+        if f.exists():
+            return np.load(f).astype(np.int64)
+    raise FileNotFoundError(f'{ds}/{cfg}/seed{seed}_pred.npy')
+
+
+def _f1cm(c, K):
+    cm = c.reshape(K, K); tp = np.diag(cm); d = 2 * tp + (cm.sum(0) - tp) + (cm.sum(1) - tp)
+    return float(np.mean(np.where(d > 0, 2 * tp / np.where(d > 0, d, 1), 0.0)))
+
+
+def boot_diff(ds, a, b, B=2000):
+    """95% percentile interval of mean macro-F1(a) - macro-F1(b): seeds resampled, then test records (as weights)"""
+    y = np.load(YTE / ds / 'yte_split0.npy').astype(np.int64)
+    K = int(y.max()) + 1
+    ca = [y * K + _pred(ds, a, s) for s in range(5)]
+    cb = [y * K + _pred(ds, b, s) for s in range(5)]
+    rng = np.random.default_rng(0)
+    n, out = len(y), []
+    for _ in range(B):
+        ss = rng.integers(0, 5, 5); w = np.bincount(rng.integers(0, n, n), minlength=n).astype(float)
+        out.append(np.mean([_f1cm(np.bincount(ca[j], weights=w, minlength=K * K), K)
+                            - _f1cm(np.bincount(cb[j], weights=w, minlength=K * K), K) for j in ss]))
+    return tuple(np.percentile(out, [2.5, 97.5]))
 
 
 def welch(a, b):
@@ -179,6 +211,18 @@ for ds in DSS:
 T['data'] = md(rows)
 
 # ── points on the accuracy-footprint plane ────────────────────────────────────
+# Deployable size includes the input transform the model needs. The networks and LR read quantile-transformed features:
+# the transform is a table of N_QUANTILES quantiles per feature (float32), which is counted with them. The trees read
+# min-max scaled features, whose scaling folds into the split thresholds, so they need no table. size_w = model only.
+N_QUANTILES = 1000
+QT_BYTES = {}
+for _ds in DSS:
+    _r = runs(_ds, 'cnn_w1')
+    if _r:
+        QT_BYTES[_ds] = N_QUANTILES * len(_r[0]['cfg']['features']) * 4
+        V[f'{_ds}_qt_kb'] = kb(QT_BYTES[_ds])
+        V[f'{_ds}_n_features'] = str(len(_r[0]['cfg']['features']))
+V['n_quantiles'] = f'{N_QUANTILES:,}'
 TREE_CFGS = RFS + GB + ((CAPPED + SMALL) if FINAL else []) + ['lr']
 points = {}
 for ds in DSS:
@@ -199,6 +243,9 @@ for ds in DSS:
             p['q16_drop'] = st.mean(r['macro_f1'] - r['q16_macro_f1'] for r in R)
             p['ntrees'] = [r['n_trees'] for r in R]; p['iters'] = [r['n_iter'] for r in R]
             p['iters_raw'] = [r.get('n_iter_raw', r['n_iter']) for r in R]
+        p['size_w'] = p['size']
+        if cfg == 'lr':
+            p['size'] = p['size_w'] + QT_BYTES[ds]
         pts.append(p)
     for cfg in NETS:
         R = runs(ds, cfg)
@@ -224,10 +271,16 @@ for ds in DSS:
             if v0.exists():
                 j = json.loads(v0.read_text())
                 pf_['vf1_0'], pq['vf1_0'] = j['val_macro_f1'], j['int8']['val_macro_f1']
+        for z in (pf_, pq):
+            z['size_w'] = z['size']; z['size'] = z['size_w'] + QT_BYTES[ds]
         pts += [pf_, pq]
         if cfg in ('cnn_w1', 'mlp_w1'):
             V[f'{ds}_{cfg}_params'] = f"{R[0]['params']:,}"
     points[ds] = pts
+    _q = [z['size'] for z in pts if z.get('q')]
+    if _q:
+        BUDGET_DS[ds] = max(_q)
+        V[f'{ds}_budget_kb'] = kb(BUDGET_DS[ds])
 
 is_net = lambda p: p['cfg'] in NETS
 is_tree = lambda p: p['cfg'] not in NETS and p['cfg'] != 'lr'
@@ -243,7 +296,7 @@ for ds in DSS:
     for p in points[ds]:
         k = f"{ds}_{p['cfg']}{'_int8' if p['q'] else ''}"
         fin = is_gb(p) or p['cfg'] in CAPPED + SMALL
-        put(k + '_f1', f"{p['f1']:.3f}", fin); put(k + '_kb', kb(p['size']), fin)
+        put(k + '_f1', f"{p['f1']:.3f}", fin); put(k + '_kb', kb(p['size']), fin); put(k + '_kb_w', kb(p['size_w']), fin)
         if 'pickle' in p:
             put(k + '_pickle_kb', kb(p['pickle']), fin)
 
@@ -256,7 +309,7 @@ for ds in DSS:
         continue
     bn = max(nets, key=lambda p: p['f1'])
     V[f'{ds}_best_net'], V[f'{ds}_best_net_f1'], V[f'{ds}_best_net_kb'] = plabel(bn['cfg'], bn['q']), f"{bn['f1']:.3f}", kb(bn['size'])
-    nb = max((p for p in nets if p['size'] <= BUDGET), key=lambda p: p['f1'])
+    nb = max((p for p in nets if p['size'] <= BUDGET_DS[ds] + 1), key=lambda p: p['f1'])
     V[f'{ds}_budget_net'], V[f'{ds}_budget_net_f1'], V[f'{ds}_budget_net_kb'] = plabel(nb['cfg'], nb['q']), f"{nb['f1']:.3f}", kb(nb['size'])
     cnn = next(p for p in pts if p['cfg'] == 'cnn_w1' and not p['q'])
     V[f'{ds}_cnn_w1_f1'], V[f'{ds}_cnn_w1_kb'] = f"{cnn['f1']:.3f}", kb(cnn['size'])
@@ -277,7 +330,7 @@ for fam in ('cnn', 'mlp'):
     if alld[fam]:
         V[f'{fam}_int8_drop_max_all'] = f"{max(a for a, _ in alld[fam]):.3f}"
         V[f'{fam}_int8_seed_drop_max_all'] = f"{max(b for _, b in alld[fam]):.3f}"
-red = [pf_['size'] / pq['size'] for ds in DSS for pf_ in points[ds] if is_net(pf_) and not pf_['q']
+red = [pf_['size_w'] / pq['size_w'] for ds in DSS for pf_ in points[ds] if is_net(pf_) and not pf_['q']
        for pq in points[ds] if pq['cfg'] == pf_['cfg'] and pq['q']]
 if red:
     V['int8_size_ratio'] = f'{min(red):.1f}–{max(red):.1f}'
@@ -366,8 +419,8 @@ for ds in DSS:
     VF[f'{ds}_top_tied'] = '; '.join(desc(p) for p in sorted(tied, key=lambda p: p['size']))
     VF[f'{ds}_top_tied_n'] = str(len(tied))
     # budget of about 100 KB
-    nb = max((p for p in nets if p['size'] <= BUDGET), key=lambda p: p['f1'])
-    tb = [p for p in trees if p['size'] <= BUDGET]
+    nb = max((p for p in nets if p['size'] <= BUDGET_DS[ds] + 1), key=lambda p: p['f1'])
+    tb = [p for p in trees if p['size'] <= BUDGET_DS[ds] + 1]
     if tb:
         t = max(tb, key=lambda p: p['f1'])
         VF[f'{ds}_budget_tree'] = desc(t)
@@ -381,7 +434,7 @@ for ds in DSS:
         VF[f'{ds}_budget_net_minus_tree'] = neg(nb['f1'] - t['f1'])
         win, lose = (nb, t) if nb['f1'] > t['f1'] else (t, nb)
         VF[f'{ds}_budget_best'], VF[f'{ds}_budget_other'] = desc(win), desc(lose)
-    gq = [p for p in trees if 'qsize' in p and p['qsize'] <= BUDGET]
+    gq = [p for p in trees if 'qsize' in p and p['qsize'] <= BUDGET_DS[ds] + 1]
     if gq:
         g = max(gq, key=lambda p: p['q16'])
         VF[f'{ds}_budget_tree_q'] = desc(g, 'qsize', 'q16', ' quantised')
@@ -398,6 +451,16 @@ for ds in DSS:
         VF[f'{ds}_tree_over_net_sig'] = desc(o)
         VF[f'{ds}_tree_over_net_sig_kb'] = kb(o['size'])
         VF[f'{ds}_tree_over_net_sig_welch_p'] = pf(welch(o['f'], bn['f']))
+    # final review round 2 (referee major 1): seeds x test-records bootstrap of the tree-minus-network differences
+    # behind the budget claims (network side float32: int8 test predictions were not stored)
+    if ds in HARD:
+        netf_ = next(p for p in nets if p['cfg'] == bn['cfg'] and not p['q'])
+        for tag, tp in (('best', bt), ('over', over and min(over, key=lambda p: p['size'])),
+                        ('oversig', over_sig and min(over_sig, key=lambda p: p['size']))):
+            if tp:
+                lo, hi = boot_diff(ds, tp['cfg'], netf_['cfg'])
+                VF[f'{ds}_boot_{tag}_lo'], VF[f'{ds}_boot_{tag}_hi'] = neg(lo), neg(hi)
+                VF[f'{ds}_boot_{tag}_excl0'] = 'yes' if lo > 0 or hi < 0 else 'no'
     # clean test records (no selected-feature match in training); network side: float32 (int8 not stored)
     cl = lambda p: st.mean(p['clean']) if p.get('clean') and None not in p['clean'] else None
     netf = next(p for p in nets if p['cfg'] == bn['cfg'] and not p['q'])
@@ -455,12 +518,15 @@ for ds in DSS:
         VF[f'{ds}_gb05_cap_n'] = f'{cap} of {5 * len(lo5)}'
     for p in points[ds]:
         if 'qsize' in p and p['cfg'] in GB + CAPPED:
-            q_ratio.append(p['size'] / p['qsize']); q_drop.append(p['q16_drop'])
+            q_ratio.append((ds, p['size'] / p['qsize'])); q_drop.append(p['q16_drop'])
 if ntot:
     VF['gb_rolled_n'], VF['gb_diverged_n'], VF['gb_runs_n'] = str(nrb), str(ndiv), str(ntot)
 TF['gb_lr'] = md(gb_rows)
 if q_ratio:
-    VF['gb_q_ratio'] = rng(q_ratio, '.1f')
+    VF['gb_q_ratio'] = rng([r for d, r in q_ratio if d in HARD], '.1f')
+    _nb = [r for d, r in q_ratio if d not in HARD]
+    VF['gb_q_nb_larger'] = f"{sum(r < 1 for r in _nb)} of {len(_nb)}"
+    VF['gb_q_nb_grow_max'] = f"{max(1 / r for r in _nb):.1f}" if _nb else ''
     VF['gb_q16_drop_max'] = f'{max(abs(x) for x in q_drop):.3f}'
 for ds in DSS:
     bt = max((p for p in points[ds] if is_tree(p)), key=lambda p: p['f1'], default=None)
@@ -557,6 +623,7 @@ if ST['latency']:
                 if 'int8_single_ms' in e:
                     VF[f'{ds}_{cfg}_int8_ms'] = f"{e['int8_single_ms']:.3f}"
     lgbm_sp = []
+    FPS = {}
     for ds in DSS:
         pts = points[ds]
         nets = [p for p in pts if is_net(p)]
@@ -575,18 +642,33 @@ if ST['latency']:
         near = [p for p in trees if p['f1'] >= bt['f1'] - 0.005 and ms(ds, p) is not None]
         fast = min(near, key=lambda p: ms(ds, p))
         VF[f'{ds}_lat_near_best_fast'] = f"{plabel(fast['cfg'])} ({fast['f1']:.3f}, {ms(ds, fast):.2f} ms)"
-        nb = max((p for p in nets if p['size'] <= BUDGET), key=lambda p: p['f1'])
-        tb = [p for p in trees if p['size'] <= BUDGET and ms(ds, p) is not None]
+        nb = max((p for p in nets if p['size'] <= BUDGET_DS[ds] + 1), key=lambda p: p['f1'])
+        tb = [p for p in trees if p['size'] <= BUDGET_DS[ds] + 1 and ms(ds, p) is not None]
         VF[f'{ds}_lat_budget_net_ms'] = f'{ms(ds, nb):.2f}'
         if tb:
             VF[f'{ds}_lat_budget_tree_ms'] = f"{ms(ds, max(tb, key=lambda p: p['f1'])):.2f}"
+        # sustained flows per second on one core (final review round 2, journal switch): 1 / per-record time, and
+        # 1,000 / time of one 1,000-record call; the compiled-tree value is the LightGBM per-tree estimate
+        bms = lambda p: L[ds].get(p['cfg'], {}).get('int8_batch1000_ms' if p['q'] else 'batch1000_ms')
+        fps = lambda t: f"{1000 / t:,.0f}" if t else '–'
+        bfps = lambda t: f"{1e6 / t:,.0f}" if t else '–'
+        FPS.setdefault(ds, {})
+        FPS[ds]['Most accurate tree model: ' + plabel(bt['cfg'])] = (fps(a), bfps(bms(bt)))
+        FPS[ds]['Fastest tree model within 0.005 of it: ' + plabel(fast['cfg'])] = (fps(ms(ds, fast)), bfps(bms(fast)))
+        FPS[ds]['Most accurate network: ' + label(bn['cfg'], bn['q'])] = (fps(b), bfps(bms(bn)))
+        VF[f'{ds}_fps_best_tree'], VF[f'{ds}_fps_best_tree_batch'] = fps(a), bfps(bms(bt))
+        VF[f'{ds}_fps_fast_near'] = fps(ms(ds, fast))
+        VF[f'{ds}_fps_fast_near_batch'] = bfps(bms(fast))
+        VF[f'{ds}_fps_best_net'], VF[f'{ds}_fps_best_net_batch'] = fps(b), bfps(bms(bn))
+        VF[f'{ds}_cores_10k_best_tree'] = f"{10000 * a / 1000:.0f}"
         px = L[ds].get('lgbm_proxy')
         if px and px.get('config') in L[ds]:
             VF[f'{ds}_lgbm_us_per_tree'] = f"{px['us_per_tree']:.2f}"
             lgbm_sp.append(L[ds][px['config']]['us_per_tree'] / px['us_per_tree'])
     sel = lambda pred: [e for ds in DSS for c, e in L[ds].items() if isinstance(e, dict) and pred(c)]
     VF['lat_net_f32_range'] = rng([e['single_ms'] for e in sel(lambda c: c in NETS)])
-    VF['tflite_f32_overhead_kb'] = rng([(e['tflite_f32_size_bytes'] - e['size_bytes']) / 1024 for e in sel(lambda c: c in NETS)], '.1f')
+    _ov = [(e['tflite_f32_size_bytes'] - e['size_bytes']) / 1024 for e in sel(lambda c: c in NETS)]
+    VF['tflite_f32_overhead_kb'] = f"{min(_ov):.1f} to {max(_ov):+.1f}".replace('-', '−')
     VF['lat_tflite_f32_range'] = rng([e['tflite_f32_single_ms'] for e in sel(lambda c: c in NETS)], '.3f')
     VF['lat_mlp_int8_range'] = rng([e['int8_single_ms'] for e in sel(lambda c: c in ('mlp_w0.5', 'mlp_w1'))])
     VF['lat_cnn_int8_range'] = rng([e['int8_single_ms'] for e in sel(lambda c: c in ('cnn_w1', 'cnn_w2'))], '.1f')
@@ -611,6 +693,15 @@ if ST['latency']:
     VF['lat_gb_batch_speedup'] = rng([1000 * e['single_ms'] / e['batch1000_ms'] for e in sel(lambda c: c in GB)], '.0f')
     VF['lat_gb_batch1000_range'] = rng([e['batch1000_ms'] for e in sel(lambda c: c in GB)], '.0f')
     VF['lat_net_batch1000_range'] = rng([e['batch1000_ms'] for e in sel(lambda c: c in NETS)], '.1f')
+    _keys = list(dict.fromkeys(k.split(':')[0] for ds in HARD for k in FPS.get(ds, {})))
+    _rows = [['Model (TON-IoT; UNSW-NB15)'] + [f'{DSN[ds]} {m}' for ds in HARD for m in ('single', 'batched')]]
+    for k in _keys:
+        names, cells = [], []
+        for ds in HARD:
+            kk = next(x for x in FPS[ds] if x.startswith(k + ':'))
+            names.append(kk.split(': ', 1)[1]); cells += list(FPS[ds][kk])
+        _rows.append([f"{k} ({'; '.join(dict.fromkeys(names))})"] + cells)
+    FPS_ROWS = _rows
     if lgbm_sp:
         VF['lgbm_tree_speedup'] = rng(lgbm_sp, '.0f')
         VF['lgbm_us_per_tree_range'] = rng([L[ds]['lgbm_proxy']['us_per_tree'] for ds in DSS if 'lgbm_proxy' in L[ds]], '.2f')
@@ -618,26 +709,35 @@ if ST['latency']:
 # ── computed sentences whose wording depends on the outcome (final only) ─────
 if all(f'{ds}_budget_winner' in VF for ds in HARD):
     # wording follows the Welch test at 0.05: 'tie' = no significant difference between the best int8/float network
-    # and the best tree model of at most 110 KB
+    # and the best tree model no larger than the largest int8 network (with its input table)
     def _ph(ds):
         w, d = VF[f'{ds}_budget_winner'], DSN[ds]
         if w == 'tie':
             nf, tf = VF[f'{ds}_budget_net_f1'], VF[f'{ds}_budget_tree_f1']
-            return f"an int8 CNN and a size-budgeted tree tied on {d} ({'both ' + nf if nf == tf else nf + ' and ' + tf})"
-        fam = 'an int8 CNN' if w == 'network' else 'a size-budgeted tree'
+            return f"the best network and the best tree model of that size tied on {d} ({'both ' + nf if nf == tf else nf + ' and ' + tf})"
+        fam = 'a network' if w == 'network' else 'a tree model'
         return f"{fam} was more accurate on {d} (by {VF[f'{ds}_budget_gap']})"
     def _hl(ds):
         w, d = VF[f'{ds}_budget_winner'], DSN[ds]
-        return {'tie': f'int8 CNNs and trees tied on {d}', 'network': f'int8 CNNs won on {d}',
+        return {'tie': f'networks and trees tied on {d}', 'network': f'networks won on {d}',
                 'tree': f'trees won on {d}'}[w]
     def _sum(ds):
         w, d = VF[f'{ds}_budget_winner'], DSN[ds]
         return {'tie': f'the compact networks and size-budgeted trees were statistically tied on {d}',
                 'network': f'the compact networks were more accurate on {d}',
                 'tree': f'size-budgeted trees were more accurate on {d}'}[w]
-    VF['abs_budget'] = 'Up to about 100 KB, ' + ' and '.join(_ph(ds) for ds in HARD) + '.'
-    VF['hl_budget'] = 'Up to ~100 KB, ' + '; '.join(_hl(ds) for ds in HARD)
-    VF['budget_summary'] = 'Under about 100 KB, ' + ' and '.join(_sum(ds) for ds in HARD)
+    _w = {VF[f'{ds}_budget_winner'] for ds in HARD}
+    _kbs = ' and '.join(f"{V[f'{ds}_budget_kb']} KB on {DSN[ds]}" for ds in HARD)
+    if _w == {'tree'}:
+        VF['abs_budget'] = (f'At the size of the largest int8 network with its input table ({_kbs}), the best tree model '
+                            'was more accurate than the best network, by ' + ' and '.join(
+                                f"{VF[f'{ds}_budget_gap']}" for ds in HARD) + '.')
+        VF['hl_budget'] = "At the largest int8 network's size, trees were more accurate on both hard datasets"
+    else:
+        VF['abs_budget'] = (f'At the size of the largest int8 network with its input table ({_kbs}), '
+                            + ' and '.join(_ph(ds) for ds in HARD) + '.')
+        VF['hl_budget'] = 'At the largest int8 network size, ' + '; '.join(_hl(ds) for ds in HARD)
+    VF['budget_summary'] = 'At the size of the largest int8 network, ' + ' and '.join(_sum(ds) for ds in HARD)
 if all(f'{ds}_gb_rb_collapsed' in VF for ds in HARD):
     c = [VF[f'{ds}_gb_rb_collapsed'] for ds in HARD]
     n_ = sum(int(x.split()[0]) for x in c); N_ = sum(int(x.split()[-1]) for x in c)
@@ -647,10 +747,20 @@ for ds in DSS:
     fp = [p['fpr'] for p in points[ds] if p['cfg'] != 'lr']
     if fp:
         VF[f'{ds}_fpr_range'] = f'{100 * min(fp):.0f}–{100 * max(fp):.0f}%'
+        _lr = [p['fpr'] for p in points[ds] if p['cfg'] == 'lr']
+        if _lr:
+            VF[f'{ds}_lr_fpr'] = f'{100 * _lr[0]:.0f}%'
     bt = max((p for p in points[ds] if is_tree(p)), key=lambda p: p['f1'], default=None)
     px = _lat.get(ds, {}).get('lgbm_proxy') if ST['latency'] else None
     if bt and px and 'ntrees' in bt:
         VF[f'{ds}_lgbm_est_ms'] = f"{bt['ntrees'][0] * px['us_per_tree'] / 1000:.2f}"
+        VF[f'{ds}_fps_lgbm_est'] = f"{1e6 / (bt['ntrees'][0] * px['us_per_tree']):,.0f}"
+if 'FPS_ROWS' in globals():
+    if all(f'{ds}_fps_lgbm_est' in VF for ds in HARD):
+        FPS_ROWS.append(['Most accurate tree model, compiled-library estimate'] +
+                        [x for ds in HARD for x in (VF[f'{ds}_fps_lgbm_est'], '–')])
+    VF['fps_min_batch'] = f"{min(int(r[i].replace(',', '')) for r in FPS_ROWS[1:] for i in (2, 4) if r[i] != '–'):,}"
+    TF['fps'] = md(FPS_ROWS)
 _R = runs('UNSW_NB15', 'rf_t200_dNone', RES)
 if _R:
     _pc = {c: st.mean(r['per_class_f1'][c] for r in _R) for c in _R[0]['per_class_f1']}
@@ -658,6 +768,19 @@ if _R:
 for ds in DSS:
     V[f'{ds}_feature_list'] = ', '.join(DATA[ds]['features']) if ds != 'N_BaIoT' else ''
 
+# budget without the input table (final review round 2): what the comparison would show if the table were not counted
+for ds in HARD:
+    _n = [p for p in points[ds] if p['cfg'].startswith(('cnn', 'mlp'))]
+    if not _n or 'size_w' not in _n[0]:
+        continue
+    _B = max(p['size_w'] for p in _n if p['q'])
+    _bn = max((p for p in _n if p['size_w'] <= _B), key=lambda p: p['f1'])
+    _bt = max((p for p in points[ds] if is_tree(p) and p['size'] <= _B), key=lambda p: p['f1'])
+    VF[f'{ds}_nott_kb'] = kb(_B)
+    VF[f'{ds}_nott_net_f1'] = f"{_bn['f1']:.3f}"
+    VF[f'{ds}_nott_tree_f1'] = f"{_bt['f1']:.3f}"
+    VF[f'{ds}_nott_tree'] = _bt['name']
+    VF[f'{ds}_nott_winner'] = 'network' if _bn['f1'] > _bt['f1'] else 'tree'
 # ── assemble ─────────────────────────────────────────────────────────────────
 V['p1final_complete'] = FINAL
 V['p1final_status'] = ST
@@ -665,6 +788,33 @@ if FINAL:
     V.update(VF); T.update(TF)
 V['p1final_pending_keys'] = [] if FINAL else sorted(VF)
 V['tables'] = T
+
+# final review round 2: five further stratified data splits (run_p1_final --group resplit; one seed per split, seed k on
+# split k): the best tree model, the smallest tree significantly above every network and the best tree of at most
+# 110 KB against the best network (TON-IoT: float32 CNN of width 2; UNSW-NB15: its int8 version)
+RS_TREES = {'TON_IoT': (('best', 'gb_l63'), ('oversig', 'gbc50_l31'), ('small', 'gb_l15')),
+            'UNSW_NB15': (('best', 'gb05_l31'), ('oversig', 'gbc50_l15'), ('small', 'gbc100_l7'))}
+for ds, trs in RS_TREES.items():
+    def _rs(cfg, k):
+        f = FIN / ds / f'{cfg}_split{k}' / f'seed{k}.json'
+        return json.loads(f.read_text()) if f.exists() else None
+    nets = [_rs('cnn_w2', k) for k in range(1, 6)]
+    if not all(nets):
+        continue
+    net = [(n['int8']['macro_f1'] if ds == 'UNSW_NB15' else n['macro_f1']) for n in nets]
+    V[f'{ds}_rs_net_f1'] = f'{np.mean(net):.3f}'
+    for lab, cfg in trs:
+        t = [_rs(cfg, k) for k in range(1, 6)]
+        if not all(t):
+            break
+        d = [a['macro_f1'] - b for a, b in zip(t, net)]
+        V[f'{ds}_rs_{lab}_pos'] = str(sum(x > 0 for x in d))
+        V[f'{ds}_rs_{lab}_mean'] = f'{np.mean(d):+.3f}'.replace('-', '−')
+        V[f'{ds}_rs_{lab}_min'] = f'{min(d):+.4f}'.replace('-', '−')
+        V[f'{ds}_rs_{lab}_f1'] = f'{np.mean([a["macro_f1"] for a in t]):.3f}'
+    else:
+        V[f'{ds}_rs_done'] = 'yes'
+
 (HERE / f'values{SUFFIX}.json').write_text(json.dumps(V, indent=1, ensure_ascii=False), encoding='utf-8')
 (HERE / f'points{SUFFIX}.json').write_text(json.dumps(dict(
     _final=FINAL, **{ds: [{k: v for k, v in p.items() if k not in ('f', 'vf', 'clean')} for p in pts] for ds, pts in points.items()}),

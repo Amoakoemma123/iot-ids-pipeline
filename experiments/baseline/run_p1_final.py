@@ -260,14 +260,61 @@ def jobs(D, group):
                     yield cfg, f'{cfg}_ev', kind, p, seed, allc, dict(rollback=True, save_model=False, extval=True)
 
 
+# final review round 2 (review_final2_referee.md, major 1): the models behind the budget claims, refitted on the five
+# further stratified splits of run_p6_v2.load(split=k) (seed = k, one run per split), TON-IoT and UNSW-NB15.
+# Trees: the best tree model, the smallest tree above the best network and the best tree of at most 110 KB
+# (Section 5.2), with rollback; networks: CNN width 2 (float32 and int8 from the same run).
+RESPLIT_TREES = {'TON_IoT': ('gb_l63', 'gbc50_l31', 'gb_l15'), 'UNSW_NB15': ('gb05_l31', 'gbc50_l15', 'gbc100_l7')}
+RESPLIT_NETS = ('cnn_w2',)
+
+
+def resplit(ds):
+    allc = None
+    for k in P6.RESPLITS:
+        D = P6.load(ds, split=k)
+        allc = np.arange(len(D['feat']))
+        print(f'== {ds} split {k}: test {len(D["yte"]):,}', flush=True)
+        for cfg in RESPLIT_TREES[ds] + RESPLIT_NETS:
+            exp = f'{cfg}_split{k}'
+            path = OUT / ds / exp / f'seed{k}.json'
+            if path.exists():
+                continue
+            t0 = time.time()
+            if cfg in RESPLIT_NETS:
+                res, pred, _ = R.run_net(D, cfg, k, allc, exp=exp)
+            else:
+                kind, p = {**GB_CFGS, **CAPPED}[cfg]
+                res, pred, _ = run_tree(D, cfg, kind, p, k, allc, rollback=True, exp=exp)
+            res['cfg'] = dict(config=cfg, exp=exp, seed=k, split=k, group='resplit')
+            path.parent.mkdir(parents=True, exist_ok=True)
+            np.save(path.with_name(f'seed{k}_pred.npy'), pred.astype(np.int8))
+            np.save(path.with_name(f'seed{k}_yte.npy'), D['yte'].astype(np.int8))
+            path.write_text(json.dumps(res, indent=1, default=float))
+            print(f"  {exp}: macro-F1 {res['macro_f1']:.4f}" + (f" int8 {res['int8']['macro_f1']:.4f}" if 'int8' in res else '')
+                  + f" ({time.time() - t0:.0f}s)", flush=True)
+            gc.collect()
+        del D; gc.collect()
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--dataset', default='all', choices=('all',) + DATASETS)
     ap.add_argument('--group', required=True,
-                    choices=('gb_rollback', 'gb_capped', 'small_trees', 'trees_val', 'gb_ports', 'gb_extval', 'nets_val0', 'nets_val'))
+                    choices=('gb_rollback', 'gb_capped', 'small_trees', 'trees_val', 'gb_ports', 'gb_extval', 'nets_val0', 'nets_val',
+                             'resplit'))
     ap.add_argument('--smoke', action='store_true', help='seed 0, two configurations, results_p1final_smoke/')
     a = ap.parse_args()
     global OUT, SEEDS, GB_CFGS, CAPPED, SMALL, RFLR_CFGS
+    if a.group == 'resplit':
+        import tensorflow as tf
+        for g in tf.config.list_physical_devices('GPU'):
+            tf.config.experimental.set_memory_growth(g, True)
+        if a.smoke:
+            OUT = OUT.parent / 'results_p1final_smoke'
+            P6.RESPLITS = (1,)
+        for ds in (('TON_IoT', 'UNSW_NB15') if a.dataset == 'all' else (a.dataset,)):
+            resplit(ds)
+        return
     if a.smoke:
         OUT, SEEDS = OUT.parent / 'results_p1final_smoke', (0,)
         GB_CFGS = {k: GB_CFGS[k] for k in ('gb_l7', 'gb05_l7')}

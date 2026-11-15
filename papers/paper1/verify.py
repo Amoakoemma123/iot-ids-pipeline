@@ -225,6 +225,16 @@ else:
               'quantised GBDT encoding', 'early stopping on the validation split', 'Figure 1 with rolled-back and capped GBDTs'):
         pend(k)
 
+# final review round 2: data-split replicates
+if V.get('TON_IoT_rs_done') == 'yes' and V.get('UNSW_NB15_rs_done') == 'yes':
+    check(all(V[f'{ds}_rs_{l}_pos'] == '5' for ds in ('TON_IoT', 'UNSW_NB15') for l in ('best', 'oversig')),
+          'resplits: best tree and smallest significant tree above the best network on all five splits')
+    check(all(float(V[f'{ds}_rs_{l}_min'].replace('−', '-')) > 0 for ds in ('TON_IoT', 'UNSW_NB15') for l in ('best', 'oversig')),
+          'resplits: minimum per-split lead > 0 as stated ("at least")')
+    check('five further data splits, one seed each, gave the same ranking' in src, 'limitations mention the resplits')
+else:
+    pend('data-split replicates')
+
 print(f'\n{len(fails)} failure(s), {len(pending)} pending')
 for x in fails:
     print('  FAIL', x)

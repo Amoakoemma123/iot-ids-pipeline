@@ -17,3 +17,8 @@ __pycache__/
 
 # N-BaIoT raw CSVs (9 GB; download from UCI 442)
 dataset4/raw/
+
+# per-record test predictions read by the manuscript scripts (bootstrap intervals; small int8 arrays)
+!experiments/paper6_multimodal/results_v4/**/*.npy
+!experiments/baseline/results_p1final/**/*.npy
+!experiments/baseline/results_v2/**/*_pred.npy
