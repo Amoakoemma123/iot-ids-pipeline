@@ -1,0 +1,246 @@
+{
+ "union": {
+  "strongest_b0.5": 0.6170526315789474,
+  "strongest_volume_b0.5": 0.1576842105263158,
+  "strongest_plus_b0.5": 0.6210526315789474,
+  "strongest_plus_volume_b0.5": 0.15852631578947368,
+  "strongest_plus_b0.5_per_class": {
+   "analysis": 0.7062146892655368,
+   "backdoor": 0.6157894736842106,
+   "dos": 0.6970873786407767,
+   "exploits": 0.6142748671222475,
+   "fuzzers": 0.8113207547169812,
+   "generic": 0.12014134275618374,
+   "reconnaissance": 0.6981132075471698,
+   "shellcode": 0.5,
+   "worms": 0.631578947368421
+  },
+  "ev_strongest_plus_b0.5": "dTBiv+PLkJ11vPNhfqQ2z+7+4/TNqMhysykb9QP+ubFe0P9Tus82i9BxedLI69Z1vH5tF7jffjo39bApnS2y9Tza/oP+76l06z2vffP98Z8Sx73bPJvhufPjHox7ZdCfOj59654V//8P/2inVv5/77kdf0GTFjPX5JLSWW9g++p7/tn9rX5sOq97htfuZhm8Z/Ox9l/PeTVvnGvcnnucIz6mjWSZ+cDPWf/LuxX467bWn93f8/Ahja7W3+9RH3oXQH/26vNbw+fdpJb6Cz7/8VrH/98lv5D08/77/Q83ttHZ32K3LXX/g04/+muv89d/3//JRb9md55UwsfHr2//tt/3il/P9LKE3d53wfs603pq3PNa9zeguxNnn8033Nr7Wrwc0juum8s1b39XpO/3b3jUerjfe49h3d7uMlv7JL3pS9W397n8/9VWyOf88f0f/i11k5DGGnpuX7Wd28a/oDhfHj64i/15Nfrz/zSqZxZX3y2f2/9MX6m0M/OUMGev/G50/81neJ+F1c8s992vUpJog11W7faf/+mfOetpeb+e/aSPmhrHl2/Ev/33JvFGD79VQ2/fYHTfjNX24Pbzcswnfe4vesfjr7s/9ZE/KEdOc/5N7+XkVzxGcm6k4Ovzms/vsHsHp9tw/7Pi+758q18umPaYTe3//0PfNHnv3TGswIqvvhK+r9WTX/ZJNgS/azqvay5RX/5WmisffBQjzG1n6b6h2Oytzf6/0z3z8KnnyvbBl6+P2SK/7XtrH89It/zfclOYWz7rfdlfF/Rf77u4",
+  "ev_strongest_plus_volume_b0.5": "ACACAABBAAggAAAACIAACA5EQCBFgAAAsAABMAAAAABIQAACAAwQgIAAEULASABEAAAIACAFIAARASAAhASiEAwAgAIwzAAgCgiAQKAokAgABYUCEAAAEHIhCAhQZAABIARQABAQgNQEAEAGECBAAJAQCAADABGAIICSAABAIUBSIsBMAA4AAigAAgBAQAgIAYABAACMQAAJgEDAACAQAACGiUAAqIAMGTaBoADAgSSAkQQAAAABAIACEagBCCAAQFAUACFZgKBIBBAQCBRmsAgEGYAkAhAAAAgAhAEQNEDAlAAmAGAAgggQEkKCAEAiEGABADICJQAEwAbCAEIVEAQAAAJEQAAEABgFAZgQwAgAVFAIEhGAoBIEEEAAmAAjABAQAAEAAAEFAAAEBAkAIkAEAIAIKIYhBIZgAABYBBAgABAhIZEQARAQSAFIAAUENAkAAACECkgABAEQCAISAAgEBB4AAVggBMBAmBCABQBRAACBQKQISKmAIeAAAEUqSAAEzAwiIAaAhAQABQAAEAAAAFgABIAEQQAAASAIMQWARAAGAAIAFAAAoBCBIABAAiwBAgARQAQFAAQCQDADIAQGHAAFAAICABEJUAAJAAACIihAAoTAQChAICgAgIASAoUhACgEIhMgMhEAkIQACkAqABIQAIAABEACFAhAUBEoQAgAmAAIABAAH3QIAAAKIRCgYAAQARQAAAkZEAAgQAlAqKoBECCgCLiAgAyCgADgwAIAgSGAACCKKAgAAgAIAkBAIBIAEAiAQNAJAeAFBAAQ"
+ },
+ "fs": {
+  "bb_corners_e0.005": 0.9997894736842106,
+  "bb_mut_e0.005": 0.74,
+  "bb_mut_inc_e0.005": 0.49894736842105264,
+  "wb_bpda_e0.005": 0.8593684210526316,
+  "wb_bpda_mutable_e0.005": 0.5547368421052632,
+  "fs_strongest_e0.005": 0.9997894736842106,
+  "fs_strongest_mutable_e0.005": 0.8343157894736842,
+  "bb_corners_e0.01": 1.0,
+  "bb_mut_e0.01": 0.791578947368421,
+  "bb_mut_inc_e0.01": 0.5597894736842105,
+  "wb_bpda_e0.01": 0.9246315789473685,
+  "wb_bpda_mutable_e0.01": 0.6385263157894737,
+  "fs_strongest_e0.01": 1.0,
+  "fs_strongest_mutable_e0.01": 0.8728421052631579,
+  "bb_corners_e0.02": 1.0,
+  "bb_mut_e0.02": 0.8991578947368422,
+  "bb_mut_inc_e0.02": 0.6101052631578947,
+  "wb_bpda_e0.02": 0.984,
+  "wb_bpda_mutable_e0.02": 0.764,
+  "fs_strongest_e0.02": 1.0,
+  "fs_strongest_mutable_e0.02": 0.9458947368421052,
+  "bb_corners_e0.05": 1.0,
+  "bb_mut_e0.05": 1.0,
+  "bb_mut_inc_e0.05": 0.9090526315789473,
+  "wb_bpda_e0.05": 0.9987368421052631,
+  "wb_bpda_mutable_e0.05": 0.9406315789473684,
+  "fs_strongest_e0.05": 1.0,
+  "fs_strongest_mutable_e0.05": 1.0,
+  "bb_corners_e0.1": 1.0,
+  "bb_mut_e0.1": 1.0,
+  "bb_mut_inc_e0.1": 0.9397894736842105,
+  "wb_bpda_e0.1": 0.999578947368421,
+  "wb_bpda_mutable_e0.1": 0.9755789473684211,
+  "fs_strongest_e0.1": 1.0,
+  "fs_strongest_mutable_e0.1": 1.0
+ },
+ "op": {
+  "native": {
+   "detected": 0.95,
+   "test_fpr": 0.23702466598150052,
+   "asr_volume": 0.15663157894736843,
+   "asr": 0.6069473684210527,
+   "e2e_volume": 0.1988,
+   "e2e": 0.6266,
+   "attack": "grid + adaptive"
+  },
+  "fpr1": {
+   "detected": 0.4034,
+   "test_fpr": 0.011433710174717369,
+   "asr_volume": 0.9251363411006446,
+   "asr": 0.9757064947942489,
+   "e2e_volume": 0.9698,
+   "e2e": 0.9902,
+   "tau": 0.0015973093814682213,
+   "attack": "grid + adaptive"
+  },
+  "fpr_match": {
+   "detected": 0.9222,
+   "test_fpr": 0.19771325796505654,
+   "asr_volume": 0.186944263717198,
+   "asr": 0.7009325525916287,
+   "e2e_volume": 0.2502,
+   "e2e": 0.7242,
+   "tau": 0.18796550340850945,
+   "attack": "grid + adaptive"
+  }
+ },
+ "feas": {
+  "grid_both": 0.5326315789473685,
+  "grid_volume": 0.13726315789473684,
+  "feas_both": 0.5322105263157895,
+  "feas_volume": 0.13705263157894737,
+  "lost_both": 0.0016842105263157896,
+  "gained_both": 0.0012631578947368421
+ },
+ "bpa": {
+  "bpda_action_b0.5": 0.4745263157894737,
+  "bpda_action_volume_b0.5": 0.09536842105263157,
+  "bpda_new_vs_strongest_b0.5": 0.0008421052631578948,
+  "strongest_with_bpda_b0.5": 0.6178947368421053,
+  "ev_bpda_action_b0.5": "dTACt6HLEA10MKNATqAmjm7M4uTNgMgisikb9AP2OLBKUMxSqE8WitAxccLIaNZ1PHRJFrDffhg3MaAolS2yVRwK4oP+7ygkij2jXbH90ZsQBp1LHFqhsXPiGgx7ZNCPOj5l6pgV1/UGf2CnFrh+b5AdX0GTFhPT4IDSCG1gY+p7/sD8qV4sKq8bhtfEQBmoJ/Mh9gvOaSFtiGGcHnuYIxymjWAQ6cBNWffJsxTgybfUnd3ZsVAhja6Wke9RCXgWQHv2yrNbQ+TFJJL6CT5n8ErFnYclE5B08D64/Ak1stDJl2KmLHQZgww5+mOv8tV2l/HJRbdCJZxUwMbHpW//Ml/3il9M1DKEFBh1Qfs6wngoXLMa9zWAuhMmlw0W3JhyULwUkiuOiQslaj5WhOvmZ3iUOqiZeY8h1Z7gAlPYJL0gQtU397E0p5FQSGf88fUOPi1VkZDGGngMF6UUW0a/oDheHD4wi91wBNjwvjSgBxZX3SGfyPcIX6mEMfOAMEev/G4074xnaJ6F1ccM59EtEgAgg1lW7fafwymFMWppOZ+c1aSLEBqClQfErPnhIhFGB74VIg8VQFSfBFW2YLaTYswnPeYvekPjLbEP9BAbCAUKcrxML+TkVTxGMiykoCrymo8rIDgHJ9tw+7OCsrx8i10qmJIQCe2HPUFfNFnP3SCowIqPnEAOo5UQX3QJFgS/Kzivag4RV5QWiikfPBAgRG1l4IohmOytzf68kz2DoKnhwuLAly+N2SKL7XJrF81It1hFYhOYWzzrfNhbF9QdZLuw"
+ },
+ "reply": {
+  "grid_both": 0.5326315789473685,
+  "grid_volume": 0.13726315789473684,
+  "reply_both": 0.8549473684210527,
+  "reply_volume": 0.38084210526315787,
+  "lost_volume": 0.012210526315789474,
+  "gained_volume": 0.2557894736842105
+ },
+ "roc": {
+  "s1": [
+   {
+    "fpr": 0.005,
+    "tau": 0.0002532939207594609,
+    "test_fpr": 0.005909558067831449,
+    "missed": 0.7334,
+    "e2e_vol": 0.9892,
+    "e2e_both": 0.9954
+   },
+   {
+    "fpr": 0.0075,
+    "tau": 0.0007342325210629497,
+    "test_fpr": 0.009378211716341213,
+    "missed": 0.676,
+    "e2e_vol": 0.9798,
+    "e2e_both": 0.9898
+   },
+   {
+    "fpr": 0.01,
+    "tau": 0.0015973093814682213,
+    "test_fpr": 0.011433710174717369,
+    "missed": 0.5966,
+    "e2e_vol": 0.9688,
+    "e2e_both": 0.9856
+   },
+   {
+    "fpr": 0.015,
+    "tau": 0.0035776099096983672,
+    "test_fpr": 0.01695786228160329,
+    "missed": 0.469,
+    "e2e_vol": 0.9438,
+    "e2e_both": 0.9824
+   },
+   {
+    "fpr": 0.02,
+    "tau": 0.006135909147560596,
+    "test_fpr": 0.02094039054470709,
+    "missed": 0.3864,
+    "e2e_vol": 0.9068,
+    "e2e_both": 0.9774
+   },
+   {
+    "fpr": 0.03,
+    "tau": 0.010860983533784747,
+    "test_fpr": 0.031217882836587874,
+    "missed": 0.3036,
+    "e2e_vol": 0.8334,
+    "e2e_both": 0.9714
+   },
+   {
+    "fpr": 0.04,
+    "tau": 0.01640690915286541,
+    "test_fpr": 0.04149537512846865,
+    "missed": 0.2524,
+    "e2e_vol": 0.7594,
+    "e2e_both": 0.9652
+   },
+   {
+    "fpr": 0.05,
+    "tau": 0.02258435618132354,
+    "test_fpr": 0.05357142857142857,
+    "missed": 0.2228,
+    "e2e_vol": 0.7088,
+    "e2e_both": 0.9576
+   }
+  ],
+  "s2": [
+   {
+    "fpr": 0.005,
+    "tau": 0.03494749754667282,
+    "test_fpr": 0.003725590955806783,
+    "missed": 0.8658,
+    "e2e_vol": 0.9952,
+    "e2e_both": 1.0
+   },
+   {
+    "fpr": 0.0075,
+    "tau": 0.04049119994044304,
+    "test_fpr": 0.006294964028776978,
+    "missed": 0.8626,
+    "e2e_vol": 0.9944,
+    "e2e_both": 1.0
+   },
+   {
+    "fpr": 0.01,
+    "tau": 0.04524338960647583,
+    "test_fpr": 0.008735868448098663,
+    "missed": 0.8576,
+    "e2e_vol": 0.9926,
+    "e2e_both": 1.0
+   },
+   {
+    "fpr": 0.015,
+    "tau": 0.05592995882034302,
+    "test_fpr": 0.015030832476875642,
+    "missed": 0.8468,
+    "e2e_vol": 0.9898,
+    "e2e_both": 1.0
+   },
+   {
+    "fpr": 0.02,
+    "tau": 0.07046030998229981,
+    "test_fpr": 0.020298047276464542,
+    "missed": 0.835,
+    "e2e_vol": 0.9882,
+    "e2e_both": 1.0
+   },
+   {
+    "fpr": 0.03,
+    "tau": 0.09846613407135009,
+    "test_fpr": 0.029162384378211715,
+    "missed": 0.8158,
+    "e2e_vol": 0.9858,
+    "e2e_both": 1.0
+   },
+   {
+    "fpr": 0.04,
+    "tau": 0.1195757007598877,
+    "test_fpr": 0.0368705035971223,
+    "missed": 0.7994,
+    "e2e_vol": 0.9822,
+    "e2e_both": 0.9998
+   },
+   {
+    "fpr": 0.05,
+    "tau": 0.14239188730716706,
+    "test_fpr": 0.051387461459403906,
+    "missed": 0.7846,
+    "e2e_vol": 0.9794,
+    "e2e_both": 0.9998
+   }
+  ]
+ }
+}

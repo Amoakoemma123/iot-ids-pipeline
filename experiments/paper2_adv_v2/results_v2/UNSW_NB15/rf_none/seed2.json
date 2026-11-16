@@ -1,0 +1,61 @@
+{
+ "train_s": 20.0189950466156,
+ "macro_f1": 0.5983199770533464,
+ "accuracy": 0.7855165471247011,
+ "per_class_f1": {
+  "analysis": 0.2590529247910863,
+  "backdoor": 0.2543046357615894,
+  "dos": 0.3772893772893773,
+  "exploits": 0.7816222348269994,
+  "fuzzers": 0.7216748768472906,
+  "generic": 0.8923076923076924,
+  "normal": 0.9,
+  "reconnaissance": 0.7860300618921309,
+  "shellcode": 0.5191146881287726,
+  "worms": 0.4918032786885246
+ },
+ "attack_detection": 0.9927250308261406,
+ "benign_fpr": 0.17561664953751285,
+ "clean_macro_f1": 0.6293739507073937,
+ "clean_n": 13308,
+ "macro_pr_auc": 0.6528918880367954,
+ "rare_classes": [
+  "analysis",
+  "backdoor",
+  "shellcode",
+  "worms"
+ ],
+ "n_attacked": 5000,
+ "n_detected": 4977,
+ "bb_both_b0.1": 0.790436005625879,
+ "bb_volume_b0.1": 0.13803496081977096,
+ "bb_ttl_only": 0.42816958006831424,
+ "bb_both_b0.25": 0.8358448864777979,
+ "bb_volume_b0.25": 0.1892706449668475,
+ "bb_both_b0.5": 0.8595539481615431,
+ "bb_volume_b0.5": 0.1746031746031746,
+ "bb_both_b0.5_per_class": {
+  "analysis": 1.0,
+  "backdoor": 0.9842931937172775,
+  "dos": 0.8349146110056926,
+  "exploits": 0.6229390681003584,
+  "fuzzers": 0.9531516183986372,
+  "generic": 0.9547038327526133,
+  "reconnaissance": 1.0,
+  "shellcode": 1.0,
+  "worms": 0.8947368421052632
+ },
+ "bb_both_b1.0": 0.8716094032549728,
+ "bb_volume_b1.0": 0.16455696202531644,
+ "bb_both_b2.0": 0.8772352822985734,
+ "bb_volume_b2.0": 0.17480409885473178,
+ "transfer_action_b0.5": 0.5903154510749448,
+ "transfer_action_b1.0": 0.5822784810126582,
+ "cfg": {
+  "model": "rf",
+  "defence": "none",
+  "seed": 2,
+  "beta_train": 0.5,
+  "eps_train": 0.05
+ }
+}

@@ -45,7 +45,8 @@ NAME = {'cnn_none': 'CNN', 'mlp_none': 'MLP', 'rf_none': 'RF', 'gb_none': 'GBDT'
         'gb_augment_nodelay': 'GBDT, augmented w/o delay', 'rf_augment_nobytes': 'RF, augmented w/o bytes',
         'gb_augment_nobytes': 'GBDT, augmented w/o bytes', 'cnn_at_all_bpda': 'CNN, AT-all (BPDA)',
         'cnn_at_all_e0.02': 'CNN, AT-all, ε = 0.02', 'cnn_at_all_e0.1': 'CNN, AT-all, ε = 0.1',
-        'cnn_at_threat_b0.25': 'CNN, AT-threat, β = 0.25', 'cnn_at_threat_b1.0': 'CNN, AT-threat, β = 1'}
+        'cnn_at_threat_b0.25': 'CNN, AT-threat, β = 0.25', 'cnn_at_threat_b1.0': 'CNN, AT-threat, β = 1',
+        'cnn_at_threat_cs': 'CNN, AT-threat, corner start'}
 UNDEF = {m: m.split('_')[0] + '_none' for m in DEF}
 V, T, A = {}, {}, {}
 NBOOT = 10000   # review round 3, numbers N1: stable CI bounds
@@ -270,15 +271,14 @@ def cell(k, att, sdv=True):
     return f"{v} ± {V[f'{k}_{att}_sdpp']}" if sdv else v
 
 
-rows = [['Dataset', 'Model', 'Grid, volume only', 'Grid + adaptive, volume only', 'Grid, TTL only', 'Grid, both',
+rows = [['Dataset', 'Model', 'Grid, volume only', 'Grid + adaptive, volume only',
          'Strong white-box PGD', 'Transfer from CNN', 'Strongest, volume only', 'Strongest, all actions [95% CI]']]
 for ds in DSS:
     for m in BASE:
         k = f'{ds}_{m}'
         if k + '_f1' not in V:
             continue
-        rows.append([DSN[ds], NAME[m], cell(k, 'bb_volume_b0.5'), cell(k, 'ad_none_b0.5'),
-                     cell(k, 'bb_ttl_only') if ds == 'UNSW_NB15' else 'n/a', cell(k, 'bb_both_b0.5'),
+        rows.append([DSN[ds], NAME[m], cell(k, 'bb_volume_b0.5'), cell(k, 'ad_none_b0.5'),     # TTL-only and grid-both columns: Table 8 / text (final review round 2)
                      cell(k, 'wbs_action_b0.5') if m in ('cnn_none', 'mlp_none') else 'n/a',
                      cell(k, 'transfer_action_b0.5') if m != 'cnn_none' else 'n/a', cell(k, 'strongest_volume_b0.5'),
                      f"{cell(k, 'strongest_b0.5')} [{V.get(k + '_strongest_b0.5_ci', '–')}]"])
@@ -623,7 +623,7 @@ def mk(R, *ks):
     return st.mean(v) if R and all(x is not None for x in v) else None
 
 
-R2M = BASE + NETDEF + TREEDEF + tuple(m + '_nottl' for m in ('cnn_none', 'mlp_none', 'rf_none', 'gb_none')) + SWEEP
+R2M = BASE + NETDEF + TREEDEF + tuple(m + '_nottl' for m in ('cnn_none', 'mlp_none', 'rf_none', 'gb_none')) + SWEEP + ('cnn_at_threat_cs',)
 B2 = {}   # (ds, m) -> list of result dicts (round 2)
 for ds in DSS:
     for m in R2M:
@@ -732,8 +732,8 @@ OPROWS = ('cnn_none', 'cnn_clean_loop', 'cnn_at_all', 'cnn_ccat', 'cnn_at_threat
 
 
 def op_rows(fa, fe, prim):
-    rows = [['Dataset', 'Model', 'Seeds', 'Benign FPR, own', 'ASR, own', 'Benign FPR, matched', 'Detected, matched',
-             'ASR, matched', 'Missed or evaded, matched', 'Δ missed or evaded' + (' (Holm p)' if prim else ' (p)'),
+    rows = [['Dataset', 'Model', 'Seeds', 'Benign FPR, own', 'ASR, own', 'Benign FPR, matched', 'Missed, matched',
+             'Evaded, matched', 'Missed or evaded, matched', 'Δ missed or evaded (p)',
              'Missed or evaded, 1% FPR']]
     for ds in DSS:
         for m in OPROWS:
@@ -749,12 +749,13 @@ def op_rows(fa, fe, prim):
             if und:
                 dcell = '–'
             elif prim and m in PRIM_NET:
-                dcell = f"{V.get(f'{ds}_{m}_prim', '–')} ({V.get(f'{ds}_{m}_prim_p', '–')})"
+                dcell = f"{V.get(f'{ds}_{m}_prim', '–')} (Holm {V.get(f'{ds}_{m}_prim_p', '–')})"
             else:
                 r = op_paired(ds, m, UNDEF[m], fe_)
-                dcell = f'{pp(r[0])} ({pfmt(r[1])})' if r else '–'
+                dcell = f'{pp(r[0])} ({pfmt(r[1])}, unadjusted)' if r else '–'      # final review round 2: tree rows are not Holm
             rows.append([DSN[ds], NAME[m], str(len(R)), f3(mk(R, 'op', 'native', 'test_fpr')), pct(mk(R, 'op', 'native', fa_)),
-                         f3(g('test_fpr')), pct(g('detected')), pct(g(fa_)), pct(g(fe_)), dcell, pct(mk(R, 'op', 'fpr1', fe_))])
+                         f3(g('test_fpr')), pct(1 - g('detected')), pct(g(fe_) - (1 - g('detected'))), pct(g(fe_)), dcell,
+                         pct(mk(R, 'op', 'fpr1', fe_))])      # final review round 2 (M2c): missed and evaded shown separately
     return rows
 
 
@@ -995,6 +996,198 @@ if r2seeds(m, ds) == SEEDS5:
         r = op_paired(ds, 'cnn_at_threat', m, f)
         if r:
             V[f'{ds}_cnn_at_threat_opd_vs_{m}_{f}'] = pp(r[0]); V[f'{ds}_cnn_at_threat_opd_vs_{m}_{f}_p'] = pfmt(r[1])
+
+
+# final review round 2 (referee major 1): AT-threat whose inner attack starts at the most benign-scoring corner of the
+# budget box (corners + 8 random points, as strong a start as the tree augmentation's candidate grid), five seeds.
+# Secondary tests, same endpoint as the primary family; t-based 95% CI over seeds and a Welch test as a check.
+def op_diff_ci(ds, m, ref, f):
+    a = op_vals(ds, m, 'fpr_match', f); b = op_vals(ds, ref, 'opu' if ref in BASE else 'fpr_match', f)
+    if not a or not b:
+        return None
+    common = [s for s in a if s in b and a[s] is not None and b[s] is not None]
+    d = np.array([a[s] - b[s] for s in common])
+    h = stats.t.ppf(0.975, len(d) - 1) * d.std(ddof=1) / np.sqrt(len(d))
+    pw = stats.ttest_ind([a[s] for s in common], [b[s] for s in common], equal_var=False).pvalue
+    pt = stats.ttest_1samp(d, 0).pvalue
+    return d.mean(), d.mean() - h, d.mean() + h, float(pt), float(pw), int((d < 0).sum()), len(d)
+
+
+def ppci(r):
+    return f'{pp(r[0])} [{pp(r[1])}, {pp(r[2])}]'
+
+
+m = 'cnn_at_threat_cs'
+rows = [['Dataset', 'Model', 'Clean macro-F1', 'Benign FPR', 'Strongest ASR (own threshold)', 'Missed or evaded, matched FPR',
+         'Δ vs undefended [95% CI] (p; Welch p)', 'Δ vs AT-threat [95% CI] (p; Welch p)']]
+for ds in DSS:
+    Rv = runs(ds, m, SEEDS5)
+    if not Rv or (ds, m) not in B2:
+        continue
+    V['atcs_done_' + ds] = 'yes'
+    k = f'{ds}_{m}'
+    V[k + '_f1'] = f3(st.mean(r['macro_f1'] for r in Rv)); V[k + '_fpr'] = f3(st.mean(r['benign_fpr'] for r in Rv))
+    V[k + '_strongest'] = pct(st.mean(r['strongest_b0.5'] for r in Rv))
+    if ds == 'UNSW_NB15':
+        V[k + '_strongest_volume'] = pct(st.mean(r['strongest_volume_b0.5'] for r in Rv))
+    for ref in ('cnn_none', 'cnn_at_threat'):
+        for f in ('e2e', 'e2e_volume', 'asr'):
+            r = op_diff_ci(ds, m, ref, f)
+            if r:
+                t = f'{k}_d_{ref}_{f}'
+                V[t] = pp(r[0]); V[t + '_ci'] = f'[{pp(r[1])}, {pp(r[2])}]'; V[t + '_p'] = pfmt(r[3]); V[t + '_pw'] = pfmt(r[4]); V[t + '_neg'] = str(r[5])
+    for ref in ('cnn_at_threat', 'cnn_none'):     # the main AT-threat with the same CI, for the text
+        for f in ('e2e', 'e2e_volume'):
+            r = op_diff_ci(ds, 'cnn_at_threat', 'cnn_none', f) if ref == 'cnn_none' else None
+            if r:
+                t = f'{ds}_cnn_at_threat_d_cnn_none_{f}'
+                V[t] = pp(r[0]); V[t + '_ci'] = f'[{pp(r[1])}, {pp(r[2])}]'; V[t + '_pw'] = pfmt(r[4])
+    f = PF[ds]
+    for mm in ('cnn_at_threat', m):
+        x = op_vals(ds, mm, 'fpr_match', f)
+        V[f'{ds}_{mm}_op_matched_{f}_seeds'] = ', '.join(pct(x[s]) for s in sorted(x))
+    e = mk(B2[(ds, m)], 'op', 'fpr_match', f)
+    V[k + '_op_matched_pf'] = pct(e)
+    r1, r2_ = op_diff_ci(ds, m, 'cnn_none', f), op_diff_ci(ds, m, 'cnn_at_threat', f)
+    rows.append([DSN[ds] + ('' if f == 'e2e' else ' (volume and timing)'), NAME[m], V[k + '_f1'], V[k + '_fpr'], V[k + '_strongest'], pct(e),
+                 f'{ppci(r1)} ({pfmt(r1[3])}; {pfmt(r1[4])})', f'{ppci(r2_)} ({pfmt(r2_[3])}; {pfmt(r2_[4])})'])
+T['atcs'] = md(rows)
+
+
+# final review round 2 (referee major 3): one destination reply of 40 header bytes per added packet (beta 0.5 grid,
+# same candidates with and without replies); TON-IoT dst_pkts/dst_ip_bytes, UNSW-NB15 dbytes/dload; conn_state unchanged
+REPLY_M = ('cnn_none', 'mlp_none', 'rf_none', 'gb_none', 'cnn_at_threat', 'cnn_at_threat_cs', 'rf_augment', 'gb_augment')
+rows = [['Dataset', 'Model', 'Grid ASR, no reply', 'Grid ASR, with replies', 'Δ (pp)', 'Lost', 'Gained']]
+dmax, ndone = [], 0
+for ds in DSS:
+    for m in REPLY_M:
+        R = B2.get((ds, m)) or r2(ds, m)
+        if not R or not all('reply' in r for r in R):
+            continue
+        ndone += 1
+        f = 'volume' if ds == 'UNSW_NB15' else 'both'
+        a, b = mk(R, 'reply', f'grid_{f}'), mk(R, 'reply', f'reply_{f}')
+        lo, ga = mk(R, 'reply', 'lost_volume'), mk(R, 'reply', 'gained_volume')
+        k = f'{ds}_{m}_reply'
+        V[k + '_grid'], V[k + '_reply'], V[k + '_d'] = pct(a), pct(b), pp(b - a)
+        dmax.append((abs(b - a), b - a, ds, m))
+        rows.append([DSN[ds] + (' (volume and timing)' if f == 'volume' else ''), NAME[m], pct(a), pct(b), pp(b - a), pct(lo), pct(ga)])
+if ndone == 2 * len(REPLY_M):
+    V['reply_done'] = 'yes'
+    g = max(dmax)
+    V['reply_dmax'] = pp(g[1]); V['reply_dmax_model'] = f'{NAME[g[3]]}, {DSN[g[2]]}'
+    V['reply_def_max'] = pp(max(x[1] for x in dmax if x[3] not in BASE))
+    for ds in DSS:
+        xs = [x[1] for x in dmax if x[2] == ds and x[3] in BASE]
+        V[f'{ds}_reply_undef_range'] = f'{pp(min(xs))} to {pp(max(xs))}'
+        xs = [x[1] for x in dmax if x[2] == ds and x[3] not in BASE]
+        V[f'{ds}_reply_def_range'] = f'{pp(min(xs))} to {pp(max(xs))}'
+T['reply'] = md(rows)
+
+
+# final review round 2 (referee major 2a, 2d): attack-aware ROC from run_adv_r2 'roc' (beta 0.5 grid only, all attack-set
+# flows; TON-IoT all actions, UNSW-NB15 volume and timing). Missed or evaded against the validation-set benign FPR
+# 0.5%-5%, for the benign-probability rule of Table 7 (s1) and for 1 - max attack probability (s2). Partial area =
+# mean missed-or-evaded over the FPR range (trapezoid on the FPR axis, normalised by its width).
+ROC_M = ('cnn_none', 'cnn_clean_loop', 'cnn_at_all', 'cnn_ccat', 'cnn_at_threat', 'cnn_at_threat_cs', 'cnn_trades',
+         'mlp_none', 'mlp_at_threat', 'rf_none', 'rf_augment', 'gb_none', 'gb_augment')
+ROC_SHOW = (0.005, 0.01, 0.02, 0.05)
+
+
+def roc_seeds(ds, m):
+    seeds = (0, 1, 2) if m.startswith(('rf_', 'gb_')) or m == 'mlp_at_threat' else SEEDS5
+    out = {}
+    for sd in seeds:
+        f = R2DIR / ds / m / f'seed{sd}.json'
+        if f.exists():
+            r = json.loads(f.read_text())
+            if 'roc' in r:
+                out[sd] = r['roc']
+    return out if len(out) == len(seeds) else None
+
+
+def pauc(rows, w):
+    x = np.array([r['fpr'] for r in rows]); y = np.array([r[w] for r in rows])
+    return float(np.trapz(y, x) / (x[-1] - x[0]))
+
+
+ROC = {}
+rows_t = [['Dataset', 'Model', 'Rule', 'Seeds'] + [f'{100 * f:g}% FPR' for f in ROC_SHOW] + ['Partial area, 0.5–5%', 'Δ partial area vs undefended [95% CI]']]
+for ds in DSS:
+    w = 'e2e_both' if ds == 'TON_IoT' else 'e2e_vol'
+    for m in ROC_M:
+        S = roc_seeds(ds, m)
+        if S:
+            ROC[(ds, m)] = S
+    for rule in ('s1', 's2'):
+        for m in ROC_M:
+            S = ROC.get((ds, m))
+            if not S:
+                continue
+            pa = {sd: pauc(S[sd][rule], w) for sd in S}
+            k = f'{ds}_{m}_roc_{rule}'
+            V[k + '_pauc'] = pct(np.mean(list(pa.values())))
+            cells = []
+            for f in ROC_SHOW:
+                v = np.mean([next(r[w] for r in S[sd][rule] if abs(r['fpr'] - f) < 1e-9) for sd in S])
+                V[f'{k}_at{100 * f:g}'] = pct(v); cells.append(pct(v))
+            dcell = '–'
+            u = UNDEF.get(m, m.split('_')[0] + '_none')
+            if m not in BASE and ROC.get((ds, u)):
+                pu = {sd: pauc(ROC[(ds, u)][sd][rule], w) for sd in ROC[(ds, u)]}
+                common = [sd for sd in pa if sd in pu]
+                d = np.array([pa[sd] - pu[sd] for sd in common])
+                h = stats.t.ppf(0.975, len(d) - 1) * d.std(ddof=1) / np.sqrt(len(d))
+                p_ = stats.ttest_1samp(d, 0).pvalue
+                V[k + '_dpauc'] = pp(d.mean()); V[k + '_dpauc_ci'] = f'[{pp(d.mean() - h)}, {pp(d.mean() + h)}]'
+                V[k + '_dpauc_p'] = pfmt(p_)
+                dcell = f"{V[k + '_dpauc']} {V[k + '_dpauc_ci']}"
+            rows_t.append([DSN[ds] + ('' if ds == 'TON_IoT' else ' (volume and timing)'), NAME[m],
+                           'p(benign)' if rule == 's1' else '1 − max p(attack)', str(len(S))] + cells + [V[k + '_pauc'], dcell])
+if len(ROC) == 2 * len(ROC_M):
+    V['roc_done'] = 'yes'
+T['roc'] = md(rows_t)
+
+
+# final review round 2, minor 11: tree capacity (tree_capacity.py; GBDT iterations after early stopping, RF leaves per tree)
+for ds in DSS:
+    f = R2DIR / ds / 'tree_capacity.json'
+    if not f.exists():
+        continue
+    C = json.loads(f.read_text())
+    it = [r['n_iter'] for r in C['gb_none']]
+    V[f'{ds}_gb_iter_range'] = f'{min(it):,}–{max(it):,}' if min(it) != max(it) else f'{it[0]:,}'
+    V[f'{ds}_gb_iter_capped'] = str(sum(x >= 1000 for x in it))
+    lv = [r['leaves'] for r in C['rf_none']]
+    V[f'{ds}_rf_leaves'] = f'{int(np.mean(lv)):,}'
+    V[f'{ds}_rf_leaves_total'] = f'{int(100 * np.mean(lv)):,}'
+
+
+# final review round 2, minor 4: the primary family as first specified (before the operating-point results):
+# ASR at the matched FPR (UNSW-NB15 volume and timing), undefended reference under the class of highest probability
+rows = [['Dataset', 'Comparison', 'Δ ASR (pp)', 'Holm p (original family)']]
+for ds in DSS:
+    f = 'asr' if ds == 'TON_IoT' else 'asr_volume'
+    fam = []
+    for m in PRIM_NET:
+        r = op_paired(ds, m, UNDEF[m], f, nm_ref='native')
+        if r:
+            fam.append((f'{NAME[m]} − {NAME[UNDEF[m]]}', r))
+    for o in ('cnn_at_all', 'cnn_ccat', 'cnn_trades', 'cnn_clean_loop'):
+        r = op_paired(ds, 'cnn_at_threat', o, f)
+        if r:
+            fam.append((f'{NAME["cnn_at_threat"]} − {NAME[o]}', r))
+    for m in ('rf_augment', 'gb_augment'):
+        r = paired(ds, m, UNDEF[m], 'strongest_b0.5')
+        if r:
+            fam.append((f'{NAME[m]} − {NAME[UNDEF[m]]} (strongest ASR)', r))
+    if not fam:
+        continue
+    ph = holm([r[1] for _, r in fam])
+    for (lab, r), p_ in zip(fam, ph):
+        rows.append([DSN[ds], lab, pp(r[0]), pfmt(p_)])
+    V[f'{ds}_orig_n_sig'] = str(sum(p_ < 0.05 for p_ in ph))
+T['origfam'] = md(rows)
 
 # strongest-attack query budget per flow (worst case, beta 0.5): grid + 1,000-point grid (x TTL choices) + adaptive search
 V['TON_IoT_strongest_queries'] = f'{(8 + 120) + 1000 + (1 + 40 * 16):,}'   # dense grid: 1,000 random points (corners dropped in run_adv_v3)

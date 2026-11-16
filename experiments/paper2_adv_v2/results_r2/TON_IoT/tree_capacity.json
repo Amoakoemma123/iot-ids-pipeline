@@ -1,0 +1,100 @@
+{
+ "rf_none": [
+  {
+   "seed": 0,
+   "leaves": 1432,
+   "depth": 16
+  },
+  {
+   "seed": 1,
+   "leaves": 1428,
+   "depth": 16
+  },
+  {
+   "seed": 2,
+   "leaves": 1416,
+   "depth": 16
+  },
+  {
+   "seed": 3,
+   "leaves": 1423,
+   "depth": 16
+  },
+  {
+   "seed": 4,
+   "leaves": 1421,
+   "depth": 16
+  }
+ ],
+ "gb_none": [
+  {
+   "seed": 0,
+   "n_iter": 457
+  },
+  {
+   "seed": 1,
+   "n_iter": 460
+  },
+  {
+   "seed": 2,
+   "n_iter": 111
+  },
+  {
+   "seed": 3,
+   "n_iter": 464
+  },
+  {
+   "seed": 4,
+   "n_iter": 480
+  }
+ ],
+ "rf_augment": [
+  {
+   "seed": 0,
+   "leaves": 1616,
+   "depth": 16
+  },
+  {
+   "seed": 1,
+   "leaves": 1636,
+   "depth": 16
+  },
+  {
+   "seed": 2,
+   "leaves": 1615,
+   "depth": 16
+  },
+  {
+   "seed": 3,
+   "leaves": 1666,
+   "depth": 16
+  },
+  {
+   "seed": 4,
+   "leaves": 1595,
+   "depth": 16
+  }
+ ],
+ "gb_augment": [
+  {
+   "seed": 0,
+   "n_iter": 596
+  },
+  {
+   "seed": 1,
+   "n_iter": 562
+  },
+  {
+   "seed": 2,
+   "n_iter": 125
+  },
+  {
+   "seed": 3,
+   "n_iter": 439
+  },
+  {
+   "seed": 4,
+   "n_iter": 470
+  }
+ ]
+}

@@ -42,9 +42,9 @@ EXTRA = {
 HIGHLIGHTS = [
     'Attacker may only pad, add packets, delay and set TTL; derived features recomputed',
     'Feature-space attacks overstated evasion, partly by breaking feature dependencies',
-    'At a matched rule and FPR, no network defence cut evasion significantly on TON-IoT',
-    'Action-space adversarial training cut UNSW-NB15 evasion at a matched FPR',
-    'Tree augmentation held on TON-IoT, but unseen TTL values still evaded it on UNSW-NB15',
+    'Network defence gains depended on the operating point and the decision rule',
+    'Tree augmentation cut TON-IoT evasion at the same false-positive rate',
+    'Unseen TTL values and destination replies still evaded the augmented trees',
 ]
 ABSTRACT_MAX_WORDS = 250
 
@@ -57,7 +57,7 @@ FIGURES = {
              'Black-box grid-search attack success rate (volume, timing and, on UNSW-NB15, TTL) against the budget β for the CNN '
              'without defence, with the clean-loop control and with each adversarial-training defence, each at its own operating '
              'point (class of highest probability); Table 7 compares them at a matched false-positive rate. Lines: mean over '
-             'seeds; bands: range over seeds.'),
+             'seeds; bands: range over seeds. Each curve is at the model’s own threshold, which Section 5.3 shows to favour the defences.'),
             (FIG / 'fig3_tree_defences.png', 16.0,
              'Tree defences at β = 0.5: attack success rate of the grid search and of the strongest attack (grid, denser grid, '
              'adaptive search and, on UNSW-NB15, any TTL) against the undefended trees and each augmentation variant (mean over '
@@ -79,8 +79,8 @@ TABLE_CAPTIONS = {
             'black-box search over the budget box; adaptive: score-based search on the flows the grid did not evade; transfer: '
             'actions computed on the undefended CNN of the same seed; strongest: a flow counts as evaded if the grid, the grid '
             'with 1,000 further points, the adaptive searches or (networks) the strong white-box PGD evades it, with a 95% '
-            'two-level bootstrap confidence interval (seeds, then flows). On TON-IoT, which has no TTL action, the grid with '
-            'both actions equals the volume-only grid. n/a: not applicable to the model or dataset.',
+            'two-level bootstrap confidence interval (seeds, then flows); with five seeds this interval understates between-seed '
+            'uncertainty. The TTL-only attack on UNSW-NB15 is in Table 8. n/a: not applicable to the model.',
             'Realistic attack against the strengthened feature-space reference, undefended models (mean over seeds: five for '
             'the CNN and MLP trained with all features, three for the trees and for the detectors without TTL features). '
             'Realistic: strongest attack with volume and timing actions only, β = 0.5. Realistic range: largest, over the '
@@ -99,17 +99,13 @@ TABLE_CAPTIONS = {
     '5.3': ['Defences at a matched operating point. Own: class of highest probability. Matched: a flow is benign if its '
             'benign probability is at least a threshold set on validation benign flows to the undefended model’s FPR (same '
             'family and seed); the undefended model is shown under the same threshold rule at its own validation FPR. '
-            'Detected: share of the sampled attack flows detected before modification. ASR: grid search and, for the networks, '
-            'adaptive search at β = 0.5 on the detected flows; on UNSW-NB15 volume and timing actions only (all actions: '
-            'Table S11). Missed or evaded: share of all sampled attack flows classified benign after the attack. Δ: paired '
+            'Missed: share of the sampled attack flows classified benign before modification. Evaded: share of all sampled '
+            'attack flows detected before and classified benign after the attack (grid search and, for the networks, adaptive '
+            'search at β = 0.5; on UNSW-NB15 volume and timing actions only; all actions: Table S11). ASR, own: evaded share of '
+            'the detected flows at the own operating point. Missed or evaded: the sum of the two. Δ: paired '
             'difference in missed or evaded from the undefended model at the matched rule, with the Holm-adjusted p-value of '
             'the primary family for the networks and an unadjusted p-value for the trees (whose primary test uses the '
-            'strongest attack at the own operating point, Table 8). Seeds: number of seeds of the operating-point runs.',
-            'Defences: seeds, clean macro-F1 and its paired difference from the undefended model of the same seeds, mean F1 of '
-            'the rare classes, benign false-positive rate, and strongest-attack ASR at β = 0.5 at the model’s own operating '
-            'point, with the undefended model’s ASR on the same seeds and paired changes against the undefended model and, for '
-            'CNN defences, the clean-loop control (secondary family). On TON-IoT, which has no TTL action, every attack uses '
-            'volume and timing only. Further variants (second augmentation round, held-out actions, BPDA training): Table S13.'],
+            'strongest attack at the own operating point, Table S19). Seeds: number of seeds of the operating-point runs.'],
     '5.4': ['UNSW-NB15: the TTL artefact. TTL-only ASR for the four candidates, for the other values of 1–255 and for any value '
             '1–255 (undefended models, five seeds), and detectors retrained without sttl and ct_state_ttl (three seeds): clean '
             'macro-F1, grid-search ASR with volume and timing actions for both sets of detectors (same seeds) and '
@@ -148,14 +144,26 @@ SUPP_CAPTIONS = {
     'S10': ['One further training configuration per defence, seed 0 only: AT-all with ε = 0.02 and 0.1 and AT-threat trained '
             'at β = 0.25 and 1, next to the main configuration (seed 0). ASR at matched FPR: benign threshold set to the '
             'undefended CNN’s validation FPR. AT-all with ε = 0.1 on all five TON-IoT seeds: Section 5.3.'],
-    'S11': ['Operating point as in Table 7, with all actions (TTL included) on UNSW-NB15; Δ with unadjusted p-values.'],
+    'S11': ['Operating point as in Table 7 for both datasets, with all actions (TTL included) on UNSW-NB15; on TON-IoT, which has no TTL action, the rows repeat Table 7. Δ with unadjusted p-values, which therefore differ from the Holm-adjusted values of Table 7.'],
     'S12': ['Gradient masking check for the action-space attack: strong white-box action PGD (margin loss, four restarts, 100 '
             'steps, each TTL choice, β = 0.5) with the gradient taken through the straight-through (BPDA) quantile transform, '
             'against every network at its own operating point. New evasions: share of detected flows evaded by it but not by '
             'the strongest attack. Means over the seeds of each model.'],
-    'S13': ['Further defence variants, as in Table 8: second augmentation round, augmentation without delays or without byte '
+    'S13': ['Further defence variants, as in Table S19: second augmentation round, augmentation without delays or without byte '
             'padding (held-out action), and AT-all trained against the BPDA attack.'],
     'S14': ['Networks minus trees for the grid search (as Table 6).'],
+    'S15': ['The features selected by the shared pipeline (25 on TON-IoT, 10 on UNSW-NB15) and their treatment by the '
+            'realistic attack. Destination-side features and the connection state are not modelled as reacting to the '
+            'attack; Section 6.2 discusses the consequences.'],
+    'S16': ['AT-threat (CNN) with the inner PGD of each training flow started at the most benign-scoring of all corners of the β = 0.5 box and eight random points (five seeds). Missed or evaded at the matched benign FPR as in Table 7 (UNSW-NB15: volume and timing actions). Δ: paired difference over seeds with t-based 95% CI, paired t-test p and Welch p as a check; unadjusted, outside the primary family. The undefended CNN is under the same threshold rule at its own FPR.'],
+    'S17': ['Sensitivity to destination replies: β = 0.5 grid (all actions on TON-IoT; volume and timing on UNSW-NB15) with and without one destination reply of 40 header bytes per added packet (TON-IoT: dst_pkts, dst_ip_bytes; UNSW-NB15: dbytes, dload; connection state unchanged), same candidates and seeds as Table 4. Lost: evaded without replies but not with them; gained: the reverse (shares of detected flows).'],
+    'S19': ['Defences: seeds, clean macro-F1 and its paired difference from the undefended model of the same seeds, mean F1 of '
+            'the rare classes, benign false-positive rate, and strongest-attack ASR at β = 0.5 at the model’s own operating '
+            'point, with the undefended model’s ASR on the same seeds and paired changes against the undefended model and, for '
+            'CNN defences, the clean-loop control (secondary family). On TON-IoT, which has no TTL action, every attack uses '
+            'volume and timing only. Further variants (second augmentation round, held-out actions, BPDA training): Table S13.'],
+    'S20': ['Attack-aware ROC: share of the sampled attack flows missed or evaded by the β = 0.5 grid search (TON-IoT all actions; UNSW-NB15 volume and timing) when the benign threshold is set on validation benign flows to each FPR, for the rule of Table 7 (benign if p(benign) exceeds the threshold) and for a second rule (benign if 1 − the highest attack-class probability exceeds it). Grid search only (the adaptive search depends on the threshold), all attack-set flows. Partial area: mean over 0.5–5% FPR (trapezoid). Δ: paired difference from the undefended model of the same family over seeds, t-based 95% CI; unadjusted, secondary. Test FPRs run slightly above the validation FPRs.'],
+    'S21': ['The primary family as specified before the operating-point experiments: ASR at the matched benign FPR (UNSW-NB15: volume and timing) with the undefended model under the class of highest probability as reference, and the tree augmentations on the strongest-attack ASR. Paired differences over seeds, Holm-adjusted within each dataset. The family reported in the main text (Section 4.5, Table 7) replaces the endpoint by the share missed or evaded and the reference by the undefended model under the same threshold rule.'],
 }
 
 

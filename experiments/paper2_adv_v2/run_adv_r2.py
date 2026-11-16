@@ -37,7 +37,7 @@ from experiments.paper2_adv_v2 import run_adv_v3 as V3   # noqa: E402
 
 OUT = V3.HERE / 'results_r2'
 EPS_R2 = (0.005, 0.01, 0.02, 0.05, 0.1)
-PARTS = ('union', 'fs', 'op', 'feas', 'sat', 'opu', 'bpa', 'relax')
+PARTS = ('union', 'fs', 'op', 'feas', 'sat', 'opu', 'bpa', 'relax', 'reply', 'roc')
 UNDEF = {'cnn': 'cnn_none', 'mlp': 'mlp_none', 'rf': 'rf_none', 'gb': 'gb_none'}
 
 
@@ -229,6 +229,58 @@ def part_opu(D, sp, model, idx, seed, normal, ttl_list, ada=True):
                 attack='grid + adaptive' if ada else 'grid only')
 
 
+ROC_FPR = (0.005, 0.0075, 0.01, 0.015, 0.02, 0.03, 0.04, 0.05)
+
+
+def part_roc(D, sp, model, idx, seed, normal, ttl_list):
+    """final review round 2 (referee major 2): attack-aware ROC. For every flow of the attack set, the highest score
+    the beta 0.5 grid (same candidates as 'op') reaches, for two benign scores: s1 = p_benign (the rule of Table 7) and
+    s2 = 1 - max attack-class probability (second rule). With 'benign iff score > tau', a flow is missed or evaded at
+    tau iff max(clean score, best attacked score) > tau, so one pass gives the whole curve. tau is set on the
+    validation benign flows for each target FPR. Grid only (the adaptive search depends on tau)."""
+    R = D['raw']['Rte'][idx].astype(np.float64)
+    n = len(R)
+    def scores(P):
+        Q = P.copy(); Q[:, normal] = -1
+        return P[:, normal], 1.0 - Q.max(1)
+    c1, c2 = scores(model.proba(sp.minmax(sp.selected(R, np.zeros((n, sp.k))))))
+    nr = 120 if sp.ds == 'TON_IoT' else 48
+    G = V3.unit_grid(sp.k, nr, seed + V3.EVAL_OFF)
+    K = len(G)
+    best = {f'{r}_{w}': np.full(n, -np.inf) for r in ('s1', 's2') for w in ('vol', 'both')}
+    chunk = max(1, 600000 // K)
+    for s0 in range(0, n, chunk):
+        Rc = R[s0:s0 + chunk]; nc = len(Rc)
+        cap = sp.caps(Rc, 0.5)
+        A = (G[None] * cap[:, None]).reshape(-1, sp.k)
+        Rk = np.repeat(Rc, K, 0)
+        for ti, t in enumerate(ttl_list):
+            tc = None
+            if sp.has_ttl:
+                tt, cc = sp.ttl_columns(Rc, t)
+                tc = (np.repeat(tt, K), np.repeat(cc, K))
+            a1, a2 = scores(model.proba(sp.minmax(sp.selected(Rk, A, tc))))
+            m1, m2 = a1.reshape(nc, K).max(1), a2.reshape(nc, K).max(1)
+            for r, m in (('s1', m1), ('s2', m2)):
+                kb = f'{r}_both'
+                best[kb][s0:s0 + nc] = np.maximum(best[kb][s0:s0 + nc], m)
+                if ti == 0:
+                    best[f'{r}_vol'][s0:s0 + nc] = m
+    Pv = model.proba(D['Xva'][D['yva'] == normal]); Pt = model.proba(D['Xte'][D['yte'] == normal])
+    v1, v2 = scores(Pv); t1, t2 = scores(Pt)
+    out = {}
+    for r, cl, vb, tb in (('s1', c1, v1, t1), ('s2', c2, v2, t2)):
+        rows = []
+        for f in ROC_FPR:
+            tau = float(np.quantile(vb, f))
+            row = dict(fpr=f, tau=tau, test_fpr=float(np.mean(tb <= tau)), missed=float(np.mean(cl > tau)))
+            for w in ('vol', 'both'):
+                row[f'e2e_{w}'] = float(np.mean(np.maximum(cl, best[f'{r}_{w}']) > tau))
+            rows.append(row)
+        out[r] = rows
+    return out
+
+
 _BA = {}
 
 
@@ -338,6 +390,23 @@ def part_feas(sp, model, Rd, seed, normal, ttl_list):
                 lost_both=float((ok0.any(1) & ~ok1.any(1)).mean()), gained_both=float((~ok0.any(1) & ok1.any(1)).mean()))
 
 
+def part_reply(sp, model, Rd, seed, normal, ttl_list):
+    """final review round 2 (referee major 3): beta 0.5 grid (same candidates as 'feas') with one destination reply of
+    40 header bytes per added packet (TON-IoT: dst_pkts and dst_ip_bytes; UNSW-NB15: dbytes and dload); connection
+    state unchanged. Compared with the same grid without replies."""
+    nr = 120 if sp.ds == 'TON_IoT' else 48
+    G = V3.unit_grid(sp.k, nr, seed + V3.EVAL_OFF)
+    ok0, _, _, _ = V3.search(sp, model, Rd, G, 0.5, ttl_list, normal)
+    sp.reply = 40.0
+    try:
+        ok1, _, _, _ = V3.search(sp, model, Rd, G, 0.5, ttl_list, normal)
+    finally:
+        sp.reply = 0.0
+    return dict(grid_both=float(ok0.any(1).mean()), grid_volume=float(ok0[:, 0].mean()),
+                reply_both=float(ok1.any(1).mean()), reply_volume=float(ok1[:, 0].mean()),
+                lost_volume=float((ok0[:, 0] & ~ok1[:, 0]).mean()), gained_volume=float((~ok0[:, 0] & ok1[:, 0]).mean()))
+
+
 def part_sat(sp, model, res, Rd, seed, normal, ttl_list):
     n = len(Rd)
     sa = unpack(res['ev_strongest_b0.5'], n)
@@ -435,6 +504,10 @@ def main():
                     done[p] = part_opu(D, sp, model, idx_run, seed, normal, ttl_list, ada=kind in ('cnn', 'mlp'))
                 elif p == 'bpa':
                     done[p] = part_bpa(sp, model, wb, res, Rd, seed, normal, ttl_list)
+                elif p == 'reply':
+                    done[p] = part_reply(sp, model, Rd, seed, normal, ttl_list)
+                elif p == 'roc':
+                    done[p] = part_roc(D, sp, model, idx_run, seed, normal, ttl_list)
                 elif p == 'relax':
                     done[p] = part_relax(sp, model, res, Rd, MMd, seed, normal)
                 pout.parent.mkdir(parents=True, exist_ok=True)

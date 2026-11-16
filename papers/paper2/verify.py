@@ -17,6 +17,7 @@ CODE = (PIPE / 'experiments' / 'paper2_adv_v2' / 'run_adv_v3.py').read_text(enco
 R2CODE = (PIPE / 'experiments' / 'paper2_adv_v2' / 'run_adv_r2.py').read_text(encoding='utf-8')
 V = json.loads((HERE / 'values.json').read_text(encoding='utf-8'))
 src = (HERE / 'Manuscript.md').read_text(encoding='utf-8')
+src += '\n' + (HERE / 'Supplement.md').read_text(encoding='utf-8')   # final review round 2: method details moved to S18
 filled = HERE / 'Manuscript_filled.md'
 text = filled.read_text(encoding='utf-8') if filled.exists() else src
 DSS = ('TON_IoT', 'UNSW_NB15')
@@ -77,7 +78,7 @@ todo = re.findall(r'⟦([^⟧]{0,50})', src)
 check('companion stud' not in src, 'no uncitable references to companion studies')
 out = subprocess.run([sys.executable, str(HERE / 'check_citations.py')], capture_output=True, text=True).stdout
 check('not in references: []' in out and 'but not cited: []' in out, f'every citation has a reference and vice versa {out.strip()[:200]}')
-refs = src.split('## References')[1]
+refs = (HERE / 'Manuscript.md').read_text(encoding='utf-8').split('## References')[1]
 nodoi = [r[:60] for r in refs.strip().split('\n\n') if r.strip() and 'doi.org' not in r
          and not re.search(r'USENIX|PMLR|NeurIPS|Neural Information Processing|ICLR|arXiv|Proceedings|http', r)]
 check(not nodoi, f'every reference has a DOI or a recognised venue/URL ({nodoi[:3]})')
@@ -305,6 +306,34 @@ check(all(P(f'{U}_{m}_nottl_strongest_b0.5') < P(f'{U}_{m}_strongest_volume_b0.5
 s3 = [P(f'{U}_{m}_nottl_strongest_b0.5') for m in ('cnn_none', 'mlp_none', 'rf_none', 'gb_none')]
 check(max(s3) - min(s3) < 15, 'UNSW no-TTL: nets-trees gap largely closed (spread < 15 pp)')
 check(P(f'{U}_cnn_none_nottl_det') > P(f'{U}_cnn_none_det'), 'UNSW no-TTL CNN detects more')
+
+# final review round 2 (referee major 1): AT-threat with a corner-start inner attack
+def _civ(k):
+    return [float(x.replace('−', '-').replace(' pp', '')) for x in V[k].strip('[]').split(', ')]
+check(V.get('atcs_done_TON_IoT') == 'yes' and V.get('atcs_done_UNSW_NB15') == 'yes', 'corner-start AT-threat: five seeds on both datasets')
+lo, hi = _civ('TON_IoT_cnn_at_threat_cs_d_cnn_none_e2e_ci')
+check(lo < 0 < hi and 'did not change the network result' in src, 'TON corner-start vs undefended CI spans 0; text says it did not change the result')
+lo, hi = _civ('TON_IoT_cnn_at_threat_cs_d_cnn_at_threat_e2e_ci')
+check(lo < 0 < hi, 'TON corner-start vs random-start AT-threat CI spans 0')
+lo, hi = _civ('UNSW_NB15_cnn_at_threat_cs_d_cnn_none_e2e_volume_ci')
+check(hi < 0, 'UNSW corner-start AT-threat below undefended (volume, CI < 0)')
+lo, hi = _civ('TON_IoT_cnn_at_threat_d_cnn_none_e2e_ci')
+check(lo < -25 and hi > 10 and 'not evidence that the gain is zero' in src and 'no detectable gain on TON-IoT' in src, 'TON AT-threat CI wide; null not worded as evidence of absence')
+check('the only defence in our study that did so' not in src, 'lesson 3: no implied network/tree comparison under unequal inner searches')
+# referee major 3: destination replies
+check(V.get('reply_done') == 'yes', 'reply sensitivity: all 16 model/dataset rows')
+check(all(not V[f'{ds}_reply_def_range'].startswith('−') for ds in ('TON_IoT', 'UNSW_NB15')) and 'were evaded more' in src, 'replies raised evasion of every defence (text: evaded more)')
+check(V['TON_IoT_reply_undef_range'].startswith('−') and 'direction depends on the model' in src, 'undefended: replies change ASR in both directions')
+check('These restrictions are conservative' not in src, 'no "conservative" claim for unmodelled replies')
+# referee major 2: attack-aware ROC
+check(V.get('roc_done') == 'yes', 'ROC: all 13 models on both datasets')
+lo, hi = _civ('TON_IoT_cnn_at_threat_roc_s1_dpauc_ci')
+check(hi < 0 and 'did help there under one decision rule but not under another' in src, 'TON AT-threat ROC gain (CI < 0) stated as rule-dependent')
+lo, hi = _civ('TON_IoT_cnn_at_threat_roc_s2_dpauc_ci')
+check(lo < 0 < hi, 'TON AT-threat gain vanishes under the second rule')
+check(_civ('TON_IoT_cnn_trades_roc_s1_dpauc_ci')[0] > 0 and _civ('TON_IoT_cnn_trades_roc_s2_dpauc_ci')[0] > 0, 'TRADES worse under both rules')
+lo, hi = _civ('UNSW_NB15_cnn_at_threat_roc_s1_dpauc_ci')
+check(lo < 0 < hi and 'helped only at the undefended model' in src, 'UNSW: no significant network gain at FPR <= 5%; text limits the gain to the high-FPR point')
 
 print(f'\n{len(fails)} failure(s), {len(pending)} pending')
 for f in fails:

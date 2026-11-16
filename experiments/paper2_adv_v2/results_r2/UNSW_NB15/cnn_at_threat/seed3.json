@@ -100,5 +100,147 @@
   "bpda_new_vs_strongest_b0.5": 0.0004178854993731718,
   "strongest_with_bpda_b0.5": 0.5219389887170915,
   "ev_bpda_action_b0.5": "YYlnTBlBEA0jlt1BLIIYSG7O5GTFkKCQZEAnSChAA5l4ARIG6zQyIwFAsqEA0Ewo0KCCh3aefBlJuNoa6EEoFQKYUJAuVbETIRXDi4MFllAYDGj3BIYzQAL1xDkckFihM2QnURfBiuPOmhToLwByUWCxehVA504DhOGQJCkQQRC0KTRYldYOkF1WBgAtIxlqRwC0SAFGxVkECZBQmHB29CnEwVakFDTAwqKg5G0gqGT0JShKJCs6BJDoAkEEAQy4QLQcivSM1uC5UGkipg7FXd4HCIvwTGSCMgBpFFIBpxlW9seoFWIEBssTMFnCXWAQRNJMJDTSZDBYAM4MbDGwdZIDDjUALcVAkJSR2iGkWBlQSiw48UJ2MeT0EBKbKKJMCOEDrAyQS/RCIDaUgQNrGjROjCRKchbmWawkgEiFSZWQJEFQBKvry5ORS6IEoAa3wJcp6Cio4wNCqCCBFMQkKAhogCAcbvghRcmOJjbYeMNxggFqM3ggEjjEJ1EyhjAlCBag4KrjJlsTBXxOsBqoawGgyAixCTusAQcT58BKoWwCVBYoKrCxRBEDFQABDAZ9XARUAq+A5IMGWFUTQjHBuBwGdkgNgxoA1ZsooIGJ0hIFYAwARQ4Ra7IiKhYQPhEgSCFmgWIWmBiKEAJktImCBKjcKtLKgBTAgnUk4xTIhwIKCoUlACVsq8AV8L/gEtQAQDARTDIUrBKwkAkoYBlR17hBGgOGQ8KoBGKiMmnS7iGzQRoA5QhOB5LnE1kguSGl8hLDCBaytB1KoQU8dCvhgEAvQFTAKQA="
+ },
+ "reply": {
+  "grid_both": 0.47722524028416213,
+  "grid_volume": 0.15336397826995404,
+  "reply_both": 0.800668616798997,
+  "reply_volume": 0.4047221061429168,
+  "lost_volume": 0.02131216046803176,
+  "gained_volume": 0.27267028834099455
+ },
+ "roc": {
+  "s1": [
+   {
+    "fpr": 0.005,
+    "tau": 0.00039963895425898955,
+    "test_fpr": 0.006551901336073998,
+    "missed": 0.8204,
+    "e2e_vol": 0.9934,
+    "e2e_both": 0.998
+   },
+   {
+    "fpr": 0.0075,
+    "tau": 0.0007563518222013953,
+    "test_fpr": 0.008607399794450155,
+    "missed": 0.7824,
+    "e2e_vol": 0.9884,
+    "e2e_both": 0.996
+   },
+   {
+    "fpr": 0.01,
+    "tau": 0.001813139336882159,
+    "test_fpr": 0.011048304213771839,
+    "missed": 0.7152,
+    "e2e_vol": 0.9764,
+    "e2e_both": 0.9912
+   },
+   {
+    "fpr": 0.015,
+    "tau": 0.004585960602853446,
+    "test_fpr": 0.017985611510791366,
+    "missed": 0.5596,
+    "e2e_vol": 0.9502,
+    "e2e_both": 0.9828
+   },
+   {
+    "fpr": 0.02,
+    "tau": 0.0068433889932930465,
+    "test_fpr": 0.024665981500513873,
+    "missed": 0.4488,
+    "e2e_vol": 0.932,
+    "e2e_both": 0.9762
+   },
+   {
+    "fpr": 0.03,
+    "tau": 0.00980859308503568,
+    "test_fpr": 0.03481500513874614,
+    "missed": 0.3462,
+    "e2e_vol": 0.9106,
+    "e2e_both": 0.9688
+   },
+   {
+    "fpr": 0.04,
+    "tau": 0.012968999110162258,
+    "test_fpr": 0.046505652620760535,
+    "missed": 0.3028,
+    "e2e_vol": 0.8854,
+    "e2e_both": 0.9618
+   },
+   {
+    "fpr": 0.05,
+    "tau": 0.016502618137747053,
+    "test_fpr": 0.05871017471736896,
+    "missed": 0.2692,
+    "e2e_vol": 0.8238,
+    "e2e_both": 0.9548
+   }
+  ],
+  "s2": [
+   {
+    "fpr": 0.005,
+    "tau": 0.028879251778125763,
+    "test_fpr": 0.007965056526207605,
+    "missed": 0.9116,
+    "e2e_vol": 0.9992,
+    "e2e_both": 0.9992
+   },
+   {
+    "fpr": 0.0075,
+    "tau": 0.04197766408324241,
+    "test_fpr": 0.011433710174717369,
+    "missed": 0.9004,
+    "e2e_vol": 0.9964,
+    "e2e_both": 0.9976
+   },
+   {
+    "fpr": 0.01,
+    "tau": 0.0514465194940567,
+    "test_fpr": 0.013874614594039054,
+    "missed": 0.8946,
+    "e2e_vol": 0.9952,
+    "e2e_both": 0.9964
+   },
+   {
+    "fpr": 0.015,
+    "tau": 0.06196545660495758,
+    "test_fpr": 0.019270298047276466,
+    "missed": 0.8886,
+    "e2e_vol": 0.9936,
+    "e2e_both": 0.9942
+   },
+   {
+    "fpr": 0.02,
+    "tau": 0.06701349020004273,
+    "test_fpr": 0.022225077081192188,
+    "missed": 0.887,
+    "e2e_vol": 0.993,
+    "e2e_both": 0.9936
+   },
+   {
+    "fpr": 0.03,
+    "tau": 0.08017162501811981,
+    "test_fpr": 0.03263103802672148,
+    "missed": 0.882,
+    "e2e_vol": 0.9916,
+    "e2e_both": 0.993
+   },
+   {
+    "fpr": 0.04,
+    "tau": 0.0939802098274231,
+    "test_fpr": 0.04367934224049332,
+    "missed": 0.8754,
+    "e2e_vol": 0.9898,
+    "e2e_both": 0.9926
+   },
+   {
+    "fpr": 0.05,
+    "tau": 0.10274843573570251,
+    "test_fpr": 0.05344295991778006,
+    "missed": 0.8672,
+    "e2e_vol": 0.9884,
+    "e2e_both": 0.9918
+   }
+  ]
  }
 }

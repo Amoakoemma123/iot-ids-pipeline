@@ -67,6 +67,7 @@ class Space:
         self.mm_rng = np.where(rng_ > 0, rng_, 1.0).astype(np.float64)
         self.qt = D['qt']
         self.floor_scale = 1.0
+        self.reply = 0.0          # final review round 2: header bytes of one destination reply per added packet (0 = off)
         c = lambda n: self.names.index(n)
         s = lambda n: self.sel.index(n) if n in self.sel else None
         if self.ds == 'TON_IoT':
@@ -76,6 +77,8 @@ class Space:
             self.floors = np.array([1000.0, 10.0, 1.0])
             self.has_ttl = False
             self.mutable = [self.out[x] for x in ('b', 'p', 'd', 'ipb')]
+            self.reply_raw = dict(dp=c('dst_pkts'), dib=c('dst_ip_bytes'))
+            self.reply_out = dict(dp=s('dst_pkts'), dib=s('dst_ip_bytes'))
         else:
             self.k = 4
             self.raw = dict(b=c('sbytes'), p=c('spkts'), d=c('dur'), load=c('sload'), mean=c('smean'), ack=c('ackdat'),
@@ -85,6 +88,8 @@ class Space:
             self.floors = np.array([1000.0, 10.0, 1.0, 0.1])
             self.has_ttl = self.out['ttl'] is not None
             self.mutable = [self.out[x] for x in ('b', 'load', 'mean', 'ack', 'dload') if self.out[x] is not None]
+            self.reply_raw = dict(db=c('dbytes'))
+            self.reply_out = dict(db=s('dbytes'))
             self.state_cols = [i for i, n in enumerate(self.names) if n.startswith('state_')]
             R, y = r['Rtr'], D['ytr']
             tab = defaultdict(Counter)
@@ -163,6 +168,12 @@ class Space:
             h = mn_(mx(h, 20.0 + zero), 60.0 + zero)
             S[oo['b']], S[oo['p']], S[oo['d']] = b + ab, p + ap, d + ad
             S[oo['ipb']] = ipb + ab + h * ap
+            if self.reply:
+                ro, rw = self.reply_out, self.reply_raw
+                if ro['dp'] is not None:
+                    S[ro['dp']] = col(rw['dp']) + ap
+                if ro['dib'] is not None:
+                    S[ro['dib']] = col(rw['dib']) + self.reply * ap
         else:
             ack = col(rr['ack'])
             ak = wh(ack > 0, A[:, 3], zero)               # ACK delay only with an observed handshake
@@ -178,6 +189,14 @@ class Space:
             if oo['dload'] is not None:
                 dl = col(rr['dload'])
                 S[oo['dload']] = wh((d > 0) & (d2 > 0), dl * d / mx(d2, 1e-9), dl)
+            if self.reply:
+                db = col(self.reply_raw['db'])
+                db2 = db + self.reply * ap
+                if self.reply_out['db'] is not None:
+                    S[self.reply_out['db']] = db2
+                if oo['dload'] is not None:      # dload scales with destination bytes as well as duration
+                    S[oo['dload']] = wh(db > 0, S[oo['dload']] * db2 / mx(db, 1e-9),
+                                        wh(d2 > 0, 8.0 * db2 * self.load_ratio / mx(d2, 1e-3), S[oo['dload']]))
             if ttlc is not None and self.has_ttl:
                 t, cst = ttlc
                 if tf_:
@@ -328,7 +347,10 @@ def train_robust(D, m, opt, defence, sp, rare, seed):
         defence, beta_tr = 'at_threat', float(defence[len('at_threat_b'):])
     elif defence == 'at_all_bpda':
         defence, bpda = 'at_all', True
-    keep = ~np.isin(yfit, list(rare)) if defence == 'ccat' else np.ones(len(yfit), bool)
+    corner_start = False                     # final review round 2: at_threat_cs = AT-threat whose inner attack starts
+    if defence == 'at_threat_cs':            # each flow at the most benign-scoring corner of the budget box
+        defence, corner_start = 'at_threat', True
+    keep =~np.isin(yfit, list(rare)) if defence == 'ccat' else np.ones(len(yfit), bool)
     adv_rows = np.where(keep)[0]
     best, best_w, wait, best_ep = np.inf, None, 0, 0
     qtf = sp.tf_quantile
@@ -373,7 +395,8 @@ def train_robust(D, m, opt, defence, sp, rare, seed):
                         A = _pgd_action(m, sp, Rj, cap, ttlc, target=None, steps=7,
                                         ref_probs=m(clean_q[..., None], training=False).numpy(), seed=int(rng.integers(1 << 30)))
                     else:
-                        A = _pgd_action(m, sp, Rj, cap, ttlc, target=normal, steps=7, seed=int(rng.integers(1 << 30)))
+                        u0 = _corner_start(m, sp, Rj, cap, ttlc, normal, qtf, rng) if corner_start else None
+                        A = _pgd_action(m, sp, Rj, cap, ttlc, target=normal, steps=7, seed=int(rng.integers(1 << 30)), u0=u0)
                     xa_q = qtf(tf.constant(sp.minmax(sp.selected(Rj, A, ttlc)), tf.float32))[..., None]
             if defence == 'trades':
                 step_trades(xq, yb, clean_q[..., None], xa_q)
@@ -388,7 +411,24 @@ def train_robust(D, m, opt, defence, sp, rare, seed):
                 break
     m.set_weights(best_w)
     return m, dict(epochs=ep + 1, best_epoch=best_ep, steps_per_epoch=steps, val_loss_best=best,
-                   eps_train_used=eps, beta_train_used=beta_tr, bpda=bpda)
+                   eps_train_used=eps, beta_train_used=beta_tr, bpda=bpda, corner_start=corner_start)
+
+
+def _corner_start(m, sp, R, cap, ttlc, normal, qtf, rng, n_rand=8):
+    """inner-attack start for at_threat_cs: every corner of the unit budget box plus n_rand random points (the
+    candidates of the black-box grid search and of tree augmentation), scored by the current network; each flow
+    starts at the candidate with the highest benign probability"""
+    import tensorflow as tf
+    n, k = cap.shape
+    G = np.vstack([np.array(list(itertools.product((0.0, 1.0), repeat=k))), rng.uniform(0, 1, (n_rand, k))]).astype(np.float32)
+    # all candidates scored in one batched call (rows candidate-major); every step is row-wise, so this equals the
+    # earlier one-call-per-candidate loop, and argmax keeps the first maximum as the loop's strict '>' did
+    nG = len(G)
+    Rt = np.tile(R, (nG, 1))
+    A = (np.repeat(G, n, axis=0) * np.tile(cap, (nG, 1))).astype(np.float32)
+    tt = None if ttlc is None else tuple(np.tile(np.asarray(c), nG) for c in ttlc)
+    p = m(qtf(tf.constant(sp.minmax(sp.selected(Rt, A, tt)), tf.float32))[..., None], training=False).numpy()[:, normal]
+    return G[p.reshape(nG, n).argmax(0)].astype(np.float32)
 
 
 def train_tree(D, name, seed, augment=()):
@@ -527,8 +567,9 @@ def _ttl_tensors(sp, R, ttlc):
     return tf.constant(np.asarray(t, np.float32)), tf.constant(np.asarray(cst, np.float32))
 
 
-def _pgd_action(m, sp, R, cap, ttlc, target, steps=50, ref_probs=None, seed=0):
-    """v2 action PGD: one random start, sign steps of 0.05 of the box (kept for continuity and for training)"""
+def _pgd_action(m, sp, R, cap, ttlc, target, steps=50, ref_probs=None, seed=0, u0=None):
+    """v2 action PGD: one random start (or the given unit start u0), sign steps of 0.05 of the box (kept for
+    continuity and for training)"""
     import tensorflow as tf
     _, action = _grad_fns(m, sp)
     n = len(R)
@@ -537,7 +578,8 @@ def _pgd_action(m, sp, R, cap, ttlc, target, steps=50, ref_probs=None, seed=0):
         aux, mode = tf.constant(np.eye(m.output_shape[-1], dtype=np.float32)[np.full(n, target)]), 0
     else:
         aux, mode = tf.constant(np.asarray(ref_probs, np.float32)), 1
-    u = tf.constant(np.random.default_rng(seed).uniform(0, 1, cap.shape).astype(np.float32))
+    u = tf.constant(np.random.default_rng(seed).uniform(0, 1, cap.shape).astype(np.float32) if u0 is None
+                    else np.asarray(u0, np.float32))
     capt, Rt = tf.constant(cap, tf.float32), tf.constant(R, tf.float32)
     for _ in range(steps):
         u = tf.clip_by_value(u + 0.05 * tf.sign(action(u, Rt, capt, t, cst, aux, mode)), 0.0, 1.0)
@@ -927,6 +969,8 @@ PLANS = {
     'r2_trees': [('rf', 'augment_nobytes', DEF_SEEDS), ('gb', 'augment_nobytes', DEF_SEEDS)],
     # round 3: AT-all at eps 0.1 on the remaining seeds (review_r3 point 6)
     'r3_sweep': [('cnn', 'at_all_e0.1', (1, 2, 3, 4))],
+    # final review round 2: AT-threat with corner-start inner attack, five seeds (referee: inner search too weak)
+    'fr2_atcs': [('cnn', 'at_threat_cs', SEEDS)],
 }
 
 
