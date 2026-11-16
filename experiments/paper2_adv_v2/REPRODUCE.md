@@ -14,7 +14,7 @@ The scikit-learn version matters for the gradient-boosted trees. `HistGradientBo
 
 ## Saved models
 
-All 210 trained models are listed with their SHA-256 hashes in `MODELS_SHA256.txt`. The `.keras` files are the networks and the `.joblib` files are the trees. Together they take 1.5 GB, too much for this repository; they are available from the authors on request.
+All 220 trained models are listed with their SHA-256 hashes in `MODELS_SHA256.txt`. The `.keras` files are the networks and the `.joblib` files are the trees. Together they take 1.5 GB, too much for this repository; they are available from the authors on request.
 
 Every result file can be checked against the model it came from. `run_adv_r2.py` asserts that a loaded model reproduces the detected-flow set stored in the matching `results_v3` file.
 
