@@ -55,6 +55,15 @@ FIGURES = {
              'fusion weights them with a learned two-way softmax, sums them and passes the sum through a 64-unit dense layer. '
              'Early fusion with head (right) adds the 128-unit dense layer of late fusion to early fusion. Not drawn: wide early fusion '
              '(every layer of early fusion widened by 1.6) and late fusion on all features (the late-fusion network with both encoders fed all features).')],
+    '5.2': [(FIG / 'fig2_perclass_late_early.png', 16.0,
+             'Where the difference between late and early fusion comes from: contribution of each class to the macro-F1 '
+             'difference, (F1 of late fusion − F1 of early fusion) / number of classes. Bars: mean over five seeds; dots: '
+             'single seeds. On TON-IoT most of the difference is MITM (156 test records); on UNSW-NB15 it is worms, whose '
+             'contribution changes sign between seeds.'),
+            (FIG / 'fig3_nets_trees.png', 16.0,
+             'Test macro-F1 of every seed for the fusion networks with the fixed configuration of Section 4.1, the fusion '
+             'networks tuned on the validation grid of Section 4.2, and the tree ensembles on all features. Horizontal '
+             'lines: mean over five seeds. The y-axes differ between panels.')],
     '5.3': [(FIG / 'fig2_random_splits.png', 16.0,
              'Semantic against random feature splits. Grey dots: test macro-F1 for each of 10 random splits of the features '
              'into two streams of the semantic sizes (one seed each); red diamonds: semantic split (mean of five seeds). Because the grey dots include seed '

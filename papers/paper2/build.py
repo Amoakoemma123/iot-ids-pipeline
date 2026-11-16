@@ -62,7 +62,13 @@ FIGURES = {
              'Tree defences at β = 0.5: attack success rate of the grid search and of the strongest attack (grid, denser grid, '
              'adaptive search and, on UNSW-NB15, any TTL) against the undefended trees and each augmentation variant (mean over '
              'seeds; error bars: range over seeds). The gap '
-             'between the two bars shows how much of the augmentation gain holds only against the candidates it was built with.')],
+             'between the two bars shows how much of the augmentation gain holds only against the candidates it was built with.'),
+            (FIG / 'fig5_roc.png', 16.0,
+             'Attack-aware ROC: share of the sampled attack flows missed or evaded by the β = 0.5 grid search when the benign '
+             'threshold is set on validation benign flows to each false-positive rate (rule of Table 7; UNSW-NB15 volume and '
+             'timing actions). Top: CNN without defence and with each adversarial-training defence; bottom: undefended (dashed) '
+             'and augmented (solid) trees. Lines: mean over seeds (five for the CNNs, three for the trees); bands: range over '
+             'seeds. Grid search only. The second decision rule is in Table S20.')],
     '5.4': [(FIG / 'fig4_ttl_sweep.png', 16.0,
              'UNSW-NB15: attack success rate of the TTL choice alone (no other action) for every initial TTL from 1 to 255, '
              'undefended models, mean over five seeds. Dotted lines: the four TTL candidates used by the grid search and in training.')],

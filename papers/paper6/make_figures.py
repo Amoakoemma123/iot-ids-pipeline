@@ -221,6 +221,71 @@ def fig3():
     plt.close(fig)
 
 
+# ── Final review round 2: Figure 2 (per-class source of late − early) and Figure 3 (tuned networks against trees) ──
+RES_GB = RES.parent / 'results_p6gb'          # the rolled-back GBDT scored in the paper
+NET, NET_T, TREE = '#2a78d6', '#1baf7a', '#eb6834'
+
+
+def load_any(ds, exp, seed):
+    if exp.startswith('gb'):
+        p = RES_GB / ds / exp / f'seed{seed}.json'
+        if p.exists():
+            return json.loads(p.read_text())
+    return load(ds, exp, seed)
+
+
+def fig_perclass():
+    """per-class contribution to the macro-F1 difference late − early fusion: (F1_late,c − F1_early,c) / K, per seed"""
+    fig, axes = plt.subplots(1, 2, figsize=(7.2, 3.0))
+    for ax, ds in zip(axes, ('TON_IoT', 'UNSW_NB15')):
+        L = [load(ds, 'late', s) for s in range(5)]; E = [load(ds, 'early', s) for s in range(5)]
+        if not all(L) or not all(E):
+            ax.text(0.5, 0.5, 'not available', transform=ax.transAxes, ha='center', color='#999'); continue
+        cls = list(L[0]['per_class_f1']); K = len(cls)
+        D = {c: [(l['per_class_f1'][c] - e['per_class_f1'][c]) / K for l, e in zip(L, E)] for c in cls}
+        order = sorted(cls, key=lambda c: st.mean(D[c]))
+        y = range(len(order))
+        means = [st.mean(D[c]) for c in order]
+        ax.barh(list(y), means, height=0.6, color=[NET if m >= 0 else '#a8a69f' for m in means], zorder=2)
+        for i, c in enumerate(order):
+            ax.scatter(D[c], [i] * 5, s=7, color='#1f1e1c', zorder=3, lw=0)
+        ax.axvline(0, color='#6b6a65', lw=0.7)
+        ax.set_yticks(list(y)); ax.set_yticklabels(order, fontsize=7)
+        tot = st.mean(l['macro_f1'] - e['macro_f1'] for l, e in zip(L, E))
+        ax.set_title(f'{DSN[ds]} (macro-F1 difference {tot:+.3f})', fontsize=8.5)
+        ax.set_xlabel('Contribution to macro-F1, late − early fusion')
+        ax.grid(axis='x', lw=0.3, alpha=0.6); ax.set_axisbelow(True)
+    fig.tight_layout(w_pad=2.0)
+    fig.savefig(FIG / 'fig2_perclass_late_early.png', dpi=300)
+    plt.close(fig)
+
+
+def fig_nets_trees():
+    """test macro-F1 per seed: fusion networks (fixed and tuned configuration) and tree ensembles on all features"""
+    models = [('early', 'Early', NET), ('late', 'Late', NET), ('attn', 'Attention', NET),
+              ('early_tuned', 'Early,' + chr(10) + 'tuned', NET_T), ('late_tuned', 'Late,' + chr(10) + 'tuned', NET_T),
+              ('rf', 'RF', TREE), ('gb', 'GBDT', TREE)]
+    fig, axes = plt.subplots(1, 2, figsize=(7.2, 3.0))
+    for ax, ds in zip(axes, ('TON_IoT', 'UNSW_NB15')):
+        for i, (m, lab, col) in enumerate(models):
+            R = [load_any(ds, m, s) for s in range(5)]
+            if not all(R):
+                continue
+            v = [r['macro_f1'] for r in R]
+            ax.scatter([i + (j - 2) * 0.07 for j in range(5)], v, s=12, color=col, zorder=3, lw=0)
+            ax.hlines(st.mean(v), i - 0.3, i + 0.3, color='#1f1e1c', lw=1.2, zorder=4)
+        ax.set_xticks(range(len(models))); ax.set_xticklabels([l for _, l, _ in models], fontsize=6.5)
+        ax.set_title(DSN[ds], fontsize=9); ax.set_ylabel('Test macro-F1' if ds == 'TON_IoT' else '')
+        ax.grid(axis='y', lw=0.3, alpha=0.6); ax.set_axisbelow(True)
+    for col, lab in ((NET, 'network, fixed configuration'), (NET_T, 'network, tuned on validation'), (TREE, 'tree ensemble')):
+        axes[0].scatter([], [], s=12, color=col, label=lab)
+    axes[0].plot([], [], color='#1f1e1c', lw=1.2, label='mean of five seeds')
+    fig.legend(*axes[0].get_legend_handles_labels(), fontsize=7, loc='upper center', ncol=4, frameon=False)
+    fig.tight_layout(rect=(0, 0, 1, 0.9), w_pad=2.0)
+    fig.savefig(FIG / 'fig3_nets_trees.png', dpi=300)
+    plt.close(fig)
+
+
 if __name__ == '__main__':
-    fig1(); fig2(); fig3()
+    fig1(); fig2(); fig3(); fig_perclass(); fig_nets_trees()
     print('figures saved to', FIG)

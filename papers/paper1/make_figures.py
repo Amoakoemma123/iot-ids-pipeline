@@ -83,3 +83,77 @@ fig.tight_layout(rect=(0, 0.14, 1, 1), w_pad=1.2)
 out = FIG / ('fig1_accuracy_size.png' if PTS == HERE / 'points.json' else 'fig1_accuracy_size_TEST.png')
 fig.savefig(out, dpi=300, bbox_inches='tight', facecolor='white')
 print('saved', out)
+
+# ── final review round 2: Figures 2-4 from figdata.json (compute_values.py) ──────────────────────────────────────
+FD_PATH = HERE / 'figdata.json'
+if PTS == HERE / 'points.json' and FD_PATH.exists():
+    import numpy as np  # noqa: E402
+    FD = json.loads(FD_PATH.read_text(encoding='utf-8'))
+
+    def _style(ax):
+        ax.grid(color=GRID, lw=0.6); ax.set_axisbelow(True)
+        for sp in ('top', 'right'):
+            ax.spines[sp].set_visible(False)
+
+    # Fig. 2: flows per second on one core (single-record calls) against test macro-F1
+    dss2 = [d for d in ('TON_IoT', 'UNSW_NB15') if d in FD['lat']]
+    fig, axes = plt.subplots(1, len(dss2), figsize=(6.4, 3.0), squeeze=False)
+    for ax, ds in zip(axes[0], dss2):
+        for p in P[ds]:
+            ms = FD['lat'][ds].get(p['cfg'] + ('_int8' if p['q'] else ''))
+            if not ms or family(p['cfg']) not in FAM:
+                continue
+            lab, col, mk = FAM[family(p['cfg'])]
+            ax.scatter(1000.0 / ms, p['f1'], marker=mk, s=22, color=col if not p['q'] else 'white', edgecolors=col, lw=0.8, zorder=3)
+        ax.set_xscale('log'); ax.set_title(DSN[ds], fontsize=9, color=INK, pad=6)
+        ax.set_xlabel('Flows per second, one core, one record per call'); _style(ax)
+        lo = max(min(p['f1'] for p in P[ds]), max(p['f1'] for p in P[ds]) - 0.12)
+        ax.set_ylim(lo, max(p['f1'] for p in P[ds]) + 0.005)
+    axes[0][0].set_ylabel('Test macro-F1')
+    h = [Line2D([], [], marker=mk, color=col, mfc=col, ls='none', ms=5.5, label=lab) for lab, col, mk in FAM.values()]
+    h += [Line2D([], [], marker='^', color=MUTED, mfc='white', ls='none', ms=5.5, label='int8 (open marker)')]
+    fig.legend(handles=h, loc='lower center', ncol=4, frameon=False, fontsize=7.5, bbox_to_anchor=(0.5, -0.02))
+    fig.tight_layout(rect=(0, 0.14, 1, 1), w_pad=1.2)
+    fig.savefig(FIG / 'fig2_throughput.png', dpi=300, bbox_inches='tight', facecolor='white'); plt.close(fig)
+    print('saved fig2_throughput.png')
+
+    # Fig. 3: data-split replicates
+    RSL = {'best': ('Most accurate tree model', '#eb6834', 's', '-'), 'oversig': ('Smallest tree model significantly above every network', '#eb6834', 'X', ':'),
+           'small': ('Best tree model of at most 110 KB', '#2a78d6', 'o', ':'), 'net': ('Most accurate network', '#1baf7a', '^', '-')}
+    dss3 = [d for d in ('TON_IoT', 'UNSW_NB15') if d in FD['rs']]
+    fig, axes = plt.subplots(1, len(dss3), figsize=(6.4, 3.0), squeeze=False)
+    for ax, ds in zip(axes[0], dss3):
+        for lab_k, (lab, col, mk, ls) in RSL.items():
+            r = FD['rs'][ds].get(lab_k)
+            if not r:
+                continue
+            y = [r['split0']] + r['splits']
+            ax.plot(range(6), y, color=col, marker=mk, ls=ls, lw=1.3, ms=5, mfc=col if lab_k != 'small' else 'white', mec=col, label=lab)
+        ax.set_xticks(range(6), ['0\n(5 seeds)', '1', '2', '3', '4', '5'])
+        ax.set_xlabel('Data split'); ax.set_title(DSN[ds], fontsize=9, color=INK, pad=6); _style(ax)
+    axes[0][0].set_ylabel('Test macro-F1')
+    h, l = axes[0][0].get_legend_handles_labels()
+    fig.legend(h, l, loc='lower center', ncol=2, frameon=False, fontsize=7.5, bbox_to_anchor=(0.5, -0.02))
+    fig.tight_layout(rect=(0, 0.16, 1, 1), w_pad=1.2)
+    fig.savefig(FIG / 'fig3_resplits.png', dpi=300, bbox_inches='tight', facecolor='white'); plt.close(fig)
+    print('saved fig3_resplits.png')
+
+    # Fig. 4: per-class F1, most accurate tree model against the CNN of width 2
+    dss4 = [d for d in ('TON_IoT', 'UNSW_NB15') if d in FD['pc']]
+    fig, axes = plt.subplots(1, len(dss4), figsize=(6.4, 3.2), squeeze=False)
+    for ax, ds in zip(axes[0], dss4):
+        c = FD['pc'][ds]; cls = c['classes']
+        t, n = np.array(c['tree_f1']), np.array(c['net_f1'])
+        o = np.argsort(t.mean(0) - n.mean(0))
+        y = np.arange(len(cls))
+        for arr, col, mk, lab in ((n, '#1baf7a', '^', 'CNN of width 2 (float32)'), (t, '#eb6834', 's', 'Most accurate tree model')):
+            ax.errorbar(arr.mean(0)[o], y, xerr=[arr.mean(0)[o] - arr.min(0)[o], arr.max(0)[o] - arr.mean(0)[o]], fmt=mk, color=col,
+                        ms=4.5, elinewidth=0.8, capsize=0, label=lab, zorder=3)
+        ax.hlines(y, np.minimum(t.mean(0), n.mean(0))[o], np.maximum(t.mean(0), n.mean(0))[o], color=GRID, lw=2.5, zorder=1)
+        ax.set_yticks(y, [cls[i] for i in o], fontsize=7)
+        ax.set_xlabel('Test F1 (mean over seeds; bars: range)'); ax.set_title(DSN[ds], fontsize=9, color=INK, pad=6); _style(ax)
+    h, l = axes[0][0].get_legend_handles_labels()
+    fig.legend(h, l, loc='lower center', ncol=2, frameon=False, fontsize=7.5, bbox_to_anchor=(0.5, -0.02))
+    fig.tight_layout(rect=(0, 0.1, 1, 1), w_pad=2.0)
+    fig.savefig(FIG / 'fig4_perclass.png', dpi=300, bbox_inches='tight', facecolor='white'); plt.close(fig)
+    print('saved fig4_perclass.png')

@@ -49,6 +49,10 @@ HIGHLIGHTS = [      # final-only values stay ⟦…⟧ until the p1final queue h
 ABSTRACT_MAX_WORDS = 250
 
 FIGURES = {
+    '5.4': [(FIG / 'fig2_throughput.png', 16.0,
+             'Flows classified per second on one CPU core with one record per call (from the single-thread latency of Table 3; '
+             'log scale) against test macro-F1, every configuration. Markers as in Figure 1; open markers: int8 networks. '
+             'Batched calls (Table 3) raise every family’s throughput, the networks’ most.')],
     '5.2': [(FIG / 'fig1_accuracy_size.png', 16.0,
              'Test macro-F1 against model size (log scale), one panel per dataset. Filled markers: float32 networks and tree '
              'models (compact encoding, Section 4.2; network and LR sizes include the input quantile table); open markers: the same networks after int8 quantisation. Bars: '
@@ -56,7 +60,16 @@ FIGURES = {
              'lies below the plotted range, is shown on the lower edge with its value. The ringed point is the forest '
              'configuration of the earlier draft. All GBDTs are rolled back to their best internal-validation iteration; '
              'squares: main grid (both learning rates), crosses: GBDTs with capped iterations; downward triangles: single '
-             'decision trees.')],
+             'decision trees.'),
+            (FIG / 'fig3_resplits.png', 16.0,
+             'Data-split replicates: test macro-F1 on the original split (split 0, mean over five seeds) and on five further '
+             'stratified splits (one seed each, seed k on split k), for the most accurate tree model, the smallest tree model '
+             'significantly above every network, the best tree model of at most 110 KB and the most accurate network '
+             '(TON-IoT: float32 CNN of width 2; UNSW-NB15: its int8 version). The y-axes differ between panels.'),
+            (FIG / 'fig4_perclass.png', 16.0,
+             'Per-class test F1 of the most accurate tree model (TON-IoT: GBDT with 63 leaves at lr 0.1; UNSW-NB15: GBDT with '
+             '31 leaves at lr 0.05) and of the float32 CNN of width 2, mean over five seeds with the range as bars, classes '
+             'ordered by the difference between the two.')],
 }
 TABLE_CAPTIONS = {
     '3.1': ['Datasets. Training records before and after SMOTE oversampling (N-BaIoT is not oversampled); validation and '

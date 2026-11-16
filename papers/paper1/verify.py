@@ -84,7 +84,7 @@ check('earlier version' not in abstract and 'earlier draft' not in abstract and 
 fig = HERE / 'figures' / 'fig1_accuracy_size.png'
 P = json.loads((HERE / 'points.json').read_text())
 check(fig.exists() and FINAL and P.get('_final'), 'Figure 1 regenerated from the final (rolled-back) points' + ('' if FINAL else ' (pending p1final)'))
-check('Figure 1' in src and 'Figure 2' not in src, 'Figure 1 referenced, no stray Figure 2')
+check(all(f'Figure {i}' in src for i in (1, 2, 3, 4)) and 'Figure 5' not in src, 'Figures 1-4 referenced, no stray Figure 5')
 check('a few hundred small trees' not in src, 'no "a few hundred small trees" (numbers review W2)')
 check('the attack detection rate' in src and "'Attack detection'" in (HERE / 'compute_values.py').read_text(encoding='utf-8'),
       'attack detection rate announced and reported in Table A.1 (numbers review W1)')

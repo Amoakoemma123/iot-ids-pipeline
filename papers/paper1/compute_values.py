@@ -815,10 +815,49 @@ for ds, trs in RS_TREES.items():
     else:
         V[f'{ds}_rs_done'] = 'yes'
 
+
+# final review round 2: data for Figures 2-4 (make_figures.py): one-thread latency per configuration, the data-split
+# replicates and per-class F1 of the most accurate tree model and the CNN of width 2 (float32)
+def _runjson(ds, cfg, seed):
+    for root in (FIN, RES):
+        f = root / ds / cfg / f'seed{seed}.json'
+        if f.exists():
+            return json.loads(f.read_text())
+    return None
+
+
+EXTRA_PTS = {'lat': {}, 'rs': {}, 'pc': {}}
+for ds in DSS:
+    if ST['latency'] and ds in _lat:
+        EXTRA_PTS['lat'][ds] = {p['cfg'] + ('_int8' if p['q'] else ''): _lat[ds].get(p['cfg'], {}).get('int8_single_ms' if p['q'] else 'single_ms')
+                                for p in points[ds]}
+for ds, trs in RS_TREES.items():
+    if V.get(f'{ds}_rs_done') != 'yes':
+        continue
+    q = ds == 'UNSW_NB15'
+    out = {}
+    for lab, cfg in trs + (('net', 'cnn_w2'),):
+        orig = [_runjson(ds, cfg, s_) for s_ in range(5)]
+        o = st.mean((r['int8']['macro_f1'] if (q and lab == 'net') else r['macro_f1']) for r in orig) if all(orig) else None
+        sp = []
+        for k in range(1, 6):
+            r = json.loads((FIN / ds / f'{cfg}_split{k}' / f'seed{k}.json').read_text())
+            sp.append(r['int8']['macro_f1'] if (q and lab == 'net') else r['macro_f1'])
+        out[lab] = dict(cfg=cfg, split0=o, splits=sp)
+    EXTRA_PTS['rs'][ds] = out
+for ds, (tcfg, ncfg) in (('TON_IoT', ('gb_l63', 'cnn_w2')), ('UNSW_NB15', ('gb05_l31', 'cnn_w2'))):
+    T_ = [_runjson(ds, tcfg, s_) for s_ in range(5)]; N_ = [_runjson(ds, ncfg, s_) for s_ in range(5)]
+    if all(T_) and all(N_):
+        cls = list(T_[0]['per_class_f1'])
+        EXTRA_PTS['pc'][ds] = dict(tree=tcfg, net=ncfg, classes=cls,
+                                   tree_f1=[[r['per_class_f1'][c] for c in cls] for r in T_],
+                                   net_f1=[[r['per_class_f1'][c] for c in cls] for r in N_])
+
 (HERE / f'values{SUFFIX}.json').write_text(json.dumps(V, indent=1, ensure_ascii=False), encoding='utf-8')
 (HERE / f'points{SUFFIX}.json').write_text(json.dumps(dict(
     _final=FINAL, **{ds: [{k: v for k, v in p.items() if k not in ('f', 'vf', 'clean')} for p in pts] for ds, pts in points.items()}),
     indent=1), encoding='utf-8')
+(HERE / f'figdata{SUFFIX}.json').write_text(json.dumps(EXTRA_PTS, indent=1), encoding='utf-8')   # Figures 2-4
 print(f'FINAL={FINAL} status={ST}')
 print(f'{len(V) - 4} values ({len(VF)} final-only {"included" if FINAL else "withheld"}), {len(T)} tables; points:',
       {ds: len(p) for ds, p in points.items()})

@@ -1119,6 +1119,8 @@ for ds in DSS:
         S = roc_seeds(ds, m)
         if S:
             ROC[(ds, m)] = S
+            A[ds].setdefault(m, {})['roc'] = {r: [[row[w] for row in S[sd][r]] for sd in S] for r in ('s1', 's2')}
+            A[ds][m]['roc_fpr'] = [row['fpr'] for row in next(iter(S.values()))['s1']]
     for rule in ('s1', 's2'):
         for m in ROC_M:
             S = ROC.get((ds, m))

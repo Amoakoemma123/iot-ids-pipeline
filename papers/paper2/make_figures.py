@@ -137,3 +137,34 @@ if 'UNSW_NB15' in A and any('ttl_sweep' in A['UNSW_NB15'].get(m, {}) for m in S1
     ax.legend(frameon=False, fontsize=7.5, ncol=4, loc='upper center', bbox_to_anchor=(0.5, -0.25))
     fig.tight_layout()
     save(fig, 'fig4_ttl_sweep.png')
+
+# Fig. 5 (final review round 2): attack-aware ROC - share of attack flows missed or evaded by the beta 0.5 grid search
+# against the validation benign FPR (rule of Table 7). Top: CNN defences; bottom: trees. Mean over seeds, band = range.
+S5N = {k: S2[k] for k in ('cnn_none', 'cnn_at_all', 'cnn_at_threat', 'cnn_trades')}
+S5N['cnn_at_threat_cs'] = ('AT-threat, corner start', '#1baf7a', '^', ':')
+S5T = {'rf_none': ('RF', '#2a78d6', 'o', '--'), 'rf_augment': ('RF, augmented', '#2a78d6', 'o', '-'),
+       'gb_none': ('GBDT', '#eb6834', 's', '--'), 'gb_augment': ('GBDT, augmented', '#eb6834', 's', '-')}
+if all('roc' in A[ds].get('cnn_none', {}) for ds in dss):
+    fig, axes = plt.subplots(2, len(dss), figsize=(7.6, 5.0), squeeze=False, sharex=True)
+    for row, series in enumerate((S5N, S5T)):
+        for ax, ds in zip(axes[row], dss):
+            for m, (lab, col, mk, ls) in series.items():
+                a = A[ds].get(m, {})
+                if 'roc' not in a:
+                    continue
+                x = 100 * np.array(a['roc_fpr']); v = 100 * np.array(a['roc']['s1'])     # seeds x fpr
+                ax.fill_between(x, v.min(0), v.max(0), color=col, alpha=0.10, lw=0)
+                ax.plot(x, v.mean(0), color=col, marker=mk, ms=4, ls=ls, lw=1.5, mec='white', mew=0.6, label=lab)
+            ax.set_xscale('log'); ax.set_xticks([0.5, 1, 2, 5], ['0.5', '1', '2', '5']); ax.minorticks_off()
+            ax.set_ylim(0, 100); ax.grid(color=GRID, lw=0.6); ax.set_axisbelow(True)
+            for sp in ('top', 'right'):
+                ax.spines[sp].set_visible(False)
+            if row == 0:
+                ax.set_title(DSN[ds] + (' (volume and timing)' if ds == 'UNSW_NB15' else ''), fontsize=9, color=INK, pad=6)
+            else:
+                ax.set_xlabel('Benign false-positive rate, validation (%)')
+        axes[row][0].set_ylabel('Missed or evaded (%)')
+        h, l = axes[row][0].get_legend_handles_labels()
+        axes[row][-1].legend(h, l, loc='center left', bbox_to_anchor=(1.02, 0.5), frameon=False, fontsize=7)
+    fig.tight_layout(h_pad=1.0, w_pad=1.2)
+    save(fig, 'fig5_roc.png')
