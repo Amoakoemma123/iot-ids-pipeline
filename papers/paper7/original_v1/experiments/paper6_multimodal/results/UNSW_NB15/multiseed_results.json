@@ -1,0 +1,86 @@
+{
+  "dataset": "UNSW_NB15",
+  "n_seeds": 3,
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "experiments": {
+    "flow_only": {
+      "f1_mean": 0.5012,
+      "f1_std": 0.004,
+      "precision_mean": 0.5089,
+      "precision_std": 0.001,
+      "recall_mean": 0.6375,
+      "recall_std": 0.0007,
+      "accuracy_mean": 0.7556,
+      "accuracy_std": 0.0042,
+      "fpr_mean": 0.0258,
+      "fpr_std": 0.0004,
+      "latency_ms_mean": 0.0843,
+      "latency_ms_std": 0.0366,
+      "n_params": 34634
+    },
+    "behavioral_only": {
+      "f1_mean": 0.3223,
+      "f1_std": 0.0105,
+      "precision_mean": 0.3499,
+      "precision_std": 0.0057,
+      "recall_mean": 0.3786,
+      "recall_std": 0.0181,
+      "accuracy_mean": 0.5851,
+      "accuracy_std": 0.0252,
+      "fpr_mean": 0.046,
+      "fpr_std": 0.0017,
+      "latency_ms_mean": 0.067,
+      "latency_ms_std": 0.0226,
+      "n_params": 34634
+    },
+    "early_fusion": {
+      "f1_mean": 0.5718,
+      "f1_std": 0.007,
+      "precision_mean": 0.5632,
+      "precision_std": 0.0113,
+      "recall_mean": 0.6455,
+      "recall_std": 0.0221,
+      "accuracy_mean": 0.8039,
+      "accuracy_std": 0.0033,
+      "fpr_mean": 0.0212,
+      "fpr_std": 0.0002,
+      "latency_ms_mean": 0.065,
+      "latency_ms_std": 0.015,
+      "n_params": 34634
+    },
+    "late_fusion": {
+      "f1_mean": 0.5805,
+      "f1_std": 0.0039,
+      "precision_mean": 0.5662,
+      "precision_std": 0.0033,
+      "recall_mean": 0.6505,
+      "recall_std": 0.004,
+      "accuracy_mean": 0.8077,
+      "accuracy_std": 0.0006,
+      "fpr_mean": 0.0208,
+      "fpr_std": 0.0,
+      "latency_ms_mean": 0.0653,
+      "latency_ms_std": 0.0009,
+      "n_params": 85770
+    },
+    "attention_fusion": {
+      "f1_mean": 0.5798,
+      "f1_std": 0.0049,
+      "precision_mean": 0.5671,
+      "precision_std": 0.0041,
+      "recall_mean": 0.6625,
+      "recall_std": 0.0072,
+      "accuracy_mean": 0.8085,
+      "accuracy_std": 0.0021,
+      "fpr_mean": 0.0207,
+      "fpr_std": 0.0002,
+      "latency_ms_mean": 0.065,
+      "latency_ms_std": 0.0022,
+      "n_params": 73036
+    }
+  }
+}

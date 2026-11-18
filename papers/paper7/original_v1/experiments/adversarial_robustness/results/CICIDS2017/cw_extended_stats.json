@@ -1,0 +1,53 @@
+{
+  "dataset": "CICIDS2017",
+  "n_samples": 1000,
+  "asr": 0.30324543610547666,
+  "accuracy": 0.687,
+  "f1": 0.14517313519692518,
+  "l2_stats": {
+    "mean": 0.03800387308001518,
+    "std": 0.0804753378033638,
+    "min": 0.0,
+    "p5": 0.0,
+    "p25": 0.0,
+    "p50": 0.0,
+    "p75": 0.004636853933334351,
+    "p95": 0.23420371189713476,
+    "max": 0.37696951627731323,
+    "n_zero_float32": 687,
+    "pct_zero_float32": 68.7
+  },
+  "per_class": {
+    "benign": {
+      "n_samples": 828,
+      "mean_l2": 0.02743387408554554,
+      "asr": 0.213768115942029
+    },
+    "ddos": {
+      "n_samples": 59,
+      "mean_l2": 0.06040719896554947,
+      "asr": 0.6779661016949152
+    },
+    "dos goldeneye": {
+      "n_samples": 4,
+      "mean_l2": 0.14695017039775848,
+      "asr": 1.0
+    },
+    "dos hulk": {
+      "n_samples": 72,
+      "mean_l2": 0.14518390595912933,
+      "asr": 0.7638888888888888
+    },
+    "dos slowloris": {
+      "n_samples": 3,
+      "mean_l2": 0.0736326277256012,
+      "asr": 1.0
+    },
+    "portscan": {
+      "n_samples": 34,
+      "mean_l2": 0.013607610948383808,
+      "asr": 1.0
+    }
+  },
+  "explanation": "L2 norm of 0 in float32 occurs when C&W's binary search converges to a solution whose perturbation magnitude is below float32 machine epsilon (~1.19e-7), indicating the model's decision boundary is reachable with sub-precision perturbations. This is NOT a bug \u2014 it reflects that some samples lie very close to the decision boundary."
+}

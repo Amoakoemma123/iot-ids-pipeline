@@ -1,0 +1,45 @@
+{
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "datasets": {
+    "TON_IoT": {
+      "alpha_flow_per_seed": {
+        "42": 0.0012,
+        "43": 0.0001,
+        "44": 0.1363
+      },
+      "alpha_flow_mean": 0.0459,
+      "alpha_flow_std": 0.0639,
+      "alpha_beh_mean": 0.9541,
+      "alpha_beh_std": 0.0639,
+      "dominant_stream_consistent": true
+    },
+    "UNSW_NB15": {
+      "alpha_flow_per_seed": {
+        "42": 0.6591,
+        "43": 0.6799,
+        "44": 0.6579
+      },
+      "alpha_flow_mean": 0.6656,
+      "alpha_flow_std": 0.0101,
+      "alpha_beh_mean": 0.3344,
+      "alpha_beh_std": 0.0101,
+      "dominant_stream_consistent": true
+    },
+    "CICIDS2017": {
+      "alpha_flow_per_seed": {
+        "42": 0.2809,
+        "43": 0.2603,
+        "44": 0.1458
+      },
+      "alpha_flow_mean": 0.229,
+      "alpha_flow_std": 0.0594,
+      "alpha_beh_mean": 0.771,
+      "alpha_beh_std": 0.0594,
+      "dominant_stream_consistent": true
+    }
+  }
+}

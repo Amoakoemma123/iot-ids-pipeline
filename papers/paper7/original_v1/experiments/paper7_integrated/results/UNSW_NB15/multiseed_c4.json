@@ -1,0 +1,356 @@
+{
+  "42": {
+    "C4": {
+      "condition": "C4_full_IREAP",
+      "clean_metrics": {
+        "f1": 0.0023,
+        "precision": 0.0107,
+        "recall": 0.1,
+        "accuracy": 0.0115,
+        "fpr": 0.1,
+        "latency_ms": 16.063,
+        "n_params": 73036
+      },
+      "adversarial": {
+        "asr": 0.0,
+        "adv_f1": 0.0013,
+        "epsilon": 0.1,
+        "pgd_steps": 20,
+        "n_eval": 6
+      },
+      "task0_before_adapt": {
+        "f1": 0.0117,
+        "precision": 0.0295,
+        "recall": 0.2001,
+        "accuracy": 0.0298,
+        "fpr": 0.1001,
+        "latency_ms": 17.232,
+        "n_params": 73036
+      },
+      "task0_after_adapt": {
+        "f1": 0.197,
+        "precision": 0.2327,
+        "recall": 0.2371,
+        "accuracy": 0.4656,
+        "fpr": 0.0593,
+        "latency_ms": 24.686,
+        "n_params": 73036
+      },
+      "task1_new": {
+        "f1": 0.3295,
+        "precision": 0.3504,
+        "recall": 0.3888,
+        "accuracy": 0.8938,
+        "fpr": 0.0107,
+        "latency_ms": 20.944,
+        "n_params": 73036
+      },
+      "full_after_adapt": {
+        "f1": 0.4564,
+        "precision": 0.4885,
+        "recall": 0.6259,
+        "accuracy": 0.7287,
+        "fpr": 0.0285,
+        "latency_ms": 20.755,
+        "n_params": 73036
+      },
+      "forgetting_measure": -0.1853,
+      "task0_classes": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "task1_classes": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "ccat_time_min": 5.88,
+      "adapt_time_min": 18.84,
+      "shap": {
+        "top10_features": {
+          "sload": 0.03239,
+          "sttl": 0.02688,
+          "rate": 0.02354,
+          "dbytes": 0.02253,
+          "smean": 0.0192,
+          "dload": 0.01445,
+          "sbytes": 0.01434,
+          "dur": 0.01406,
+          "id": 0.00759,
+          "dmean": 0.00582
+        },
+        "mean_abs_shap": [
+          0.00759,
+          0.01406,
+          0.01434,
+          0.02253,
+          0.02354,
+          0.02688,
+          0.03239,
+          0.01445,
+          0.0192,
+          0.00582
+        ],
+        "feature_names": [
+          "id",
+          "dur",
+          "sbytes",
+          "dbytes",
+          "rate",
+          "sttl",
+          "sload",
+          "dload",
+          "smean",
+          "dmean",
+          "ct_srv_src",
+          "ct_src_dport_ltm",
+          "ct_dst_sport_ltm",
+          "ct_dst_src_ltm",
+          "ct_srv_dst",
+          "service_dns"
+        ]
+      }
+    }
+  },
+  "123": {
+    "C4": {
+      "condition": "C4_full_IREAP",
+      "clean_metrics": {
+        "f1": 0.0648,
+        "precision": 0.0927,
+        "recall": 0.17,
+        "accuracy": 0.0822,
+        "fpr": 0.0959,
+        "latency_ms": 20.029,
+        "n_params": 73036
+      },
+      "adversarial": {
+        "asr": 0.5977,
+        "adv_f1": 0.0201,
+        "epsilon": 0.1,
+        "pgd_steps": 20,
+        "n_eval": 87
+      },
+      "task0_before_adapt": {
+        "f1": 0.1874,
+        "precision": 0.3961,
+        "recall": 0.3399,
+        "accuracy": 0.2131,
+        "fpr": 0.0828,
+        "latency_ms": 20.142,
+        "n_params": 73036
+      },
+      "task0_after_adapt": {
+        "f1": 0.2079,
+        "precision": 0.2378,
+        "recall": 0.2218,
+        "accuracy": 0.4839,
+        "fpr": 0.0591,
+        "latency_ms": 25.571,
+        "n_params": 73036
+      },
+      "task1_new": {
+        "f1": 0.3892,
+        "precision": 0.392,
+        "recall": 0.4014,
+        "accuracy": 0.9175,
+        "fpr": 0.0083,
+        "latency_ms": 22.167,
+        "n_params": 73036
+      },
+      "full_after_adapt": {
+        "f1": 0.493,
+        "precision": 0.4849,
+        "recall": 0.6232,
+        "accuracy": 0.7504,
+        "fpr": 0.0268,
+        "latency_ms": 22.456,
+        "n_params": 73036
+      },
+      "forgetting_measure": -0.0205,
+      "task0_classes": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "task1_classes": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "ccat_time_min": 7.4,
+      "adapt_time_min": 19.44,
+      "shap": {
+        "top10_features": {
+          "sload": 0.033,
+          "rate": 0.02782,
+          "sttl": 0.02299,
+          "dload": 0.02024,
+          "dbytes": 0.01787,
+          "sbytes": 0.01499,
+          "smean": 0.01422,
+          "dur": 0.01358,
+          "id": 0.0065,
+          "dmean": 0.00529
+        },
+        "mean_abs_shap": [
+          0.0065,
+          0.01358,
+          0.01499,
+          0.01787,
+          0.02782,
+          0.02299,
+          0.033,
+          0.02024,
+          0.01422,
+          0.00529
+        ],
+        "feature_names": [
+          "id",
+          "dur",
+          "sbytes",
+          "dbytes",
+          "rate",
+          "sttl",
+          "sload",
+          "dload",
+          "smean",
+          "dmean",
+          "ct_srv_src",
+          "ct_src_dport_ltm",
+          "ct_dst_sport_ltm",
+          "ct_dst_src_ltm",
+          "ct_srv_dst",
+          "service_dns"
+        ]
+      }
+    }
+  },
+  "456": {
+    "C4": {
+      "condition": "C4_full_IREAP",
+      "clean_metrics": {
+        "f1": 0.032,
+        "precision": 0.019,
+        "recall": 0.1,
+        "accuracy": 0.1904,
+        "fpr": 0.1,
+        "latency_ms": 21.484,
+        "n_params": 73036
+      },
+      "adversarial": {
+        "asr": 0.0,
+        "adv_f1": 0.036,
+        "epsilon": 0.1,
+        "pgd_steps": 20,
+        "n_eval": 193
+      },
+      "task0_before_adapt": {
+        "f1": 0.1323,
+        "precision": 0.0988,
+        "recall": 0.2,
+        "accuracy": 0.494,
+        "fpr": 0.1,
+        "latency_ms": 20.316,
+        "n_params": 73036
+      },
+      "task0_after_adapt": {
+        "f1": 0.2168,
+        "precision": 0.2477,
+        "recall": 0.2216,
+        "accuracy": 0.515,
+        "fpr": 0.0565,
+        "latency_ms": 25.638,
+        "n_params": 73036
+      },
+      "task1_new": {
+        "f1": 0.3797,
+        "precision": 0.3707,
+        "recall": 0.4329,
+        "accuracy": 0.9212,
+        "fpr": 0.0079,
+        "latency_ms": 22.526,
+        "n_params": 73036
+      },
+      "full_after_adapt": {
+        "f1": 0.502,
+        "precision": 0.5096,
+        "recall": 0.6545,
+        "accuracy": 0.7647,
+        "fpr": 0.0253,
+        "latency_ms": 22.524,
+        "n_params": 73036
+      },
+      "forgetting_measure": -0.0845,
+      "task0_classes": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "task1_classes": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "ccat_time_min": 6.08,
+      "adapt_time_min": 19.59,
+      "shap": {
+        "top10_features": {
+          "sload": 0.03516,
+          "sttl": 0.03078,
+          "dbytes": 0.0209,
+          "smean": 0.02082,
+          "rate": 0.01724,
+          "sbytes": 0.01229,
+          "dload": 0.01204,
+          "dur": 0.01185,
+          "id": 0.00814,
+          "dmean": 0.00765
+        },
+        "mean_abs_shap": [
+          0.00814,
+          0.01185,
+          0.01229,
+          0.0209,
+          0.01724,
+          0.03078,
+          0.03516,
+          0.01204,
+          0.02082,
+          0.00765
+        ],
+        "feature_names": [
+          "id",
+          "dur",
+          "sbytes",
+          "dbytes",
+          "rate",
+          "sttl",
+          "sload",
+          "dload",
+          "smean",
+          "dmean",
+          "ct_srv_src",
+          "ct_src_dport_ltm",
+          "ct_dst_sport_ltm",
+          "ct_dst_src_ltm",
+          "ct_srv_dst",
+          "service_dns"
+        ]
+      }
+    }
+  }
+}

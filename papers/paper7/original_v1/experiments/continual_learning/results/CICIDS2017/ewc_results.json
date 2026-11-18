@@ -1,0 +1,71 @@
+{
+  "strategy": "ewc",
+  "average_accuracy": 0.06198655913205386,
+  "plasticity": 0.43702135789289065,
+  "forgetting": 0.5183466731850815,
+  "bwt": -0.5000463983477824,
+  "R_matrix": [
+    [
+      0.8815302948120881,
+      NaN,
+      NaN,
+      NaN
+    ],
+    [
+      0.14703893500688958,
+      0.7567660092686639,
+      NaN,
+      NaN
+    ],
+    [
+      0.0443352859432818,
+      0.07024697110904007,
+      0.1097891274908106,
+      NaN
+    ],
+    [
+      0.010105712821415805,
+      0.07315057170409146,
+      0.16468995200270817,
+      0.0
+    ]
+  ],
+  "adaptation_rate_epochs": 5.5,
+  "forward_transfer": 0.28885171225315814,
+  "cost": {
+    "per_task": [
+      {
+        "task_id": 0,
+        "time_sec": 5680.27,
+        "mem_start_mb": 1249.2,
+        "mem_end_mb": 2765.6,
+        "mem_delta_mb": 1516.4
+      },
+      {
+        "task_id": 1,
+        "time_sec": 105.62,
+        "mem_start_mb": 2400.1,
+        "mem_end_mb": 2420.4,
+        "mem_delta_mb": 20.3
+      },
+      {
+        "task_id": 2,
+        "time_sec": 144.8,
+        "mem_start_mb": 2509.1,
+        "mem_end_mb": 2521.4,
+        "mem_delta_mb": 12.3
+      },
+      {
+        "task_id": 3,
+        "time_sec": 0.65,
+        "mem_start_mb": 2615.2,
+        "mem_end_mb": 2610.5,
+        "mem_delta_mb": -4.7
+      }
+    ],
+    "total_time_sec": 5931.34,
+    "mean_time_per_task_sec": 1482.84
+  },
+  "elapsed_sec": 6034.1,
+  "dataset": "CICIDS2017"
+}

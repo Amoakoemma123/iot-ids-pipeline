@@ -22,3 +22,7 @@ dataset4/raw/
 !experiments/paper6_multimodal/results_v4/**/*.npy
 !experiments/baseline/results_p1final/**/*.npy
 !experiments/baseline/results_v2/**/*_pred.npy
+
+# Paper 7: original (v1) result files read by papers/paper7/compute_values.py and checks/reproduce_headline.py
+!papers/paper7/original_v1/**/results/
+!papers/paper7/original_v1/**/results/**

@@ -1,0 +1,83 @@
+{
+  "dataset": "UNSW_NB15",
+  "seed": 42,
+  "overall": {
+    "alpha_flow_mean": 0.6591,
+    "alpha_flow_std": 0.2507,
+    "alpha_beh_mean": 0.3409,
+    "alpha_beh_std": 0.2507,
+    "n_samples": 26302
+  },
+  "per_class": {
+    "analysis": {
+      "alpha_flow_mean": 0.6299,
+      "alpha_flow_std": 0.1107,
+      "alpha_beh_mean": 0.3701,
+      "alpha_beh_std": 0.1107,
+      "n_samples": 300
+    },
+    "backdoor": {
+      "alpha_flow_mean": 0.6237,
+      "alpha_flow_std": 0.1087,
+      "alpha_beh_mean": 0.3763,
+      "alpha_beh_std": 0.1087,
+      "n_samples": 262
+    },
+    "dos": {
+      "alpha_flow_mean": 0.6271,
+      "alpha_flow_std": 0.1206,
+      "alpha_beh_mean": 0.3729,
+      "alpha_beh_std": 0.1206,
+      "n_samples": 1840
+    },
+    "exploits": {
+      "alpha_flow_mean": 0.7052,
+      "alpha_flow_std": 0.1342,
+      "alpha_beh_mean": 0.2948,
+      "alpha_beh_std": 0.1342,
+      "n_samples": 5009
+    },
+    "fuzzers": {
+      "alpha_flow_mean": 0.7023,
+      "alpha_flow_std": 0.121,
+      "alpha_beh_mean": 0.2977,
+      "alpha_beh_std": 0.121,
+      "n_samples": 2728
+    },
+    "generic": {
+      "alpha_flow_mean": 0.2763,
+      "alpha_flow_std": 0.1057,
+      "alpha_beh_mean": 0.7237,
+      "alpha_beh_std": 0.1057,
+      "n_samples": 6000
+    },
+    "normal": {
+      "alpha_flow_mean": 0.8782,
+      "alpha_flow_std": 0.0978,
+      "alpha_beh_mean": 0.1218,
+      "alpha_beh_std": 0.0978,
+      "n_samples": 8400
+    },
+    "reconnaissance": {
+      "alpha_flow_mean": 0.7647,
+      "alpha_flow_std": 0.1172,
+      "alpha_beh_mean": 0.2353,
+      "alpha_beh_std": 0.1172,
+      "n_samples": 1574
+    },
+    "shellcode": {
+      "alpha_flow_mean": 0.75,
+      "alpha_flow_std": 0.0737,
+      "alpha_beh_mean": 0.25,
+      "alpha_beh_std": 0.0737,
+      "n_samples": 170
+    },
+    "worms": {
+      "alpha_flow_mean": 0.8227,
+      "alpha_flow_std": 0.0981,
+      "alpha_beh_mean": 0.1773,
+      "alpha_beh_std": 0.0981,
+      "n_samples": 19
+    }
+  }
+}

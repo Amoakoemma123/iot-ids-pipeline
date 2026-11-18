@@ -1,0 +1,63 @@
+{
+  "dataset": "TON-IoT",
+  "n_features": 25,
+  "n_classes": 10,
+  "n_train": 156017,
+  "n_test": 27533,
+  "hyperparams": {
+    "n_rounds": 20,
+    "local_epochs": 2,
+    "batch_size": 256,
+    "lr": 0.001
+  },
+  "experiments": {
+    "fedavg_alpha0.1": {
+      "algorithm": "fedavg",
+      "n_clients": 4,
+      "best_f1": 0.5827977899614469,
+      "best_round": 24,
+      "final_f1": 0.25365392146241394,
+      "final_accuracy": 0.38938728071768425,
+      "convergence_round": 14,
+      "total_mb": 38.314,
+      "elapsed_sec": 2409.9312880039215,
+      "dp_epsilon": null
+    },
+    "fedavg_alpha0.5": {
+      "algorithm": "fedavg",
+      "n_clients": 4,
+      "best_f1": 0.7597420732283114,
+      "best_round": 16,
+      "final_f1": 0.5590853106320649,
+      "final_accuracy": 0.6863763483819417,
+      "convergence_round": 6,
+      "total_mb": 15.325,
+      "elapsed_sec": 1044.5784282684326,
+      "dp_epsilon": null
+    },
+    "fedavg_iid": {
+      "algorithm": "fedavg",
+      "n_clients": 4,
+      "best_f1": 0.8010915486756108,
+      "best_round": 10,
+      "final_f1": 0.7190779953230834,
+      "final_accuracy": 0.7966077071150982,
+      "convergence_round": 4,
+      "total_mb": 15.325,
+      "elapsed_sec": 1143.1636083126068,
+      "dp_epsilon": null
+    },
+    "fedprox_alpha0.5": {
+      "algorithm": "fedprox",
+      "n_clients": 4,
+      "best_f1": 0.7785601140178231,
+      "best_round": 20,
+      "final_f1": 0.7785601140178231,
+      "final_accuracy": 0.8558457124178259,
+      "convergence_round": 6,
+      "total_mb": 15.325,
+      "elapsed_sec": 1361.5446696281433,
+      "dp_epsilon": null
+    }
+  }
+}

@@ -1,0 +1,160 @@
+{
+  "rf": {
+    "local_explanations": {
+      "analysis": [
+        {
+          "instance_idx": 354,
+          "true_class": "analysis",
+          "predicted_label": 2,
+          "feature_weights": {
+            "id": 0.02882179297102964,
+            "ct_srv_dst": -0.022379683831962604,
+            "ct_dst_src_ltm": -0.012225630019656127,
+            "ct_srv_src": -0.007779529416603308,
+            "dbytes": 0.007560163123660629,
+            "sload": -0.0060074304612001365,
+            "dmean": 0.005481577415496966,
+            "service_dns": 0.005095734864401495,
+            "sttl": 0.003263495427404648,
+            "dload": 0.002482905794333171
+          },
+          "elapsed_sec": 0.066,
+          "surrogate_r2": 0.3607
+        },
+        {
+          "instance_idx": 402,
+          "true_class": "analysis",
+          "predicted_label": 2,
+          "feature_weights": {
+            "id": 0.028737333122844894,
+            "ct_srv_dst": -0.023329175303599257,
+            "ct_dst_src_ltm": -0.014965058497930008,
+            "ct_srv_src": -0.010529114578703707,
+            "dbytes": 0.007666851820868858,
+            "service_dns": 0.00565194736181926,
+            "rate": -0.0049336358279098115,
+            "sload": -0.004283906998664308,
+            "dmean": 0.004216973806779723,
+            "sttl": 0.0030319246489644326
+          },
+          "elapsed_sec": 0.045,
+          "surrogate_r2": 0.4375
+        },
+        {
+          "instance_idx": 480,
+          "true_class": "analysis",
+          "predicted_label": 0,
+          "feature_weights": {
+            "ct_dst_sport_ltm": 0.011552961411553998,
+            "service_dns": -0.009991273217748849,
+            "sload": -0.0043754689322984255,
+            "dbytes": 0.004218132820919417,
+            "sttl": -0.004077248659069027,
+            "id": 0.003529246833685647,
+            "rate": -0.0034365113313339704,
+            "dload": -0.002796416980974747,
+            "smean": -0.0019266529564380215,
+            "ct_dst_src_ltm": 0.0010882415831412447
+          },
+          "elapsed_sec": 0.047,
+          "surrogate_r2": 0.0877
+        }
+      ]
+    },
+    "stability": {
+      "analysis": {
+        "mean_jaccard@5": 0.907,
+        "std_jaccard@5": 0.1495
+      }
+    },
+    "fidelity": {
+      "per_class": {
+        "analysis": {
+          "mean_r2": 0.2953,
+          "std_r2": 0.1501
+        }
+      },
+      "mean_r2": 0.2953
+    },
+    "mean_elapsed_sec": 0.053
+  },
+  "cnn": {
+    "local_explanations": {
+      "analysis": [
+        {
+          "instance_idx": 354,
+          "true_class": "analysis",
+          "predicted_label": 2,
+          "feature_weights": {
+            "dmean": -0.03584984516385196,
+            "ct_srv_src": -0.030420409676007544,
+            "rate": 0.025828335550078674,
+            "ct_src_dport_ltm": -0.023374570617952877,
+            "ct_dst_src_ltm": 0.01703167274806207,
+            "dur": -0.014086336461674254,
+            "dload": -0.011457742160598179,
+            "service_dns": 0.010291015529417967,
+            "sload": -0.010261498829436048,
+            "sttl": 0.004624666885506214
+          },
+          "elapsed_sec": 0.197,
+          "surrogate_r2": 0.0419
+        },
+        {
+          "instance_idx": 402,
+          "true_class": "analysis",
+          "predicted_label": 2,
+          "feature_weights": {
+            "dload": -0.03673445117103931,
+            "rate": 0.03665258496288101,
+            "ct_dst_sport_ltm": -0.030832391253178253,
+            "dmean": -0.026901429656086023,
+            "ct_src_dport_ltm": -0.02536592829725293,
+            "id": 0.0221596048123405,
+            "dur": -0.02055453930112917,
+            "ct_dst_src_ltm": 0.0177601649048976,
+            "ct_srv_src": -0.012997205007611881,
+            "sload": -0.008275388708991952
+          },
+          "elapsed_sec": 0.055,
+          "surrogate_r2": 0.0671
+        },
+        {
+          "instance_idx": 480,
+          "true_class": "analysis",
+          "predicted_label": 0,
+          "feature_weights": {
+            "sttl": -0.003209886881275011,
+            "sbytes": 0.0026318548739893877,
+            "dur": 0.0025941304081537444,
+            "smean": 0.0011823359126214362,
+            "dload": -0.0011155534073696858,
+            "service_dns": -0.001058376699913024,
+            "rate": -0.0008648115471453854,
+            "ct_dst_src_ltm": 0.0007906693361030987,
+            "sload": -0.0007218447430842477,
+            "ct_srv_src": 0.000395330293063805
+          },
+          "elapsed_sec": 0.046,
+          "surrogate_r2": 0.0076
+        }
+      ]
+    },
+    "stability": {
+      "analysis": {
+        "mean_jaccard@5": 0.4609,
+        "std_jaccard@5": 0.1584
+      }
+    },
+    "fidelity": {
+      "per_class": {
+        "analysis": {
+          "mean_r2": 0.0389,
+          "std_r2": 0.0244
+        }
+      },
+      "mean_r2": 0.0389
+    },
+    "mean_elapsed_sec": 0.099
+  }
+}

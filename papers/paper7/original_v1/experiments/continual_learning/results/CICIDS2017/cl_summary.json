@@ -1,0 +1,357 @@
+{
+  "naive": {
+    "strategy": "naive",
+    "average_accuracy": 0.10421891899243539,
+    "plasticity": 0.4949853987887203,
+    "forgetting": 0.5210219730617132,
+    "bwt": -0.5210219730617132,
+    "R_matrix": [
+      [
+        0.8805013434307187,
+        NaN,
+        NaN,
+        NaN
+      ],
+      [
+        0.12810952033402342,
+        0.8003836054231837,
+        NaN,
+        NaN
+      ],
+      [
+        0.052366369411387566,
+        0.011083743842364532,
+        0.29905664630097883,
+        NaN
+      ],
+      [
+        0.10819180652263945,
+        0.009633346317360934,
+        0.2990505231297412,
+        0.0
+      ]
+    ],
+    "adaptation_rate_epochs": 8.5,
+    "forward_transfer": 0.36648008390805414,
+    "cost": {
+      "per_task": [
+        {
+          "task_id": 0,
+          "time_sec": 4360.35,
+          "mem_start_mb": 2967.9,
+          "mem_end_mb": 1387.5,
+          "mem_delta_mb": -1580.4
+        },
+        {
+          "task_id": 1,
+          "time_sec": 66.92,
+          "mem_start_mb": 1579.3,
+          "mem_end_mb": 1599.7,
+          "mem_delta_mb": 20.4
+        },
+        {
+          "task_id": 2,
+          "time_sec": 193.31,
+          "mem_start_mb": 1697.0,
+          "mem_end_mb": 1732.1,
+          "mem_delta_mb": 35.1
+        },
+        {
+          "task_id": 3,
+          "time_sec": 0.67,
+          "mem_start_mb": 1830.4,
+          "mem_end_mb": 1826.3,
+          "mem_delta_mb": -4.1
+        }
+      ],
+      "total_time_sec": 4621.25,
+      "mean_time_per_task_sec": 1155.31
+    },
+    "elapsed_sec": 4730.9,
+    "dataset": "CICIDS2017"
+  },
+  "ewc": {
+    "strategy": "ewc",
+    "average_accuracy": 0.06198655913205386,
+    "plasticity": 0.43702135789289065,
+    "forgetting": 0.5183466731850815,
+    "bwt": -0.5000463983477824,
+    "R_matrix": [
+      [
+        0.8815302948120881,
+        NaN,
+        NaN,
+        NaN
+      ],
+      [
+        0.14703893500688958,
+        0.7567660092686639,
+        NaN,
+        NaN
+      ],
+      [
+        0.0443352859432818,
+        0.07024697110904007,
+        0.1097891274908106,
+        NaN
+      ],
+      [
+        0.010105712821415805,
+        0.07315057170409146,
+        0.16468995200270817,
+        0.0
+      ]
+    ],
+    "adaptation_rate_epochs": 5.5,
+    "forward_transfer": 0.28885171225315814,
+    "cost": {
+      "per_task": [
+        {
+          "task_id": 0,
+          "time_sec": 5680.27,
+          "mem_start_mb": 1249.2,
+          "mem_end_mb": 2765.6,
+          "mem_delta_mb": 1516.4
+        },
+        {
+          "task_id": 1,
+          "time_sec": 105.62,
+          "mem_start_mb": 2400.1,
+          "mem_end_mb": 2420.4,
+          "mem_delta_mb": 20.3
+        },
+        {
+          "task_id": 2,
+          "time_sec": 144.8,
+          "mem_start_mb": 2509.1,
+          "mem_end_mb": 2521.4,
+          "mem_delta_mb": 12.3
+        },
+        {
+          "task_id": 3,
+          "time_sec": 0.65,
+          "mem_start_mb": 2615.2,
+          "mem_end_mb": 2610.5,
+          "mem_delta_mb": -4.7
+        }
+      ],
+      "total_time_sec": 5931.34,
+      "mean_time_per_task_sec": 1482.84
+    },
+    "elapsed_sec": 6034.1,
+    "dataset": "CICIDS2017"
+  },
+  "replay": {
+    "strategy": "replay",
+    "average_accuracy": 0.18776735927439736,
+    "plasticity": 0.44048502298582765,
+    "forgetting": 0.33695688494857373,
+    "bwt": -0.33695688494857373,
+    "R_matrix": [
+      [
+        0.8565442729421159,
+        NaN,
+        NaN,
+        NaN
+      ],
+      [
+        0.32373902150374434,
+        0.742614451370442,
+        NaN,
+        NaN
+      ],
+      [
+        0.21475270769293453,
+        0.6077262403464845,
+        0.16278136763075265,
+        NaN
+      ],
+      [
+        0.21358852488067956,
+        0.379844023752985,
+        0.15763688846392493,
+        0.0
+      ]
+    ],
+    "adaptation_rate_epochs": 9.25,
+    "forward_transfer": 0.30179860633373157,
+    "cost": {
+      "per_task": [
+        {
+          "task_id": 0,
+          "time_sec": 5124.02,
+          "mem_start_mb": 1782.5,
+          "mem_end_mb": 1963.7,
+          "mem_delta_mb": 181.2
+        },
+        {
+          "task_id": 1,
+          "time_sec": 67.19,
+          "mem_start_mb": 2056.8,
+          "mem_end_mb": 2068.5,
+          "mem_delta_mb": 11.8
+        },
+        {
+          "task_id": 2,
+          "time_sec": 202.93,
+          "mem_start_mb": 2153.6,
+          "mem_end_mb": 2175.2,
+          "mem_delta_mb": 21.6
+        },
+        {
+          "task_id": 3,
+          "time_sec": 0.63,
+          "mem_start_mb": 2268.4,
+          "mem_end_mb": 2263.8,
+          "mem_delta_mb": -4.5
+        }
+      ],
+      "total_time_sec": 5394.77,
+      "mean_time_per_task_sec": 1348.69
+    },
+    "elapsed_sec": 5501.6,
+    "dataset": "CICIDS2017"
+  },
+  "lwf": {
+    "strategy": "lwf",
+    "average_accuracy": 0.07725327501390448,
+    "plasticity": 0.5004816435278352,
+    "forgetting": 0.5643044913519076,
+    "bwt": -0.5643044913519076,
+    "R_matrix": [
+      [
+        0.7396178298017928,
+        NaN,
+        NaN,
+        NaN
+      ],
+      [
+        0.09985692975336677,
+        0.9615321300000692,
+        NaN,
+        NaN
+      ],
+      [
+        0.007751812582232534,
+        0.002564102564102564,
+        0.30077661430947883,
+        NaN
+      ],
+      [
+        0.007129780959640885,
+        0.0011067047864982017,
+        0.30077661430947883,
+        0.0
+      ]
+    ],
+    "adaptation_rate_epochs": 8.0,
+    "forward_transfer": 0.420769581436516,
+    "cost": {
+      "per_task": [
+        {
+          "task_id": 0,
+          "time_sec": 4128.86,
+          "mem_start_mb": 1579.6,
+          "mem_end_mb": 2365.0,
+          "mem_delta_mb": 785.3
+        },
+        {
+          "task_id": 1,
+          "time_sec": 131.35,
+          "mem_start_mb": 2457.5,
+          "mem_end_mb": 2463.1,
+          "mem_delta_mb": 5.6
+        },
+        {
+          "task_id": 2,
+          "time_sec": 359.86,
+          "mem_start_mb": 2185.4,
+          "mem_end_mb": 2207.5,
+          "mem_delta_mb": 22.1
+        },
+        {
+          "task_id": 3,
+          "time_sec": 0.74,
+          "mem_start_mb": 2297.2,
+          "mem_end_mb": 2292.5,
+          "mem_delta_mb": -4.7
+        }
+      ],
+      "total_time_sec": 4620.81,
+      "mean_time_per_task_sec": 1155.2
+    },
+    "elapsed_sec": 4722.9,
+    "dataset": "CICIDS2017"
+  },
+  "gem": {
+    "strategy": "gem",
+    "average_accuracy": 0.0494070286149494,
+    "plasticity": 0.49777297456904473,
+    "forgetting": 0.5978212612721271,
+    "bwt": -0.5978212612721271,
+    "R_matrix": [
+      [
+        0.8829363638411809,
+        NaN,
+        NaN,
+        NaN
+      ],
+      [
+        0.11026700400784192,
+        0.9105274199752005,
+        NaN,
+        NaN
+      ],
+      [
+        0.0,
+        0.0,
+        0.1976281144597976,
+        NaN
+      ],
+      [
+        0.0,
+        0.0,
+        0.1976281144597976,
+        0.0
+      ]
+    ],
+    "adaptation_rate_epochs": 6.75,
+    "forward_transfer": 0.3693851781449993,
+    "cost": {
+      "per_task": [
+        {
+          "task_id": 0,
+          "time_sec": 4394.96,
+          "mem_start_mb": 1958.2,
+          "mem_end_mb": 2254.9,
+          "mem_delta_mb": 296.7
+        },
+        {
+          "task_id": 1,
+          "time_sec": 128.7,
+          "mem_start_mb": 2347.6,
+          "mem_end_mb": 2361.1,
+          "mem_delta_mb": 13.5
+        },
+        {
+          "task_id": 2,
+          "time_sec": 487.24,
+          "mem_start_mb": 2445.3,
+          "mem_end_mb": 2473.1,
+          "mem_delta_mb": 27.7
+        },
+        {
+          "task_id": 3,
+          "time_sec": 1.1,
+          "mem_start_mb": 2555.7,
+          "mem_end_mb": 2551.6,
+          "mem_delta_mb": -4.1
+        }
+      ],
+      "total_time_sec": 5012.0,
+      "mean_time_per_task_sec": 1253.0
+    },
+    "elapsed_sec": 5112.4,
+    "dataset": "CICIDS2017"
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "strategy": "replay",
+  "average_accuracy": 0.2839223652685107,
+  "plasticity": 0.37437679121142037,
+  "forgetting": 0.25211466440880204,
+  "bwt": -0.1356816389143644,
+  "R_matrix": [
+    [
+      0.24463912666620793,
+      NaN,
+      NaN
+    ],
+    [
+      0.47750517765508316,
+      0.39712634937998637,
+      NaN
+    ],
+    [
+      0.2444833922733019,
+      0.1259188059441636,
+      0.48136489758806666
+    ]
+  ],
+  "adaptation_rate_epochs": 3.6666666666666665,
+  "forward_transfer": 0.4392456234840265,
+  "cost": {
+    "per_task": [
+      {
+        "task_id": 0,
+        "time_sec": 260.13,
+        "mem_start_mb": 1004.3,
+        "mem_end_mb": 1707.9,
+        "mem_delta_mb": 703.6
+      },
+      {
+        "task_id": 1,
+        "time_sec": 30.86,
+        "mem_start_mb": 1704.8,
+        "mem_end_mb": 1709.9,
+        "mem_delta_mb": 5.1
+      },
+      {
+        "task_id": 2,
+        "time_sec": 71.32,
+        "mem_start_mb": 1711.0,
+        "mem_end_mb": 1738.9,
+        "mem_delta_mb": 27.9
+      }
+    ],
+    "total_time_sec": 362.31,
+    "mean_time_per_task_sec": 120.77
+  },
+  "elapsed_sec": 368.8,
+  "dataset": "TON_IoT"
+}

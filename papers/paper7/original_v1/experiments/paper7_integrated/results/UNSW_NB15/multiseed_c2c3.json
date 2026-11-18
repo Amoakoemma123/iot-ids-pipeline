@@ -1,0 +1,101 @@
+{
+  "42": {
+    "C2": {
+      "f1": 0.4566,
+      "precision": 0.4828,
+      "recall": 0.6263,
+      "accuracy": 0.7236,
+      "fpr": 0.0291,
+      "latency_ms": 19.219,
+      "n_params": 73036,
+      "train_time_min": 16.48,
+      "adversarial": {
+        "asr": 0.4441,
+        "adv_f1": 0.1694,
+        "epsilon": 0.1,
+        "pgd_steps": 20,
+        "n_eval": 716
+      },
+      "condition": "C2_adversarial"
+    },
+    "C3": {
+      "f1": 0.4334,
+      "precision": 0.4625,
+      "recall": 0.5814,
+      "accuracy": 0.7047,
+      "fpr": 0.031,
+      "latency_ms": 17.756,
+      "n_params": 73036,
+      "train_time_min": 29.59,
+      "n_clients": 4,
+      "n_rounds": 25,
+      "condition": "C3_federated"
+    }
+  },
+  "123": {
+    "C2": {
+      "f1": 0.4546,
+      "precision": 0.4905,
+      "recall": 0.6276,
+      "accuracy": 0.7174,
+      "fpr": 0.0295,
+      "latency_ms": 18.48,
+      "n_params": 73036,
+      "train_time_min": 19.79,
+      "adversarial": {
+        "asr": 0.4245,
+        "adv_f1": 0.1744,
+        "epsilon": 0.1,
+        "pgd_steps": 20,
+        "n_eval": 709
+      },
+      "condition": "C2_adversarial"
+    },
+    "C3": {
+      "f1": 0.4293,
+      "precision": 0.4616,
+      "recall": 0.573,
+      "accuracy": 0.7095,
+      "fpr": 0.0307,
+      "latency_ms": 17.296,
+      "n_params": 73036,
+      "train_time_min": 29.55,
+      "n_clients": 4,
+      "n_rounds": 25,
+      "condition": "C3_federated"
+    }
+  },
+  "456": {
+    "C2": {
+      "f1": 0.4588,
+      "precision": 0.4898,
+      "recall": 0.6267,
+      "accuracy": 0.7189,
+      "fpr": 0.0296,
+      "latency_ms": 20.13,
+      "n_params": 73036,
+      "train_time_min": 20.01,
+      "adversarial": {
+        "asr": 0.4636,
+        "adv_f1": 0.1756,
+        "epsilon": 0.1,
+        "pgd_steps": 20,
+        "n_eval": 729
+      },
+      "condition": "C2_adversarial"
+    },
+    "C3": {
+      "f1": 0.434,
+      "precision": 0.4641,
+      "recall": 0.572,
+      "accuracy": 0.7,
+      "fpr": 0.0316,
+      "latency_ms": 17.742,
+      "n_params": 73036,
+      "train_time_min": 29.62,
+      "n_clients": 4,
+      "n_rounds": 25,
+      "condition": "C3_federated"
+    }
+  }
+}

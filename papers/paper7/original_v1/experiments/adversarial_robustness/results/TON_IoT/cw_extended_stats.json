@@ -1,0 +1,73 @@
+{
+  "dataset": "TON_IoT",
+  "n_samples": 1000,
+  "asr": 0.8740661686232657,
+  "accuracy": 0.118,
+  "f1": 0.10220403170347551,
+  "l2_stats": {
+    "mean": 0.006978781893849373,
+    "std": 0.0332329086959362,
+    "min": 0.0,
+    "p5": 0.0,
+    "p25": 0.000217088501813123,
+    "p50": 0.0004805772623512894,
+    "p75": 0.0009991946863010526,
+    "p95": 0.03439200744032857,
+    "max": 0.5468437075614929,
+    "n_zero_float32": 118,
+    "pct_zero_float32": 11.8
+  },
+  "per_class": {
+    "backdoor": {
+      "n_samples": 98,
+      "mean_l2": 0.0007888263207860291,
+      "asr": 1.0
+    },
+    "ddos": {
+      "n_samples": 103,
+      "mean_l2": 0.004328626673668623,
+      "asr": 1.0
+    },
+    "dos": {
+      "n_samples": 84,
+      "mean_l2": 0.0006215156172402203,
+      "asr": 0.20238095238095238
+    },
+    "injection": {
+      "n_samples": 121,
+      "mean_l2": 0.0006348347524181008,
+      "asr": 1.0
+    },
+    "mitm": {
+      "n_samples": 4,
+      "mean_l2": 0.0022179903462529182,
+      "asr": 0.25
+    },
+    "normal": {
+      "n_samples": 239,
+      "mean_l2": 0.025226274505257607,
+      "asr": 0.799163179916318
+    },
+    "password": {
+      "n_samples": 97,
+      "mean_l2": 0.0013232780620455742,
+      "asr": 1.0
+    },
+    "ransomware": {
+      "n_samples": 78,
+      "mean_l2": 0.00034661838435567915,
+      "asr": 1.0
+    },
+    "scanning": {
+      "n_samples": 93,
+      "mean_l2": 0.0006667530979029834,
+      "asr": 1.0
+    },
+    "xss": {
+      "n_samples": 83,
+      "mean_l2": 0.0008584547322243452,
+      "asr": 1.0
+    }
+  },
+  "explanation": "L2 norm of 0 in float32 occurs when C&W's binary search converges to a solution whose perturbation magnitude is below float32 machine epsilon (~1.19e-7), indicating the model's decision boundary is reachable with sub-precision perturbations. This is NOT a bug \u2014 it reflects that some samples lie very close to the decision boundary."
+}

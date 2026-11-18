@@ -1,0 +1,83 @@
+{
+  "dataset": "TON_IoT",
+  "seed": 43,
+  "overall": {
+    "alpha_flow_mean": 0.0001,
+    "alpha_flow_std": 0.0061,
+    "alpha_beh_mean": 0.9999,
+    "alpha_beh_std": 0.0061,
+    "n_samples": 27533
+  },
+  "per_class": {
+    "backdoor": {
+      "alpha_flow_mean": 0.0,
+      "alpha_flow_std": 0.002,
+      "alpha_beh_mean": 1.0,
+      "alpha_beh_std": 0.002,
+      "n_samples": 2807
+    },
+    "ddos": {
+      "alpha_flow_mean": 0.0,
+      "alpha_flow_std": 0.0004,
+      "alpha_beh_mean": 1.0,
+      "alpha_beh_std": 0.0004,
+      "n_samples": 2998
+    },
+    "dos": {
+      "alpha_flow_mean": 0.0001,
+      "alpha_flow_std": 0.0031,
+      "alpha_beh_mean": 0.9999,
+      "alpha_beh_std": 0.0031,
+      "n_samples": 2200
+    },
+    "injection": {
+      "alpha_flow_mean": 0.0,
+      "alpha_flow_std": 0.0,
+      "alpha_beh_mean": 1.0,
+      "alpha_beh_std": 0.0,
+      "n_samples": 2995
+    },
+    "mitm": {
+      "alpha_flow_mean": 0.0024,
+      "alpha_flow_std": 0.0132,
+      "alpha_beh_mean": 0.9976,
+      "alpha_beh_std": 0.0132,
+      "n_samples": 156
+    },
+    "normal": {
+      "alpha_flow_mean": 0.0003,
+      "alpha_flow_std": 0.0124,
+      "alpha_beh_mean": 0.9997,
+      "alpha_beh_std": 0.0124,
+      "n_samples": 6290
+    },
+    "password": {
+      "alpha_flow_mean": 0.0,
+      "alpha_flow_std": 0.0,
+      "alpha_beh_mean": 1.0,
+      "alpha_beh_std": 0.0,
+      "n_samples": 2977
+    },
+    "ransomware": {
+      "alpha_flow_mean": 0.0,
+      "alpha_flow_std": 0.0,
+      "alpha_beh_mean": 1.0,
+      "alpha_beh_std": 0.0,
+      "n_samples": 2140
+    },
+    "scanning": {
+      "alpha_flow_mean": 0.0,
+      "alpha_flow_std": 0.0,
+      "alpha_beh_mean": 1.0,
+      "alpha_beh_std": 0.0,
+      "n_samples": 2792
+    },
+    "xss": {
+      "alpha_flow_mean": 0.0,
+      "alpha_flow_std": 0.0,
+      "alpha_beh_mean": 1.0,
+      "alpha_beh_std": 0.0,
+      "n_samples": 2178
+    }
+  }
+}

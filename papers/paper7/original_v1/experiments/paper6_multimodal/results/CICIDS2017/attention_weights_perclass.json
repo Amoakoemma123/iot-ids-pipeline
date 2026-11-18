@@ -1,0 +1,118 @@
+{
+  "dataset": "CICIDS2017",
+  "seed": 42,
+  "overall": {
+    "alpha_flow_mean": 0.2809,
+    "alpha_flow_std": 0.3145,
+    "alpha_beh_mean": 0.7191,
+    "alpha_beh_std": 0.3145,
+    "n_samples": 378355
+  },
+  "per_class": {
+    "benign": {
+      "alpha_flow_mean": 0.2385,
+      "alpha_flow_std": 0.2856,
+      "alpha_beh_mean": 0.7615,
+      "alpha_beh_std": 0.2856,
+      "n_samples": 314473
+    },
+    "bot": {
+      "alpha_flow_mean": 0.1264,
+      "alpha_flow_std": 0.1079,
+      "alpha_beh_mean": 0.8736,
+      "alpha_beh_std": 0.1079,
+      "n_samples": 293
+    },
+    "ddos": {
+      "alpha_flow_mean": 0.1457,
+      "alpha_flow_std": 0.1353,
+      "alpha_beh_mean": 0.8543,
+      "alpha_beh_std": 0.1353,
+      "n_samples": 19202
+    },
+    "dos goldeneye": {
+      "alpha_flow_mean": 0.7642,
+      "alpha_flow_std": 0.2282,
+      "alpha_beh_mean": 0.2358,
+      "alpha_beh_std": 0.2282,
+      "n_samples": 1543
+    },
+    "dos hulk": {
+      "alpha_flow_mean": 0.8251,
+      "alpha_flow_std": 0.2106,
+      "alpha_beh_mean": 0.1749,
+      "alpha_beh_std": 0.2106,
+      "n_samples": 25927
+    },
+    "dos slowhttptest": {
+      "alpha_flow_mean": 0.439,
+      "alpha_flow_std": 0.3329,
+      "alpha_beh_mean": 0.561,
+      "alpha_beh_std": 0.3329,
+      "n_samples": 784
+    },
+    "dos slowloris": {
+      "alpha_flow_mean": 0.2574,
+      "alpha_flow_std": 0.1608,
+      "alpha_beh_mean": 0.7426,
+      "alpha_beh_std": 0.1608,
+      "n_samples": 808
+    },
+    "ftp-patator": {
+      "alpha_flow_mean": 0.6088,
+      "alpha_flow_std": 0.3595,
+      "alpha_beh_mean": 0.3912,
+      "alpha_beh_std": 0.3595,
+      "n_samples": 890
+    },
+    "heartbleed": {
+      "alpha_flow_mean": 0.9953,
+      "alpha_flow_std": 0.0017,
+      "alpha_beh_mean": 0.0047,
+      "alpha_beh_std": 0.0017,
+      "n_samples": 2
+    },
+    "infiltration": {
+      "alpha_flow_mean": 0.9808,
+      "alpha_flow_std": 0.0095,
+      "alpha_beh_mean": 0.0192,
+      "alpha_beh_std": 0.0095,
+      "n_samples": 5
+    },
+    "portscan": {
+      "alpha_flow_mean": 0.3009,
+      "alpha_flow_std": 0.2136,
+      "alpha_beh_mean": 0.6991,
+      "alpha_beh_std": 0.2136,
+      "n_samples": 13623
+    },
+    "ssh-patator": {
+      "alpha_flow_mean": 0.9307,
+      "alpha_flow_std": 0.1516,
+      "alpha_beh_mean": 0.0693,
+      "alpha_beh_std": 0.1516,
+      "n_samples": 483
+    },
+    "web attack \ufffd brute force": {
+      "alpha_flow_mean": 0.641,
+      "alpha_flow_std": 0.1624,
+      "alpha_beh_mean": 0.359,
+      "alpha_beh_std": 0.1624,
+      "n_samples": 221
+    },
+    "web attack \ufffd sql injection": {
+      "alpha_flow_mean": 0.7303,
+      "alpha_flow_std": 0.3189,
+      "alpha_beh_mean": 0.2697,
+      "alpha_beh_std": 0.3189,
+      "n_samples": 3
+    },
+    "web attack \ufffd xss": {
+      "alpha_flow_mean": 0.6117,
+      "alpha_flow_std": 0.103,
+      "alpha_beh_mean": 0.3883,
+      "alpha_beh_std": 0.103,
+      "n_samples": 98
+    }
+  }
+}

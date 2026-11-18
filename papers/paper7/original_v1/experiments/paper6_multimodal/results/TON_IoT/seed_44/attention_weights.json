@@ -1,0 +1,7 @@
+{
+  "alpha_flow_mean": 0.0153,
+  "alpha_flow_std": 0.0342,
+  "alpha_beh_mean": 0.9847,
+  "alpha_beh_std": 0.0342,
+  "seed": 44
+}

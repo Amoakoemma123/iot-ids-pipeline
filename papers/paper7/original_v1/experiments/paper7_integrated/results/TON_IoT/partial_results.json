@@ -1,0 +1,214 @@
+{
+  "dataset": "TON_IoT",
+  "seed": 42,
+  "n_classes": 10,
+  "classes": [
+    "backdoor",
+    "ddos",
+    "dos",
+    "injection",
+    "mitm",
+    "normal",
+    "password",
+    "ransomware",
+    "scanning",
+    "xss"
+  ],
+  "n_flow": 7,
+  "n_beh": 18,
+  "n_features": 25,
+  "task0_classes": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "task1_classes": [
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "conditions": {
+    "C0": {
+      "f1": 0.8662,
+      "precision": 0.87,
+      "recall": 0.9212,
+      "accuracy": 0.9239,
+      "fpr": 0.0082,
+      "latency_ms": 6.216,
+      "n_params": 34634,
+      "train_time_min": 2.39,
+      "condition": "C0_baseline"
+    },
+    "C1": {
+      "f1": 0.7087,
+      "precision": 0.7342,
+      "recall": 0.798,
+      "accuracy": 0.8006,
+      "fpr": 0.0218,
+      "latency_ms": 15.197,
+      "n_params": 73036,
+      "train_time_min": 3.92,
+      "condition": "C1_multimodal"
+    },
+    "C2": {
+      "f1": 0.7511,
+      "precision": 0.7943,
+      "recall": 0.8243,
+      "accuracy": 0.8209,
+      "fpr": 0.0196,
+      "latency_ms": 14.674,
+      "n_params": 73036,
+      "train_time_min": 19.94,
+      "adversarial": {
+        "asr": 0.3357,
+        "adv_f1": 0.4906,
+        "epsilon": 0.1,
+        "pgd_steps": 20,
+        "n_eval": 840
+      },
+      "condition": "C2_adversarial"
+    },
+    "C3": {
+      "f1": 0.7114,
+      "precision": 0.7314,
+      "recall": 0.7748,
+      "accuracy": 0.7808,
+      "fpr": 0.024,
+      "latency_ms": 14.984,
+      "n_params": 73036,
+      "train_time_min": 31.86,
+      "n_clients": 4,
+      "n_rounds": 25,
+      "condition": "C3_federated"
+    },
+    "C4": {
+      "condition": "C4_full_IREAP",
+      "clean_metrics": {
+        "f1": 0.0185,
+        "precision": 0.0102,
+        "recall": 0.1,
+        "accuracy": 0.102,
+        "fpr": 0.1,
+        "latency_ms": 18.377,
+        "n_params": 73036
+      },
+      "adversarial": {
+        "asr": 0.0,
+        "adv_f1": 0.0179,
+        "epsilon": 0.1,
+        "pgd_steps": 20,
+        "n_eval": 98
+      },
+      "task0_before_adapt": {
+        "f1": 0.0804,
+        "precision": 0.0503,
+        "recall": 0.2,
+        "accuracy": 0.2516,
+        "fpr": 0.1,
+        "latency_ms": 18.477,
+        "n_params": 73036
+      },
+      "task0_after_adapt": {
+        "f1": 0.333,
+        "precision": 0.4194,
+        "recall": 0.3539,
+        "accuracy": 0.6537,
+        "fpr": 0.035,
+        "latency_ms": 21.592,
+        "n_params": 73036
+      },
+      "task1_new": {
+        "f1": 0.5312,
+        "precision": 0.5422,
+        "recall": 0.5217,
+        "accuracy": 0.9456,
+        "fpr": 0.0058,
+        "latency_ms": 16.944,
+        "n_params": 73036
+      },
+      "full_after_adapt": {
+        "f1": 0.7455,
+        "precision": 0.7878,
+        "recall": 0.8234,
+        "accuracy": 0.8273,
+        "fpr": 0.019,
+        "latency_ms": 17.694,
+        "n_params": 73036
+      },
+      "forgetting_measure": -0.2526,
+      "task0_classes": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "task1_classes": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "ccat_time_min": 5.96,
+      "adapt_time_min": 14.18,
+      "shap": {
+        "top10_features": {
+          "dst_pkts": 0.02333,
+          "dns_qclass": 0.01896,
+          "dst_ip_bytes": 0.01705,
+          "dst_port": 0.01673,
+          "src_port": 0.01358,
+          "dst_bytes": 0.01117,
+          "duration": 0.0102,
+          "src_bytes": 0.00895,
+          "src_ip_bytes": 0.00677,
+          "src_pkts": 0.00573
+        },
+        "mean_abs_shap": [
+          0.0102,
+          0.00895,
+          0.01117,
+          0.00573,
+          0.00677,
+          0.02333,
+          0.01705,
+          0.01358,
+          0.01673,
+          0.01896
+        ],
+        "feature_names": [
+          "duration",
+          "src_bytes",
+          "dst_bytes",
+          "src_pkts",
+          "src_ip_bytes",
+          "dst_pkts",
+          "dst_ip_bytes",
+          "src_port",
+          "dst_port",
+          "dns_qclass",
+          "dns_qtype",
+          "dns_rcode",
+          "proto_tcp",
+          "proto_udp",
+          "service_dns",
+          "service_http",
+          "conn_state_rej",
+          "conn_state_s0",
+          "conn_state_s1",
+          "conn_state_sf",
+          "conn_state_sh",
+          "dns_RD_t",
+          "dns_RA_f",
+          "dns_rejected_f",
+          "dns_rejected_t"
+        ]
+      }
+    }
+  }
+}

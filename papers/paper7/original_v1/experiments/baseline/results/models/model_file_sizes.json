@@ -1,0 +1,18 @@
+{
+ "TON_IoT/model_rf.pkl": {
+  "bytes": 101496761,
+  "sha256": "8e21cb2feb42a6e4bf7257078f7012bb6840a2b48ae507099b582c8ee66ef976"
+ },
+ "TON_IoT/model_cnn.h5": {
+  "bytes": 357744,
+  "sha256": "6c46f8596a96af6d8d1178c0b70ae0c345ba7f5cc34e29451d9cb7a30f268252"
+ },
+ "UNSW_NB15/model_rf.pkl": {
+  "bytes": 245072841,
+  "sha256": "b90b076ba5bb46f684a442f4b9d10280285c0becd074d8ebecf4d0dfefbf9008"
+ },
+ "UNSW_NB15/model_cnn.h5": {
+  "bytes": 357744,
+  "sha256": "3df34555fc1e70fa814cbcf7f14317799682c90642b8eb7af437c7e25f8717b5"
+ }
+}

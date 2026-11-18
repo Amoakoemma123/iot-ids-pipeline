@@ -1,0 +1,68 @@
+{
+  "dataset": "UNSW_NB15",
+  "n_samples": 1000,
+  "asr": 0.44921875,
+  "accuracy": 0.423,
+  "f1": 0.1737048115124227,
+  "l2_stats": {
+    "mean": 0.020298907533288002,
+    "std": 0.05630060285329819,
+    "min": 0.0,
+    "p5": 0.0,
+    "p25": 0.0,
+    "p50": 0.00011632390669547021,
+    "p75": 0.009474264224991202,
+    "p95": 0.14784113913774474,
+    "max": 0.6260024905204773,
+    "n_zero_float32": 423,
+    "pct_zero_float32": 42.3
+  },
+  "per_class": {
+    "analysis": {
+      "n_samples": 6,
+      "mean_l2": 0.006028266623616219,
+      "asr": 1.0
+    },
+    "backdoor": {
+      "n_samples": 11,
+      "mean_l2": 0.0026528460439294577,
+      "asr": 1.0
+    },
+    "dos": {
+      "n_samples": 81,
+      "mean_l2": 0.01236175186932087,
+      "asr": 1.0
+    },
+    "exploits": {
+      "n_samples": 189,
+      "mean_l2": 0.040871359407901764,
+      "asr": 0.9894179894179894
+    },
+    "fuzzers": {
+      "n_samples": 105,
+      "mean_l2": 0.03499113395810127,
+      "asr": 0.9809523809523809
+    },
+    "generic": {
+      "n_samples": 246,
+      "mean_l2": 0.0024897833354771137,
+      "asr": 0.04878048780487805
+    },
+    "normal": {
+      "n_samples": 302,
+      "mean_l2": 0.022677350789308548,
+      "asr": 0.38741721854304634
+    },
+    "reconnaissance": {
+      "n_samples": 56,
+      "mean_l2": 0.004322502762079239,
+      "asr": 1.0
+    },
+    "shellcode": {
+      "n_samples": 4,
+      "mean_l2": 0.03259789198637009,
+      "asr": 1.0
+    }
+  },
+  "explanation": "L2 norm of 0 in float32 occurs when C&W's binary search converges to a solution whose perturbation magnitude is below float32 machine epsilon (~1.19e-7), indicating the model's decision boundary is reachable with sub-precision perturbations. This is NOT a bug \u2014 it reflects that some samples lie very close to the decision boundary."
+}

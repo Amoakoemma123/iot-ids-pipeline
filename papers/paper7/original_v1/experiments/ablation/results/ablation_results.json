@@ -1,0 +1,50 @@
+[
+  {
+    "condition": "A",
+    "description": "MI+RFECV+SMOTE (Full pipeline)",
+    "n_features": 25,
+    "n_train": 293550,
+    "apply_smote": true,
+    "skip_rfecv": false,
+    "rf_accuracy": 0.9866705408055788,
+    "rf_f1": 0.9565302995966034,
+    "cnn_accuracy": 0.9439944793520503,
+    "cnn_f1": 0.8873417186770094
+  },
+  {
+    "condition": "B",
+    "description": "MI+RFECV, no SMOTE",
+    "n_features": 25,
+    "n_train": 128484,
+    "apply_smote": false,
+    "skip_rfecv": false,
+    "rf_accuracy": 0.9871427014854901,
+    "rf_f1": 0.9595479949528342,
+    "cnn_accuracy": 0.9395634329713435,
+    "cnn_f1": 0.8836481850535366
+  },
+  {
+    "condition": "C",
+    "description": "MI+SMOTE, no RFECV",
+    "n_features": 27,
+    "n_train": 293550,
+    "apply_smote": true,
+    "skip_rfecv": true,
+    "rf_accuracy": 0.9868158210147823,
+    "rf_f1": 0.9569432896686021,
+    "cnn_accuracy": 0.9434496785675371,
+    "cnn_f1": 0.8897649738268484
+  },
+  {
+    "condition": "D",
+    "description": "All features, no SMOTE",
+    "n_features": 64,
+    "n_train": 128484,
+    "apply_smote": false,
+    "skip_rfecv": true,
+    "rf_accuracy": 0.9870337413285876,
+    "rf_f1": 0.959351744838218,
+    "cnn_accuracy": 0.9012094577416192,
+    "cnn_f1": 0.8407225978270525
+  }
+]

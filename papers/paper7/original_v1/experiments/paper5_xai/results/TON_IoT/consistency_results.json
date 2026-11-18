@@ -1,0 +1,175 @@
+{
+  "rf": {
+    "shap_top5": [
+      "conn_state_rej",
+      "dst_port",
+      "duration",
+      "src_ip_bytes",
+      "src_port"
+    ],
+    "shap_top10": [
+      "conn_state_rej",
+      "conn_state_s0",
+      "dst_bytes",
+      "dst_ip_bytes",
+      "dst_port",
+      "duration",
+      "src_bytes",
+      "src_ip_bytes",
+      "src_pkts",
+      "src_port"
+    ],
+    "lime_top5": [
+      "conn_state_rej",
+      "conn_state_s0",
+      "dst_port",
+      "duration",
+      "src_port"
+    ],
+    "lime_top10": [
+      "conn_state_rej",
+      "conn_state_s0",
+      "conn_state_sf",
+      "dns_rejected_t",
+      "dst_port",
+      "duration",
+      "proto_tcp",
+      "proto_udp",
+      "service_dns",
+      "src_port"
+    ],
+    "jaccard@5": 0.6667,
+    "jaccard@10": 0.3333,
+    "overlap@5": [
+      "conn_state_rej",
+      "dst_port",
+      "duration",
+      "src_port"
+    ],
+    "overlap@10": [
+      "conn_state_rej",
+      "conn_state_s0",
+      "dst_port",
+      "duration",
+      "src_port"
+    ]
+  },
+  "cnn": {
+    "shap_top5": [
+      "conn_state_rej",
+      "conn_state_s0",
+      "dns_RA_f",
+      "dst_port",
+      "proto_udp"
+    ],
+    "shap_top10": [
+      "conn_state_rej",
+      "conn_state_s0",
+      "conn_state_sf",
+      "dns_RA_f",
+      "dns_RD_t",
+      "dst_port",
+      "proto_tcp",
+      "proto_udp",
+      "service_http",
+      "src_port"
+    ],
+    "lime_top5": [
+      "conn_state_rej",
+      "conn_state_sf",
+      "dns_RD_t",
+      "dns_rcode",
+      "dns_rejected_t"
+    ],
+    "lime_top10": [
+      "conn_state_rej",
+      "conn_state_sf",
+      "dns_RA_f",
+      "dns_RD_t",
+      "dns_rcode",
+      "dns_rejected_t",
+      "proto_udp",
+      "service_dns",
+      "service_http",
+      "src_port"
+    ],
+    "jaccard@5": 0.1111,
+    "jaccard@10": 0.5385,
+    "overlap@5": [
+      "conn_state_rej"
+    ],
+    "overlap@10": [
+      "conn_state_rej",
+      "conn_state_sf",
+      "dns_RA_f",
+      "dns_RD_t",
+      "proto_udp",
+      "service_http",
+      "src_port"
+    ]
+  },
+  "cross_model_shap": {
+    "rf_top10": [
+      "dst_port",
+      "src_ip_bytes",
+      "conn_state_rej",
+      "src_port",
+      "duration",
+      "src_bytes",
+      "src_pkts",
+      "dst_ip_bytes",
+      "dst_bytes",
+      "conn_state_s0"
+    ],
+    "cnn_top10": [
+      "dst_port",
+      "dns_RA_f",
+      "conn_state_rej",
+      "conn_state_s0",
+      "proto_udp",
+      "conn_state_sf",
+      "service_http",
+      "dns_RD_t",
+      "src_port",
+      "proto_tcp"
+    ],
+    "jaccard@5": 0.25,
+    "jaccard@10": 0.25,
+    "overlap@5": [
+      "conn_state_rej",
+      "dst_port"
+    ],
+    "overlap@10": [
+      "conn_state_rej",
+      "conn_state_s0",
+      "dst_port",
+      "src_port"
+    ]
+  },
+  "stability_summary": {
+    "rf": {
+      "dos": {
+        "mean_jaccard@5": 0.7075,
+        "std_jaccard@5": 0.1506
+      },
+      "ddos": {
+        "mean_jaccard@5": 0.6394,
+        "std_jaccard@5": 0.1766
+      }
+    },
+    "cnn": {
+      "dos": {
+        "mean_jaccard@5": 0.4246,
+        "std_jaccard@5": 0.1515
+      },
+      "ddos": {
+        "mean_jaccard@5": 0.682,
+        "std_jaccard@5": 0.1709
+      }
+    }
+  },
+  "lime_timing": {
+    "rf": 0.05,
+    "cnn": 0.061
+  }
+}

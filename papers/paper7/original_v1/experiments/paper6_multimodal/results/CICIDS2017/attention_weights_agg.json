@@ -1,0 +1,24 @@
+{
+  "alpha_flow_mean": 0.3235,
+  "alpha_flow_std": 0.0776,
+  "alpha_beh_mean": 0.6765,
+  "alpha_beh_std": 0.0776,
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 42,
+      "alpha_flow": 0.2842,
+      "alpha_beh": 0.7158
+    },
+    {
+      "seed": 43,
+      "alpha_flow": 0.2543,
+      "alpha_beh": 0.7457
+    },
+    {
+      "seed": 44,
+      "alpha_flow": 0.4319,
+      "alpha_beh": 0.5681
+    }
+  ]
+}

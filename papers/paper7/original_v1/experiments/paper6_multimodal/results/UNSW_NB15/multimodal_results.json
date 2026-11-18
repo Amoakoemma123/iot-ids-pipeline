@@ -1,0 +1,151 @@
+{
+  "dataset": "UNSW_NB15",
+  "n_classes": 10,
+  "classes": [
+    "analysis",
+    "backdoor",
+    "dos",
+    "exploits",
+    "fuzzers",
+    "generic",
+    "normal",
+    "reconnaissance",
+    "shellcode",
+    "worms"
+  ],
+  "n_flow_features": 10,
+  "n_beh_features": 6,
+  "n_total_features": 16,
+  "flow_features": [
+    "id",
+    "dur",
+    "sbytes",
+    "dbytes",
+    "rate",
+    "sttl",
+    "sload",
+    "dload",
+    "smean",
+    "dmean"
+  ],
+  "behavioral_features": [
+    "ct_srv_src",
+    "ct_src_dport_ltm",
+    "ct_dst_sport_ltm",
+    "ct_dst_src_ltm",
+    "ct_srv_dst",
+    "service_dns"
+  ],
+  "experiments": {
+    "flow_only": {
+      "f1": 0.516,
+      "precision": 0.5176,
+      "recall": 0.6392,
+      "accuracy": 0.7669,
+      "fpr": 0.0248,
+      "latency_ms": 0.089,
+      "per_class_f1": {
+        "analysis": 0.2082,
+        "backdoor": 0.1297,
+        "dos": 0.411,
+        "exploits": 0.5692,
+        "fuzzers": 0.7079,
+        "generic": 0.987,
+        "normal": 0.9531,
+        "reconnaissance": 0.7772,
+        "shellcode": 0.2095,
+        "worms": 0.2074
+      },
+      "train_time_sec": 618.2,
+      "n_params": 34634
+    },
+    "behavioral_only": {
+      "f1": 0.2976,
+      "precision": 0.3513,
+      "recall": 0.3776,
+      "accuracy": 0.5701,
+      "fpr": 0.048,
+      "latency_ms": 0.054,
+      "per_class_f1": {
+        "analysis": 0.108,
+        "backdoor": 0.0666,
+        "dos": 0.0969,
+        "exploits": 0.1515,
+        "fuzzers": 0.4522,
+        "generic": 0.984,
+        "normal": 0.7694,
+        "reconnaissance": 0.2697,
+        "shellcode": 0.078,
+        "worms": 0.0
+      },
+      "train_time_sec": 179.4,
+      "n_params": 34634
+    },
+    "early_fusion": {
+      "f1": 0.5572,
+      "precision": 0.5456,
+      "recall": 0.653,
+      "accuracy": 0.7948,
+      "fpr": 0.022,
+      "latency_ms": 0.064,
+      "per_class_f1": {
+        "analysis": 0.2341,
+        "backdoor": 0.119,
+        "dos": 0.4012,
+        "exploits": 0.62,
+        "fuzzers": 0.807,
+        "generic": 0.9885,
+        "normal": 0.961,
+        "reconnaissance": 0.7862,
+        "shellcode": 0.4028,
+        "worms": 0.2524
+      },
+      "train_time_sec": 521.4,
+      "n_params": 34634
+    },
+    "late_fusion": {
+      "f1": 0.5725,
+      "precision": 0.5672,
+      "recall": 0.6337,
+      "accuracy": 0.7995,
+      "fpr": 0.0217,
+      "latency_ms": 0.067,
+      "per_class_f1": {
+        "analysis": 0.2473,
+        "backdoor": 0.1391,
+        "dos": 0.4307,
+        "exploits": 0.6342,
+        "fuzzers": 0.7921,
+        "generic": 0.9885,
+        "normal": 0.9581,
+        "reconnaissance": 0.7711,
+        "shellcode": 0.4346,
+        "worms": 0.3288
+      },
+      "train_time_sec": 365.3,
+      "n_params": 85770
+    },
+    "attention_fusion": {
+      "f1": 0.5764,
+      "precision": 0.5733,
+      "recall": 0.6637,
+      "accuracy": 0.8082,
+      "fpr": 0.0208,
+      "latency_ms": 0.102,
+      "per_class_f1": {
+        "analysis": 0.2899,
+        "backdoor": 0.1714,
+        "dos": 0.4621,
+        "exploits": 0.6195,
+        "fuzzers": 0.8052,
+        "generic": 0.9877,
+        "normal": 0.9602,
+        "reconnaissance": 0.7892,
+        "shellcode": 0.4191,
+        "worms": 0.26
+      },
+      "train_time_sec": 925.2,
+      "n_params": 73036
+    }
+  }
+}

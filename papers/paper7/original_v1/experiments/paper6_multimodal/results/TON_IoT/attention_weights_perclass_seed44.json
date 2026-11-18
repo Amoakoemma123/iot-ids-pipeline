@@ -1,0 +1,83 @@
+{
+  "dataset": "TON_IoT",
+  "seed": 44,
+  "overall": {
+    "alpha_flow_mean": 0.1363,
+    "alpha_flow_std": 0.1053,
+    "alpha_beh_mean": 0.8637,
+    "alpha_beh_std": 0.1053,
+    "n_samples": 27533
+  },
+  "per_class": {
+    "backdoor": {
+      "alpha_flow_mean": 0.0958,
+      "alpha_flow_std": 0.0432,
+      "alpha_beh_mean": 0.9042,
+      "alpha_beh_std": 0.0432,
+      "n_samples": 2807
+    },
+    "ddos": {
+      "alpha_flow_mean": 0.1675,
+      "alpha_flow_std": 0.0672,
+      "alpha_beh_mean": 0.8325,
+      "alpha_beh_std": 0.0672,
+      "n_samples": 2998
+    },
+    "dos": {
+      "alpha_flow_mean": 0.0506,
+      "alpha_flow_std": 0.1412,
+      "alpha_beh_mean": 0.9494,
+      "alpha_beh_std": 0.1412,
+      "n_samples": 2200
+    },
+    "injection": {
+      "alpha_flow_mean": 0.1847,
+      "alpha_flow_std": 0.0675,
+      "alpha_beh_mean": 0.8153,
+      "alpha_beh_std": 0.0675,
+      "n_samples": 2995
+    },
+    "mitm": {
+      "alpha_flow_mean": 0.3274,
+      "alpha_flow_std": 0.2311,
+      "alpha_beh_mean": 0.6726,
+      "alpha_beh_std": 0.2311,
+      "n_samples": 156
+    },
+    "normal": {
+      "alpha_flow_mean": 0.0789,
+      "alpha_flow_std": 0.0915,
+      "alpha_beh_mean": 0.9211,
+      "alpha_beh_std": 0.0915,
+      "n_samples": 6290
+    },
+    "password": {
+      "alpha_flow_mean": 0.1694,
+      "alpha_flow_std": 0.0407,
+      "alpha_beh_mean": 0.8306,
+      "alpha_beh_std": 0.0407,
+      "n_samples": 2977
+    },
+    "ransomware": {
+      "alpha_flow_mean": 0.1463,
+      "alpha_flow_std": 0.0408,
+      "alpha_beh_mean": 0.8537,
+      "alpha_beh_std": 0.0408,
+      "n_samples": 2140
+    },
+    "scanning": {
+      "alpha_flow_mean": 0.108,
+      "alpha_flow_std": 0.0692,
+      "alpha_beh_mean": 0.892,
+      "alpha_beh_std": 0.0692,
+      "n_samples": 2792
+    },
+    "xss": {
+      "alpha_flow_mean": 0.299,
+      "alpha_flow_std": 0.109,
+      "alpha_beh_mean": 0.701,
+      "alpha_beh_std": 0.109,
+      "n_samples": 2178
+    }
+  }
+}

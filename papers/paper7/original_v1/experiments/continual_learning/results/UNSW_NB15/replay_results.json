@@ -1,0 +1,55 @@
+{
+  "strategy": "replay",
+  "average_accuracy": 0.23101398070260803,
+  "plasticity": 0.490780740994992,
+  "forgetting": 0.38965014043857593,
+  "bwt": -0.38965014043857593,
+  "R_matrix": [
+    [
+      0.9809278228918016,
+      NaN,
+      NaN
+    ],
+    [
+      0.3690872198074319,
+      0.4914144000931744,
+      NaN
+    ],
+    [
+      0.5274956856291506,
+      0.1655462564786735,
+      0.0
+    ]
+  ],
+  "adaptation_rate_epochs": 2.0,
+  "forward_transfer": 0.2457072000465872,
+  "cost": {
+    "per_task": [
+      {
+        "task_id": 0,
+        "time_sec": 500.1,
+        "mem_start_mb": 1816.6,
+        "mem_end_mb": 1806.7,
+        "mem_delta_mb": -9.9
+      },
+      {
+        "task_id": 1,
+        "time_sec": 36.01,
+        "mem_start_mb": 1807.9,
+        "mem_end_mb": 1807.6,
+        "mem_delta_mb": -0.2
+      },
+      {
+        "task_id": 2,
+        "time_sec": 3.8,
+        "mem_start_mb": 1809.5,
+        "mem_end_mb": 1808.4,
+        "mem_delta_mb": -1.1
+      }
+    ],
+    "total_time_sec": 539.91,
+    "mean_time_per_task_sec": 179.97
+  },
+  "elapsed_sec": 544.4,
+  "dataset": "UNSW_NB15"
+}

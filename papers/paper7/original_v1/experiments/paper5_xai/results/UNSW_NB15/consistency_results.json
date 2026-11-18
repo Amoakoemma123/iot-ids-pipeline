@@ -1,0 +1,172 @@
+{
+  "rf": {
+    "shap_top5": [
+      "id",
+      "sbytes",
+      "service_dns",
+      "smean",
+      "sttl"
+    ],
+    "shap_top10": [
+      "ct_dst_sport_ltm",
+      "ct_dst_src_ltm",
+      "ct_srv_dst",
+      "dbytes",
+      "dmean",
+      "id",
+      "sbytes",
+      "service_dns",
+      "smean",
+      "sttl"
+    ],
+    "lime_top5": [
+      "ct_dst_src_ltm",
+      "ct_srv_dst",
+      "dbytes",
+      "id",
+      "service_dns"
+    ],
+    "lime_top10": [
+      "ct_dst_sport_ltm",
+      "ct_dst_src_ltm",
+      "ct_srv_dst",
+      "ct_srv_src",
+      "dbytes",
+      "dmean",
+      "id",
+      "service_dns",
+      "sload",
+      "sttl"
+    ],
+    "jaccard@5": 0.25,
+    "jaccard@10": 0.6667,
+    "overlap@5": [
+      "id",
+      "service_dns"
+    ],
+    "overlap@10": [
+      "ct_dst_sport_ltm",
+      "ct_dst_src_ltm",
+      "ct_srv_dst",
+      "dbytes",
+      "dmean",
+      "id",
+      "service_dns",
+      "sttl"
+    ]
+  },
+  "cnn": {
+    "shap_top5": [
+      "ct_dst_sport_ltm",
+      "dmean",
+      "id",
+      "service_dns",
+      "sttl"
+    ],
+    "shap_top10": [
+      "ct_dst_sport_ltm",
+      "ct_dst_src_ltm",
+      "ct_src_dport_ltm",
+      "ct_srv_dst",
+      "ct_srv_src",
+      "dmean",
+      "id",
+      "service_dns",
+      "smean",
+      "sttl"
+    ],
+    "lime_top5": [
+      "ct_src_dport_ltm",
+      "ct_srv_src",
+      "dload",
+      "dmean",
+      "rate"
+    ],
+    "lime_top10": [
+      "ct_dst_sport_ltm",
+      "ct_dst_src_ltm",
+      "ct_src_dport_ltm",
+      "ct_srv_src",
+      "dload",
+      "dmean",
+      "dur",
+      "id",
+      "rate",
+      "sload"
+    ],
+    "jaccard@5": 0.1111,
+    "jaccard@10": 0.4286,
+    "overlap@5": [
+      "dmean"
+    ],
+    "overlap@10": [
+      "ct_dst_sport_ltm",
+      "ct_dst_src_ltm",
+      "ct_src_dport_ltm",
+      "ct_srv_src",
+      "dmean",
+      "id"
+    ]
+  },
+  "cross_model_shap": {
+    "rf_top10": [
+      "id",
+      "sbytes",
+      "service_dns",
+      "smean",
+      "sttl",
+      "dmean",
+      "ct_dst_sport_ltm",
+      "ct_srv_dst",
+      "ct_dst_src_ltm",
+      "dbytes"
+    ],
+    "cnn_top10": [
+      "id",
+      "ct_dst_sport_ltm",
+      "sttl",
+      "service_dns",
+      "dmean",
+      "ct_srv_src",
+      "ct_dst_src_ltm",
+      "ct_srv_dst",
+      "smean",
+      "ct_src_dport_ltm"
+    ],
+    "jaccard@5": 0.4286,
+    "jaccard@10": 0.6667,
+    "overlap@5": [
+      "id",
+      "service_dns",
+      "sttl"
+    ],
+    "overlap@10": [
+      "ct_dst_sport_ltm",
+      "ct_dst_src_ltm",
+      "ct_srv_dst",
+      "dmean",
+      "id",
+      "service_dns",
+      "smean",
+      "sttl"
+    ]
+  },
+  "stability_summary": {
+    "rf": {
+      "analysis": {
+        "mean_jaccard@5": 0.907,
+        "std_jaccard@5": 0.1495
+      }
+    },
+    "cnn": {
+      "analysis": {
+        "mean_jaccard@5": 0.4609,
+        "std_jaccard@5": 0.1584
+      }
+    }
+  },
+  "lime_timing": {
+    "rf": 0.061,
+    "cnn": 0.092
+  }
+}

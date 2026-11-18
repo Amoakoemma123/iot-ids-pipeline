@@ -1,0 +1,546 @@
+{
+  "rf": {
+    "local_explanations": {
+      "dos": [
+        {
+          "instance_idx": 39,
+          "true_class": "dos",
+          "predicted_label": 2,
+          "feature_weights": {
+            "conn_state_rej": 0.023627960771587735,
+            "src_port": -0.0169650627971558,
+            "dst_port": -0.010131339060000058,
+            "src_pkts": 0.008468692521328655,
+            "dns_qtype": 0.0027580935676514073,
+            "service_http": -0.0020735298802931523,
+            "conn_state_s0": -0.0018467150704637115,
+            "conn_state_sf": 0.0015327702784884904,
+            "proto_tcp": 0.0014972446039560594,
+            "dns_rejected_f": 0.0012831105204159645
+          },
+          "elapsed_sec": 0.049,
+          "surrogate_r2": 0.2098
+        },
+        {
+          "instance_idx": 40,
+          "true_class": "dos",
+          "predicted_label": 2,
+          "feature_weights": {
+            "conn_state_rej": 0.022864596060577422,
+            "src_port": -0.0169298912804063,
+            "dst_port": -0.014472342924278533,
+            "src_pkts": 0.006397593613292915,
+            "conn_state_sf": 0.0034373721783335026,
+            "proto_tcp": 0.002659244677941385,
+            "service_http": -0.002375829717642937,
+            "proto_udp": 0.0019594218004602747,
+            "dns_rejected_f": -0.001727239360979525,
+            "dns_RA_f": -0.000989459765873575
+          },
+          "elapsed_sec": 0.047,
+          "surrogate_r2": 0.2197
+        },
+        {
+          "instance_idx": 59,
+          "true_class": "dos",
+          "predicted_label": 2,
+          "feature_weights": {
+            "conn_state_rej": 0.02033856514217215,
+            "src_port": -0.015964446534842053,
+            "dst_port": -0.010470368899488913,
+            "src_pkts": 0.0076944224367344535,
+            "conn_state_sh": -0.002810695469117927,
+            "proto_tcp": 0.002406172781373756,
+            "conn_state_s1": 0.001830091434713455,
+            "dns_rcode": -0.001734337988328374,
+            "dns_rejected_f": 0.0015678663267991997,
+            "conn_state_sf": 0.0008099860508857895
+          },
+          "elapsed_sec": 0.049,
+          "surrogate_r2": 0.1785
+        }
+      ],
+      "ddos": [
+        {
+          "instance_idx": 1,
+          "true_class": "ddos",
+          "predicted_label": 1,
+          "feature_weights": {
+            "dns_rejected_t": 0.04618564408359308,
+            "dns_rcode": 0.03663202006575295,
+            "dns_RD_t": 0.0219241498559277,
+            "dns_RA_f": 0.020380806409853427,
+            "service_dns": 0.019624505806291742,
+            "proto_udp": 0.018097489969702257,
+            "conn_state_s0": -0.014125706026598468,
+            "conn_state_rej": -0.012141509079806007,
+            "proto_tcp": -0.010256253502473979,
+            "conn_state_sf": 0.007433246136572727
+          },
+          "elapsed_sec": 0.062,
+          "surrogate_r2": 0.5949
+        },
+        {
+          "instance_idx": 13,
+          "true_class": "ddos",
+          "predicted_label": 1,
+          "feature_weights": {
+            "conn_state_s1": 0.021069854677310828,
+            "duration": 0.01852494906998915,
+            "conn_state_rej": -0.011540727877787364,
+            "dst_port": -0.00990909211080895,
+            "conn_state_s0": -0.006237532391375299,
+            "conn_state_sf": -0.0056107575526790085,
+            "service_dns": -0.00456336459261328,
+            "dns_rejected_f": -0.003632001919468906,
+            "proto_udp": -0.0035654198427704873,
+            "proto_tcp": 0.003357600338676155
+          },
+          "elapsed_sec": 0.047,
+          "surrogate_r2": 0.1749
+        },
+        {
+          "instance_idx": 35,
+          "true_class": "ddos",
+          "predicted_label": 1,
+          "feature_weights": {
+            "duration": 0.016015340740763953,
+            "dst_port": -0.007886205860101372,
+            "conn_state_sf": -0.007677383555272067,
+            "conn_state_rej": -0.006228502690856985,
+            "conn_state_s0": -0.005714995713201151,
+            "dns_rejected_f": -0.00536206737690811,
+            "proto_udp": -0.004129075795219763,
+            "src_port": 0.0038814726100867693,
+            "proto_tcp": 0.0028174870667460627,
+            "service_dns": -0.002464162617975838
+          },
+          "elapsed_sec": 0.048,
+          "surrogate_r2": 0.1125
+        }
+      ],
+      "ransomware": [
+        {
+          "instance_idx": 5,
+          "true_class": "ransomware",
+          "predicted_label": 7,
+          "feature_weights": {
+            "dst_port": 0.04216476108248428,
+            "src_port": -0.023101491805089015,
+            "conn_state_s0": -0.01875626590709242,
+            "proto_udp": -0.011554131241954216,
+            "proto_tcp": 0.00870854131219862,
+            "conn_state_rej": -0.007752985557885495,
+            "conn_state_sf": -0.007622619769660631,
+            "conn_state_sh": 0.00384215166635066,
+            "service_dns": -0.0014122669290002996,
+            "service_http": 0.0011537277297747348
+          },
+          "elapsed_sec": 0.049,
+          "surrogate_r2": 0.1462
+        },
+        {
+          "instance_idx": 10,
+          "true_class": "ransomware",
+          "predicted_label": 7,
+          "feature_weights": {
+            "dst_port": 0.044178998372878545,
+            "src_port": -0.02158522298605782,
+            "conn_state_s0": -0.018322263555905733,
+            "proto_udp": -0.016562283953155565,
+            "conn_state_sf": -0.007145858861539304,
+            "dns_RD_t": -0.004509238771352567,
+            "proto_tcp": 0.004426342678582822,
+            "service_dns": -0.0023863898839485754,
+            "dns_RA_f": -0.0023689581082094015,
+            "conn_state_rej": -0.00033622276873056115
+          },
+          "elapsed_sec": 0.047,
+          "surrogate_r2": 0.1533
+        },
+        {
+          "instance_idx": 33,
+          "true_class": "ransomware",
+          "predicted_label": 7,
+          "feature_weights": {
+            "duration": -0.0648186110441937,
+            "dst_port": 0.041643798551571805,
+            "src_port": -0.018462967894826692,
+            "conn_state_s0": -0.010276110901933788,
+            "conn_state_rej": -0.007895150035890907,
+            "proto_tcp": 0.007384507640291328,
+            "service_http": -0.006426721179551467,
+            "proto_udp": -0.00641364577661259,
+            "dns_rejected_f": -0.006051905349570671,
+            "service_dns": -0.004619461238759863
+          },
+          "elapsed_sec": 0.064,
+          "surrogate_r2": 0.371
+        }
+      ],
+      "injection": [
+        {
+          "instance_idx": 3,
+          "true_class": "injection",
+          "predicted_label": 3,
+          "feature_weights": {
+            "dst_port": -0.014123510812910587,
+            "conn_state_sf": 0.01264051931272828,
+            "service_http": 0.008721782974575546,
+            "src_port": 0.007056766503475544,
+            "service_dns": -0.005112422345700985,
+            "conn_state_rej": -0.003893169780890424,
+            "proto_tcp": 0.003260867864487693,
+            "proto_udp": -0.003167812379696163,
+            "dns_RD_t": -0.002034739066399675,
+            "dns_RA_f": -0.002018269734783695
+          },
+          "elapsed_sec": 0.062,
+          "surrogate_r2": 0.1308
+        },
+        {
+          "instance_idx": 8,
+          "true_class": "injection",
+          "predicted_label": 3,
+          "feature_weights": {
+            "dst_port": -0.014969754716601204,
+            "conn_state_sf": 0.013305276348597947,
+            "service_http": 0.008359832217479539,
+            "src_port": 0.007472341989414963,
+            "proto_tcp": 0.0048920341651196575,
+            "dns_rejected_f": -0.004750954130296877,
+            "proto_udp": -0.004483244411544716,
+            "conn_state_s0": -0.0032625461799765058,
+            "conn_state_rej": -0.003216012744051018,
+            "dns_RD_t": -0.00237924838042609
+          },
+          "elapsed_sec": 0.046,
+          "surrogate_r2": 0.145
+        },
+        {
+          "instance_idx": 48,
+          "true_class": "injection",
+          "predicted_label": 3,
+          "feature_weights": {
+            "dst_port": -0.014030570253160768,
+            "conn_state_sf": 0.010724305259095481,
+            "service_http": 0.0069239347268464455,
+            "src_port": 0.005690164468207294,
+            "service_dns": -0.0040101059329918035,
+            "proto_tcp": 0.0039767544371211066,
+            "conn_state_s0": -0.003809743947533606,
+            "conn_state_rej": -0.003682121020867513,
+            "dns_RD_t": -0.003051667436098414,
+            "proto_udp": -0.0023907923476606968
+          },
+          "elapsed_sec": 0.046,
+          "surrogate_r2": 0.1172
+        }
+      ]
+    },
+    "stability": {
+      "dos": {
+        "mean_jaccard@5": 0.7075,
+        "std_jaccard@5": 0.1506
+      },
+      "ddos": {
+        "mean_jaccard@5": 0.6394,
+        "std_jaccard@5": 0.1766
+      }
+    },
+    "fidelity": {
+      "per_class": {
+        "dos": {
+          "mean_r2": 0.2027,
+          "std_r2": 0.0176
+        },
+        "ddos": {
+          "mean_r2": 0.2941,
+          "std_r2": 0.2142
+        },
+        "ransomware": {
+          "mean_r2": 0.2235,
+          "std_r2": 0.1043
+        },
+        "injection": {
+          "mean_r2": 0.131,
+          "std_r2": 0.0114
+        }
+      },
+      "mean_r2": 0.2128
+    },
+    "mean_elapsed_sec": 0.051
+  },
+  "cnn": {
+    "local_explanations": {
+      "dos": [
+        {
+          "instance_idx": 39,
+          "true_class": "dos",
+          "predicted_label": 2,
+          "feature_weights": {
+            "conn_state_rej": 0.011257883980555604,
+            "src_port": -0.0055151408216632634,
+            "dns_RA_f": 0.004735180832827298,
+            "proto_tcp": 0.003679837986818405,
+            "dns_qtype": 0.0025982762744574247,
+            "dns_rejected_f": -0.0016009799958345682,
+            "conn_state_s1": 0.0014836059086669753,
+            "service_dns": 0.0014367713058379332,
+            "conn_state_sf": 0.0013951779730621862,
+            "proto_udp": -0.0008646518421428814
+          },
+          "elapsed_sec": 0.179,
+          "surrogate_r2": 0.0241
+        },
+        {
+          "instance_idx": 40,
+          "true_class": "dos",
+          "predicted_label": 2,
+          "feature_weights": {
+            "src_port": -0.007478898690002696,
+            "conn_state_rej": 0.0068875954155662375,
+            "service_dns": -0.0029793466120700053,
+            "dns_RD_t": -0.002181120500220411,
+            "dns_rejected_f": -0.001822244934674241,
+            "conn_state_sh": -0.0013567108415024592,
+            "service_http": -0.0012773448048991455,
+            "conn_state_sf": 0.00126006154744736,
+            "dns_rcode": -0.0010837832859922581,
+            "proto_udp": -0.0005187598594568
+          },
+          "elapsed_sec": 0.049,
+          "surrogate_r2": 0.0231
+        },
+        {
+          "instance_idx": 59,
+          "true_class": "dos",
+          "predicted_label": 2,
+          "feature_weights": {
+            "src_port": -0.007471499114554702,
+            "conn_state_rej": 0.0063422955060820005,
+            "conn_state_sf": -0.002269077301880626,
+            "conn_state_s0": -0.002225593678261837,
+            "service_http": -0.0021027925348952193,
+            "proto_udp": -0.0020136765805825016,
+            "dns_rejected_f": -0.0017789300733947772,
+            "dns_RA_f": -0.001764504897928852,
+            "service_dns": -0.0016850478599512145,
+            "proto_tcp": 0.0013201229391027543
+          },
+          "elapsed_sec": 0.05,
+          "surrogate_r2": 0.0345
+        }
+      ],
+      "ddos": [
+        {
+          "instance_idx": 1,
+          "true_class": "ddos",
+          "predicted_label": 1,
+          "feature_weights": {
+            "dns_rejected_t": 0.051259774508383114,
+            "dns_rcode": 0.03525021222514544,
+            "dns_RD_t": 0.02575659243429474,
+            "conn_state_sf": 0.015875364179798707,
+            "dns_RA_f": 0.015556369640266703,
+            "service_dns": 0.014755705074686825,
+            "proto_udp": 0.014557847025612006,
+            "proto_tcp": -0.013122278132666882,
+            "conn_state_rej": -0.008803247955578136,
+            "service_http": -0.006404991050278623
+          },
+          "elapsed_sec": 0.049,
+          "surrogate_r2": 0.6444
+        },
+        {
+          "instance_idx": 13,
+          "true_class": "ddos",
+          "predicted_label": 1,
+          "feature_weights": {
+            "conn_state_s1": 0.01814005184005526,
+            "src_port": 0.003454298269459324,
+            "conn_state_s0": -0.0034129120083376454,
+            "conn_state_rej": -0.0030908847518021022,
+            "service_http": -0.0029098161799542377,
+            "dns_RA_f": -0.0027473528048200815,
+            "dns_RD_t": -0.0027344609265855012,
+            "service_dns": -0.0026140699090616564,
+            "conn_state_sf": -0.002470833200481007,
+            "proto_udp": -0.0023577337312521247
+          },
+          "elapsed_sec": 0.048,
+          "surrogate_r2": 0.0828
+        },
+        {
+          "instance_idx": 35,
+          "true_class": "ddos",
+          "predicted_label": 1,
+          "feature_weights": {
+            "conn_state_sf": -0.0016419228453265521,
+            "proto_udp": -0.0012734917378056537,
+            "service_http": -0.0012472607215392912,
+            "conn_state_s0": -0.001212057570332179,
+            "dns_rejected_f": -0.001209253483729134,
+            "service_dns": -0.0010215209170486095,
+            "proto_tcp": 0.0009965440569943418,
+            "dns_RD_t": -0.0009275866781959623,
+            "src_port": 0.0009044423120072103,
+            "conn_state_rej": -0.0009030382134891141
+          },
+          "elapsed_sec": 0.056,
+          "surrogate_r2": 0.0049
+        }
+      ],
+      "ransomware": [
+        {
+          "instance_idx": 5,
+          "true_class": "ransomware",
+          "predicted_label": 7,
+          "feature_weights": {
+            "conn_state_sf": -0.0013390659749091913,
+            "conn_state_s0": -0.0013122547053120216,
+            "proto_udp": -0.0012319719641112224,
+            "service_http": -0.0012192426403881754,
+            "service_dns": -0.001195937635993157,
+            "proto_tcp": 0.0011573515457478194,
+            "dns_rejected_f": -0.001141699711463867,
+            "conn_state_rej": -0.0010446961798668164,
+            "dns_RD_t": -0.0009856955333294058,
+            "dns_RA_f": -0.0008990748233536876
+          },
+          "elapsed_sec": 0.051,
+          "surrogate_r2": 0.0054
+        },
+        {
+          "instance_idx": 10,
+          "true_class": "ransomware",
+          "predicted_label": 7,
+          "feature_weights": {
+            "conn_state_s0": -0.00152655314135854,
+            "conn_state_sf": -0.0014273207755326354,
+            "src_port": 0.001419094182864678,
+            "conn_state_rej": -0.0013820577481330643,
+            "proto_tcp": 0.0013257840451944452,
+            "proto_udp": -0.0013086632842105612,
+            "service_http": -0.0012552859091312417,
+            "service_dns": -0.0012129667187840644,
+            "dns_RA_f": -0.0012007644118119094,
+            "dns_rejected_f": -0.0008405401963080235
+          },
+          "elapsed_sec": 0.049,
+          "surrogate_r2": 0.0064
+        },
+        {
+          "instance_idx": 33,
+          "true_class": "ransomware",
+          "predicted_label": 7,
+          "feature_weights": {
+            "conn_state_sf": -0.0015484887696405058,
+            "service_dns": -0.0013836189777964628,
+            "conn_state_s0": -0.0013617228089484034,
+            "proto_tcp": 0.001338156580685496,
+            "service_http": -0.0012505978827838534,
+            "conn_state_rej": -0.0012068411447467115,
+            "proto_udp": -0.0011734934289966128,
+            "dns_rejected_f": -0.0011495009309560587,
+            "dns_RA_f": -0.0010375394807021457,
+            "dns_RD_t": -0.0010252839347730895
+          },
+          "elapsed_sec": 0.049,
+          "surrogate_r2": 0.0061
+        }
+      ],
+      "injection": [
+        {
+          "instance_idx": 3,
+          "true_class": "injection",
+          "predicted_label": 3,
+          "feature_weights": {
+            "service_http": 0.0061732063612671036,
+            "conn_state_sf": 0.004604194151004294,
+            "src_port": 0.002367563512801069,
+            "conn_state_s0": -0.001953420016668009,
+            "conn_state_rej": -0.001771570834736819,
+            "dns_RA_f": -0.0016246074280404175,
+            "service_dns": -0.0015657274860256924,
+            "dns_rejected_f": -0.0014999719157483386,
+            "proto_tcp": 0.001482730502992446,
+            "proto_udp": -0.0011325641038930744
+          },
+          "elapsed_sec": 0.051,
+          "surrogate_r2": 0.0262
+        },
+        {
+          "instance_idx": 8,
+          "true_class": "injection",
+          "predicted_label": 3,
+          "feature_weights": {
+            "service_http": 0.004263492665304319,
+            "conn_state_sf": 0.004198201148799382,
+            "src_port": 0.0021883024505974244,
+            "conn_state_s0": -0.0011592867119128302,
+            "conn_state_rej": -0.0011430465707951201,
+            "proto_tcp": 0.0010685397856806877,
+            "proto_udp": -0.001046841513778327,
+            "dns_RA_f": -0.001013025368632299,
+            "service_dns": -0.0009635900159851809,
+            "dns_RD_t": -0.0006822182629273851
+          },
+          "elapsed_sec": 0.051,
+          "surrogate_r2": 0.0281
+        },
+        {
+          "instance_idx": 48,
+          "true_class": "injection",
+          "predicted_label": 3,
+          "feature_weights": {
+            "service_http": 0.005938552704589241,
+            "conn_state_sf": 0.004822619370697911,
+            "src_port": 0.0035044296580878757,
+            "dns_RD_t": -0.001731870953962432,
+            "conn_state_rej": -0.0015263985535446797,
+            "service_dns": -0.001487039762043252,
+            "proto_tcp": 0.0014827508495913935,
+            "proto_udp": -0.001475263831953187,
+            "conn_state_s0": -0.001190987426390609,
+            "dns_rejected_f": -0.000934398926259429
+          },
+          "elapsed_sec": 0.049,
+          "surrogate_r2": 0.027
+        }
+      ]
+    },
+    "stability": {
+      "dos": {
+        "mean_jaccard@5": 0.4246,
+        "std_jaccard@5": 0.1515
+      },
+      "ddos": {
+        "mean_jaccard@5": 0.682,
+        "std_jaccard@5": 0.1709
+      }
+    },
+    "fidelity": {
+      "per_class": {
+        "dos": {
+          "mean_r2": 0.0272,
+          "std_r2": 0.0052
+        },
+        "ddos": {
+          "mean_r2": 0.244,
+          "std_r2": 0.2849
+        },
+        "ransomware": {
+          "mean_r2": 0.006,
+          "std_r2": 0.0004
+        },
+        "injection": {
+          "mean_r2": 0.0271,
+          "std_r2": 0.0008
+        }
+      },
+      "mean_r2": 0.0761
+    },
+    "mean_elapsed_sec": 0.061
+  }
+}

@@ -1,0 +1,639 @@
+{
+  "by_class": {
+    "dos": [
+      {
+        "instance_idx": 39,
+        "true_class": "dos",
+        "counterfactuals": [
+          {
+            "dst_port": {
+              "original": 0.0006,
+              "counterfactual": 0.1764,
+              "delta": 0.1758
+            },
+            "conn_state_rej": {
+              "original": 1.0,
+              "counterfactual": 0.2,
+              "delta": -0.8
+            }
+          },
+          {
+            "dst_port": {
+              "original": 0.0006,
+              "counterfactual": 0.0972,
+              "delta": 0.0966
+            },
+            "proto_tcp": {
+              "original": 1.0,
+              "counterfactual": 0.1,
+              "delta": -0.9
+            },
+            "conn_state_rej": {
+              "original": 1.0,
+              "counterfactual": 0.1,
+              "delta": -0.9
+            }
+          },
+          {
+            "dst_port": {
+              "original": 0.0006,
+              "counterfactual": 0.4984,
+              "delta": 0.4978
+            },
+            "proto_tcp": {
+              "original": 1.0,
+              "counterfactual": 0.5,
+              "delta": -0.5
+            },
+            "conn_state_rej": {
+              "original": 1.0,
+              "counterfactual": 0.5,
+              "delta": -0.5
+            }
+          }
+        ],
+        "n_features_changed": [
+          2,
+          3,
+          3
+        ],
+        "elapsed_sec": 1.419
+      },
+      {
+        "instance_idx": 40,
+        "true_class": "dos",
+        "counterfactuals": [
+          {
+            "dst_port": {
+              "original": 0.0008,
+              "counterfactual": 0.2149,
+              "delta": 0.2141
+            },
+            "src_bytes": {
+              "original": 0.0,
+              "counterfactual": 0.2,
+              "delta": 0.2
+            },
+            "dns_rcode": {
+              "original": 0.0,
+              "counterfactual": 0.2,
+              "delta": 0.2
+            },
+            "conn_state_rej": {
+              "original": 1.0,
+              "counterfactual": 0.2,
+              "delta": -0.8
+            }
+          },
+          {
+            "dst_port": {
+              "original": 0.0008,
+              "counterfactual": 0.1112,
+              "delta": 0.1104
+            },
+            "dst_ip_bytes": {
+              "original": 0.0,
+              "counterfactual": 0.1,
+              "delta": 0.1
+            },
+            "conn_state_rej": {
+              "original": 1.0,
+              "counterfactual": 0.1,
+              "delta": -0.9
+            },
+            "conn_state_sf": {
+              "original": 0.0,
+              "counterfactual": 0.1,
+              "delta": 0.1
+            }
+          },
+          {
+            "dst_port": {
+              "original": 0.0008,
+              "counterfactual": 0.1764,
+              "delta": 0.1756
+            },
+            "dst_bytes": {
+              "original": 0.0,
+              "counterfactual": 0.2,
+              "delta": 0.2
+            },
+            "conn_state_rej": {
+              "original": 1.0,
+              "counterfactual": 0.2,
+              "delta": -0.8
+            }
+          }
+        ],
+        "n_features_changed": [
+          4,
+          4,
+          3
+        ],
+        "elapsed_sec": 1.253
+      },
+      {
+        "instance_idx": 59,
+        "true_class": "dos",
+        "counterfactuals": [
+          {
+            "dst_port": {
+              "original": 0.0008,
+              "counterfactual": 0.1764,
+              "delta": 0.1756
+            },
+            "conn_state_rej": {
+              "original": 1.0,
+              "counterfactual": 0.2,
+              "delta": -0.8
+            }
+          },
+          {
+            "dst_port": {
+              "original": 0.0008,
+              "counterfactual": 0.0972,
+              "delta": 0.0964
+            },
+            "proto_tcp": {
+              "original": 1.0,
+              "counterfactual": 0.1,
+              "delta": -0.9
+            },
+            "conn_state_rej": {
+              "original": 1.0,
+              "counterfactual": 0.1,
+              "delta": -0.9
+            }
+          },
+          {
+            "dst_port": {
+              "original": 0.0008,
+              "counterfactual": 0.4984,
+              "delta": 0.4976
+            },
+            "proto_tcp": {
+              "original": 1.0,
+              "counterfactual": 0.5,
+              "delta": -0.5
+            },
+            "conn_state_rej": {
+              "original": 1.0,
+              "counterfactual": 0.5,
+              "delta": -0.5
+            }
+          }
+        ],
+        "n_features_changed": [
+          2,
+          3,
+          3
+        ],
+        "elapsed_sec": 1.382
+      }
+    ],
+    "ddos": [
+      {
+        "instance_idx": 1,
+        "true_class": "ddos",
+        "counterfactuals": [
+          {
+            "dst_ip_bytes": {
+              "original": 0.0,
+              "counterfactual": 0.8,
+              "delta": 0.8
+            },
+            "dns_rejected_f": {
+              "original": 0.0,
+              "counterfactual": 0.8,
+              "delta": 0.8
+            }
+          },
+          {
+            "dst_bytes": {
+              "original": 0.0,
+              "counterfactual": 0.3,
+              "delta": 0.3
+            },
+            "dns_rcode": {
+              "original": 0.6,
+              "counterfactual": 0.3,
+              "delta": -0.3
+            }
+          },
+          {
+            "dst_ip_bytes": {
+              "original": 0.0,
+              "counterfactual": 1.0,
+              "delta": 1.0
+            },
+            "dns_rejected_f": {
+              "original": 0.0,
+              "counterfactual": 1.0,
+              "delta": 1.0
+            }
+          }
+        ],
+        "n_features_changed": [
+          2,
+          2,
+          2
+        ],
+        "elapsed_sec": 1.125
+      },
+      {
+        "instance_idx": 13,
+        "true_class": "ddos",
+        "counterfactuals": [
+          {
+            "dst_port": {
+              "original": 0.0012,
+              "counterfactual": 0.9866,
+              "delta": 0.9854
+            },
+            "dst_bytes": {
+              "original": 0.0,
+              "counterfactual": 1.1,
+              "delta": 1.1
+            },
+            "conn_state_sf": {
+              "original": 0.0,
+              "counterfactual": 1.1,
+              "delta": 1.1
+            }
+          },
+          {
+            "dst_port": {
+              "original": 0.0012,
+              "counterfactual": 0.818,
+              "delta": 0.8168
+            },
+            "dst_bytes": {
+              "original": 0.0,
+              "counterfactual": 0.9,
+              "delta": 0.9
+            },
+            "dst_ip_bytes": {
+              "original": 0.0,
+              "counterfactual": 0.9,
+              "delta": 0.9
+            }
+          },
+          {
+            "dst_port": {
+              "original": 0.0012,
+              "counterfactual": 0.4196,
+              "delta": 0.4184
+            },
+            "dns_rcode": {
+              "original": 0.0,
+              "counterfactual": 0.5,
+              "delta": 0.5
+            },
+            "conn_state_s1": {
+              "original": 1.0,
+              "counterfactual": 0.5,
+              "delta": -0.5
+            }
+          }
+        ],
+        "n_features_changed": [
+          3,
+          3,
+          3
+        ],
+        "elapsed_sec": 1.227
+      },
+      {
+        "instance_idx": 35,
+        "true_class": "ddos",
+        "counterfactuals": [
+          {
+            "dst_port": {
+              "original": 0.0068,
+              "counterfactual": 0.5107,
+              "delta": 0.504
+            },
+            "src_ip_bytes": {
+              "original": 0.0,
+              "counterfactual": 0.5107,
+              "delta": 0.5107
+            }
+          },
+          {
+            "dst_port": {
+              "original": 0.0068,
+              "counterfactual": 0.8948,
+              "delta": 0.8881
+            },
+            "conn_state_sf": {
+              "original": 0.0,
+              "counterfactual": 1.0,
+              "delta": 1.0
+            }
+          },
+          {
+            "dst_port": {
+              "original": 0.0068,
+              "counterfactual": 0.9632,
+              "delta": 0.9565
+            },
+            "conn_state_sf": {
+              "original": 0.0,
+              "counterfactual": 1.1,
+              "delta": 1.1
+            }
+          }
+        ],
+        "n_features_changed": [
+          2,
+          2,
+          2
+        ],
+        "elapsed_sec": 1.149
+      }
+    ],
+    "ransomware": [
+      {
+        "instance_idx": 5,
+        "true_class": "ransomware",
+        "counterfactuals": [
+          {
+            "duration": {
+              "original": 0.0,
+              "counterfactual": 0.7,
+              "delta": 0.7
+            },
+            "src_pkts": {
+              "original": 0.0,
+              "counterfactual": 0.6411,
+              "delta": 0.6411
+            }
+          },
+          {
+            "duration": {
+              "original": 0.0,
+              "counterfactual": 1.1,
+              "delta": 1.1
+            },
+            "dns_qclass": {
+              "original": 0.0,
+              "counterfactual": 1.1,
+              "delta": 1.1
+            }
+          },
+          {
+            "duration": {
+              "original": 0.0,
+              "counterfactual": 0.2,
+              "delta": 0.2
+            },
+            "dns_RD_t": {
+              "original": 0.0,
+              "counterfactual": 0.2,
+              "delta": 0.2
+            }
+          }
+        ],
+        "n_features_changed": [
+          2,
+          2,
+          2
+        ],
+        "elapsed_sec": 1.186
+      },
+      {
+        "instance_idx": 10,
+        "true_class": "ransomware",
+        "counterfactuals": [
+          {
+            "duration": {
+              "original": 0.0,
+              "counterfactual": 0.2,
+              "delta": 0.2
+            },
+            "conn_state_sf": {
+              "original": 0.0,
+              "counterfactual": 0.2,
+              "delta": 0.2
+            }
+          },
+          {
+            "duration": {
+              "original": 0.0,
+              "counterfactual": 0.7,
+              "delta": 0.7
+            }
+          },
+          {
+            "duration": {
+              "original": 0.0,
+              "counterfactual": 0.8,
+              "delta": 0.8
+            },
+            "service_dns": {
+              "original": 0.0,
+              "counterfactual": 0.8,
+              "delta": 0.8
+            }
+          }
+        ],
+        "n_features_changed": [
+          2,
+          1,
+          2
+        ],
+        "elapsed_sec": 1.181
+      },
+      {
+        "instance_idx": 33,
+        "true_class": "ransomware",
+        "counterfactuals": [
+          {
+            "dst_port": {
+              "original": 0.0068,
+              "counterfactual": 0.0855,
+              "delta": 0.0787
+            },
+            "duration": {
+              "original": 0.0,
+              "counterfactual": 0.1,
+              "delta": 0.1
+            }
+          },
+          {
+            "dst_port": {
+              "original": 0.0068,
+              "counterfactual": 0.729,
+              "delta": 0.7222
+            },
+            "duration": {
+              "original": 0.0,
+              "counterfactual": 0.8,
+              "delta": 0.8
+            }
+          },
+          {
+            "dst_port": {
+              "original": 0.0068,
+              "counterfactual": 0.696,
+              "delta": 0.6892
+            },
+            "duration": {
+              "original": 0.0,
+              "counterfactual": 0.8,
+              "delta": 0.8
+            }
+          }
+        ],
+        "n_features_changed": [
+          2,
+          2,
+          2
+        ],
+        "elapsed_sec": 1.101
+      }
+    ],
+    "injection": [
+      {
+        "instance_idx": 3,
+        "true_class": "injection",
+        "counterfactuals": [
+          {
+            "dst_port": {
+              "original": 0.0012,
+              "counterfactual": 0.3232,
+              "delta": 0.322
+            },
+            "dns_RA_f": {
+              "original": 0.0,
+              "counterfactual": 0.4,
+              "delta": 0.4
+            }
+          },
+          {
+            "dst_port": {
+              "original": 0.0012,
+              "counterfactual": 0.3561,
+              "delta": 0.3549
+            },
+            "dns_rejected_t": {
+              "original": 0.0,
+              "counterfactual": 0.4,
+              "delta": 0.4
+            }
+          },
+          {
+            "dst_port": {
+              "original": 0.0012,
+              "counterfactual": 0.7695,
+              "delta": 0.7683
+            },
+            "service_dns": {
+              "original": 0.0,
+              "counterfactual": 0.8,
+              "delta": 0.8
+            }
+          }
+        ],
+        "n_features_changed": [
+          2,
+          2,
+          2
+        ],
+        "elapsed_sec": 1.366
+      },
+      {
+        "instance_idx": 8,
+        "true_class": "injection",
+        "counterfactuals": [
+          {
+            "dst_port": {
+              "original": 0.0012,
+              "counterfactual": 0.8565,
+              "delta": 0.8553
+            },
+            "dns_rcode": {
+              "original": 0.0,
+              "counterfactual": 0.9,
+              "delta": 0.9
+            }
+          },
+          {
+            "dst_port": {
+              "original": 0.0012,
+              "counterfactual": 0.4391,
+              "delta": 0.4379
+            },
+            "conn_state_s0": {
+              "original": 0.0,
+              "counterfactual": 0.5,
+              "delta": 0.5
+            }
+          },
+          {
+            "dst_port": {
+              "original": 0.0012,
+              "counterfactual": 0.4196,
+              "delta": 0.4184
+            }
+          }
+        ],
+        "n_features_changed": [
+          2,
+          2,
+          1
+        ],
+        "elapsed_sec": 1.249
+      },
+      {
+        "instance_idx": 48,
+        "true_class": "injection",
+        "counterfactuals": [
+          {
+            "dst_port": {
+              "original": 0.0012,
+              "counterfactual": 0.4196,
+              "delta": 0.4184
+            },
+            "dns_rcode": {
+              "original": 0.0,
+              "counterfactual": 0.5,
+              "delta": 0.5
+            }
+          },
+          {
+            "dst_port": {
+              "original": 0.0012,
+              "counterfactual": 0.8166,
+              "delta": 0.8154
+            },
+            "dns_rcode": {
+              "original": 0.0,
+              "counterfactual": 0.9,
+              "delta": 0.9
+            }
+          },
+          {
+            "dst_port": {
+              "original": 0.0012,
+              "counterfactual": 0.4196,
+              "delta": 0.4184
+            }
+          }
+        ],
+        "n_features_changed": [
+          2,
+          2,
+          1
+        ],
+        "elapsed_sec": 1.07
+      }
+    ]
+  },
+  "summary": {
+    "mean_features_changed": 2.25,
+    "std_features_changed": 0.68,
+    "min_features_changed": 1,
+    "max_features_changed": 4
+  }
+}

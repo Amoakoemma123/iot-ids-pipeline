@@ -1,0 +1,126 @@
+{
+  "dataset": "TON_IoT",
+  "seed": 43,
+  "n_classes": 10,
+  "classes": [
+    "backdoor",
+    "ddos",
+    "dos",
+    "injection",
+    "mitm",
+    "normal",
+    "password",
+    "ransomware",
+    "scanning",
+    "xss"
+  ],
+  "n_flow_features": 7,
+  "n_beh_features": 18,
+  "experiments": {
+    "flow_only": {
+      "f1": 0.027,
+      "precision": 0.0211,
+      "recall": 0.0934,
+      "accuracy": 0.0618,
+      "fpr": 0.1035,
+      "latency_ms": 0.046,
+      "per_class_f1": {
+        "backdoor": 0.0,
+        "ddos": 0.1266,
+        "dos": 0.0839,
+        "injection": 0.0,
+        "mitm": 0.0472,
+        "normal": 0.012,
+        "password": 0.0,
+        "ransomware": 0.0,
+        "scanning": 0.0,
+        "xss": 0.0
+      },
+      "n_params": 34634
+    },
+    "behavioral_only": {
+      "f1": 0.811,
+      "precision": 0.8109,
+      "recall": 0.8676,
+      "accuracy": 0.8683,
+      "fpr": 0.0144,
+      "latency_ms": 0.047,
+      "per_class_f1": {
+        "backdoor": 0.9941,
+        "ddos": 0.8525,
+        "dos": 0.9386,
+        "injection": 0.6421,
+        "mitm": 0.2767,
+        "normal": 0.9748,
+        "password": 0.7088,
+        "ransomware": 0.8964,
+        "scanning": 0.9681,
+        "xss": 0.8582
+      },
+      "n_params": 34634
+    },
+    "early_fusion": {
+      "f1": 0.8317,
+      "precision": 0.8431,
+      "recall": 0.8873,
+      "accuracy": 0.8915,
+      "fpr": 0.0119,
+      "latency_ms": 0.054,
+      "per_class_f1": {
+        "backdoor": 0.9917,
+        "ddos": 0.8994,
+        "dos": 0.9562,
+        "injection": 0.6759,
+        "mitm": 0.2996,
+        "normal": 0.9752,
+        "password": 0.8116,
+        "ransomware": 0.964,
+        "scanning": 0.9328,
+        "xss": 0.8102
+      },
+      "n_params": 34634
+    },
+    "late_fusion": {
+      "f1": 0.4127,
+      "precision": 0.6301,
+      "recall": 0.5313,
+      "accuracy": 0.5385,
+      "fpr": 0.0514,
+      "latency_ms": 0.076,
+      "per_class_f1": {
+        "backdoor": 0.6329,
+        "ddos": 0.625,
+        "dos": 0.9318,
+        "injection": 0.0,
+        "mitm": 0.168,
+        "normal": 0.8538,
+        "password": 0.1795,
+        "ransomware": 0.148,
+        "scanning": 0.2664,
+        "xss": 0.322
+      },
+      "n_params": 85770
+    },
+    "attention_fusion": {
+      "f1": 0.6455,
+      "precision": 0.6981,
+      "recall": 0.7325,
+      "accuracy": 0.7087,
+      "fpr": 0.0321,
+      "latency_ms": 0.077,
+      "per_class_f1": {
+        "backdoor": 0.8064,
+        "ddos": 0.8326,
+        "dos": 0.7271,
+        "injection": 0.1441,
+        "mitm": 0.2587,
+        "normal": 0.8299,
+        "password": 0.5983,
+        "ransomware": 0.8704,
+        "scanning": 0.7649,
+        "xss": 0.6228
+      },
+      "n_params": 73036
+    }
+  }
+}
