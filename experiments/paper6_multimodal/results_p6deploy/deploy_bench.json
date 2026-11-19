@@ -1,0 +1,641 @@
+{
+ "cpu": "Intel(R) Core(TM) i5-10200H CPU @ 2.40GHz",
+ "logical_cpus": 8,
+ "onnxruntime": "1.23.2",
+ "skl2onnx": "1.12",
+ "sklearn": "1.7.2",
+ "tensorflow": "2.10.0",
+ "existing_table_flows": {
+  "source": "results_v4/latency.json (networks, RF) + results_p6gb/latency_gb.json (GBDT, as used by compute_values.py)",
+  "TON_IoT": {
+   "s1": {
+    "single_ms": 0.40775949993985705,
+    "batch1000_ms": 3.2199450011830777,
+    "flows_per_s_core_single": 2452.4260014726724,
+    "flows_per_s_core_batch": 310564.3107669784,
+    "threads": "TF default (8 logical CPUs)"
+   },
+   "s2": {
+    "single_ms": 0.4059779999079183,
+    "batch1000_ms": 6.332760000077542,
+    "flows_per_s_core_single": 2463.1876609737833,
+    "flows_per_s_core_batch": 157909.0317630473,
+    "threads": "TF default (8 logical CPUs)"
+   },
+   "early": {
+    "single_ms": 0.41271649999544024,
+    "batch1000_ms": 8.367705000273418,
+    "flows_per_s_core_single": 2422.9707317518155,
+    "flows_per_s_core_batch": 119507.08108941755,
+    "threads": "TF default (8 logical CPUs)"
+   },
+   "late": {
+    "single_ms": 0.5542044999310747,
+    "batch1000_ms": 8.080635000078473,
+    "flows_per_s_core_single": 1804.3880916238825,
+    "flows_per_s_core_batch": 123752.65062588382,
+    "threads": "TF default (8 logical CPUs)"
+   },
+   "attn": {
+    "single_ms": 0.5682075000368059,
+    "batch1000_ms": 8.240075000503566,
+    "flows_per_s_core_single": 1759.9204514815883,
+    "flows_per_s_core_batch": 121358.1186990274,
+    "threads": "TF default (8 logical CPUs)"
+   },
+   "early_wide": {
+    "single_ms": 0.5060755000158679,
+    "batch1000_ms": 16.212340000492986,
+    "flows_per_s_core_single": 1975.9897485032277,
+    "flows_per_s_core_batch": 61681.41057796666,
+    "threads": "TF default (8 logical CPUs)"
+   },
+   "early_head": {
+    "single_ms": 0.4160240000055637,
+    "batch1000_ms": 9.729585000604857,
+    "flows_per_s_core_single": 2403.7074783825606,
+    "flows_per_s_core_batch": 102779.3066135743,
+    "threads": "TF default (8 logical CPUs)"
+   },
+   "late_all": {
+    "single_ms": 0.5538029999297578,
+    "batch1000_ms": 17.59864500054391,
+    "flows_per_s_core_single": 1805.6962496173478,
+    "flows_per_s_core_batch": 56822.55650756598,
+    "threads": "TF default (8 logical CPUs)"
+   },
+   "m_early": {
+    "single_ms": 0.36099799996009097,
+    "batch1000_ms": 1.1156900000059977,
+    "flows_per_s_core_single": 2770.098449605128,
+    "flows_per_s_core_batch": 896306.3216436682,
+    "threads": "TF default (8 logical CPUs)"
+   },
+   "m_late": {
+    "single_ms": 0.5057549999037292,
+    "batch1000_ms": 1.704750000499189,
+    "flows_per_s_core_single": 1977.2419455869951,
+    "flows_per_s_core_batch": 586596.2749418846,
+    "threads": "TF default (8 logical CPUs)"
+   },
+   "rf": {
+    "single_ms": 8.0354675000126,
+    "batch1000_ms": 46.618704999855254,
+    "flows_per_s_core_single": 124.44826638878595,
+    "flows_per_s_core_batch": 21450.61730056862,
+    "threads": "single n_jobs=1, batch n_jobs=-1"
+   },
+   "gb": {
+    "single_ms": 5.559828999976162,
+    "batch1000_ms": 32.225715000822674,
+    "flows_per_s_core_single": 179.8616468248012,
+    "flows_per_s_core_batch": 31031.119091522763,
+    "threads": "single 1 thread, batch all cores (as in the table)",
+    "batch1000_ms_1thread": 83.49791500077117,
+    "flows_per_s_core_batch_1thread": 11976.346954181601
+   }
+  },
+  "UNSW_NB15": {
+   "s1": {
+    "single_ms": 0.4092030000174418,
+    "batch1000_ms": 3.4799150002072565,
+    "flows_per_s_core_single": 2443.774850031344,
+    "flows_per_s_core_batch": 287363.3407541397,
+    "threads": "TF default (8 logical CPUs)"
+   },
+   "s2": {
+    "single_ms": 0.407736500055762,
+    "batch1000_ms": 2.297159998852294,
+    "flows_per_s_core_single": 2452.564339624341,
+    "flows_per_s_core_batch": 435320.13464435196,
+    "threads": "TF default (8 logical CPUs)"
+   },
+   "early": {
+    "single_ms": 0.4061619999993127,
+    "batch1000_ms": 4.144245000497904,
+    "flows_per_s_core_single": 2462.0717841691053,
+    "flows_per_s_core_batch": 241298.47532659303,
+    "threads": "TF default (8 logical CPUs)"
+   },
+   "late": {
+    "single_ms": 0.5684195000503678,
+    "batch1000_ms": 4.516139999032021,
+    "flows_per_s_core_single": 1759.264064500584,
+    "flows_per_s_core_batch": 221428.03372223576,
+    "threads": "TF default (8 logical CPUs)"
+   },
+   "attn": {
+    "single_ms": 0.5642675000126474,
+    "batch1000_ms": 4.799869999988005,
+    "flows_per_s_core_single": 1772.2091029123355,
+    "flows_per_s_core_batch": 208338.9758477832,
+    "threads": "TF default (8 logical CPUs)"
+   },
+   "early_wide": {
+    "single_ms": 0.46239500006777234,
+    "batch1000_ms": 6.474109999544453,
+    "flows_per_s_core_single": 2162.653142558704,
+    "flows_per_s_core_batch": 154461.38543681902,
+    "threads": "TF default (8 logical CPUs)"
+   },
+   "early_head": {
+    "single_ms": 0.41455149999819696,
+    "batch1000_ms": 4.322720000345726,
+    "flows_per_s_core_single": 2412.2455231843314,
+    "flows_per_s_core_batch": 231335.82557279244,
+    "threads": "TF default (8 logical CPUs)"
+   },
+   "late_all": {
+    "single_ms": 0.5380735000653658,
+    "batch1000_ms": 6.820789999619592,
+    "flows_per_s_core_single": 1858.482158810123,
+    "flows_per_s_core_batch": 146610.5832397379,
+    "threads": "TF default (8 logical CPUs)"
+   },
+   "m_early": {
+    "single_ms": 0.3672825000830926,
+    "batch1000_ms": 1.1228699993807822,
+    "flows_per_s_core_single": 2722.6998285346126,
+    "flows_per_s_core_batch": 890575.0447972248,
+    "threads": "TF default (8 logical CPUs)"
+   },
+   "m_late": {
+    "single_ms": 0.49839150000480004,
+    "batch1000_ms": 1.7458999995142221,
+    "flows_per_s_core_single": 2006.454764959613,
+    "flows_per_s_core_batch": 572770.4910236779,
+    "threads": "TF default (8 logical CPUs)"
+   },
+   "rf": {
+    "single_ms": 8.038790999999037,
+    "batch1000_ms": 47.37434499984374,
+    "flows_per_s_core_single": 124.39681539178214,
+    "flows_per_s_core_batch": 21108.47126231082,
+    "threads": "single n_jobs=1, batch n_jobs=-1"
+   },
+   "gb": {
+    "single_ms": 81.64877299990621,
+    "batch1000_ms": 341.68632999935653,
+    "flows_per_s_core_single": 12.247581479285042,
+    "flows_per_s_core_batch": 2926.660835398019,
+    "threads": "single 1 thread, batch all cores (as in the table)",
+    "batch1000_ms_1thread": 688.4798749990296,
+    "flows_per_s_core_batch_1thread": 1452.475281142255
+   }
+  },
+  "N_BaIoT": {
+   "s1": {
+    "single_ms": 0.4318069999862928,
+    "batch1000_ms": 10.539650000282563,
+    "flows_per_s_core_single": 2315.849442069591,
+    "flows_per_s_core_batch": 94879.81099687281,
+    "threads": "TF default (8 logical CPUs)"
+   },
+   "s2": {
+    "single_ms": 0.48442850005812943,
+    "batch1000_ms": 34.507809999922756,
+    "flows_per_s_core_single": 2064.28812483164,
+    "flows_per_s_core_batch": 28978.94708479728,
+    "threads": "TF default (8 logical CPUs)"
+   },
+   "early": {
+    "single_ms": 0.5843859999731649,
+    "batch1000_ms": 42.94083999993745,
+    "flows_per_s_core_single": 1711.1977358217346,
+    "flows_per_s_core_batch": 23287.85370759996,
+    "threads": "TF default (8 logical CPUs)"
+   },
+   "late": {
+    "single_ms": 0.6077034999907482,
+    "batch1000_ms": 39.124914999410976,
+    "flows_per_s_core_single": 1645.539313193398,
+    "flows_per_s_core_batch": 25559.160959584322,
+    "threads": "TF default (8 logical CPUs)"
+   },
+   "attn": {
+    "single_ms": 0.6245204999868292,
+    "batch1000_ms": 39.55650499992771,
+    "flows_per_s_core_single": 1601.2284625101809,
+    "flows_per_s_core_batch": 25280.292078428756,
+    "threads": "TF default (8 logical CPUs)"
+   },
+   "early_wide": {
+    "single_ms": 0.564987999969162,
+    "batch1000_ms": 76.0017799999332,
+    "flows_per_s_core_single": 1769.949096360598,
+    "flows_per_s_core_batch": 13157.586572326054,
+    "threads": "TF default (8 logical CPUs)"
+   },
+   "early_head": {
+    "single_ms": 0.5224279999674764,
+    "batch1000_ms": 40.924264999921434,
+    "flows_per_s_core_single": 1914.1393647780264,
+    "flows_per_s_core_batch": 24435.38081873724,
+    "threads": "TF default (8 logical CPUs)"
+   },
+   "late_all": {
+    "single_ms": 0.6452925001212861,
+    "batch1000_ms": 77.85458500002278,
+    "flows_per_s_core_single": 1549.6848325558483,
+    "flows_per_s_core_batch": 12844.458678955227,
+    "threads": "TF default (8 logical CPUs)"
+   },
+   "m_early": {
+    "single_ms": 0.3735065000364557,
+    "batch1000_ms": 1.325590000487864,
+    "flows_per_s_core_single": 2677.329577671061,
+    "flows_per_s_core_batch": 754381.0677750772,
+    "threads": "TF default (8 logical CPUs)"
+   },
+   "m_late": {
+    "single_ms": 0.4943785000068601,
+    "batch1000_ms": 2.0423149995622225,
+    "flows_per_s_core_single": 2022.7416847337086,
+    "flows_per_s_core_batch": 489640.43265331426,
+    "threads": "TF default (8 logical CPUs)"
+   },
+   "rf": {
+    "single_ms": 8.015826499904506,
+    "batch1000_ms": 49.6711449988652,
+    "flows_per_s_core_single": 124.7531991881203,
+    "flows_per_s_core_batch": 20132.41289329743,
+    "threads": "single n_jobs=1, batch n_jobs=-1"
+   },
+   "gb": {
+    "single_ms": 16.55509849995724,
+    "batch1000_ms": 96.96963500027778,
+    "flows_per_s_core_single": 60.40435216997247,
+    "flows_per_s_core_batch": 10312.506590306702,
+    "threads": "single 1 thread, batch all cores (as in the table)",
+    "batch1000_ms_1thread": 236.2530300000799,
+    "flows_per_s_core_batch_1thread": 4232.74994610508
+   }
+  }
+ },
+ "TON_IoT": {
+  "trees": {
+   "rf": {
+    "params": {
+     "max_depth": null,
+     "min_samples_leaf": 1
+    },
+    "n_trees": 200,
+    "nodes": 1534558,
+    "fit_s": 22.720212936401367,
+    "reproduces_seed0": true,
+    "sklearn_pickle_mb": 221.055575,
+    "sklearn_1thread": {
+     "single_ms": 9.166666499950225,
+     "batch1000_ms": 41.42779500107281,
+     "flows_per_s_core_single": 109.09091107497257,
+     "flows_per_s_core_batch": 24138.383420457307
+    },
+    "onnx_convert_s": 80.40393900871277,
+    "onnx_file_mb": 145.873558,
+    "onnx_agreement_pct": 100.0,
+    "onnx_n_disagree": 0,
+    "n_test": 27533,
+    "onnx_1thread": {
+     "single_ms": 0.11274250005953945,
+     "batch1000_ms": 35.57691500027431,
+     "flows_per_s_core_single": 8869.769603050303,
+     "flows_per_s_core_batch": 28108.114489193053
+    },
+    "onnx_allcores_batch1000_ms": 11.930874999961816
+   },
+   "gb": {
+    "params": {
+     "learning_rate": 0.1,
+     "max_leaf_nodes": 127
+    },
+    "best_iter": 70,
+    "n_trees": 700,
+    "fit_s": 47.05631446838379,
+    "reproduces_seed0": true,
+    "sklearn_pickle_mb": 10.029012,
+    "sklearn_1thread": {
+     "single_ms": 5.697177499969257,
+     "batch1000_ms": 87.87405500042951,
+     "flows_per_s_core_single": 175.52551241476962,
+     "flows_per_s_core_batch": 11379.923232120245
+    },
+    "onnx_convert_s": 3.4324471950531006,
+    "onnx_file_mb": 6.894357,
+    "onnx_agreement_pct": 100.0,
+    "onnx_n_disagree": 0,
+    "n_test": 27533,
+    "onnx_1thread": {
+     "single_ms": 0.10693350006476976,
+     "batch1000_ms": 42.54283999907784,
+     "flows_per_s_core_single": 9351.606366520302,
+     "flows_per_s_core_batch": 23505.718001470424
+    },
+    "onnx_allcores_batch1000_ms": 12.730209999426734
+   }
+  },
+  "trees_measured": "2026-11-19 22:44",
+  "nets_1thread": {
+   "s1": {
+    "params": 34634,
+    "float32_kb": 138.536,
+    "single_ms": 0.4293354999390431,
+    "batch1000_ms": 7.85840000025928,
+    "flows_per_s_core_single": 2329.180792508376,
+    "flows_per_s_core_batch": 127252.36688982566
+   },
+   "s2": {
+    "params": 34634,
+    "float32_kb": 138.536,
+    "single_ms": 0.6966860000102315,
+    "batch1000_ms": 34.188069999800064,
+    "flows_per_s_core_single": 1435.3668653960522,
+    "flows_per_s_core_batch": 29249.969360828152
+   },
+   "early": {
+    "params": 34634,
+    "float32_kb": 138.536,
+    "single_ms": 1.1823780000850093,
+    "batch1000_ms": 46.108739999181125,
+    "flows_per_s_core_single": 845.7532192988225,
+    "flows_per_s_core_batch": 21687.86221479398
+   },
+   "late": {
+    "params": 85770,
+    "float32_kb": 343.08,
+    "single_ms": 1.4221099999849685,
+    "batch1000_ms": 45.19287000002805,
+    "flows_per_s_core_single": 703.1804853426036,
+    "flows_per_s_core_batch": 22127.38425329879
+   },
+   "attn": {
+    "params": 73036,
+    "float32_kb": 292.144,
+    "single_ms": 1.4178599999286234,
+    "batch1000_ms": 50.00953499984462,
+    "flows_per_s_core_single": 705.2882513438146,
+    "flows_per_s_core_batch": 19996.186727253255
+   },
+   "m_early": {
+    "params": 29770,
+    "float32_kb": 119.08,
+    "single_ms": 0.4070435000176076,
+    "batch1000_ms": 1.6835500005981885,
+    "flows_per_s_core_single": 2456.7398815034335,
+    "flows_per_s_core_batch": 593982.9524782075
+   },
+   "m_late": {
+    "params": 72842,
+    "float32_kb": 291.368,
+    "single_ms": 0.5647505000524689,
+    "batch1000_ms": 3.2621150006889366,
+    "flows_per_s_core_single": 1770.6934299431232,
+    "flows_per_s_core_batch": 306549.5850970327
+   }
+  },
+  "nets_measured": "2026-11-19 22:44"
+ },
+ "N_BaIoT": {
+  "trees": {
+   "rf": {
+    "params": {
+     "max_depth": 20,
+     "min_samples_leaf": 1
+    },
+    "n_trees": 200,
+    "nodes": 54982,
+    "fit_s": 19.515007734298706,
+    "reproduces_seed0": true,
+    "sklearn_pickle_mb": 7.552416,
+    "sklearn_1thread": {
+     "single_ms": 8.124643500050297,
+     "batch1000_ms": 20.406829999410547,
+     "flows_per_s_core_single": 123.08232354980368,
+     "flows_per_s_core_batch": 49003.20138056156
+    },
+    "onnx_convert_s": 2.781578540802002,
+    "onnx_file_mb": 4.74209,
+    "onnx_agreement_pct": 100.0,
+    "onnx_n_disagree": 0,
+    "n_test": 22453,
+    "onnx_1thread": {
+     "single_ms": 0.04365450004115701,
+     "batch1000_ms": 13.54869999922812,
+     "flows_per_s_core_single": 22907.145862561945,
+     "flows_per_s_core_batch": 73807.81920457097
+    },
+    "onnx_allcores_batch1000_ms": 4.398060000676196
+   },
+   "gb": {
+    "params": {
+     "learning_rate": 0.05,
+     "max_leaf_nodes": 127
+    },
+    "best_iter": 230,
+    "n_trees": 2070,
+    "fit_s": 77.29202675819397,
+    "reproduces_seed0": true,
+    "sklearn_pickle_mb": 15.435867,
+    "sklearn_1thread": {
+     "single_ms": 16.57635499999742,
+     "batch1000_ms": 266.5066299989121,
+     "flows_per_s_core_single": 60.326893336934184,
+     "flows_per_s_core_batch": 3752.2518670701816
+    },
+    "onnx_convert_s": 4.6867454051971436,
+    "onnx_file_mb": 10.369027,
+    "onnx_agreement_pct": 100.0,
+    "onnx_n_disagree": 0,
+    "n_test": 22453,
+    "onnx_1thread": {
+     "single_ms": 0.24300100005348213,
+     "batch1000_ms": 84.00294500024756,
+     "flows_per_s_core_single": 4115.209401524726,
+     "flows_per_s_core_batch": 11904.34454407584
+    },
+    "onnx_allcores_batch1000_ms": 34.115285000007134
+   }
+  },
+  "trees_measured": "2026-11-19 23:53",
+  "nets_1thread": {
+   "s1": {
+    "params": 34569,
+    "float32_kb": 138.276,
+    "single_ms": 0.4070040000078734,
+    "batch1000_ms": 22.66520999983186,
+    "flows_per_s_core_single": 2456.9783097479512,
+    "flows_per_s_core_batch": 44120.482448978786
+   },
+   "s2": {
+    "params": 34569,
+    "float32_kb": 138.276,
+    "single_ms": 0.4336055000021588,
+    "batch1000_ms": 74.49305999907665,
+    "flows_per_s_core_single": 2306.2438091652925,
+    "flows_per_s_core_batch": 13424.069302729611
+   },
+   "early": {
+    "params": 34569,
+    "float32_kb": 138.276,
+    "single_ms": 0.6267714999557938,
+    "batch1000_ms": 99.7481450001942,
+    "flows_per_s_core_single": 1595.4777778991704,
+    "flows_per_s_core_batch": 10025.249091078867
+   },
+   "late": {
+    "params": 85641,
+    "float32_kb": 342.564,
+    "single_ms": 0.7158370000252035,
+    "batch1000_ms": 101.78273000055924,
+    "flows_per_s_core_single": 1396.966069041963,
+    "flows_per_s_core_batch": 9824.849461146361
+   },
+   "attn": {
+    "params": 72971,
+    "float32_kb": 291.884,
+    "single_ms": 0.6432790000690147,
+    "batch1000_ms": 87.56110499962233,
+    "flows_per_s_core_single": 1554.5354346911902,
+    "flows_per_s_core_batch": 11420.595937023787
+   },
+   "m_early": {
+    "params": 41225,
+    "float32_kb": 164.9,
+    "single_ms": 0.3699110000161454,
+    "batch1000_ms": 1.668344999779947,
+    "flows_per_s_core_single": 2703.35296856907,
+    "flows_per_s_core_batch": 599396.4078963877
+   },
+   "m_late": {
+    "params": 84233,
+    "float32_kb": 336.932,
+    "single_ms": 0.4940030000580009,
+    "batch1000_ms": 3.2058450000477023,
+    "flows_per_s_core_single": 2024.2792045444864,
+    "flows_per_s_core_batch": 311930.23991650256
+   }
+  },
+  "nets_measured": "2026-11-19 23:53"
+ },
+ "UNSW_NB15": {
+  "nets_1thread": {
+   "s1": {
+    "params": 34634,
+    "float32_kb": 138.536,
+    "single_ms": 0.4071244999067858,
+    "batch1000_ms": 5.266119999578223,
+    "flows_per_s_core_single": 2456.2510981995865,
+    "flows_per_s_core_batch": 189893.12816268764
+   },
+   "s2": {
+    "params": 34634,
+    "float32_kb": 138.536,
+    "single_ms": 0.3986735000216868,
+    "batch1000_ms": 3.3503500002552755,
+    "flows_per_s_core_single": 2508.3182101283446,
+    "flows_per_s_core_batch": 298476.2785750164
+   },
+   "early": {
+    "params": 34634,
+    "float32_kb": 138.536,
+    "single_ms": 0.41083700009039603,
+    "batch1000_ms": 8.53114000055939,
+    "flows_per_s_core_single": 2434.0553547513273,
+    "flows_per_s_core_batch": 117217.62858591345
+   },
+   "late": {
+    "params": 85770,
+    "float32_kb": 343.08,
+    "single_ms": 0.5697959999088198,
+    "batch1000_ms": 9.512549999635667,
+    "flows_per_s_core_single": 1755.014075493725,
+    "flows_per_s_core_batch": 105124.28318782033
+   },
+   "attn": {
+    "params": 73036,
+    "float32_kb": 292.144,
+    "single_ms": 0.5945575000077952,
+    "batch1000_ms": 8.828880000510253,
+    "flows_per_s_core_single": 1681.9231108629344,
+    "flows_per_s_core_batch": 113264.64964323973
+   },
+   "m_early": {
+    "params": 27850,
+    "float32_kb": 111.4,
+    "single_ms": 0.38019150000764057,
+    "batch1000_ms": 1.3272150012198836,
+    "flows_per_s_core_single": 2630.253438017166,
+    "flows_per_s_core_batch": 753457.4270791617
+   },
+   "m_late": {
+    "params": 70922,
+    "float32_kb": 283.688,
+    "single_ms": 0.5494309999630786,
+    "batch1000_ms": 2.892009999777656,
+    "flows_per_s_core_single": 1820.0647580263933,
+    "flows_per_s_core_batch": 345780.2704959119
+   }
+  },
+  "nets_measured": "2026-11-19 23:53",
+  "trees": {
+   "rf": {
+    "params": {
+     "max_depth": 20,
+     "min_samples_leaf": 1
+    },
+    "n_trees": 200,
+    "nodes": 4416482,
+    "fit_s": 39.24255132675171,
+    "reproduces_seed0": true,
+    "sklearn_pickle_mb": 636.052832,
+    "sklearn_1thread": {
+     "single_ms": 8.553630000096746,
+     "batch1000_ms": 51.10336000070674,
+     "flows_per_s_core_single": 116.90942909486259,
+     "flows_per_s_core_batch": 19568.184948820788
+    },
+    "onnx_convert_s": 211.59239220619202,
+    "onnx_file_mb": 428.098104,
+    "onnx_agreement_pct": 100.0,
+    "onnx_n_disagree": 0,
+    "n_test": 15894,
+    "onnx_1thread": {
+     "single_ms": 0.1123195000400301,
+     "batch1000_ms": 53.115265000087675,
+     "flows_per_s_core_single": 8903.173533033934,
+     "flows_per_s_core_batch": 18826.979400335276
+    },
+    "onnx_allcores_batch1000_ms": 18.860969999514055
+   },
+   "gb": {
+    "params": {
+     "learning_rate": 0.05,
+     "max_leaf_nodes": 31
+    },
+    "best_iter": 1000,
+    "n_trees": 10000,
+    "fit_s": 161.38054084777832,
+    "reproduces_seed0": true,
+    "sklearn_pickle_mb": 35.438248,
+    "sklearn_1thread": {
+     "single_ms": 78.46420750007383,
+     "batch1000_ms": 698.0210649999208,
+     "flows_per_s_core_single": 12.744664501952169,
+     "flows_per_s_core_batch": 1432.6215212432214
+    },
+    "onnx_convert_s": 10.836971282958984,
+    "onnx_file_mb": 23.198935,
+    "onnx_agreement_pct": 100.0,
+    "onnx_n_disagree": 0,
+    "n_test": 15894,
+    "onnx_1thread": {
+     "single_ms": 1.1531950000789948,
+     "batch1000_ms": 303.92958000011276,
+     "flows_per_s_core_single": 867.1560316611667,
+     "flows_per_s_core_batch": 3290.235850026934
+    },
+    "onnx_allcores_batch1000_ms": 108.1082199991215
+   }
+  },
+  "trees_measured": "2026-11-20 00:51"
+ }
+}
